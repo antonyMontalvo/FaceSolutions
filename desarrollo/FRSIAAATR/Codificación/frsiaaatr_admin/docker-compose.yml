@@ -7,7 +7,7 @@ services:
     environment:
       JWT_KEY: "ZXZvbHZpdF9wYWNhc21heW9fZ2VzdGlvbl9kb2N1bWVudGFyaWFfYXBwX2JhY2tlbmRfMjAxOQ=="
       APP_PORT: 3000
-      APP_URL: /sys-admin
+      APP_URL: 
       DB_DIALECT: mysql
       DB_PORT: 25060
       DB_HOST: db-mysql-nyc1-03975-do-user-6383911-0.a.db.ondigitalocean.com

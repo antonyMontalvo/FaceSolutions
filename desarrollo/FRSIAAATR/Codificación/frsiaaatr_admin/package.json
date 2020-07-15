@@ -1,0 +1,42 @@
+{
+    "name": "BackMEAN",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node src/app.js",
+        "dev": "nodemon -L src/app.js",
+        "test": "mocha --exit",
+        "pm2": "pm2 src/index.js",
+        "sonar": "sonar-scanner.bat -Dsonar.projectKey=BackMEAN -Dsonar.sources=. -Dsonar.host.url=http://localhost:9000 -Dsonar.login=916efccac1d3a18c807770d38ff6be1e9a42f623"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "2.4.3",
+        "body-parser": "^1.19.0",
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "chalk": "^2.4.2",
+        "compression": "1.7.4",
+        "cors": "^2.8.5",
+        "express": "^4.16.4",
+        "express-handlebars": "3.1.0",
+        "express-validator": "^5.3.1",
+        "jsonwebtoken": "8.5.1",
+        "mocha": "^6.2.0",
+        "morgan": "^1.9.1",
+        "multer": "1.4.2",
+        "mysql2": "^2.1.0",
+        "nodemailer": "6.3.1",
+        "sequelize": "^6.3.3",
+        "socket.io": "^2.3.0",
+        "uuid": "3.3.3"
+    },
+    "devDependencies": {
+        "dotenv": "^8.2.0",
+        "nodemon": "^2.0.4",
+        "supertest": "^4.0.2"
+    }
+}

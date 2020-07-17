@@ -8,6 +8,7 @@ router
     .get("/", employeeController.getEmployees)
     .get("/infoRequest", employeeController.getInfoRequest)
     .get("/request_list", employeeController.getrequestList)
+    .get("/infoAplicant", employeeController.getInfoAplicant)
     ;
 
 module.exports = router;

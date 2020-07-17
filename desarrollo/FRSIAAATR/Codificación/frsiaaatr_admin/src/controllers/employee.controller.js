@@ -39,4 +39,13 @@ EmployeesController.getrequestList = async(req, res) => {
     }
 };
 
+EmployeesController.getInfoAplicant = async(req, res) => {
+    try {
+        res.render("employee/infoAplicant");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
 module.exports = EmployeesController;

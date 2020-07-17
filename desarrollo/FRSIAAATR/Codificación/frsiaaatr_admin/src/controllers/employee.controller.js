@@ -58,4 +58,14 @@ EmployeesController.reviewRequirement = async(req, res) => {
     }
 };
 
+EmployeesController.listPostulant = async(req, res) => {
+    try {
+        res.render("employee/listPostulant");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
+
 module.exports = EmployeesController;

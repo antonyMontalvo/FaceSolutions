@@ -1,7 +1,6 @@
-# BackMEAN
+# FRSIAAATR_ADMIN
 
-Project to test all new technologies: Node.js, Express, JWT, MongoDB (Mongoose), Multer, Nodemailer, Twilio, Docker, GraphQL, Mocha, Bots, GITLAB DEVOPS, AWS.
-All these technologies will have a simple example of their use.
+
 
 ---
 
@@ -41,8 +40,8 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 
 ## Install
 
-    $ git clone https://gitlab.com/personal-antony/node.js/backmean.git
-    $ cd BackMEAN
+    $ git clone https://github.com/antonyMontalvo/FaceSolutions.git
+    $ cd FaceSolutions/desarrollo/FRSIAAATR/Codificación/frsiaaatr_admin
     $ npm install
 
 ## Configure app
@@ -57,7 +56,7 @@ Open `./src/config` then edit it with your settings. You will need:
 ## Running the project
 
     $ npm start
+    
+## Running the project in development mode
 
-## Simple build for production
-
-    $ npm pm2 ecosystem.config.js
+    $ npm run dev

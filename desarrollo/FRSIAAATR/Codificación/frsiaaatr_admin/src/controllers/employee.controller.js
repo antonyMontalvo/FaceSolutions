@@ -7,8 +7,8 @@ const Employee = require("../models/employee"), //pongo Employee porque es un mo
 
 EmployeesController.getEmployees = async(req, res) => {
     try {
-        const employees = await Employee.findAll();
-        console.log(employees);
+        // const employees = await Employee.findAll();
+        // console.log(employees);
         // if (!employees)
         //   return res.status(404).json({
         //     message: "Not records found",
@@ -24,6 +24,15 @@ EmployeesController.getEmployees = async(req, res) => {
 EmployeesController.getInfoRequest = async(req, res) => {
     try {
         res.render("employee/infoRequest");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
+EmployeesController.getrequestList = async(req, res) => {
+    try {
+        res.render("employee/requestList");
     } catch (error) {
         console.log(error.stack);
         return res.status(500).json({ error: error.stack });

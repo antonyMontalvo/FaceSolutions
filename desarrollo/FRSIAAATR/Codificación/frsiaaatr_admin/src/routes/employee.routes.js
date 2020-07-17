@@ -6,6 +6,8 @@ const employeeController = require("../controllers/employee.controller"),
 
 router
     .get("/", employeeController.getEmployees)
-    .get("/infoRequest", employeeController.getInfoRequest);
+    .get("/infoRequest", employeeController.getInfoRequest)
+    .get("/request_list", employeeController.getrequestList)
+    ;
 
 module.exports = router;

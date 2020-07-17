@@ -5,7 +5,7 @@ const Routes = {
 }
 
 indexRouter.getRoutes = (app) => {
-    app.use(process.env.APP_URL + '/employees', Routes.employeeRouter)
+    app.use(process.env.APP_URL + '/', Routes.employeeRouter)
 }
 
 module.exports = indexRouter;

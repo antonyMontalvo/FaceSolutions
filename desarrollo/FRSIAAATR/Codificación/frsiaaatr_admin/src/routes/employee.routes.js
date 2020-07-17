@@ -4,8 +4,6 @@ const employeeController = require("../controllers/employee.controller"),
   validator = require("../middlewares/validation"),
   authenticate = require("../middlewares/authenticate");
 
-router
-  .get("/", employeeController.getEmployees)
-  ;
+router.get("/", employeeController.getEmployees);
 
 module.exports = router;

@@ -5,5 +5,4 @@ package-lock.json
 
 #Personal
 .scannerwork/
-public/
 .env

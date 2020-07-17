@@ -9,6 +9,7 @@ router
     .get("/infoRequest", employeeController.getInfoRequest)
     .get("/request_list", employeeController.getrequestList)
     .get("/infoAplicant", employeeController.getInfoAplicant)
+    .get("/reviewRequirement", employeeController.reviewRequirement)
     ;
 
 module.exports = router;

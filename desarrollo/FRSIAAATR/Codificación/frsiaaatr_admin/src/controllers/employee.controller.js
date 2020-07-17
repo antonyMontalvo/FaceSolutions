@@ -48,4 +48,14 @@ EmployeesController.getInfoAplicant = async(req, res) => {
     }
 };
 
+EmployeesController.reviewRequirement = async(req, res) => {
+    try {
+        res.render("employee/reviewRequirement");
+        //response.send("uno, dos, tres..");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
 module.exports = EmployeesController;

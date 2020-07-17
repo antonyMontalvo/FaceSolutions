@@ -8,7 +8,7 @@ const Routes = {
 
 indexRouter.getRoutes = (app) => {
   app.use(process.env.APP_URL + "/", Routes.employeeRouter);
-  app.use(process.env.APP_URL + "/admin", Routes.adminRouter);
+  app.use(process.env.APP_URL + "/", Routes.adminRouter);
   app.use(process.env.APP_URL + "/estadisticas", Routes.statisticsRouter);
 };
 

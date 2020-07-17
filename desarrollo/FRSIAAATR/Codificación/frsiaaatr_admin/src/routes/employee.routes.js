@@ -5,7 +5,7 @@ const employeeController = require("../controllers/employee.controller"),
   authenticate = require("../middlewares/authenticate");
 
 router
-    .get("/", employeeController.getEmployees)
+    // .get("/employees", employeeController.getEmployees)
     .get("/infoRequest", employeeController.getInfoRequest)
     .get("/request_list", employeeController.getrequestList)
     .get("/infoAplicant", employeeController.getInfoAplicant)

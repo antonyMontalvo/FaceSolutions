@@ -6,3 +6,4 @@ package-lock.json
 #Personal
 .scannerwork/
 .env
+.idea/

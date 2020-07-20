@@ -5,12 +5,7 @@ const employeeController = require("../controllers/employee.controller"),
   authenticate = require("../middlewares/authenticate");
 
 router
-    // .get("/employees", employeeController.getEmployees)
-    .get("/infoRequest", employeeController.getInfoRequest)
-    .get("/request_list", employeeController.getrequestList)
-    .get("/infoAplicant", employeeController.getInfoAplicant)
-    .get("/reviewRequirement", employeeController.reviewRequirement)
-    .get("/listPostulant", employeeController.listPostulant);
+    .get("/index", employeeController.getEmployees)
     ;
 
 module.exports = router;

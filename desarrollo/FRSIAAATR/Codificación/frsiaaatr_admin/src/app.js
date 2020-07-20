@@ -5,7 +5,6 @@ const morgan = require("morgan"),
   chalk = require("chalk"),
   path = require("path"),
   cors = require("cors"),
-  compression = require("compression"),
   expbhs = require("express-handlebars"),
   express = require("express"),
   app = express();
@@ -13,7 +12,7 @@ const morgan = require("morgan"),
 /**
  * Settings
  */
-if (!process.env.NODE_ENV || process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV != "production") {
   require("dotenv").config(); // variables de entorno
 }
 
@@ -39,7 +38,6 @@ app.engine(
 app.use(morgan("dev")); // permite que las peticiones se vean en la consola
 app.use(express.json()); // reemplaza a body-parser
 app.use(express.urlencoded({ extended: false }));
-app.use(compression());
 app.use(cors());
 
 /**

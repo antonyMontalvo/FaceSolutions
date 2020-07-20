@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const { sequelizeDB } = require("../../config/database");
 
-const Employee = sequelizeDB.define(
-  "employee",
+const Department = sequelizeDB.define(
+  "department",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,17 +11,8 @@ const Employee = sequelizeDB.define(
     name: {
       type: DataTypes.STRING,
     },
-    email: {
+    ubigeo_code: {
       type: DataTypes.STRING,
-    },
-    password: {
-      type: DataTypes.TEXT,
-    },
-    office: {
-      type: DataTypes.STRING,
-    },
-    salary: {
-      type: DataTypes.INTEGER,
     },
   },
   {
@@ -30,4 +21,4 @@ const Employee = sequelizeDB.define(
   }
 );
 
-module.exports = Employee;
+module.exports = Department;

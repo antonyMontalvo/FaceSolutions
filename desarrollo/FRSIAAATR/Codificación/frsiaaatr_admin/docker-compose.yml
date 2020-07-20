@@ -5,6 +5,7 @@ services:
     build: .
     restart: always
     environment:
+      NODE_ENV: production
       JWT_KEY: "ZXZvbHZpdF9wYWNhc21heW9fZ2VzdGlvbl9kb2N1bWVudGFyaWFfYXBwX2JhY2tlbmRfMjAxOQ=="
       APP_PORT: 3000
       APP_URL: ""

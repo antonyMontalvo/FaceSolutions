@@ -1,13 +1,11 @@
 const router = require("express").Router();
 
-router.get("/", (req, res) => {
-  res.render("admin/index");
-});
-router.get("/login", (req, res) => {
-  res.render("prueba",{layout:"login"});
-});
-router.get("/registro", (req, res) => {
-  res.render("prueba",{layout:"registro"});
-});
+const adminController = require("../controllers/admin.controller"),
+    validator = require("../middlewares/validation"),
+    authenticate = require("../middlewares/authenticate");
+
+router.get("/", adminController.getIndex);
+router.get("/login", adminController.getLogin);
+router.get("/register", adminController.getRegister);
 
 module.exports = router;

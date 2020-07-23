@@ -5,15 +5,15 @@ const morgan = require("morgan"),
   chalk = require("chalk"),
   path = require("path"),
   cors = require("cors"),
-  compression = require("compression"),
   expbhs = require("express-handlebars"),
+  session = require("express-session"),
   express = require("express"),
   app = express();
 
 /**
  * Settings
  */
-if (!process.env.NODE_ENV || process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV != "production") {
   require("dotenv").config(); // variables de entorno
 }
 
@@ -32,6 +32,13 @@ app.engine(
     extname: ".hbs",
   })
 );
+app.use(
+    session({
+        secret: process.env.JWT_KEY,
+        resave: false,
+        saveUninitialized: false
+    })
+);
 
 /**
  * Middlewares
@@ -39,7 +46,6 @@ app.engine(
 app.use(morgan("dev")); // permite que las peticiones se vean en la consola
 app.use(express.json()); // reemplaza a body-parser
 app.use(express.urlencoded({ extended: false }));
-app.use(compression());
 app.use(cors());
 
 /**

@@ -1,6 +1,7 @@
 /**
  * Modules
  */
+ const faceapi= require("face-api.js");
 const morgan = require("morgan"),
   chalk = require("chalk"),
   path = require("path"),

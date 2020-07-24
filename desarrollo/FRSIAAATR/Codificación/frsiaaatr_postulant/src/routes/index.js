@@ -2,7 +2,7 @@ const indexRouter = {};
 
 const Routes = {
   employeeRouter: require("./employee.routes"),
-  postulantRouter: require("./postulant.route"),
+  postulantRouter: require("./postulant.routes"),
 };
 
 indexRouter.getRoutes = (app) => {

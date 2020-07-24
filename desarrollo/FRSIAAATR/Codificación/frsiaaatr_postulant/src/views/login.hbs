@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -7,6 +8,7 @@
 	<link rel="stylesheet" href="/css/style.css" type="text/css">
 	<title>Login | ADMINISTRADOR </title>
 </head>
+
 <body>
 	<div class="fondoUNMSM">.</div>
 
@@ -21,7 +23,7 @@
 						<h2 class="t-center">Inicio de Sesión</h2>
 
 
-						<form action="/">
+						<form action="/login" method="POST">
 							<div class="inputWithIcon">
 								<input type="email" placeholder="Tu correo" required>
 								<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
@@ -33,24 +35,25 @@
 							</div>
 
 							<input href="/" type="submit" class="btn-login">
-							
+
 						</form>
 					</div>
 					<div class="guia-usuario">
 						<p class="t-center">
-							Registrate haciendo click <a href="/registro"> aquí</a> </p>
-						</div>
+							Registrate haciendo click <a href="/register"> aquí</a> </p>
 					</div>
 				</div>
-				<div class="col d-none">
-					<img class="fondo-secundario" src="/img/admin.jpg" alt="">
-				</div>
 			</div>
-
+			<div class="col d-none">
+				<img class="fondo-secundario" src="/img/login.jpg" alt="">
+			</div>
 		</div>
 
-		<script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
+	</div>
 
-		
-	</body>
-	</html>
+	<script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

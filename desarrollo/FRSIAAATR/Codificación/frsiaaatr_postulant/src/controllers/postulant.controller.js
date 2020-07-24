@@ -5,21 +5,20 @@ const Postulant = require("../models/postulant"),
     Province = require("../models/province"),
     District = require("../models/district"),
     {createToken, getPayload} = require("../services/jwt"),
-    EmployeesController = {},
+    PostulantController = {},
     saltRounds = 10;
 
 // Views
-
-EmployeesController.index = async (req, res) => {
+PostulantController.getIndex = async (req, res) => {
     try {
-        res.render("index");
+        res.render("postulant/index");
     } catch (error) {
         console.log(error.stack);
-        return res.status(500).json({error: error.stack});
+        return res.status(500).json({ error: error.stack });
     }
 };
 
-EmployeesController.loginView = async (req, res) => {
+PostulantController.loginView = async (req, res) => {
     try {
         res.render("login", {layout: null});
     } catch (error) {
@@ -28,7 +27,7 @@ EmployeesController.loginView = async (req, res) => {
     }
 };
 
-EmployeesController.registerView = async (req, res) => {
+PostulantController.registerView = async (req, res) => {
     try {
         const departments = await Department.findAll();
         const provinces = await Province.findAll();
@@ -42,8 +41,7 @@ EmployeesController.registerView = async (req, res) => {
 };
 
 // Logic
-
-EmployeesController.login = async (req, res) => {
+PostulantController.login = async (req, res) => {
     try {
         const {dni} = req.body;
         const postulantFound = await Postulant.findOne({
@@ -65,10 +63,11 @@ EmployeesController.login = async (req, res) => {
     }
 };
 
-EmployeesController.register = async (req, res) => {
+PostulantController.register = async (req, res) => {
     try {
         const body = req.body;
         const postulant = await Postulant.create();
+
 
         if (postulant)
             res.render("registro", {layout: null, data: {}, message: {}});
@@ -82,4 +81,13 @@ EmployeesController.register = async (req, res) => {
     }
 };
 
-module.exports = EmployeesController;
+PostulantController.getRegistrePhoto = async (req, res) => {
+  try {
+    res.render("registroFotos", { layout: null });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: error.stack });
+  }
+};
+
+module.exports = PostulantController;

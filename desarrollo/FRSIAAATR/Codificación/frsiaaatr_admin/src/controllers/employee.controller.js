@@ -5,9 +5,16 @@ const Department = require("../models/department"), //pongo Employee porque es u
     EmployeesController = {},
     saltRounds = 10;
 
+const { QueryTypes } = require('sequelize');
+const { sequelizeDB } = require("../../config/database");
+
 EmployeesController.getEmployees = async (req, res) => {
     try {
-        const employees = await Department.findAll();
+        // const employees = await Department.findAll();
+        const employees = await sequelizeDB.query('select * from postulant where name = ?', {
+            replacements: ['chros'],
+            type: QueryTypes.SELECT
+        });
         console.log(employees);
 
         res.render("employee/index", {title: 'dddd'});

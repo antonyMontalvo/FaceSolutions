@@ -32,6 +32,15 @@ PostulantController.getInfoRequest = async(req, res) => {
     }
 };
 
+PostulantController.getInfoRequestProcess = async(req, res) => {
+    try {
+        res.render("postulant/infoRequestProcess");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
 PostulantController.getrequestList = async(req, res) => {
     try {
         res.render("postulant/requestList");
@@ -40,6 +49,18 @@ PostulantController.getrequestList = async(req, res) => {
         return res.status(500).json({ error: error.stack });
     }
 };
+
+
+PostulantController.getrequestListProcess = async(req, res) => {
+    try {
+        res.render("postulant/requestListProcess");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
+
 
 PostulantController.reviewRequirement = async(req, res) => {
     try {

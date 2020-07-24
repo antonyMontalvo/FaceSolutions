@@ -5,11 +5,11 @@
         <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
             <div class="d-flex">
                 <div class="breadcrumb">
-                    <a class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Inicio</a> <a
-                        class="breadcrumb-item link-solicitudes">Requísitos</a>
+                    <a class="breadcrumb-item"  href="/"><i class="icon-home2 mr-2"></i>Inicio</a> <a
+                        class="breadcrumb-item link-solicitudes"  href="/postulants/list">Requísitos</a>
                     <span class="breadcrumb-item active">Revisión de requisitos</span>
                 </div>
-            </div>
+            </div> 
 
 
 
@@ -251,6 +251,39 @@
                     <!-- Sidebar content -->
                     <div class="sidebar-content">
 
+                         <div class="card">
+                            <div class="card-header bg-transparent header-elements-inline">
+                                <span class="text-uppercase font-size-sm font-weight-semibold">Acciones</span>
+                                <div class="header-elements">
+                                    <div class="list-icons">
+                                        <a class="list-icons-item" data-action="collapse"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="tblDetalle" class="table table-borderless table-xs my-2 dataTable no-footer"
+                                    role="grid" style="width: 100%;">
+                                    <tbody>
+                                        <tr role="row" class="odd">
+                                            <td><i class="fa fa-check"></i> Aprobar:</td>
+                                            <td class=" text-right">
+                                                <button type="button" class="btn btn-success btn-lg">Aprobar</button>                                                                                             
+                                            </td>
+                                        </tr> 
+                                        <tr role="row" class="odd">
+                                            <td><i class="fa fa-times"></i> Observar:</td>
+                                            <td class=" text-right">
+                                                 <button type="button" class="btn btn-danger btn-lg">Observar</button>                                                  
+                                            </td>
+                                        </tr>                                                                          
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                        
+
                         <!-- Task details -->
                         <div class="card">
                             <div class="card-header bg-transparent header-elements-inline">
@@ -265,6 +298,15 @@
                                 <table id="tblDetalle" class="table table-borderless table-xs my-2 dataTable no-footer"
                                     role="grid" style="width: 100%;">
                                     <tbody>
+                                        <tr role="row" class="odd">
+                                            <td><i class="icon-file-check mr-2"></i>Datos completos:</td>
+                                            <td class=" text-right">
+                                                <a class="badge badge-flat border-success text-success estadoLbl" href="/postulants/info" >
+                                                    Ver
+                                                </a>
+                                                
+                                            </td>
+                                        </tr>
                                         
                                         <tr role="row" class="odd">
                                             <td><i class="icon-file-check mr-2"></i>Estado:</td>

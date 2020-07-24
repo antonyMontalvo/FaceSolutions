@@ -42,13 +42,13 @@
 	<div class="navbar navbar-expand-md navbar-light">
 		<div class="navbar-header navbar-dark d-none d-md-flex align-items-md-center">
 			<div class="navbar-brand navbar-brand-md">
-				<a href="index.html" class="d-inline-block">
-					<img src="/assets/images/logo_light.png" alt="">
+				<a href="" class="d-inline-block">
+					<img src="/assets/images/logo1.png" alt="">
 				</a>
 			</div>
 	
 			<div class="navbar-brand navbar-brand-xs">
-				<a href="index.html" class="d-inline-block">
+				<a href="" class="d-inline-block">
 					<img src="/assets/images/logo_icon_light.png" alt="">
 				</a>
 			</div>
@@ -56,7 +56,7 @@
 
 		<div class="d-flex flex-1 d-md-none">
 			<div class="navbar-brand mr-auto">
-				<a href="index.html" class="d-inline-block">
+				<a href="" class="d-inline-block">
 					<img src="/assets/images/logo_dark.png" alt="">
 				</a>
 			</div>
@@ -87,14 +87,20 @@
 			</ul>
 
 			<ul class="navbar-nav ml-md-auto">
-				<li class="nav-item dropdown">
-					<a href="other_changelog.html" class="navbar-nav-link">
-						<i class="icon-history mr-2"></i>
-						Changelog
-						<span class="badge bg-warning-400 badge-pill position-static ml-md-2">2.2</span>
-					</a>					
+				<li class="nav-item dropdown dropdown-user">
+					<a href="#" class="navbar-nav-link dropdown-toggle legitRipple" data-toggle="dropdown">
+						<img id="imgUsuario" src="/assets/images/person.svg" class="rounded-circle" alt="" width="40" height="40">
+						<span>Jose Torres</span> 
+					</a>
+
+					<div class="dropdown-menu dropdown-menu-right">
+						<a href="/" class="dropdown-item"><i class="icon-user-plus"></i> Mi perfil</a>
+						<div class="dropdown-divider"></div>
+						<a href="/login" class="dropdown-item"><i class="icon-switch2"></i> Cerrar Sesión</a>
+					</div>
 				</li>
 			</ul>
+
 		</div>
 	</div>
 	<!-- /main navbar -->
@@ -121,22 +127,38 @@
 			<!-- Sidebar content -->
 			<div class="sidebar-content">
 
-        		<!-- Support -->
+        		<!-- Support 
 				<div class="card card-body">
 					<a href="http://kopyov.ticksy.com" class="btn bg-success-400 btn-block" target="_blank"><i class="icon-lifebuoy mr-2"></i> Limitless support</a>
 				</div>
-				<!-- /support -->
+				 /support -->
 
 
 				<!-- Main navigation -->
 				<div class="card card-sidebar-mobile">
 					<ul class="nav nav-sidebar" data-nav-type="accordion">
 						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Inicio</div> <i class="icon-menu"></i></li>
-						<li class="nav-item"><a href="request_list" class="nav-link"><i class="icon-hammer-wrench"></i>Solicitudes</a></li>
-						<li class="nav-item"><a href="postulant/list" class="nav-link"><i class="icon-hammer-wrench"></i>Requisitos</a></li>
-						<li class="nav-item"><a href="main_starter_kit.html" class="nav-link"><i class="icon-hammer-wrench"></i>Constancia</a></li>
-						<li class="nav-item"><a href="main_rtl.html" class="nav-link"><i class="icon-hammer-wrench"></i>Administradores</a></li>
+						<li class="nav-item"><a href="/" class="nav-link"><i class="fas fa-user"></i>Inicio</a></li>
+						<li class="nav-item"><a href="/postulants/list" class="nav-link"><i class="	fas fa-tasks"></i>Requisitos</a></li>
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link legitRipple">
+								<i class="fas fa-edit"></i>
+								<span>Constancia</span>
+							</a>
+							<ul class="nav nav-group-sub" data-submenu-title="Mantenimiento">
+								<li class="nav-item nav-item-submenu">
+									<a   href="/postulants/request_list" class="nav-link legitRipple">	<i class="icon-clipboard3"></i><span>No leidas</span></a>									
+								</li>
 
+								<li class="nav-item nav-item-submenu">
+									<a   href="/postulants/request_listProcess" class="nav-link legitRipple">	<i class="icon-clipboard3"></i><span>En proceso</span></a>
+								</li>
+							</ul>	
+						</li>
+						
+						
+						<li class="nav-item"><a href="/" class="nav-link"><i class="fas fa-calendar-alt"></i>Historial</a></li>
+<!--
                         <li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link legitRipple">
 								<i class="icon-hammer-wrench"></i>
@@ -159,6 +181,7 @@
 								</li>
 							</ul>	
 						</li>
+						-->
 					</ul>
 				</div>
 			</div>

@@ -5,7 +5,7 @@
         <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
             <div class="d-flex">
                 <div class="breadcrumb">
-                    <a class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Inicio</a> <a
+                    <a class="breadcrumb-item" href="/"><i class="icon-home2 mr-2"></i>Inicio</a> <a
                         class="breadcrumb-item link-solicitudes">Requisitos</a>
                     <span class="breadcrumb-item active">Listado de postulantes</span>
                 </div>
@@ -50,9 +50,6 @@
                             </div>
 
                             <div class="mb-4" style="text-align: left">
-                                <a href="reviewRequirement" class="nav-link">Revisar requerimientos</a>
-                                <br>
-                                <a href="infoAplicant" class="nav-link">Detalle del postulante</a>
                                 <div
                                     class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
                                     <b>¡Atención!</b> Mediante el siguiente panel, podrá agilizar la busqueda de un postulante o grupo 
@@ -176,6 +173,19 @@
 													<div class="col-lg-12">
 														<input type="text" class="form-control" id="numeroDocumento" placeholder="N° Documento">
 												    </div>	
+												</div>
+
+                                                <div class="col-lg-3">
+												    <label class="col-lg-12 col-form-label">Estado:</label>
+												    <div class="col-lg-12">
+                                                        <select class="form-control form-control-select2" id="cmbGrado">
+															<option>Seleccione un estado</option>
+                                                            <option>No revisado</option>
+                                                            <option>Observado</option>
+                                                            <option>Corregido</option>
+                                                            <option>Aprobado</option>                                                            
+														</select>
+													</div>
 												</div>											
 									        </div>
 
@@ -216,10 +226,13 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr role="row" class="odd">
-                                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                                        class="icon-file-eye"></i></button>
+                                                            <td class=" all dt-center">
+                                                                <a class="btn btn-xs btn-success verDocumento" title="Ver Documento"
+                                                                    data-tooltip="tooltip" style="padding: 8px 8px;"
+                                                                     href="/postulants/review_requirement">
+                                                                    <i class="icon-file-eye"></i>
+                                                                </a>
+                                                                
                                                             </td>
                                                             <td class="all filtrable sorting_1">Alejandra Sofía</td>
                                                             <td class="all filtrable sorting_1">Pariona</td>
@@ -228,58 +241,7 @@
                                                             <td class=" all filtrable"><span
                                                                     class="badge badge-flat border-info text-info-600">07/06/2020</span></td>
                                                         </tr>
-                                                        <tr role="row" class="odd">
-                                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                                        class="icon-file-eye"></i></button>
-                                                            </td>
-                                                            <td class="all filtrable sorting_1">Zulema Ana</td>
-                                                            <td class="all filtrable sorting_1">Maguiña</td>
-                                                            <td class="all filtrable sorting_1">Rosales</td>
-                                                            <td class="all filtrable sorting_1"> Matematicas </td>
-                                                            <td class=" all filtrable"><span
-                                                                    class="badge badge-flat border-info text-info-600">05/06/2020</span></td>
-                                                        </tr>
-                                                        <tr role="row" class="odd">
-                                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                                        class="icon-file-eye"></i></button>
-                                                            </td>
-                                                            <td class="all filtrable sorting_1">Andrea Karina</td>
-                                                            <td class="all filtrable sorting_1">Solanche</td>
-                                                            <td class="all filtrable sorting_1">Comwey</td>
-                                                            <td class="all filtrable sorting_1"> Matematicas </td>
-                                                            <td class=" all filtrable"><span
-                                                                    class="badge badge-flat border-info text-info-600">05/06/2020</span></td>
-                                                        </tr>
-                                                        <tr role="row" class="odd">
-                                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                                        class="icon-file-eye"></i></button>
-                                                            </td>
-                                                            <td class="all filtrable sorting_1">Piero</td>
-                                                            <td class="all filtrable sorting_1">Aguilar</td>
-                                                            <td class="all filtrable sorting_1">Burga</td>
-                                                            <td class="all filtrable sorting_1"> Matematicas </td>
-                                                            <td class=" all filtrable"><span
-                                                                    class="badge badge-flat border-info text-info-600">05/06/2020</span></td>
-                                                        </tr>
-                                                        <tr role="row" class="odd">
-                                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                                        class="icon-file-eye"></i></button>
-                                                            </td>
-                                                            <td class="all filtrable sorting_1">Antony Brayan</td>
-                                                            <td class="all filtrable sorting_1">Almonacid</td>
-                                                            <td class="all filtrable sorting_1">Paripancca</td>
-                                                            <td class="all filtrable sorting_1"> Ing. Software</td>
-                                                            <td class=" all filtrable"><span
-                                                                    class="badge badge-flat border-info text-info-600">01/06/2020</span></td>
-                                                        </tr>
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>    

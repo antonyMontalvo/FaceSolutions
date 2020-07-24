@@ -5,8 +5,8 @@
         <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
             <div class="d-flex">
                 <div class="breadcrumb">
-                    <a class="breadcrumb-item" href="/"><i class="icon-home2 mr-2"></i>Inicio</a> <a
-                        class="breadcrumb-item link-solicitudes" href="/postulants/request_list">Solicitudes de Trámites</a>
+                    <a class="breadcrumb-item"><i class="icon-home2 mr-2" href="/"></i>Inicio</a> <a
+                        class="breadcrumb-item link-solicitudes" href="/postulants/request_listProcess">Solicitudes de Trámites</a>
                     <span class="breadcrumb-item active">Revisión Solicitud</span>
                 </div>
             </div>
@@ -41,8 +41,7 @@
                             <div class="media flex-column flex-md-row mb-4">
 
                                 <div class="media-body">
-                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">Documentos
-                                        solicitados</h5>
+                                    <h5 class="media-title font-weight-semibold nombreTipoTramite"Generar constancia</h5>
                                     <ul class="list-inline list-inline-dotted text-muted mb-0">
                                         <li class="list-inline-item subtitulo"></li>
                                     </ul>
@@ -73,24 +72,11 @@
                             </div>
 
                             <div class="mb-4">
-                                <p>Los documentos que se solicitan para la gestión de la constancia de ingreso
-                                    se muestran en la siguiente tabla.
-                                    Disponga a verificar que todos los documentos
-                                    presentados sean los correctos. En caso alguno de los documentos presente un error o
-                                    no sea el adecuado, desde el botón "Observar"
-                                    de la tabla puede especificar al postulante la razón del error para que este lo
-                                    corrija
-                                    a la brevedad; en caso esté todo correcto con el
-                                    documento, apruébelo desde el botón "Aprobar".
-                                </p>
-                                <br>
+    
                                 <div
                                     class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
-                                    <b>¡Atención!</b> Una vez que todos los documentos sean aprobados, le aparecerá un
-                                    botón en la parte superior para aprobar
-                                    la solicitud y que esta sea derivada. Una vez esta sea aprobada, no se podrán
-                                    observar de nuevo los documentos y el postulante
-                                    tampoco podrá editarlos.
+                                    <b>¡Atención!</b> Una vez generada la constancia usted debe de verificar si esta todo corecto.
+                                    Una vez guardada, no se puede ser reemplazada.
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                 </div>
 
@@ -124,15 +110,15 @@
                                             <th class="sorting" tabindex="0" aria-controls="tblOperaciones" rowspan="1"
                                                 colspan="1" style="width: 88px;"
                                                 aria-label="Observación: Activar para ordenar la columna de manera ascendente">
-                                                Observación</th>
+                                                Firmar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr role="row" class="odd">
-                                            <td class="all filtrable sorting_1">Partida de Nacimiento </td>
+                                            <td class="all filtrable sorting_1">Constancia de Ingreso sin Firma </td>
                                             <td class=" all filtrable"><span
-                                                    class="badge badge-flat border-primary text-primary-600">POR
-                                                    REVISAR</span></td>
+                                                    class="badge badge-flat border-primary text-primary-600">Derivado
+                                                    </span></td>
                                             <td class=" all dt-center"><button id="aniadirDescargar"
                                                     class="btn btn-xs btn-success verDocumento" title="Ver Documento"
                                                     data-tooltip="tooltip" style="padding: 8px 8px;"><i
@@ -144,10 +130,13 @@
                                             <td class=" all dt-center"><button class="btn btn-xs btn-success aprobar"
                                                     title="Aprobar" data-tooltip="tooltip" style="padding: 8px 8px;"><i
                                                         class="icon-checkmark4"></i></button> <button
-                                                    class="btn btn-xs btn-danger observar" title="Observar"
+                                                    class="btn btn-xs btn-danger observar" title="Eliminar"
                                                     data-tooltip="tooltip" style="padding: 8px 8px;"><i
                                                         class="icon-cross2"></i></button></td>
-                                            <td></td>
+                                            <td>
+                                                    <button type="button" class="btn btn-primary" ><i
+                                                        class="icon-pencil"></i> Firmar</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -183,15 +172,15 @@
                                     role="grid" style="width: 100%;">
                                     <tbody>
                                         <tr role="row" class="odd">
-                                            <td><i class="fa fa-check"></i> Pasar a en proceso:</td>
+                                            <td><i class="icon-mail5 mr-2"></i> Enviar constania:</td>
                                             <td class=" text-right">
-                                                <button type="button" class="btn btn-success btn-lg">Aprobar</button>                                                                                             
+                                                <button type="button" class="btn btn-success btn-lg">Enviar</button>                                                                                             
                                             </td>
                                         </tr> 
                                         <tr role="row" class="odd">
-                                            <td><i class="fa fa-times"></i> Observar:</td>
+                                            <td><i class="fas fa-file-alt"></i>  Generar Constania:</td>
                                             <td class=" text-right">
-                                                 <button type="button" class="btn btn-danger btn-lg">Observar</button>                                                  
+                                                 <button type="button" class="btn btn-primary btn-lg">Generar</button>                                                  
                                             </td>
                                         </tr>                                                                          
                                     </tbody>
@@ -221,17 +210,17 @@
                                         <tr role="row" class="odd">
                                             <td><i class="icon-file-check mr-2"></i>Estado:</td>
                                             <td class=" text-right"><span
-                                                    class="badge badge-flat border-grey-800 text-default estadoLbl">POR
-                                                    ATENDER</span>
+                                                    class="badge badge-flat border-grey-800 text-default estadoLbl">DERIVADO
+                                                    </span>
                                             </td>
                                         </tr>
                                         <tr role="row" class="even">
                                             <td><i class="icon-user mr-2"></i>Solicitante:</td>
-                                            <td class=" text-right">GARCIA MARTINEZ, CHRISTIAN ARTURO</td>
+                                            <td class=" text-right">PEREZ LOPEZ, JUAN</td>
                                         </tr>
                                         <tr role="row" class="odd">
                                             <td><i class="icon-mail5 mr-2"></i>Correo personal:</td>
-                                            <td class=" text-right">cristianarturogarcia96@gmail.com</td>
+                                            <td class=" text-right">juanlopez12@gmail.com</td>
                                         </tr>
                                         <tr role="row" class="even">
                                             <td><i class="far fa-calendar-alt mr-2"></i>Fecha Solicitud:</td>

@@ -32,14 +32,14 @@ app.engine(
     extname: ".hbs",
   })
 );
-app.use(
+/**app.use(
     session({
         secret: process.env.JWT_KEY,
         resave: false,
         saveUninitialized: false
     })
 );
-
+**/
 /**
  * Middlewares
  */

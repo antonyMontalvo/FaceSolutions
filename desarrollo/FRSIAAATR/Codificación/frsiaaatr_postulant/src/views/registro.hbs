@@ -1,51 +1,52 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="/css/style.css" type="text/css">
 
-	<title>Register | ADMINISTRADOR </title>
+	<title>Register | USER </title>
 </head>
+
 <body>
 	<section class="register">
 
 		<div class="header">
 			<div class="logo"></div>
-			<h1 class="t-center">Registro de usuario</h1>
+			<h1 class="t-center" style="font-size: 40px;">Registro de usuario</h1>
 		</div>
 
 		<div class="formulario">
 			<form>
-				<label>Nombre</label>
-				<div class="inputWithIcon">
-
-					<input type="email" placeholder="Tú nombre" required>
-					<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-					<span class="underline"></span>
-				</div>
-				<label>Apellido Paterno</label>
-				<div class="inputWithIcon">
-
-					<input type="email" placeholder="Tú apellido paterno" required>
-					<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-					<span class="underline"></span>
-				</div>
-				<label>apellido Materno</label>
-				<div class="inputWithIcon">
-
-					<input type="email" placeholder="Tú apellido materno" required>
-					<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-					<span class="underline"></span>
-				</div>
-				
 				<div class="row">
-					<div class="col-f">
-						<label>DNI</label>
+					<div class="col-f" style="margin-right: 10px;">
+						<label>Apellido Paterno</label>
 						<div class="inputWithIcon">
 
-							<input type="text" placeholder="Ingrese tu DNI" required>
+							<input type="email" placeholder="Tú apellido paterno" required>
+							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+							<span class="underline"></span>
+						</div>
+					</div>
+					<div class="col-f">
+
+						<label>apellido Materno</label>
+						<div class="inputWithIcon">
+
+							<input type="email" placeholder="Tú apellido materno" required>
+							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+							<span class="underline"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-f" style="margin-right: 10px;">
+						<label>Nombre</label>
+						<div class="inputWithIcon">
+
+							<input type="email" placeholder="Tú nombre" required>
 							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
 							<span class="underline"></span>
 						</div>
@@ -54,14 +55,76 @@
 						<label>Fecha de Nacimiento</label>
 						<div class="inputWithIcon">
 
-							<input id="date" type="date"  required>
+							<input id="date" type="date" required>
 							<span class="underline"></span>
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-f" style="margin-right: 10px;">
+						<label>Domicilio</label>
+						<div class="inputWithIcon">
 
-				<input type="submit" class="btn-login btn-chico">
+							<input type="email" placeholder="Tu Domicilio" required>
+							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+							<span class="underline"></span>
+						</div>
+					</div>
+					<div class="col-f">
+						<label>Correo</label>
+						<div class="inputWithIcon">
+							<input type="text" placeholder="Tu Correo" required>
+							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+							<span class="underline"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
 
+					<div class="col-f" style="margin-right: 10px;">
+						<label>DNI</label>
+						<div class="inputWithIcon">
+
+							<input type="text" placeholder="Tu DNI" required>
+							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+							<span class="underline"></span>
+						</div>
+					</div>
+
+
+					<div class="col-f">
+						<label>Teléfono</label>
+						<div class="inputWithIcon">
+
+							<input type="text" placeholder="Tu Telefono" required>
+							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+							<span class="underline"></span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="col-f" style="margin-right: 10px;">
+						<label>Codigo Postulante</label>
+						<div class="inputWithIcon">
+
+							<input type="text" placeholder="Tu Codigo" required>
+							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+							<span class="underline"></span>
+						</div>
+					</div>
+
+
+					<div class="col-f">
+						<label>Fecha de postulacion</label>
+						<div class="inputWithIcon">
+
+							<input id="date" type="date" required>
+							<span class="underline"></span>
+						</div>
+					</div>
+				</div>
+				<input type="submit" class="btn-login btn-chico" id="loadPhoto" value="Cargar fotos">
 			</form>
 		</div>
 
@@ -72,7 +135,13 @@
 
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
+	<script>
+		const load = document.querySelector('#loadPhoto');
+		load.addEventListener('click', function () {
+			window.location.href = "http://localhost:3000/registreFotos"
+		})
+	</script>
 
-	
 </body>
+
 </html>

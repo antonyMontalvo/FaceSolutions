@@ -3,7 +3,7 @@
 Somos una empresa especializada en el desarrollo de software biometrico, conformado por alumnos de EAP de Ingeniería de Software de la Facultad de Ingeniería de Sistemas e Informática interesados en buscar soluciones tecnológicas de calidad a través de un equipo profesional y preparado.
                     
                     
-Nombres  | Cuentas GITHUB 9
+NOMBRES  | CUENTAS GITHUB 
 ------------- | -------------
 Almonacid Paripancca, Antony Brayan | [antonybrayan05](https://github.com/antonybrayan05)
 Unocc Sihuinta, Roberto Carlos  | [RobertoUnocc](https://github.com/antonyMontalvo)
@@ -20,7 +20,7 @@ La finalidad del proyecto consiste en poder verificar la identificación facial 
 
 Tal idea surgió con la problemática social de la pandemia provocada por el COVID, lo que obligó a que los diferentes procesos administrativos, en este caso haciendo hincapié sobre el tema de la constancia de ingreso, necesiten una reestructuración para poder seguir el ritmo de la transformación digital. Por tal motivo, surgió la idea de crear una plataforma web que permita ejecutar la verificación de la identificación facial del postulante, para lo cual previamente el postulante debe estar registrado en la plataforma, adjuntando una cantidad de fotos suficiente para poder contrastar su identificación, y acceder o no a los resultados asociados al examen de admisión.
 
-Roles  | Nombres
+ROLES  | NOMBRES
 ------------- | -------------
 Jefe de Proyecto |  Almonacid Paripancca, Antony Brayan 
 Desarrollador Back-end |  Unocc Sihuinta, Roberto Carlos  

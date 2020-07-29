@@ -1,6 +1,6 @@
 # ![](https://github.com/PerniaElvis/hello-world/blob/master/images/logo1.png)
 
-Somos una empresa especializada en el desarrollo de software biometrico, conformado por alumnos de EAP de Ingeniería de Software de la Facultad de Ingeniería de Sistemas e Informática interesados en buscar soluciones tecnológicas de calidad a través de un equipo profesional y preparado.
+Somos una empresa especializada en el desarrollo de software utilizando reconocimiento facial en las soluciones implementadas, conformada por alumnos de EAP de Ingeniería de Software de la Facultad de Ingeniería de Sistemas e Informática interesados en buscar soluciones tecnológicas de calidad a través de un equipo profesional y preparado.
                     
                     
 NOMBRES  | CUENTAS GITHUB 

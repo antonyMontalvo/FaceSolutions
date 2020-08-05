@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+"use strict";
 
 const Department = require("../models/department"), //pongo Employee porque es un modelo
     { createToken, getPayload } = require("../services/jwt"),
@@ -38,6 +39,34 @@ EmployeesController.getAllProcess = async(req, res) => {
         console.log(error.stack);
         return res.status(500).json({ error: error.stack });
     }
+};
+
+EmployeesController.generatePdf = async(req, res) => {
+    
+    const path = require("path");
+    const puppeteer = require("puppeteer");
+
+    (async () => {
+    try{
+    const htmlFile = path.resolve("./src/template/constancy.html");
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto("file://" + htmlFile);
+    await page.pdf({ path: "./pdf/constancy.pdf", format: "Letter" });
+    await browser.close(); 
+    console.log("Generacion correcta");
+
+    /*const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto("https://google.com"); 
+    await page.pdf({ path: "./google.pdf", format: "Letter" });
+    await browser.close();*/
+    }catch(error){
+        console.log(error);
+    }
+    })();
+
+    
 };
 
 module.exports = EmployeesController;

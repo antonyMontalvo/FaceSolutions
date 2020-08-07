@@ -43,6 +43,7 @@ PostulantController.registerView = async (req, res) => {
 // Logic
 PostulantController.login = async (req, res) => {
     try {
+        console.log(req);
         const {dni} = req.body;
         const postulantFound = await Postulant.findOne({
                 where: {

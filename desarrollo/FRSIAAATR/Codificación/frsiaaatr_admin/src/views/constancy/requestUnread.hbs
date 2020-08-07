@@ -119,9 +119,7 @@
                             <li>Filtros requeridos que se encuentran debajo para aplicar una búsqueda más precisa</li>
                             <li>Ajustar la visibilidad de las columnas según crea conveniente (botón "COLUMNAS")</li>
                             <li>Abrir las solicitudes en nuevas pestañas, para revisar a detalle el estado de la
-                                solicitud
-                            </li>
-                            <li><a href="infoRequest" class="nav-link">Solicitud detalle</a></li>
+                                solicitud</li>
                         </ul>
                         </div>
 
@@ -238,8 +236,19 @@
 									        </div>                                                                              
 									    
                                         </div>
-                       
-                        <div class="table-responsive">
+                            <hr><br>
+                            <div class="table-responsive">
+								<table id="tblNoLeidos"
+									class="table tasks-list table-lg dataTable no-footer table-striped table-hover"
+									role="grid" aria-describedby="DataTables_Table_0_info"
+									style="width: 100%;"></table>
+							</div>
+                            
+                            <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+                            <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+                            <script src="/js/constancy/constancy.js"></script>
+                            
+                        {{!-- <div class="table-responsive">
                             <div id="tblConsulta_wrapper" class="dataTables_wrapper no-footer">
                                 <div class="datatable-header">
                                     
@@ -327,132 +336,7 @@
                                                     Estado Tramite
                                                 </th>                                               
                                             </tr>
-                                            <!--                                            <tr id="filaFiltro">-->
-                                            <!--                                                <th class="encabezadoFiltro"><input type="text" placeholder="Id"-->
-                                            <!--                                                                                    class="input-sm form-control filtrable"-->
-                                            <!--                                                                                    style="width:100%;"></th>-->
-                                            <!--                                                <th class="encabezadoFiltro"><select-->
-                                            <!--                                                        class="encabezado input-sm form-control select2 select2-hidden-accessible"-->
-                                            <!--                                                        style="width:100%;" tabindex="-1" aria-hidden="true">-->
-                                            <!--                                                    <option value="" selected="selected">MOSTRAR TODOS</option>-->
-                                            <!--                                                </select><span-->
-                                            <!--                                                        class="select2 select2-container select2-container--default"-->
-                                            <!--                                                        dir="ltr" style="width: 100%;"><span class="selection"><span-->
-                                            <!--                                                        class="select2-selection select2-selection--single"-->
-                                            <!--                                                        role="combobox" aria-haspopup="true" aria-expanded="false"-->
-                                            <!--                                                        tabindex="0" aria-labelledby="select2-kit9-container"><span-->
-                                            <!--                                                        class="select2-selection__rendered" id="select2-kit9-container"-->
-                                            <!--                                                        title="MOSTRAR TODOS">MOSTRAR TODOS</span><span-->
-                                            <!--                                                        class="select2-selection__arrow" role="presentation"><b-->
-                                            <!--                                                        role="presentation"></b></span></span></span><span-->
-                                            <!--                                                        class="dropdown-wrapper" aria-hidden="true"></span></span></th>-->
-                                            <!--                                                <th class="encabezadoFiltro"><input type="text"-->
-                                            <!--                                                                                    placeholder="Fecha Solicitud"-->
-                                            <!--                                                                                    class="input-sm form-control filtrable"-->
-                                            <!--                                                                                    style="width:100%;"></th>-->
-                                            <!--                                                <th class="encabezadoFiltro"><input type="text" placeholder="Asunto"-->
-                                            <!--                                                                                    class="input-sm form-control filtrable"-->
-                                            <!--                                                                                    style="width:100%;"></th>-->
-                                            <!--                                                <th class="encabezadoFiltro"><input type="text"-->
-                                            <!--                                                                                    placeholder="N° Doc. Identidad"-->
-                                            <!--                                                                                    class="input-sm form-control filtrable"-->
-                                            <!--                                                                                    style="width:100%;"></th>-->
-                                            <!--                                                <th class="encabezadoFiltro" style=""><input type="text"-->
-                                            <!--                                                                                             placeholder="Nombre Completo"-->
-                                            <!--                                                                                             class="input-sm form-control filtrable"-->
-                                            <!--                                                                                             style="width:100%;"></th>-->
-                                            <!--                                                <th class="encabezadoFiltro" style=""><select-->
-                                            <!--                                                        class="encabezado input-sm form-control select2 select2-hidden-accessible"-->
-                                            <!--                                                        style="width:100%;" tabindex="-1" aria-hidden="true">-->
-                                            <!--                                                    <option value="" selected="selected">MOSTRAR TODOS</option>-->
-                                            <!--                                                </select><span-->
-                                            <!--                                                        class="select2 select2-container select2-container--default"-->
-                                            <!--                                                        dir="ltr" style="width: 100%;"><span class="selection"><span-->
-                                            <!--                                                        class="select2-selection select2-selection--single"-->
-                                            <!--                                                        role="combobox" aria-haspopup="true" aria-expanded="false"-->
-                                            <!--                                                        tabindex="0" aria-labelledby="select2-3n9w-container"><span-->
-                                            <!--                                                        class="select2-selection__rendered" id="select2-3n9w-container"-->
-                                            <!--                                                        title="MOSTRAR TODOS">MOSTRAR TODOS</span><span-->
-                                            <!--                                                        class="select2-selection__arrow" role="presentation"><b-->
-                                            <!--                                                        role="presentation"></b></span></span></span><span-->
-                                            <!--                                                        class="dropdown-wrapper" aria-hidden="true"></span></span></th>-->
-                                            <!--                                                <th class="encabezadoFiltro"><select-->
-                                            <!--                                                        class="encabezado input-sm form-control select2 select2-hidden-accessible"-->
-                                            <!--                                                        style="width:100%;" tabindex="-1" aria-hidden="true">-->
-                                            <!--                                                    <option value="" selected="selected">MOSTRAR TODOS</option>-->
-                                            <!--                                                </select><span-->
-                                            <!--                                                        class="select2 select2-container select2-container--default"-->
-                                            <!--                                                        dir="ltr" style="width: 100%;"><span class="selection"><span-->
-                                            <!--                                                        class="select2-selection select2-selection--single"-->
-                                            <!--                                                        role="combobox" aria-haspopup="true" aria-expanded="false"-->
-                                            <!--                                                        tabindex="0" aria-labelledby="select2-ewvv-container"><span-->
-                                            <!--                                                        class="select2-selection__rendered" id="select2-ewvv-container"-->
-                                            <!--                                                        title="MOSTRAR TODOS">MOSTRAR TODOS</span><span-->
-                                            <!--                                                        class="select2-selection__arrow" role="presentation"><b-->
-                                            <!--                                                        role="presentation"></b></span></span></span><span-->
-                                            <!--                                                        class="dropdown-wrapper" aria-hidden="true"></span></span></th>-->
-                                            <!--                                                <th class="encabezadoFiltro" style=""><select-->
-                                            <!--                                                        class="encabezado input-sm form-control select2 select2-hidden-accessible"-->
-                                            <!--                                                        style="width:100%;" tabindex="-1" aria-hidden="true">-->
-                                            <!--                                                    <option value="" selected="selected">MOSTRAR TODOS</option>-->
-                                            <!--                                                </select><span-->
-                                            <!--                                                        class="select2 select2-container select2-container--default"-->
-                                            <!--                                                        dir="ltr" style="width: 100%;"><span class="selection"><span-->
-                                            <!--                                                        class="select2-selection select2-selection--single"-->
-                                            <!--                                                        role="combobox" aria-haspopup="true" aria-expanded="false"-->
-                                            <!--                                                        tabindex="0" aria-labelledby="select2-vpib-container"><span-->
-                                            <!--                                                        class="select2-selection__rendered" id="select2-vpib-container"-->
-                                            <!--                                                        title="MOSTRAR TODOS">MOSTRAR TODOS</span><span-->
-                                            <!--                                                        class="select2-selection__arrow" role="presentation"><b-->
-                                            <!--                                                        role="presentation"></b></span></span></span><span-->
-                                            <!--                                                        class="dropdown-wrapper" aria-hidden="true"></span></span></th>-->
-                                            <!--                                                <th class="encabezadoFiltro" style=""><select-->
-                                            <!--                                                        class="encabezado input-sm form-control select2 select2-hidden-accessible"-->
-                                            <!--                                                        style="width:100%;" tabindex="-1" aria-hidden="true">-->
-                                            <!--                                                    <option value="" selected="selected">MOSTRAR TODOS</option>-->
-                                            <!--                                                </select><span-->
-                                            <!--                                                        class="select2 select2-container select2-container--default"-->
-                                            <!--                                                        dir="ltr" style="width: 100%;"><span class="selection"><span-->
-                                            <!--                                                        class="select2-selection select2-selection--single"-->
-                                            <!--                                                        role="combobox" aria-haspopup="true" aria-expanded="false"-->
-                                            <!--                                                        tabindex="0" aria-labelledby="select2-q2l0-container"><span-->
-                                            <!--                                                        class="select2-selection__rendered" id="select2-q2l0-container"-->
-                                            <!--                                                        title="MOSTRAR TODOS">MOSTRAR TODOS</span><span-->
-                                            <!--                                                        class="select2-selection__arrow" role="presentation"><b-->
-                                            <!--                                                        role="presentation"></b></span></span></span><span-->
-                                            <!--                                                        class="dropdown-wrapper" aria-hidden="true"></span></span></th>-->
-                                            <!--                                                <th class="encabezadoFiltro"><select-->
-                                            <!--                                                        class="encabezado input-sm form-control select2 select2-hidden-accessible"-->
-                                            <!--                                                        style="width:100%;" tabindex="-1" aria-hidden="true">-->
-                                            <!--                                                    <option value="" selected="selected">MOSTRAR TODOS</option>-->
-                                            <!--                                                </select><span-->
-                                            <!--                                                        class="select2 select2-container select2-container--default"-->
-                                            <!--                                                        dir="ltr" style="width: 100%;"><span class="selection"><span-->
-                                            <!--                                                        class="select2-selection select2-selection--single"-->
-                                            <!--                                                        role="combobox" aria-haspopup="true" aria-expanded="false"-->
-                                            <!--                                                        tabindex="0" aria-labelledby="select2-biy8-container"><span-->
-                                            <!--                                                        class="select2-selection__rendered" id="select2-biy8-container"-->
-                                            <!--                                                        title="MOSTRAR TODOS">MOSTRAR TODOS</span><span-->
-                                            <!--                                                        class="select2-selection__arrow" role="presentation"><b-->
-                                            <!--                                                        role="presentation"></b></span></span></span><span-->
-                                            <!--                                                        class="dropdown-wrapper" aria-hidden="true"></span></span></th>-->
-                                            <!--                                                <th class="encabezadoFiltro"><select-->
-                                            <!--                                                        class="encabezado input-sm form-control select2 select2-hidden-accessible"-->
-                                            <!--                                                        style="width:100%;" tabindex="-1" aria-hidden="true">-->
-                                            <!--                                                    <option value="" selected="selected">MOSTRAR TODOS</option>-->
-                                            <!--                                                </select><span-->
-                                            <!--                                                        class="select2 select2-container select2-container--default"-->
-                                            <!--                                                        dir="ltr" style="width: 100%;"><span class="selection"><span-->
-                                            <!--                                                        class="select2-selection select2-selection--single"-->
-                                            <!--                                                        role="combobox" aria-haspopup="true" aria-expanded="false"-->
-                                            <!--                                                        tabindex="0" aria-labelledby="select2-61b3-container"><span-->
-                                            <!--                                                        class="select2-selection__rendered" id="select2-61b3-container"-->
-                                            <!--                                                        title="MOSTRAR TODOS">MOSTRAR TODOS</span><span-->
-                                            <!--                                                        class="select2-selection__arrow" role="presentation"><b-->
-                                            <!--                                                        role="presentation"></b></span></span></span><span-->
-                                            <!--                                                        class="dropdown-wrapper" aria-hidden="true"></span></span></th>-->
-                                            <!--                                                <th class="encabezadoFiltro"></th>-->
-                                            <!--                                            </tr>-->
+                                            
                                             </thead>
                                             <tbody>
                                             <tr class="odd">
@@ -496,7 +380,7 @@
                                             data-dt-idx="1" tabindex="0" id="tblConsulta_next">Siguiente</a></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="modal fade custom-modal show" id="modalVistaDocumento" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <!-- 			<legend class="well-legend">Formulario de Mantenimiento</legend> -->

@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+"use strict";
 
 const Department = require("../models/department"), //pongo Employee porque es un modelo
     { createToken, getPayload } = require("../services/jwt"),
@@ -7,7 +8,7 @@ const Department = require("../models/department"), //pongo Employee porque es u
 
 const { QueryTypes } = require('sequelize');
 const { sequelizeDB } = require("../../config/database");
-
+  
 EmployeesController.getEmployees = async(req, res) => {
     try {
         // const employees = await Department.findAll();
@@ -38,6 +39,50 @@ EmployeesController.getAllProcess = async(req, res) => {
         console.log(error.stack);
         return res.status(500).json({ error: error.stack });
     }
+};
+
+EmployeesController.generatePdf = async(req, res) => {
+    
+    const path = require("path");
+    const puppeteer = require("puppeteer");
+    const handlebars = require("handlebars");
+    var fs = require('fs');
+    var express = require("express");
+    var hbs = require("express-handlebars");
+
+    var app = express();
+
+    app.engine('hbs', hbs({ extname: 'hbs' }));
+    app.set('view engine', 'hbs');
+    app.use(express.static(path.join(__dirname, 'public')));
+    (async () => {
+    try{
+    
+    let browser = null;
+
+    const file = fs.readFileSync('./src/template/constancy.html', 'utf8');
+    const template = handlebars.compile(file);
+    const html = template({name:"Evelin Sofía Pariona Gutierrez"});
+     
+    browser = await puppeteer.launch({
+        pipe: true,
+        args: ['--headless', '--disable-gpu', '--full-memory-crash-report', '--unlimited-storage',
+               '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+    });
+    
+    const page = await browser.newPage();
+    await page.setContent(html);
+    await page.pdf({ path: "./pdf/constancy.pdf", format: "Letter" });
+    await browser.close();
+    
+    res.send(200);
+
+    }catch(error){
+        console.log(error);
+    }
+    })();
+
+    
 };
 
 module.exports = EmployeesController;

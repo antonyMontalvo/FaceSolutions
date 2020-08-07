@@ -52,6 +52,7 @@ PostulantController.login = async (req, res) => {
             }
         );
 
+        console.log(postulantFound)
         if (postulantFound) {
             const code = String("_" + dni + "_" + postulant_code);
             res.render("prueba", {layout: "postulantelogin", data: {code}});

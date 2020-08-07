@@ -129,10 +129,9 @@
 
                 <div class="col-f" style="margin-right: 10px;">
                     <div class="form-group">
-                        <label>Country:</label>
+                        <label>Departamento</label>
                         <div class="inputWithIcon">
-
-                            <select data-placeholder="Select " data-fouc>
+                            <select onchange="selectProvinces({{data.provinces}})" data-placeholder="Select ">
                                 <option selected value="0" hidden></option>
                                 {{#each data.departments}}
                                     <option value="{{id}}">{{name}}</option>
@@ -145,10 +144,14 @@
 
 
                 <div class="col-f">
-                    <label>Fecha de postulacion</label>
+                    <label>Provincia</label>
                     <div class="inputWithIcon">
-
-                        <input id="date" type="date" required>
+                        <select onchange="" data-placeholder="Select " data-fouc>
+                            <option selected value="0" hidden></option>
+                            {{#each data.provinces}}
+                                <option value="{{id}}">{{name}}</option>
+                            {{/each}}
+                        </select>
                         <span class="underline"></span>
                     </div>
                 </div>
@@ -169,6 +172,11 @@
     load.addEventListener('click', function () {
         window.location.href = "http://localhost:3000/registreFotos"
     })
+
+    function selectProvinces(y){
+        // console.log(x)
+        console.log(y)
+    }
 </script>
 
 </body>

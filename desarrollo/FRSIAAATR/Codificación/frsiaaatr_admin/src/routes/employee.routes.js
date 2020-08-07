@@ -8,5 +8,6 @@ const employeeController = require("../controllers/employee.controller"),
 router
     .get("/index", /*checkToken,*/ employeeController.getEmployees)
     .get("/process", /*checkToken,*/ employeeController.getAllProcess)
-    .get("/generatePdf", /*checkToken,*/ employeeController.generatePdf);
+    .get("/generatePdf", /*checkToken,*/ employeeController.generatePdf)
+    .get("/generatePdfWithoutSignatures",/*checkToken*/ employeeController.generatePdfWithoutSignatures);
 module.exports = router;

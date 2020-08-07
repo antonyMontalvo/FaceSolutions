@@ -6,6 +6,7 @@
     <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <title>Tomar foto con Javascript</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,21 +23,40 @@
 
 <body>
     <div class="container">
-        <section class="register">
-            <div class="formulario">
-                <div class="row">
-                    <div class="col-f" style="margin-right: 10px;">
-                        <button id="openCamara">abrir camara</button>
-                        <select name="listaDeDispositivos" id="listaDeDispositivos" type="hidden"></select>
-                        <button id="boton">Tomar foto</button>
+        <section class="register" style="min-height: 100vh;">
+            <div class="formulario"
+                style="height: 400px;background: rgb(240, 81, 81);display: flex;align-items: center;justify-content: center;">
+
+                <button id="openCamara" onclick="document.getElementById('id01').style.display='block'" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
+                    background: #343a40!important;" class="w3-button w3-black">
+                    <div style="display: flex;justify-content: center;width: 100%;">
+                        <img src="img/camera.svg" style="width: 30px;height: 30px;margin:0 10px; background: #fff;">
                     </div>
-                    <div class="col-f" style="margin-right: 10px;">
-                        <video muted="muted" id="video" style="padding: 10px 10px;"></video>
-                        <canvas id="canvas" style="display: none;"></canvas>
+                    <div style="display: flex;justify-content:center;width: 100%;mar">
+                        <label>abrir camara</label>
+                    </div>
+                </button>
+            </div>
+            <select name="listaDeDispositivos" id="listaDeDispositivos" style="display: none;" type="hidden"></select>
+            <div id="id01" class="w3-modal">
+                <div class="w3-modal-content"
+                    style="height:600px;display:flex;justify-content: center;align-items: center;">
+                    <div class="w3-container">
+                        <span onclick="document.getElementById('id01').style.display='none'"
+                            class="w3-button w3-display-topright">&times;</span>
+                        <div class="row">
+                            <video muted="muted" id="video" style="padding: 10px 10px;" width="100%"
+                                height="400px"></video>
+                            <canvas id="canvas" style="display: none;"></canvas>
+                        </div>
+                        <div class="row" style="display: flex;justify-content:center">
+                            <button id="boton">Tomar foto</button>
+                        </div>
                     </div>
                 </div>
-                <button type="submit">Enviar</button>
             </div>
+
+            <div id="photo"></div>
         </section>
     </div>
 </body>
@@ -129,7 +149,11 @@
                     mostrarStream(dispositivosDeVideo[0].deviceId);
                 }
             });
-            function DataURIToBlob(dataURI) {
+
+
+
+
+            const DataURIToBlob = (dataURI) => {
                 const splitDataURI = dataURI.split(',')
                 const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
                 const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
@@ -140,6 +164,7 @@
 
                 return new Blob([ia], { type: mimeString })
             }
+
             const mostrarStream = (idDeDispositivo) => {
                 _getUserMedia(
                     {
@@ -175,7 +200,6 @@
                         //Escuchar el click del botón para tomar la foto
                         $boton.addEventListener("click", function () {
                             contador++;
-                            console.log('xd', contador);
                             //Pausar reproducción
                             $video.pause();
 
@@ -186,28 +210,36 @@
                             contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
                             let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-                            const file = DataURIToBlob(foto);
-
-                            const formData = new FormData();
-                            formData.append('upload', file, 'image.jpg');
-
-                            fetch('http://localhost:3000/registreFotos', {
-                                method: 'POST', // or 'PUT'
-                                body: formData, // data can be `string` or {object}!
-
-                            }).then(res => res.json())
-                                .catch(error => console.error('Error:', error))
-                                .then(response => console.log('Success:', response));
 
 
+
+                            fetch(foto)
+                                .then(res => res.blob())
+                                .then(blob => {
+                                    var fd = new FormData()
+                                    const file = new File([blob], "filename.jpeg");
+                                    fd.append('image', file)
+                                    fetch('http://localhost:3000/registreFotos',
+                                        {
+                                            method: 'post',
+                                            body: fd,
+                                            headers: {
+                                                'Content-Type': 'multipart/form-data',
+                                            },
+                                        }).then(res => res.json())
+                                        .then(res => console.log(res))
+
+                                })
 
                             let enlace = document.createElement("a"); // Crear un <a>
-                            enlace.download = "foto_parzibyte.me.png";
+                            enlace.download = "foto_me.png";
                             enlace.href = foto;
                             // var formData = new FormData();
                             // formData.append('imagen_Data', foto);
                             enlace.click();
-                            $video.play();
+                            document.getElementById('id01').style.display = 'none'
+                            // openCamara.style.background = "yellow"
+                            //$video.play();
                         });
                     },
                     (error) => {
@@ -217,6 +249,7 @@
             };
         })();
     });
+
 
 </script>
 

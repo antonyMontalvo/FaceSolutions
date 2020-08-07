@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="/css/style.css" type="text/css">
-	<title>Login | ADMINISTRADOR </title>
+	<title>Login | USUARIO </title>
 </head>
 
 <body>
@@ -25,16 +25,16 @@
 
 						<form action="/login" method="POST">
 							<div class="inputWithIcon">
-								<input type="email" placeholder="Tu correo" required>
+								<input type="text" placeholder="Tu DNI" name="dni" required>
 								<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
 								<span class="underline"></span>
 							</div>
 							<div class="inputWithIcon">
-								<input type="password" placeholder="Tu contraseña" required>
+								<input type="text" placeholder="Tu Codigo" name="code" required>
 								<i class="fa fa-lock" aria-hidden="true"></i>
 							</div>
 
-							<input href="/" type="submit" class="btn-login">
+							<input type="submit" class="btn-login">
 
 						</form>
 					</div>

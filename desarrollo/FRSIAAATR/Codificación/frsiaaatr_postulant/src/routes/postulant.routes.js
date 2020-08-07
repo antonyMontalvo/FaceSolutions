@@ -12,4 +12,8 @@ router.post("/registreFotos", (req, res) => {
   console.log("xd", req.body);
 });
 
+router.post("/login", (req, res) => {
+  console.log("xddd", req);
+});
+
 module.exports = router;

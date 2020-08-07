@@ -17,5 +17,6 @@ router
         console.log("xd", req.body);
         return res.status(200).json({error: ''});
     })
+    .get("/facial", postulantController.prueba)
 
 module.exports = router;

@@ -12,6 +12,7 @@ router
     .get("/getSpecialties/:id",/*checkToken,*/employeeController.getSpecialties)
     .get("/getFaculties",/*checkToken,*/employeeController.getAllFaculties)
     .get("/getFaculties/:id",/*checkToken,*/employeeController.getFaculties)
+    .post("/filterProcess",/*checkToken,*/ employeeController.filterProcess)
     .get("/generatePdf", /*checkToken,*/ employeeController.generatePdf)
     .get("/generatePdfWithoutSignatures",/*checkToken*/ employeeController.generatePdfWithoutSignatures);
 module.exports = router;

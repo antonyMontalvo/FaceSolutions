@@ -4,7 +4,9 @@ $(document).ready(function() {
         $tblNoLeidos: $("#tblNoLeidos"),
         tblNoLeidos: "",
         $cmbEscuela: $("#cmbEscuela"),
-        $cmbFacultad: $("#cmbFacultad")
+        $cmbFacultad: $("#cmbFacultad"),
+        $btnSearch : $("#btnSearch"),
+        $btnReset : $("#btnReset"),
     };
     
     $local.tblNoLeidos = $local.$tblNoLeidos.DataTable({
@@ -188,6 +190,77 @@ $(document).ready(function() {
 				select.select2(propiedad);
 
 			});
-		
-	}
+    }
+    
+    $("#btnReset").on("click",function(){
+		resetFiltros();
+    })
+
+    $("#btnSearch").on("click",function(){
+		filtrarRegistros();
+	})
+    
+    function resetFiltros(){
+        $("#nombres").val('');
+    	$("#apellidoPaterno").val('');
+    	$("#apellidoMaterno").val('');
+    	$("#numeroDocumento").val('');
+    	$("#rangoFechas").val('');
+    	crearSelect($local.$cmbEscuela, "getSpecialties", "id","name");
+        crearSelect($local.$cmbFacultad,"getFaculties","id","name");
+    }
+
+    function filtrarRegistros(){
+        name  = $('#nombres').val();
+		lastnamePatern = $('#apellidoPaterno').val();
+		lastnameMatern = $('#apellidoMaterno').val();
+		dni = $('#numeroDocumento').val();
+		number_doc = $("#numeroExpediente").val();
+		date = $("#rangoFechas").val();
+		cmbFacultad = $("#cmbFacultad").val();
+		cmbEscuela = $("#cmbEscuela").val();
+        
+        if(cmbFacultad == "DEFAULT")cmbFacultad = null;
+        if(cmbEscuela == "DEFAULT")cmbEscuela = null;
+        
+		if(lastnamePatern == ""){   lastnamePatern = null;	}
+		if(lastnameMatern == ""){	lastnameMatern = null;	}
+		if(dni == ""){	dni = null;	}
+        if(number_doc == ""){   number_doc = null;	}
+        if(date == ""){   date = null;	}
+        if(name == ""){name = null;	}
+        var data = {
+			"name": name,
+			"lastnamePatern": lastnamePatern,
+			"lastnameMatern": lastnameMatern,
+			"dni": dni,
+			"number_doc": number_doc,
+			"date": date,
+			"id_faculty": cmbFacultad,
+			"id_specialty": cmbEscuela
+        };
+        
+        console.log("DATA: ", data);
+		$.ajax({
+			type : "POST",
+			url : "http://localhost:3000/employees/filterProcess",
+			data : JSON.stringify(data),
+				beforeSend : function(xhr) {
+					xhr.setRequestHeader('Content-Type', 'application/json');
+				},
+				success : function(response) {
+					console.log("Registros filtrados");
+					console.log(response);
+					//$local.tblPadronesRegistroHistorial.clear().draw(); 	
+     				//$local.tblPadronesRegistroHistorial.rows.add(response).draw();
+     				
+     				$local.tblNoLeidos.clear();
+    				$.each(response, function(index,value) {
+    					$local.tblNoLeidos.row.add(value);
+    				});
+    				
+    				$local.tblNoLeidos.draw();
+				}
+			});
+    }
 });

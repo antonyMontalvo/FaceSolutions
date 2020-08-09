@@ -11,6 +11,7 @@ router
     .get("/request-in-process", constancyController.getRequestInProcessList)
     .get("/request-in-derived", constancyController.getRequestInDerivedList)
     .get("/derived-constancy", constancyController.getRequestInDerivedConstancy)
-    .post("/filterProcess", constancyController.filterProcess);
+    .get("/all-process", constancyController.getAllProcess)
+    .post("/filter-process", constancyController.filterProcess);
 
 module.exports = router;

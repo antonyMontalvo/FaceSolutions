@@ -10,12 +10,63 @@ $(document).ready(function() {
         $btnReset: $("#btnReset"),
     };
 
-    crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
-    crearSelect($local.$cmbEstado, "getProcessState", "idProcessState", "stateName");
+    var initDate = "",
+        finishDate = "";
+
+    $localFunction = {
+        changeSelect: function(select, defaultText, endpoint, value, name, id) {
+            select.empty(); //Reiniciar opciones de select
+            $.ajax({
+                url: "http://localhost:3000/filter/" + endpoint + "/" + id,
+                dataType: 'json',
+                type: 'GET',
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                },
+            }).then(function(response) {
+                select.empty().trigger('change');
+                var array = [];
+
+                if (endpoint == "getSpecialties") {
+                    for (var i = 0; i < response.length; i++) {
+                        array[i] = {};
+                        array[i].id = response[i][value]; //valor 
+                        array[i].text = response[i][name]; //nombre
+                    }
+                }
+
+                var property = {
+                    placeholder: defaultText,
+                    data: array,
+                    language: {
+                        noResults: function() {
+                            return "No se encontró resultados";
+                        }
+                    },
+                    "width": "100%",
+                    "theme": "bootstrap",
+                    "dropdownAutoWidth": true,
+                    "dropdownParent": select.parent(),
+                }
+                if (defaultText != undefined && defaultText != null) {
+                    property.placeholder = defaultText;
+                }
+                if (select.hasClass("encabezado")) {
+                    property.containerCssClass = ":all:";
+                }
+                select.select2(property);
+
+            });
+        }
+    }
+
+    $("#rangoFechas").daterangepicker();
+    $globalFunction.createFilterSelect($local.$cmbFacultad, "Selecciona una facultad", "getFaculties", "id", "name");
+    $globalFunction.createFilterSelect($local.$cmbEstado, "Selecciona un estado", "getProcessState", "idProcessState", "stateName");
 
     $local.tblNoLeidos = $local.$tblNoLeidos.DataTable({
         "ajax": {
-            "url": "http://localhost:3000/employees/process",
+            "url": "http://localhost:3000/constancy/all-process",
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -42,6 +93,9 @@ $(document).ready(function() {
                     switch (row.estadoSolicitud) {
                         case 1:
                             a = '<span class="badge badge-flat border-info text-info-800">' + row.nombreEstadoSolicitud + '</span>';
+                            break;
+                        case 2:
+                            a = '<span class="badge badge-flat border-warning text-warning-800">' + row.nombreEstadoSolicitud + '</span>';
                             break;
                         default:
                             a = '<span class="badge badge-flat border-dark text-dark-600">' + row.nombreEstadoSolicitud + '</span>';
@@ -97,161 +151,95 @@ $(document).ready(function() {
 
     });
 
-    function crearSelect(select, filtro, valor, nombre) {
-        select.empty(); //Reiniciar opciones de select
-        var $newOption = $("<option selected='selected'></option>").val("DEFAULT").text("TODOS");
-        select.append($newOption).trigger('change');
-        $.ajax({
-            url: "http://localhost:3000/filter/" + filtro,
-            dataType: 'json',
-            type: 'GET',
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Content-Type', 'application/json');
-            },
-        }).then(function(response) {
-
-            var arreglo = [];
-
-            for (var i = 0; i < response.length; i++) {
-                arreglo[i] = {};
-                arreglo[i].id = response[i][valor];
-                arreglo[i].text = response[i][nombre];
-            }
-
-
-            var propiedad = {
-                placeholder: "Selecciona una escuela",
-                data: arreglo,
-                language: {
-                    noResults: function() {
-                        return "No se encontró resultados";
-                    }
-                },
-                "width": "100%",
-                "theme": "bootstrap",
-                "dropdownAutoWidth": true,
-
-            }
-
-            select.select2(propiedad);
-
-        });
-        select.val('').trigger("change");
-
-    };
-
     $local.$cmbFacultad.on('select2:select', function(e) {
         let data = e.params.data;
-        cambiarSelect($local.$cmbEscuela, "Seleccione un programa", "especialidades", "getSpecialties", "id", "name", data.id)
+        $localFunction.changeSelect($local.$cmbEscuela, "Seleccione un programa", "getSpecialties", "id", "name", data.id)
     });
 
-    function cambiarSelect(select, textoPorDefecto, mantenimiento, filtro, valor, nombre, id) {
-        select.empty(); //Reiniciar opciones de select
-        $.ajax({
-            url: "http://localhost:3000/filter/" + filtro + "/" + id,
-            dataType: 'json',
-            type: 'GET',
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Content-Type', 'application/json');
-            },
-        }).then(function(response) {
-            console.log(response);
-            select.empty().trigger('change');
-            var arreglo = [];
-
-            if (mantenimiento == "especialidades") {
-                for (var i = 0; i < response.length; i++) {
-                    arreglo[i] = {};
-                    arreglo[i].id = response[i][valor];
-                    arreglo[i].text = response[i][nombre];
-                }
-            }
-
-            console.log(arreglo);
-            var propiedad = {
-                placeholder: textoPorDefecto,
-                data: arreglo,
-                language: {
-                    noResults: function() {
-                        return "No se encontró resultados";
-                    }
-                },
-                "width": "100%",
-                "theme": "bootstrap",
-                "dropdownAutoWidth": true,
-                "dropdownParent": select.parent(),
-            }
-            if (textoPorDefecto != undefined && textoPorDefecto != null) {
-                propiedad.placeholder = textoPorDefecto;
-            }
-            if (select.hasClass("encabezado")) {
-                propiedad.containerCssClass = ":all:";
-            }
-            select.select2(propiedad);
-
-        });
-    }
-
+    //Limpia los campos del filtro
     $("#btnReset").on("click", function() {
-        resetFiltros();
-    })
+        resetFilter();
+    });
 
+    //Ejecuta la busqueda según los datos en el filtro
     $("#btnSearch").on("click", function() {
-        filtrarRegistros();
-    })
+        $globalFunction.loadBlock($("#tblNlBlock"), "Actualizando información...", 1200, filterRecords());
+    });
 
-    function resetFiltros() {
+    //Rango de fechas
+    $('.daterange-basic').on('apply.daterangepicker', function(ev, picker) {
+        initDate = picker.startDate.format('YYYY-MM-DD');
+        finishDate = picker.endDate.format('YYYY-MM-DD');
+        //console.log(startDate + " " + endDate);
+    });
+
+    function resetFilter() {
         $("#nombres").val('');
         $("#apellidoPaterno").val('');
         $("#apellidoMaterno").val('');
         $("#numeroDocumento").val('');
         $("#rangoFechas").val('');
-        crearSelect($local.$cmbEscuela, "getSpecialties", "id", "name");
-        crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
-        crearSelect($local.$cmbEstado, "getProcessState", "idProcessState", "stateName");
+        $("#codigoSolicitud").val('');
+        $globalFunction.createFilterSelect($local.$cmbEscuela, "Selecciona una escuela", "getSpecialties", "id", "name");
+        $globalFunction.createFilterSelect($local.$cmbFacultad, "Selecciona una facultad", "getFaculties", "id", "name");
+        $globalFunction.createFilterSelect($local.$cmbEstado, "Selecciona un estado", "getProcessState", "idProcessState", "stateName");
     }
 
-    function filtrarRegistros() {
+    function filterRecords() {
         name = $('#nombres').val();
-        lastnamePatern = $('#apellidoPaterno').val();
-        lastnameMatern = $('#apellidoMaterno').val();
+        lastNamePatern = $('#apellidoPaterno').val();
+        lastNameMatern = $('#apellidoMaterno').val();
         dni = $('#numeroDocumento').val();
         number_doc = $("#codigoSolicitud").val();
         date = $("#rangoFechas").val();
         cmbFacultad = $("#cmbFacultad").val();
         cmbEscuela = $("#cmbEscuela").val();
+        cmbEstadoSolicitud = $("#cmbEstado").val();
+        fechaInicio = initDate;
+        fechaFin = finishDate;
 
         if (cmbFacultad == "DEFAULT") cmbFacultad = null;
         if (cmbEscuela == "DEFAULT") cmbEscuela = null;
+        if (cmbEstadoSolicitud == "DEFAULT") cmbEstadoSolicitud = null;
 
-        if (lastnamePatern == "") { lastnamePatern = null; }
-        if (lastnameMatern == "") { lastnameMatern = null; }
+        if (lastNamePatern == "") { lastNamePatern = null; }
+        if (lastNameMatern == "") { lastNameMatern = null; }
         if (dni == "") { dni = null; }
         if (number_doc == "") { number_doc = null; }
         if (date == "") { date = null; }
         if (name == "") { name = null; }
+        if (fechaInicio == "" && fechaFin == "") {
+            fechaInicio = null;
+            fechaFin = null;
+        }
+
         var data = {
             "name": name,
-            "lastnamePatern": lastnamePatern,
-            "lastnameMatern": lastnameMatern,
+            "lastNamePatern": lastNamePatern,
+            "lastNameMatern": lastNameMatern,
             "dni": dni,
-            "number_doc": number_doc,
+            "numberDoc": number_doc,
             "date": date,
-            "id_faculty": cmbFacultad,
-            "id_specialty": cmbEscuela
+            "idFaculty": cmbFacultad,
+            "idSpecialty": cmbEscuela,
+            "idProcessState": cmbEstadoSolicitud,
+            "startDate": fechaInicio,
+            "endDate": fechaFin
         };
 
-        //console.log("DATA: ", data);
+        //Repitando tabla
         $.ajax({
             type: "POST",
-            url: "http://localhost:3000/constancy/filterProcess",
+            url: "http://localhost:3000/constancy/filter-process",
             data: JSON.stringify(data),
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
             },
             success: function(response) {
-                //console.log("Registros filtrados");
+                //Limpia tabla
                 $local.tblNoLeidos.clear();
+
+                //Los resultados encontrados se pintan en la tabla
                 $.each(response, function(index, value) {
                     $local.tblNoLeidos.row.add(value);
                 });

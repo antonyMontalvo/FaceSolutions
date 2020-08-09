@@ -8,6 +8,7 @@ router
     .get("/review-request", constancyController.getReviewUnreadInfo)
     .get("/generate-constancy", constancyController.getReviewInProcessInfo)
     .get("/request-unread", constancyController.getRequestUnreadList)
-    .get("/request-in-process", constancyController.getRequestInProcessList);
+    .get("/request-in-process", constancyController.getRequestInProcessList)
+    .post("/filterProcess", constancyController.filterProcess);
 
 module.exports = router;

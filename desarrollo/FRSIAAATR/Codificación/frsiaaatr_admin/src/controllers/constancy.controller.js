@@ -115,4 +115,24 @@ ConstancyController.getRequestInProcessList = async(req, res) => {
     }
 };
 
+//Lista de solicitudes Derivadas
+ConstancyController.getRequestInDerivedList = async(req, res) => {
+    try {
+        res.render("constancy/requestInDerived");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
+//Solicitud Derivada
+ConstancyController.getRequestInDerivedConstancy = async(req, res) => {
+    try {
+        res.render("constancy/derivedConstancy");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
 module.exports = ConstancyController;

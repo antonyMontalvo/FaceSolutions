@@ -5,6 +5,8 @@ const Employee = require("../models/department"), //pongo Employee porque es un 
     RequirementController = {},
     saltRounds = 10;
 
+//Requerimientos de POSTULANTE
+
 //Lista de postulantes
 RequirementController.getPostulantList = async(req, res) => {
     try {

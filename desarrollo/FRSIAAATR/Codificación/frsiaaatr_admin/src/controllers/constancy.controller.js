@@ -9,20 +9,27 @@ const Employee = require("../models/department"),
     ConstancyController = {},
     saltRounds = 10;
 
-//Información de solicitud no leída
+//Información de solicitud no leída (vista)
 ConstancyController.getReviewUnreadInfo = async(req, res) => {
+
+    const id = req.params.id;
+
     try {
-        res.render("constancy/reviewRequest");
+        res.render("constancy/reviewRequest", {
+            layout: "main",
+            data: { idRequest: id }
+        });
     } catch (error) {
         console.log(error.stack);
         return res.status(500).json({ error: error.stack });
     }
 };
 
-//Lista de solicitudes No Leídas
+//Lista de solicitudes No Leídas (vista)
 ConstancyController.getRequestUnreadList = async(req, res) => {
+
     try {
-        res.render("constancy/requestUnread");
+        res.render("constancy/requestUnread"); //Id de solicitud recibida desde ruta
     } catch (error) {
         console.log(error.stack);
         return res.status(500).json({ error: error.stack });
@@ -145,27 +152,64 @@ ConstancyController.filterProcess = async(req, res) => {
     res.send(process[0]);
 }
 
-//Información de solicitud en proceso
-ConstancyController.getReviewInProcessInfo = async(req, res) => {
-    try {
-        res.render("constancy/generateConstancy");
-    } catch (error) {
-        console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
-    }
-};
+//Listado de requisitos de solicitud
+ConstancyController.getAllReviewRequest = async(req, res) => {
 
-//Lista de solicitudes En Proceso
-ConstancyController.getRequestInProcessList = async(req, res) => {
-    try {
-        res.render("constancy/requestInProcess");
-    } catch (error) {
-        console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
-    }
-};
+    const idReview = req.params.id;
 
-//Lista de solicitudes Derivadas
+    let q = `SELECT
+        p.code as codigoSolicitud,
+        r.idrequirement as codigoRequisito,
+        r.name as nombreRequisito,
+        r.description as observacionRequisito,
+        r.date_created as fechaRequisito,
+        r.state_requirement as estadoRequisito,
+        rq.state_name as nombreEstadoRequisito
+    FROM requirement r
+    LEFT JOIN process p ON
+    r.process_id = p.id
+    LEFT JOIN requirement_state rq ON
+    r.state_requirement = rq.idrequirement_state
+    WHERE p.code = ` + idReview;
+
+    const result = await sequelizeDB.query(q);
+    res.send(result[0]);
+}
+
+//Información de postulante (solicitud)
+ConstancyController.getPostulantRequestInfo = async(req, res) => {
+
+    const idReview = req.params.id;
+
+    var q = `SELECT 
+    p.code as codigoSolicitud,
+    p.state_process as estadoSolicitud,
+    pst.state_name as nombreEstadoSolicitud,  
+    p.date_created as fechaSolicitud,
+    p.date_updated as fechaCambio,
+    c.name as nombreConstancia,
+    ps.name as nombre, 
+    ps.last_name_1 as apellidoPaterno, 
+    ps.last_name_2 as apellidoMaterno,
+    concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as nombreCompleto,  
+    ps.postulant_code as codigoPostulante,
+    ps.email as email,
+    ps.dni as numeroDocumento
+    FROM 
+    process p LEFT JOIN postulant ps 
+    ON p.postulant_id = ps.id 
+    LEFT JOIN constancy c 
+    ON p.constancy_id = c.id
+    LEFT JOIN process_state pst
+    ON p.state_process = pst.idprocess_state
+    WHERE p.code = ` + idReview;
+
+    const result = await sequelizeDB.query(q);
+    res.send(result[0]);
+
+}
+
+/* //Lista de solicitudes Derivadas
 ConstancyController.getRequestInDerivedList = async(req, res) => {
     try {
         res.render("constancy/requestInDerived");
@@ -183,6 +227,6 @@ ConstancyController.getRequestInDerivedConstancy = async(req, res) => {
         console.log(error.stack);
         return res.status(500).json({ error: error.stack });
     }
-};
+}; */
 
 module.exports = ConstancyController;

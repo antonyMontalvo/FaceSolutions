@@ -5,13 +5,12 @@ const constancyController = require("../controllers/constancy.controller"),
     authenticate = require("../middlewares/authenticate");
 
 router
-    .get("/review-request", constancyController.getReviewUnreadInfo)
-    .get("/generate-constancy", constancyController.getReviewInProcessInfo)
     .get("/request-unread", constancyController.getRequestUnreadList)
-    .get("/request-in-process", constancyController.getRequestInProcessList)
-    .get("/request-in-derived", constancyController.getRequestInDerivedList)
-    .get("/derived-constancy", constancyController.getRequestInDerivedConstancy)
+    .get("/review-request/:id", constancyController.getReviewUnreadInfo)
+    .get("/all-review-request/:id", constancyController.getAllReviewRequest) //Revisar todas las solicitudes
+    .get("/postulant-info-request/:id", constancyController.getPostulantRequestInfo)
+    /* .get("/request-in-derived", constancyController.getRequestInDerivedList)
+    .get("/derived-constancy", constancyController.getRequestInDerivedConstancy) */
     .get("/all-process", constancyController.getAllProcess)
     .post("/filter-process", constancyController.filterProcess);
-
 module.exports = router;

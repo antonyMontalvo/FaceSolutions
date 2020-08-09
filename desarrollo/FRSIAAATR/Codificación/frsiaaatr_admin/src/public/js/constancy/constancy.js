@@ -126,9 +126,10 @@ $(document).ready(function() {
             { // 4
                 "title": "Asunto",
                 "render": function(data, type, row) {
-                    var a = row.nombreConstancia + " - " + row.facultadIniciales + " - Cod postulante: " +
-                        row.codigoPostulante + " - DNI: " + row.numeroDocumento;
-                    return a.toUpperCase();
+                    var a = (row.nombreConstancia + " - " + row.facultadIniciales + " - Cod postulante: " +
+                        row.codigoPostulante + " - DNI: " + row.numeroDocumento).toUpperCase();
+                    var ref = '<a href="review-request/' + row.codigoSolicitud + '">' + a + '</a>';
+                    return ref;
                 }
             },
             { // 5 
@@ -170,7 +171,6 @@ $(document).ready(function() {
     $('.daterange-basic').on('apply.daterangepicker', function(ev, picker) {
         initDate = picker.startDate.format('YYYY-MM-DD');
         finishDate = picker.endDate.format('YYYY-MM-DD');
-        //console.log(startDate + " " + endDate);
     });
 
     function resetFilter() {

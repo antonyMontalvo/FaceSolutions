@@ -47,4 +47,19 @@ FilterController.getSpecialties = async(req, res) => {
     }
 };
 
+//Estados de solicitud (process)
+FilterController.getProcessState = async(req, res) => {
+    try {
+        const q = `SELECT 
+            idprocess_state as idProcessState, 
+            state_name as stateName 
+            FROM process_state`;
+        const result = await sequelizeDB.query(q);
+        res.send(result[0]);
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
 module.exports = FilterController;

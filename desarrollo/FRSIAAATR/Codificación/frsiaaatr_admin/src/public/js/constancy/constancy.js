@@ -5,9 +5,13 @@ $(document).ready(function() {
         tblNoLeidos: "",
         $cmbEscuela: $("#cmbEscuela"),
         $cmbFacultad: $("#cmbFacultad"),
+        $cmbEstado: $("#cmbEstado"),
         $btnSearch: $("#btnSearch"),
         $btnReset: $("#btnReset"),
     };
+
+    crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
+    crearSelect($local.$cmbEstado, "getProcessState", "idProcessState", "stateName");
 
     $local.tblNoLeidos = $local.$tblNoLeidos.DataTable({
         "ajax": {
@@ -136,11 +140,8 @@ $(document).ready(function() {
 
     };
 
-    crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
-
     $local.$cmbFacultad.on('select2:select', function(e) {
         let data = e.params.data;
-        //console.log("Se actualizo select: " + data.id);
         cambiarSelect($local.$cmbEscuela, "Seleccione un programa", "especialidades", "getSpecialties", "id", "name", data.id)
     });
 
@@ -207,6 +208,7 @@ $(document).ready(function() {
         $("#rangoFechas").val('');
         crearSelect($local.$cmbEscuela, "getSpecialties", "id", "name");
         crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
+        crearSelect($local.$cmbEstado, "getProcessState", "idProcessState", "stateName");
     }
 
     function filtrarRegistros() {

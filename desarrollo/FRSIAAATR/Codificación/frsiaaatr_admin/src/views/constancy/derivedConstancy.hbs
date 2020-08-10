@@ -68,22 +68,22 @@
                                             <div class="row">
                                                 <div class="col-lg-8">
                                                     <label for="disabledTextInput">Solicitante:</label>
-                                                    <input type="text" class="form-control" id="inputAddress" placeholder="AREVALO TORRES JOSÉ" disabled>
+                                                    <input type="text" value="{{solicitante}}" class="form-control" id="solicitante"  disabled>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <label for="disabledTextInput">DNI:</label>
-                                                    <input type="text" class="form-control" id="inputAddress" placeholder="71415424" disabled>
+                                                    <input type="text" value="{{dni}}" class="form-control" id="dni" disabled>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="disabledTextInput">Facultad:</label>
-                                            <input type="text" class="form-control" id="inputAddress" placeholder="AREVALO TORRES JOSÉ" disabled>
+                                            <input type="text" value="{{facultad}}" class="form-control" id="facultad" disabled>
                                             
                                         </div>
                                         <div class="form-group">
                                             <label for="disabledTextInput">Especialidad:</label>
-                                            <input type="text" class="form-control" id="inputAddress" placeholder="CABEZAS ARROYO SONIA VILMA" disabled>
+                                            <input type="text" value="{{especialidad}}" class="form-control" id="especialidad" disabled>
                                         </div>
 
                                         
@@ -101,33 +101,33 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="disabledTextInput">Número:</label>
-                                            <input type="text" id="disabledTextInput" class="form-control" placeholder="UNMSM-20200016709" disabled>
+                                            <input type="text" value="{{numero_expediente}}" id="disabledTextInput" class="form-control" disabled>
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="disabledTextInput">Fecha:</label>
-                                            <input type="text" id="disabledTextInput" class="form-control" placeholder="01/08/2020" disabled>
+                                            <input type="text" value="{{fecha_expediente_completa}}" id="disabledTextInput" class="form-control" disabled>
                                             </div>
                                         </div>
                                         
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="disabledTextInput">AÑO:</label>
-                                                <input type="text" id="disabledTextInput" class="form-control" placeholder="2020" disabled>
+                                                <input type="text" value="{{anio}}" id="disabledTextInput" class="form-control" disabled>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="disabledTextInput">Nro Emisión:</label>
-                                                <input type="text" class="form-control" id="inputNrEmision" placeholder="994" disabled>
+                                                <input type="text" value="{{numero_emision}}" class="form-control" id="inputNrEmision" disabled>
                                             </div>
                                         </div>  
 
                                         <div class="form-group">
-                                            <label for="disabledTextInput">Elaborado por:</label>
-                                            <input type="text" class="form-control" id="inputElaboradir" placeholder="CABEZAS ARROYO SONIA VILMA" disabled>
+                                            <label for="disabledTextInput">Encargado:</label>
+                                            <input type="text" value="{{encargado_expediente}}" class="form-control" id="inputElaboradir" disabled>
                                         </div>
 
                                          <div class="form-group">
                                             <label for="disabledTextInput">Estado:</label>
-                                            <input type="text" class="form-control" id="inputEstado" placeholder="Derivado" disabled>
+                                            <input type="text" value="{{estado_expediente}}" class="form-control" id="inputEstado" disabled>
                                         </div>                                   
                                         
                                     </form>
@@ -216,21 +216,21 @@
                                             <div class="form-group col-md-6">
                                             <label for="disabledTextInput">Tipo:</label>
                                                 <select class="form-control" id="exampleFormControlSelect1" >
-                                                <option>INFORME </option>
-                                                <option>DOCUMENTO</option>  
+                                                <option>CONSTANCIA DE INGRESO</option>
+                                                <option>OFICIO</option>  
                                                 </select>                                              
                                             </div>
 
                                             <div class="form-group col-md-6">
                                                 <label for="disabledTextInput">Fecha:</label>
-                                                <input type="text" class="form-control" id="inputAddress" placeholder="01/08/2020" disabled>
+                                                <input type="text" value="{{fecha_actual}}" class="form-control" id="inputAddress" disabled>
                                                                                           
                                             </div>
                                                                                         
                                         </div>
                                         <div class="form-group">
                                             <label for="disabledTextInput">Asunto:</label>
-                                            <textarea class="form-control " id="validationTextarea"  >Obtención de la constancia de ingreso DNI:3232303300</textarea>                                            
+                                            <textarea class="form-control " id="validationTextarea" placeholder="Porfavor complete el asunto correspondiente al expediente a trabajar."></textarea>                                            
                                         </div>
                                                                                
                                     </form>
@@ -329,3 +329,5 @@
     </div>        
 
 </div>
+
+<script src="/js/constancy/constancyProcessWork.js"></script>

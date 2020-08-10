@@ -181,7 +181,8 @@ ConstancyController.getPostulantRequestInfo = async(req, res) => {
 
     const idReview = req.params.id;
 
-    var q = `SELECT 
+    var q = `SELECT
+    p.id as idSolicitud, 
     p.code as codigoSolicitud,
     p.state_process as estadoSolicitud,
     pst.state_name as nombreEstadoSolicitud,  
@@ -205,6 +206,33 @@ ConstancyController.getPostulantRequestInfo = async(req, res) => {
     WHERE p.code = ` + idReview;
 
     const result = await sequelizeDB.query(q);
+    res.send(result[0]);
+
+}
+
+//Actualizar estado de requisito y registrar en seguimiento
+ConstancyController.updateRequestState = async(req, res) => {
+
+    const stateRequirement = req.body.state; //Estado de Requerimiento
+    const idProcess = req.body.idProcess; //id de Solcitud
+    const idRequirement = req.body.idRequirement; //id de Requerimiento
+
+    var q = `UPDATE requirement r 
+        SET r.state_requirement = ` + stateRequirement +
+        ` WHERE r.process_id = ` + idProcess +
+        ` AND r.idrequirement = ` + idRequirement;
+
+    /*Acá será un procedure que actualice el estado del requisito y ingrese el cambio de estado
+    de la solicitud en una tabla de seguimiento */
+    await sequelizeDB.query(q);
+
+    var q2 = `SELECT r.*, rs.state_name FROM requirement r
+        LEFT JOIN requirement_state rs
+        ON r.state_requirement = rs.idrequirement_state 
+        WHERE r.idrequirement = ` + idRequirement +
+        ` AND r.process_id = ` + idProcess;
+    var result = await sequelizeDB.query(q2);
+
     res.send(result[0]);
 
 }

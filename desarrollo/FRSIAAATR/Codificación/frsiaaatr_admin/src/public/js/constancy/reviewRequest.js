@@ -116,7 +116,8 @@ $(document).ready(function() {
                     { "fechaSolicitud": data[0].fechaSolicitud },
                     { "fechaCambio": data[0].fechaCambio }
                 ];
-                console.log(info);
+
+                $("#idSolicitud").val(data[0].idSolicitud); //idSolicitud (PK)
                 return info;
             },
             "beforeSend": function(xhr) {
@@ -153,7 +154,7 @@ $(document).ready(function() {
         }, {
             "render": function(data, type, row) {
                 if (row.hasOwnProperty('nombreConstancia')) {
-                    return row.nombreConstancia
+                    return "Constancia de Ingreso - " + row.nombreConstancia
                 } else if (row.hasOwnProperty('estadoSolicitud')) {
                     var resultado;
                     switch (row.estadoSolicitud) {
@@ -194,5 +195,45 @@ $(document).ready(function() {
         fnDrawCallback: function() { $("#tblInfo").find("thead").remove(); }
     });
 
+    //Aprobar requisito
+    $local.$tblRequisitos.children("tbody").on("click", ".aprobar", function() {
+
+        var filaSeleccionada = $(this).parents("tr");
+        var dataRequisito = $local.tblRequisitos.row(filaSeleccionada).data();
+        var idSolicitud = $("#idSolicitud").val();
+
+        //console.log(dataRequisito);
+
+        var data = {
+            idProcess: idSolicitud,
+            idRequirement: dataRequisito.codigoRequisito,
+            state: 4 //Estado APROBADO
+        }
+
+        //console.log(data);
+
+        $.ajax({
+            type: "PUT",
+            url: "../../constancy/update-req-state",
+            data: JSON.stringify(data),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+            },
+            success: function(response) {
+                console.log(response);
+                $local.tblRequisitos.row(filaSeleccionada).remove().draw(false);
+
+                dataRequisito.estadoRequisito = response[0].state_requirement;
+                dataRequisito.nombreEstadoRequisito = response[0].state_name;
+                //dataRequisito.estadoRequisito
+
+                var row = $local.tblRequisitos.row.add(dataRequisito).draw();
+                //$(row.node()).animateHighlight();
+            },
+            error: function(response) {},
+            complete: function(response) {}
+        });
+
+    });
 
 });

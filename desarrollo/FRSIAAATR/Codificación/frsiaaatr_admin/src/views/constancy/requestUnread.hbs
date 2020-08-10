@@ -182,24 +182,23 @@
                                                     documento:</label>
                                                 <div class="col-lg-3">
                                                     <input type="text" class="form-control" id="numeroDocumento"
-                                                        placeholder="N°">
+                                                        placeholder="N° de documento">
                                                 </div>
 
                                             </div>
 
                                             <div class="form-group row">
 
-                                                <label class="col-lg-2 col-form-label">Numero de
-                                                    expediente:</label>
+                                                <label class="col-lg-2 col-form-label">Código solicitud:</label>
                                                 <div class="col-lg-3">
-                                                    <input type="text" class="form-control" id="numeroExpediente"
-                                                        placeholder="N°">
+                                                    <input type="text" class="form-control" id="codigoSolicitud"
+                                                        placeholder="Código de solicitud">
                                                 </div>
                                                 <div class="col-lg-1"></div>
                                                 <label class="col-lg-2 col-form-label">Escuela:</label>
                                                 <div class="col-lg-3">
                                                     <select id="cmbEscuela" class="form-control select2"
-                                                        name="cmbEscuela">
+                                                        name="cmbEscuela" style="width: 100%;">
                                                     </select>
                                                 </div>
 
@@ -220,10 +219,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-1"></div>
-                                                <label class="col-lg-2 col-form-label">Tipo trámite</label>
+                                                <label class="col-lg-2 col-form-label">Facultad</label>
                                                 <div class="col-lg-3">
-                                                    <select id="cmbTipoTramite" class="form-control select2"
-                                                        name="cmbTipoTramite">
+                                                    <select id="cmbFacultad" class="form-control select2"
+                                                        name="cmbFacultad">
                                                     </select>
                                                 </div>
                                             </div>
@@ -246,7 +245,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <button style="float: right;" type="button" id="buttonSearch"
+                                                    <button style="float: right;" type="button" id="btnSearch"
                                                         class="btn btn-outline btn-primary bg-primary-400 text-primary-400 border-primary-400">
                                                         BUSCAR <i class="icon-search4 ml-2"></i>
                                                     </button>
@@ -262,157 +261,11 @@
                         </div>
 
                         <br><br>
-                        <div class="table-responsive">
+                        <div class="table-responsive" id="tblNlBlock">
                             <table id="tblNoLeidos"
                                 class="table tasks-list table-lg dataTable no-footer table-striped table-hover"
                                 role="grid" aria-describedby="DataTables_Table_0_info" style="width: 100%;"></table>
                         </div>
-                        {{!-- <div
-                            class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
-                            Las diferentes solicitudes de los postulantes para iniciar el proceso de solicitud de
-                            trámite de
-                            constancia se mostrarán aquí. Contiene:
-                            <ul>
-                                <li>Filtros requeridos que se encuentran debajo para aplicar una búsqueda más precisa
-                                </li>
-                                <li>Ajustar la visibilidad de las columnas según crea conveniente (botón "COLUMNAS")
-                                </li>
-                                <li>Abrir las solicitudes en nuevas pestañas, para revisar a detalle el estado de la
-                                    solicitud</li>
-                            </ul>
-                        </div> --}}
-
-                        {{!-- <div class="card-body" style="padding-bottom: 0px;">
-                            <div class="form-group row">
-
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Rango de fechas:</label>
-                                    <div class="col-lg-12">
-                                        <div class="input-group">
-                                            <span class="input-group-prepend">
-                                                <span class="input-group-text"><i class="icon-calendar22"></i></span>
-                                            </span>
-                                            <input style="float: left;" type="text" id="rangoFechas"
-                                                class="form-control daterange-basic" value="07-07-2020  17-07-2020">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Facultad:</label>
-                                    <div class="col-lg-12">
-                                        <select class="form-control form-control-select2" id="cmbGrado">
-                                            <option>Seleccione una facultad</option>
-                                            <option>Facultad de Medicina</option>
-                                            <option>Facultad de Economía</option>
-                                            <option>Facultad de Ciencias Sociales</option>
-                                            <option>Facultad de Derecho</option>
-                                            <option>Facultad de Odontologia</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Especialidad:</label>
-                                    <div class="col-lg-12">
-                                        <select class="form-control form-control-select2" id="cmbGrado">
-                                            <option>Seleccione una especialidad</option>
-                                            <option>Escuela de Enfermería</option>
-                                            <option>Escuela de Obstetricia</option>
-                                            <option>Escuela de Medicina Humana</option>
-                                            <option>Escuela de Nutrición</option>
-                                            <option>Escuela de Tecnología Medica</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <label></label>
-                                    <br></br>
-                                    <div class="row">
-                                        <button style="float: right;" type="button" id="btnReset"
-                                            class="col-lg-5 mr-1 btnMitad btn btn-outline btn-danger bg-danger-300 text-danger-300 border-danger-300">BORRAR<i
-                                                class="icon-eraser ml-1"></i></button>
-                                        <button style="float: left;" type="button" id="btnBuscar"
-                                            class="col-lg-5 ml-1 btnMitad btn btn-outline btn-primary bg-primary-300 text-primary-300 border-primary-300">BUSCAR
-                                            <i class="icon-search4 ml-2"></i></button>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <div class="form-group row">
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Nombres:</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" id="nombreCompletoEgresado"
-                                            placeholder="Nombre completo">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Apellido Paterno:</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" id="apellidoPaternoEgresado"
-                                            placeholder="Apellido Paterno">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Apellido Materno:</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" id="apellidoMaternoEgresado"
-                                            placeholder="Apellido Materno">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Modalidad:</label>
-                                    <div class="col-lg-12">
-                                        <select class="form-control form-control-select2" id="cmbModalidad">
-                                            <option>Seleccione una modalidad</option>
-                                            <option>Examen general</option>
-                                            <option>Primeros puestos</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group row">
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Tipo documento:</label>
-                                    <div class="col-lg-12">
-                                        <select class="form-control form-control-select2" id="cmbDocumento">
-                                            <option>Seleccione un tipo de documento</option>
-                                            <option>DNI</option>
-                                            <option>Libreta electoral</option>
-                                            <option>Pasaporte</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3">
-                                    <label class="col-lg-12 col-form-label">Numero de documento:</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" id="numeroDocumento"
-                                            placeholder="N° Documento">
-                                    </div>
-                                </div>
-                            </div>
-
-                            
-
-                        </div> --}}
-
-
-                    </div>
-                </div>
-
-                <div class="card col-md-12 col-sm-12 col-xs-12">
-                    <div class="card-body">
 
                     </div>
                 </div>
@@ -422,6 +275,21 @@
     </div>
 </div>
 
+<!-- Project JS files -->
+<script src="/js/constancy/constancy.js"></script>
+<!-- /projectFiles -->
+
+<!-- Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<!-- /select2 -->
+
+<!-- DataTables -->
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-<script src="/js/constancy/constancy.js"></script>
+<!-- /dataTables -->
+
+<!-- DatePicker -->
+<script src="../../../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
+	<script src="../../../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
+<!-- /daterangepicker -->

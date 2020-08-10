@@ -1,9 +1,12 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs"),
+    fs = require("fs"),
+    path = require("path");
 
 const Postulant = require("../models/postulant"),
     Department = require("../models/department"),
     Province = require("../models/province"),
     District = require("../models/district"),
+    Photo = require("../models/photo"),
     {createToken, getPayload} = require("../services/jwt"),
     PostulantController = {},
     saltRounds = 10;
@@ -30,8 +33,8 @@ PostulantController.loginView = async (req, res) => {
 PostulantController.registerView = async (req, res) => {
     try {
         const departments = await Department.findAll({raw: true});
-        const provinces = await Province.findAll({raw: true});
-        const districts = await District.findAll({raw: true});
+        const provinces = JSON.stringify(await Province.findAll({raw: true}));
+        const districts = JSON.stringify(await District.findAll({raw: true}));
 
         res.render("registro", {layout: null, data: {departments, provinces, districts}});
     } catch (error) {
@@ -43,6 +46,16 @@ PostulantController.prueba = async (req, res) => {
     res.render("prueba", {layout: "postulantelogin"});
 }
 
+PostulantController.getRegistrePhoto = async (req, res) => {
+    try {
+        const postulant = await Postulant.findByPk(3);
+        res.render("registroFotos", {layout: null, data: {id: postulant.id}});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({error: error.stack});
+    }
+};
+
 // Logic
 PostulantController.login = async (req, res) => {
     try {
@@ -52,7 +65,6 @@ PostulantController.login = async (req, res) => {
             }
         );
 
-        console.log(postulantFound)
         if (postulantFound) {
             const code = String("_" + dni + "_" + postulant_code);
             res.render("prueba", {layout: "postulantelogin", data: {code}});
@@ -90,14 +102,21 @@ PostulantController.loginCamera = async (req, res) => {
 PostulantController.register = async (req, res) => {
     try {
         const body = req.body;
-        const postulant = await Postulant.create();
+        const postulanteFormat = {
+            ...body,
+            state: 1,
+            acepted_state: 0
+        }
+        const postulant = await Postulant.create(postulanteFormat);
 
         let message = null;
-        if (!postulant)
+        if (!postulant) {
             message = postulant;
-
-        console.log(postulant)
-        res.redirect("/", {layout: null, data: {}, message});
+            console.log(message)
+            res.render("registro", {layout: null, data: {id: postulant.id}, message});
+        } else {
+            res.render("registroFotos", {layout: null, data: {id: postulant.id}});
+        }
 
     } catch (error) {
         console.log(error.stack);
@@ -105,13 +124,34 @@ PostulantController.register = async (req, res) => {
     }
 };
 
-PostulantController.getRegistrePhoto = async (req, res) => {
+PostulantController.registerPhotos = async (req, res) => {
     try {
-        res.render("registroFotos", {layout: null});
-    } catch (err) {
-        console.error(err);
+        const {id} = req.body;
+        const files = req.files;
+        const postulant = await Postulant.findByPk(id);
+
+        const dir = path.join(__dirname, `../public/perfiles/_${postulant.dni}_${postulant.postulant_code}`);
+        if (!fs.existsSync(dir))
+            fs.mkdirSync(dir, {recursive: true});
+
+        let photos = [];
+        for (let i = 0; i < files.length; i++) {
+            photos.push({
+                filename: files[i].originalname,
+                state: 1,
+                postulant_id: id
+            })
+            fs.renameSync(files[i].path, path.join(dir, `${files[i].originalname}`));
+        }
+
+        await Photo.bulkCreate(photos);
+
+        return res.status(200).send({message: true});
+    } catch (error) {
+        console.log(error.stack);
         return res.status(500).json({error: error.stack});
     }
 };
+
 
 module.exports = PostulantController;

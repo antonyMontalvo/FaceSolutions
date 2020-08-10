@@ -129,14 +129,14 @@ video.addEventListener('play', async () => {
             if (cantidad > 5) {
                 // FETCG
 
-                fetch('http://127.0.0.1:3000/api', {
-                    method: 'POST', // or 'PUT'
-                }).then(function (response) {
-                    console.log('entro a API');
-                })
-                    .catch(function (error) {
-                        console.log('Hubo un problema con la petición Fetch:' + error.message);
-                    });
+                // fetch('http://127.0.0.1:3000/api', {
+                //     method: 'POST', // or 'PUT'
+                // }).then(function (response) {
+                //     console.log('entro a API');
+                // })
+                //     .catch(function (error) {
+                //         console.log('Hubo un problema con la petición Fetch:' + error.message);
+                //     });
                 // FIN FETCH
             }
         })
@@ -156,7 +156,7 @@ function loadLabeledImages(dato) {
     return Promise.all(
         labels.map(async label => {
             const descriptions = []
-            for (let i = 1; i <= 2; i++) {
+            for (let i = 1; i <= 4; i++) {
                 const img = await faceapi.fetchImage(`/perfiles/${label}/${i}.jpg`);
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
                 descriptions.push(detections.descriptor);
@@ -165,4 +165,11 @@ function loadLabeledImages(dato) {
             return new faceapi.LabeledFaceDescriptors(label, descriptions);
         })
     )
+}
+
+async function verifyImages(imgE) {
+    const img = await faceapi.fetchImage(imgE);
+    const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+    return detections;
+
 }

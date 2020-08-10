@@ -5,9 +5,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="/css/style.css" type="text/css">
 
-    <title>Register | USER </title>
+    <!--    <script src="/assets/js/main/jquery.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
+    <title>Registro | Usuario </title>
 </head>
 
 <body>
@@ -19,23 +23,21 @@
     </div>
 
     <div class="formulario">
-        <form>
+        <form action="/register" method="POST">
             <div class="row">
                 <div class="col-f" style="margin-right: 10px;">
                     <label>Apellido Paterno</label>
                     <div class="inputWithIcon">
-
-                        <input type="email" placeholder="Tú apellido paterno" required>
+                        <input type="text" name="last_name_1" placeholder="Tú apellido paterno" required>
                         <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         <span class="underline"></span>
                     </div>
                 </div>
-                <div class="col-f">
 
+                <div class="col-f">
                     <label>apellido Materno</label>
                     <div class="inputWithIcon">
-
-                        <input type="email" placeholder="Tú apellido materno" required>
+                        <input type="text" name="last_name_2" placeholder="Tú apellido materno" required>
                         <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         <span class="underline"></span>
                     </div>
@@ -45,17 +47,16 @@
                 <div class="col-f" style="margin-right: 10px;">
                     <label>Nombre</label>
                     <div class="inputWithIcon">
-
-                        <input type="email" placeholder="Tú nombre" required>
+                        <input type="text" name="name" placeholder="Tú nombre" required>
                         <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         <span class="underline"></span>
                     </div>
                 </div>
+
                 <div class="col-f">
                     <label>Fecha de Nacimiento</label>
                     <div class="inputWithIcon">
-
-                        <input id="date" type="date" required>
+                        <input id="date" type="date" name="birthdate" required>
                         <span class="underline"></span>
                     </div>
                 </div>
@@ -64,16 +65,16 @@
                 <div class="col-f" style="margin-right: 10px;">
                     <label>Domicilio</label>
                     <div class="inputWithIcon">
-
-                        <input type="email" placeholder="Tu Domicilio" required>
+                        <input type="text" name="address" placeholder="Tu Domicilio" required>
                         <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         <span class="underline"></span>
                     </div>
                 </div>
+
                 <div class="col-f">
                     <label>Correo</label>
                     <div class="inputWithIcon">
-                        <input type="text" placeholder="Tu Correo" required>
+                        <input type="email" name="email" placeholder="Tu Correo" required>
                         <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         <span class="underline"></span>
                     </div>
@@ -84,19 +85,16 @@
                 <div class="col-f" style="margin-right: 10px;">
                     <label>DNI</label>
                     <div class="inputWithIcon">
-
-                        <input type="text" placeholder="Tu DNI" required>
+                        <input type="text" name="dni" placeholder="Tu DNI" required>
                         <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         <span class="underline"></span>
                     </div>
                 </div>
 
-
                 <div class="col-f">
                     <label>Teléfono</label>
                     <div class="inputWithIcon">
-
-                        <input type="text" placeholder="Tu Telefono" required>
+                        <input type="text" name="cell_phone" placeholder="Tu Telefono" required>
                         <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         <span class="underline"></span>
                     </div>
@@ -107,31 +105,28 @@
                 <div class="col-f" style="margin-right: 10px;">
                     <label>Codigo Postulante</label>
                     <div class="inputWithIcon">
-
-                        <input type="text" placeholder="Tu Codigo" required>
+                        <input type="text" name="postulant_code" placeholder="Tu Codigo" required>
                         <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
                         <span class="underline"></span>
                     </div>
                 </div>
 
-
                 <div class="col-f">
                     <label>Fecha de postulacion</label>
                     <div class="inputWithIcon">
-
-                        <input id="date" type="date" required>
+                        <input id="date" type="date" name="date_postulation" required>
                         <span class="underline"></span>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-
                 <div class="col-f" style="margin-right: 10px;">
                     <div class="form-group">
                         <label>Departamento</label>
                         <div class="inputWithIcon">
-                            <select onchange="selectProvinces({{data.provinces}})" data-placeholder="Select ">
+                            <select onchange="selectProvinces('{{data.provinces}}')" id="department"
+                                    data-placeholder="Select " required>
                                 <option selected value="0" hidden></option>
                                 {{#each data.departments}}
                                     <option value="{{id}}">{{name}}</option>
@@ -142,21 +137,32 @@
                     </div>
                 </div>
 
-
                 <div class="col-f">
                     <label>Provincia</label>
                     <div class="inputWithIcon">
-                        <select onchange="" data-placeholder="Select " data-fouc>
+                        <select onchange="selectDistricts('{{data.districts}}')" id="province"
+                                data-placeholder="Select " required>
                             <option selected value="0" hidden></option>
-                            {{#each data.provinces}}
-                                <option value="{{id}}">{{name}}</option>
-                            {{/each}}
                         </select>
                         <span class="underline"></span>
                     </div>
                 </div>
             </div>
-            <input type="submit" class="btn-login btn-chico" id="loadPhoto" value="Cargar fotos">
+
+            <div class="row">
+                <div class="col-f" style="margin-right: 10px;">
+                    <div class="form-group">
+                        <label>Distrito</label>
+                        <div class="inputWithIcon">
+                            <select id="district" name="district_id" data-placeholder="Select " required>
+                                <option selected value="0" hidden></option>
+                            </select>
+                            <span class="underline"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn-login btn-chico" value="Cargar fotos">
         </form>
     </div>
 
@@ -168,14 +174,34 @@
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
 <script>
-    const load = document.querySelector('#loadPhoto');
-    load.addEventListener('click', function () {
-        window.location.href = "http://localhost:3000/registreFotos"
-    })
+    function selectProvinces(provinces) {
+        const prov = JSON.parse(provinces);
+        const dep = document.getElementById("department").value;
+        const newArray = prov.filter(el => el.department_id == dep);
 
-    function selectProvinces(y){
-        // console.log(x)
-        console.log(y)
+        let provinceSelect = document.getElementById("province");
+        provinceSelect.options.length = 1;
+        let option = document.createElement("option");
+        for (let i = 0; i < newArray.length; i++) {
+            option.text = newArray[i].name;
+            option.value = newArray[i].id;
+            provinceSelect.appendChild(option);
+        }
+    }
+
+    function selectDistricts(districts) {
+        const disc = JSON.parse(districts);
+        const pro = document.getElementById("province").value;
+        const newArray = disc.filter(el => el.province_id == pro);
+
+        let districtSelect = document.getElementById("district");
+        districtSelect.options.length = 1;
+        let option = document.createElement("option");
+        for (let i = 0; i < newArray.length; i++) {
+            option.text = newArray[i].name;
+            option.value = newArray[i].id;
+            districtSelect.appendChild(option);
+        }
     }
 </script>
 

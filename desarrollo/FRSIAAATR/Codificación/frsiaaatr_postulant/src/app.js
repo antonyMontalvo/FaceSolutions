@@ -45,7 +45,7 @@ app.use(
  */
 app.use(morgan("dev")); // permite que las peticiones se vean en la consola
 app.use(express.json()); // reemplaza a body-parser
-app.use(express.urlencoded({extended: true, limit: '5mb'}));
+app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 /**

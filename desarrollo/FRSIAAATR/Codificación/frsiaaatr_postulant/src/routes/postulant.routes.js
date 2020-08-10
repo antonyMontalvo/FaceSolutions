@@ -5,18 +5,29 @@ const postulantController = require("../controllers/postulant.controller"),
     UploadImage = require('../services/files'),
     {checkToken} = require("../middlewares/auth");
 
+const path = require('path')
+
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, path.join(__dirname + "/../public/moment"))
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)
+    },
+})
+
+const upload = multer({storage: storage})
+
 router
     .get("/", checkToken, postulantController.getIndex)
     .get("/login", postulantController.loginView)
     .get("/register", postulantController.registerView)
     .post("/login", postulantController.login)
-    .post("/register", UploadImage.userPhoto, postulantController.register)
+    .post("/register", postulantController.register)
     .get("/registreFotos", postulantController.getRegistrePhoto)
-    .post("/registreFotos", (req, res) => {
-        console.log("xd", req);
-        console.log("xd", req.body);
-        return res.status(200).json({error: ''});
-    })
+    .post("/registreFotos", upload.array("images", 10), postulantController.registerPhotos)
     .get("/facial", postulantController.prueba)
 
 module.exports = router;

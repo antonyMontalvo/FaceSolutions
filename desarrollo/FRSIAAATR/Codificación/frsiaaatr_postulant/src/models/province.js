@@ -1,24 +1,30 @@
-const { DataTypes } = require("sequelize");
-const { sequelizeDB } = require("../../config/database");
+const {DataTypes} = require("sequelize");
+const {sequelizeDB} = require("../../config/database");
+const Department = require("./department");
 
 const Province = sequelizeDB.define(
-  "province",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
+    "province",
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+        },
+        name: {
+            type: DataTypes.STRING,
+        },
+        ubigeo_code: {
+            type: DataTypes.STRING,
+        },
+        department_id: {
+            type: DataTypes.INTEGER,
+        },
     },
-    name: {
-      type: DataTypes.STRING,
-    },
-    ubigeo_code: {
-      type: DataTypes.STRING,
-    },
-  },
-  {
-    freezeTableName: true,
-    timestamps: false,
-  }
+    {
+        freezeTableName: true,
+        timestamps: false,
+    }
 );
+
+Province.belongsTo(Department, { as: "department", foreignKey: "department_id" });
 
 module.exports = Province;

@@ -2,7 +2,7 @@ const multer = require('multer'),
     path = require('path'),
     UploadFile = {}
 
-const fileSize = 1024*1024*2;
+const fileSize = 1024*1024*10;
 const fileFilter = ( req , file, cb) => {
     if( file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
         cb( null, true)
@@ -14,11 +14,10 @@ const fileFilter = ( req , file, cb) => {
 
 const storage = multer.diskStorage({
     destination: function(req,file,cb){
-        cb( null, path.join(__dirname + "../public/perfiles"))
+        cb( null, path.join(__dirname + "/../public/moment"))
     },
     filename: function(req, file, cb){
-        req.fileName = Date.now() + path.extname( file.originalname )
-        cb( null, req.fileName )
+        cb( null, file.originalname )
     }
 })
 
@@ -39,6 +38,12 @@ UploadFile.userPhoto = ( req, res, next ) => {
             return res.status(422).json({ error: req.fileValidationError })
         }
     })
+}
+
+UploadFile.photos = ( req, res, next ) => {
+    const uploadPhotos = multer({
+        storage: storage,
+    }).array('images',10)
 }
 
 module.exports = UploadFile

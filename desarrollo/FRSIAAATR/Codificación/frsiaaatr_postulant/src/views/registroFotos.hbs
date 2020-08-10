@@ -7,11 +7,9 @@
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <title>Tomar foto con Javascript</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
-
     <style>
         @media only screen and (max-width: 700px) {
             video {
@@ -26,7 +24,6 @@
         <section class="register" style="min-height: 100vh;">
             <div class="formulario"
                 style="height: 400px;background: rgb(240, 81, 81);display: flex;align-items: center;justify-content: center;">
-
                 <button id="openCamara" onclick="document.getElementById('id01').style.display='block'" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
                     background: #343a40!important;" class="w3-button w3-black">
                     <div style="display: flex;justify-content: center;width: 100%;">
@@ -36,6 +33,14 @@
                         <label>abrir camara</label>
                     </div>
                 </button>
+            </div>
+            <div class="imagen-upload"
+                style="display: flex;align-items: center;justify-content: center;flex-wrap: wrap;">
+                <img id="image-preview1" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+                <img id="image-preview2" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+                <img id="image-preview3" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+                <img id="image-preview4" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+                <img id="image-preview5" style="height: 500px !important;width:400px!important;padding: 20px 20px">
             </div>
             <select name="listaDeDispositivos" id="listaDeDispositivos" style="display: none;" type="hidden"></select>
             <div id="id01" class="w3-modal">
@@ -56,13 +61,15 @@
                 </div>
             </div>
 
-            <div id="photo"></div>
+            {{!-- <div id="photo"></div> --}}
+
+            <button>Registrar Foto</button>
         </section>
     </div>
 </body>
 <script>
 
-    let contador = 0;
+    let contador = 1;
     $openCamara = document.querySelector("#openCamara");
     $openCamara.addEventListener("click", function () {
         const tieneSoporteUserMedia = () =>
@@ -152,18 +159,12 @@
 
 
 
-
-            const DataURIToBlob = (dataURI) => {
-                const splitDataURI = dataURI.split(',')
-                const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
-                const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
-
-                const ia = new Uint8Array(byteString.length)
-                for (let i = 0; i < byteString.length; i++)
-                    ia[i] = byteString.charCodeAt(i)
-
-                return new Blob([ia], { type: mimeString })
+            const blobToFile = (blob, suffix) => {
+                return new File([blob], `${new Date().toISOString()}__${suffix}.jpg`, {
+                    type: 'application/jpeg'
+                });
             }
+
 
             const mostrarStream = (idDeDispositivo) => {
                 _getUserMedia(
@@ -199,7 +200,6 @@
 
                         //Escuchar el click del botón para tomar la foto
                         $boton.addEventListener("click", function () {
-                            contador++;
                             //Pausar reproducción
                             $video.pause();
 
@@ -210,6 +210,7 @@
                             contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
                             let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                            let data = new FormData();
 
 
 
@@ -217,29 +218,36 @@
                                 .then(res => res.blob())
                                 .then(blob => {
                                     var fd = new FormData()
-                                    const file = new File([blob], "filename.jpeg");
-                                    fd.append('image', file)
+                                    const file = blobToFile(blob, 'test');
+                                    console.log(file);
+                                    fd.append('photoMe', file, 'imagen.jpg')
                                     fetch('http://localhost:3000/registreFotos',
                                         {
                                             method: 'post',
                                             body: fd,
-                                            headers: {
-                                                'Content-Type': 'multipart/form-data',
-                                            },
+
                                         }).then(res => res.json())
                                         .then(res => console.log(res))
 
                                 })
 
+
+
+
                             let enlace = document.createElement("a"); // Crear un <a>
                             enlace.download = "foto_me.png";
                             enlace.href = foto;
-                            // var formData = new FormData();
-                            // formData.append('imagen_Data', foto);
+
                             enlace.click();
                             document.getElementById('id01').style.display = 'none'
+                            var idImg = ('image-preview' + contador).toString();
+                            console.log(idImg);
+                            const idImg1 = document.getElementById(idImg);
+                            idImg1.src = 'https://i.picsum.photos/id/213/200/300.jpg?hmac=t-54teMEgFL3q9WPaRq2t7YdGCU9aIRw77OCaHlSVRs';
                             // openCamara.style.background = "yellow"
-                            //$video.play();
+                            //$video.pause();
+                            contador++;
+
                         });
                     },
                     (error) => {

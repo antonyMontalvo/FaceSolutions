@@ -9,19 +9,21 @@ const morgan = require("morgan"),
   express = require("express"),
   app = express();
 
+var fileupload = require("express-fileupload");
+app.use(fileupload());
+
+var bodyParser = require("body-parser");
 /**
  * Settings
  */
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config(); // variables de entorno
 }
-
 const HOST = process.env.APP_HOST ? process.env.APP_HOST : "0.0.0.0",
   routes = require("./routes/index");
-
 app.set("port", process.env.APP_PORT ? process.env.APP_PORT : 3000);
 app.set("views", path.join(__dirname, "views"));
-app.set('view engine', 'hbs');
+app.set("view engine", "hbs");
 app.engine(
   ".hbs",
   expbhs({
@@ -36,8 +38,17 @@ app.engine(
  * Middlewares
  */
 app.use(morgan("dev")); // permite que las peticiones se vean en la consola
-app.use(express.json()); // reemplaza a body-parser
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.json()); // reemplaza a body-parser
+// app.use(express.urlencoded({ extended: true }));
+
+app.use(bodyParser.json({ limit: "50mb", extended: true }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "50mb",
+    extended: true,
+    parameterLimit: 1000000,
+  })
+);
 app.use(cors());
 
 /**

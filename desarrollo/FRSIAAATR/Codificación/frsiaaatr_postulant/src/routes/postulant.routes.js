@@ -9,11 +9,11 @@ router.get("/login", postulantController.getLogin);
 router.get("/registre", postulantController.getRegistre);
 router.get("/registreFotos", postulantController.getRegistrePhoto);
 router.post("/registreFotos", (req, res) => {
-  console.log("xd", req.body);
+  console.log("salida", req.files);
 });
 
 router.post("/login", (req, res) => {
-  console.log("xddd", req);
+  console.log("xddd");
 });
 
 module.exports = router;

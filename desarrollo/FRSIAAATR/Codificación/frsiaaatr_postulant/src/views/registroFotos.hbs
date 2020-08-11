@@ -222,9 +222,9 @@
             formData.append('images', images[i]);
         }
 
-        const img = await faceapi.fetchImage(images[0].path);
-        const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-        if (!detections) {
+        // const img = await faceapi.fetchImage(images[0].path);
+        // const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+        // if (!detections) {
             console.log("error no cumple")
         await fetch('http://localhost:3000/registreFotos', {
             method: 'POST', // or 'PUT'
@@ -238,7 +238,7 @@
                     }
                 });
 
-        }
+        // }
 
     }
 

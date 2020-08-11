@@ -29,5 +29,6 @@ router
     .get("/registreFotos", postulantController.getRegistrePhoto)
     .post("/registreFotos", upload.array("images", 10), postulantController.registerPhotos)
     .get("/facial", postulantController.prueba)
+    .get("/profile", postulantController.profile)
 
 module.exports = router;

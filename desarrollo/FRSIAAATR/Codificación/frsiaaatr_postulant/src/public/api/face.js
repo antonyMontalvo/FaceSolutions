@@ -8,6 +8,7 @@
 
 var dato = null;
 var ayuda = [];
+var cantidad=0;
 console.log(typeof (cantidad));
 const formularioPostulante = document.getElementById('formularioPostulante');
 const loading = document.getElementById('loading');
@@ -72,7 +73,6 @@ console.log('prueba 1');
 console.log('prueba 2');
 
 video.addEventListener('play', async () => {
-    let cantidad = 0;
 
 
     console.log('prueba 3');

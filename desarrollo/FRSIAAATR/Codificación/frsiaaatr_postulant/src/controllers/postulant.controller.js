@@ -154,4 +154,13 @@ PostulantController.registerPhotos = async (req, res) => {
 };
 
 
+PostulantController.profile = async(req, res) => {
+    try {
+        res.render("postulant/profile");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
 module.exports = PostulantController;

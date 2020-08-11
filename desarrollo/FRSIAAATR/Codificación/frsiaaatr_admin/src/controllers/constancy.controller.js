@@ -214,24 +214,63 @@ ConstancyController.getPostulantRequestInfo = async(req, res) => {
 ConstancyController.updateRequestState = async(req, res) => {
 
     const stateRequirement = req.body.state; //Estado de Requerimiento
-    const idProcess = req.body.idProcess; //id de Solcitud
+    const idProcess = req.body.idProcess; //id de Solicitud
     const idRequirement = req.body.idRequirement; //id de Requerimiento
+    const observation = req.body.observation;
 
+    //Actualizando estado de requisito
     var q = `UPDATE requirement r 
         SET r.state_requirement = ` + stateRequirement +
-        ` WHERE r.process_id = ` + idProcess +
+        `, r.description = '` + observation +
+        `' WHERE r.process_id = ` + idProcess +
         ` AND r.idrequirement = ` + idRequirement;
 
-    /*Acá será un procedure que actualice el estado del requisito y ingrese el cambio de estado
-    de la solicitud en una tabla de seguimiento */
     await sequelizeDB.query(q);
 
-    var q2 = `SELECT r.*, rs.state_name FROM requirement r
+    //Si se va a observar...
+    if (stateRequirement == 2) {
+        var q2 = `SELECT
+        state_requirement as estadoRequisito, 
+        COUNT(state_requirement) as cantidadRequisitos
+        FROM requirement 
+        WHERE process_id = ` + idProcess +
+            ` GROUP BY state_requirement`;
+
+        var stateQty = await sequelizeDB.query(q2);
+        var arrayState = stateQty[0];
+
+        var requestObs = false,
+            newRequestState;
+        arrayState.forEach(function(r, index, value) {
+            //Contando la cantidad de requisitos observados de la solcitud
+            if (r.estadoRequisito == 2 && r.cantidadRequisitos >= 1) {
+                requestObs = true;
+                newRequestState = 2;
+            }
+            //Falta cambiar que cuando todos esten aprobados, cambie el estadito también... 
+        });
+
+        //Si tiene al menos un requisito observado, la solicitud se observa
+        if (requestObs) {
+            var q3 = `UPDATE process p 
+                SET p.state_process = ` + newRequestState +
+                ` WHERE p.id = ` + idProcess;
+
+            await sequelizeDB.query(q3);
+        }
+    }
+
+    //Devolviendo el requisito actualizado (y el estado de la solicitud)
+    var q4 = `SELECT r.*, rs.state_name, p.state_process, ps.state_name as state_name_process FROM requirement r
         LEFT JOIN requirement_state rs
-        ON r.state_requirement = rs.idrequirement_state 
+        ON r.state_requirement = rs.idrequirement_state
+        LEFT JOIN process p
+        ON r.process_id = p.id
+        LEFT JOIN process_state ps
+        ON p.state_process = ps.idprocess_state
         WHERE r.idrequirement = ` + idRequirement +
         ` AND r.process_id = ` + idProcess;
-    var result = await sequelizeDB.query(q2);
+    var result = await sequelizeDB.query(q4);
 
     res.send(result[0]);
 

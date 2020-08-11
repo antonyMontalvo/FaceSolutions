@@ -69,6 +69,50 @@ $(document).ready(function() {
 
             });
             select.val('').trigger("change");
+        },
+
+        notificationWithInput(title, input, placeholder, button, type, attributes, options, openFunction, resultFunction) {
+            var btnConfirm;
+            if (type == "warning") {
+                btnConfirm = 'btn btn-danger';
+            } else {
+                btnConfirm = 'btn btn-primary';
+            }
+
+            var swalInit = swal.mixin({
+                buttonsStyling: false,
+                confirmButtonClass: btnConfirm,
+                cancelButtonClass: 'btn btn-light'
+            });
+
+            if (Array.isArray(button)) {
+                swalInit.fire({
+                    title: title,
+                    input: input,
+                    inputPlaceholder: placeholder,
+                    showCancelButton: true,
+                    cancelButtonText: button[0],
+                    confirmButtonText: button[1],
+                    inputClass: 'form-control select-single',
+                    inputAttributes: attributes,
+                    inputOptions: options,
+                    onOpen: openFunction
+                }).then(resultFunction);
+
+            } else {
+                swalInit.fire({
+                    title: title,
+                    input: input,
+                    inputPlaceholder: placeholder,
+                    showCancelButton: true,
+                    cancelButtonText: button,
+                    inputClass: 'form-control select-single',
+                    inputAttributes: attributes,
+                    inputOptions: options,
+                    onOpen: openFunction
+                }).then(resultFunction);
+            }
+
         }
 
     }

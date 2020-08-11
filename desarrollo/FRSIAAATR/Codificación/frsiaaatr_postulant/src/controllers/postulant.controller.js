@@ -163,4 +163,22 @@ PostulantController.profile = async(req, res) => {
     }
 };
 
+PostulantController.correccion = async(req, res) => {
+    try {
+        res.render("postulant/tramitesCorreccion");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+PostulantController.rechazados = async(req, res) => {
+    try {
+        res.render("postulant/tramitesRechazados");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+};
+
+
 module.exports = PostulantController;

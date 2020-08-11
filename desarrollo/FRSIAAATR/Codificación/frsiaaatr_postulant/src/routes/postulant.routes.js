@@ -31,4 +31,7 @@ router
     .get("/facial", postulantController.prueba)
     .get("/profile", postulantController.profile)
 
+    .get("/TramitesCorreccion", postulantController.correccion)
+    .get("/TramitesRechazados", postulantController.rechazados)
+
 module.exports = router;

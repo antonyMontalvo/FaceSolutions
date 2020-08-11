@@ -47,72 +47,98 @@
 
                             </div>
 
-                            <div class="btn-group btn-group-lg " role="group" >
-                                    <button type="button" class="btn btn-primary btn-lg"><i class="far fa-save"></i> Grabar</button>
-                                    <button type="button" class="btn btn-primary btn-lg"><i class="fas fa-pencil-alt"></i> Firmar Doc.</button>
-                                    <button type="button" class="btn btn-primary btn-lg"><i class="fas fa-cloud-upload-alt"></i> Cargar Doc.</button>
-                                    <button type="button" class="btn btn-primary btn-lg"> <i class="fas fa-paperclip"></i> Cargar Anexos</button>
-                                    <button type="button" class="btn btn-primary btn-lg"><i class="fas fa-times"></i> Anular</button>
-                                    <button type="button" class="btn btn-primary btn-lg"><i class="fas fa-arrow-left"></i> Cerrar</button>
-                                    <button type="button" class="btn btn-primary btn-lg"><i class="fas fa-sign-out-alt"></i> Salir</button>
+                            <div class="btn-group btn-group-lg btn-group-justified " role="group"  >
+                                    <button type="button" class="btn btn-primary "><i class="far fa-save"></i> Grabar</button>
+                                    <button type="button" class="btn btn-primary "><i class="far fa-file-alt"></i> Generar Doc.</button>
+                                    <button type="button" class="btn btn-primary "><i class="fas fa-cloud-upload-alt"></i> Cargar Doc.</button>
+                                    <button type="button" class="btn btn-primary "> <i class="fas fa-paperclip"></i> Cargar Anexos</button>
+                                    <button type="button" class="btn btn-primary "><i class="fas fa-times"></i> Anular</button>
+                                    <button type="button" class="btn btn-primary "><i class="fas fa-arrow-left"></i> Cerrar</button>
+                                    <button type="button" class="btn btn-primary "><i class="fas fa-sign-out-alt"></i> Salir</button>
                             </div><br><br><br>
                            
                            <div class="row">
+                                <div class="col-sm-6">
+                                <div class="card border-primary">
+                                    <h5 class="card-header border-primary  bg-primary text-whit">REMITENTE</h5>
+                                <div class="card-body">
+                                    
+                                    <form>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-lg-8">
+                                                    <label for="disabledTextInput">Solicitante:</label>
+                                                    <input type="text" value="{{solicitante}}" class="form-control" id="solicitante"  disabled>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label for="disabledTextInput">DNI:</label>
+                                                    <input type="text" value="{{dni}}" class="form-control" id="dni" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledTextInput">Facultad:</label>
+                                            <input type="text" value="{{facultad}}" class="form-control" id="facultad" disabled>
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledTextInput">Especialidad:</label>
+                                            <input type="text" value="{{especialidad}}" class="form-control" id="especialidad" disabled>
+                                        </div>
+
+                                        
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+
                             <div class="col-sm-6">
                                 <div class="card border-primary">
                                     
-                                    <h5 class="card-header border-primary text-primary">EXPEDIENTE</h5>
+                                <h5 class="card-header border-primary  bg-primary text-whit">EXPEDIENTE</h5>
                                 <div class="card-body">                                    
                                     <form>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="disabledTextInput">Número:</label>
-                                            <input type="text" id="disabledTextInput" class="form-control" placeholder="UNMSM-20200016709" disabled>
+                                            <input type="text" value="{{numero_expediente}}" id="disabledTextInput" class="form-control" disabled>
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="disabledTextInput">Fecha:</label>
-                                            <input type="text" id="disabledTextInput" class="form-control" placeholder="01/08/2020" disabled>
+                                            <input type="text" value="{{fecha_expediente_completa}}" id="disabledTextInput" class="form-control" disabled>
                                             </div>
                                         </div>
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="disabledTextInput">AÑO:</label>
+                                                <input type="text" value="{{anio}}" id="disabledTextInput" class="form-control" disabled>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="disabledTextInput">Nro Emisión:</label>
+                                                <input type="text" value="{{numero_emision}}" class="form-control" id="inputNrEmision" disabled>
+                                            </div>
+                                        </div>  
+
                                         <div class="form-group">
-                                            <label for="disabledTextInput">Proceso:</label>
-                                            <input type="text" class="form-control" id="inputAddress" placeholder="BACHILLER-OBTENCIÓN DE LA CONSTANCIA DE INGRESO" disabled>
+                                            <label for="disabledTextInput">Encargado:</label>
+                                            <input type="text" value="{{encargado_expediente}}" class="form-control" id="inputElaboradir" disabled>
                                         </div>
+
+                                         <div class="form-group">
+                                            <label for="disabledTextInput">Estado:</label>
+                                            <input type="text" value="{{estado_expediente}}" class="form-control" id="inputEstado" disabled>
+                                        </div>                                   
                                         
                                     </form>
                                     
                                 </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="card  border-primary">
-                                <div class="card-body">
-                                    <form>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                            <label for="disabledTextInput">AÑO:</label>
-                                            <input type="text" id="disabledTextInput" class="form-control" placeholder="2020" disabled>
-                                            </div>
-
-
-                                            <div class="form-group col-md-6">
-                                            <label for="disabledTextInput">Nro Emisión:</label>
-                                            <input type="text" class="form-control" id="inputAddress" placeholder="994" disabled>
-                                            </div>
-
-                                            <div class="form-group col-md-5 offset-md-3 ">
-                                            <button type="button" class="btn btn-warning btn-lg btn-block">ATENDIDO</button>
-                                            </div>
-                                        </div>
-                                        
-                                        
-                                    </form>
-                                </div>
-                                </div>
-                            </div>
+                            
 
                             </div>
-
+<!--
                             <div class="row">
                             <div class="col-sm-6">
                                 <div class="card border-primary">
@@ -178,81 +204,84 @@
                             </div>
                             
                             </div>
-                            
-                            <div class="row">
-                            <div class="col-sm-6">
+  -->                          
+                        <div class="row">
+                            <div class="col">
                                 <div class="card border-primary">
-                                    <h5 class="card-header border-primary text-primary">DOCUMENTO</h5>
+                                    <h5 class="card-header border-primary  bg-primary text-whit">DOCUMENTO</h5>
                                 <div class="card-body">
                                     
                                     <form>
-                                        <div class="form-group">
+                                        <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="disabledTextInput">Tipo:</label>
                                                 <select class="form-control" id="exampleFormControlSelect1" >
-                                                <option>INFORME </option>
-                                                <option>DOCUMENTO</option>  
+                                                <option>CONSTANCIA DE INGRESO</option>
+                                                <option>OFICIO</option>  
                                                 </select>                                              
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="disabledTextInput">Fecha:</label>
+                                                <input type="text" value="{{fecha_actual}}" class="form-control" id="inputAddress" disabled>
+                                                                                          
                                             </div>
                                                                                         
                                         </div>
                                         <div class="form-group">
                                             <label for="disabledTextInput">Asunto:</label>
-                                            <textarea class="form-control " id="validationTextarea"  >Obtención de la constancia de ingreso DNI:3232303300</textarea>                                            
+                                            <textarea class="form-control " id="validationTextarea" placeholder="Porfavor complete el asunto correspondiente al expediente a trabajar."></textarea>                                            
                                         </div>
-                                        <div class="form-group">
-                                            <label for="disabledTextInput">Fecha:</label>
-                                            <input type="text" class="form-control" id="inputAddress" placeholder="01/08/2020" disabled>
-                                        </div>
-
-                                        
+                                                                               
                                     </form>
+
+                                    <div class="col">
+                                        <div class="card border-light">
+                                            <h5 class="card-header border-light bg-light">REFERENCIAS</h5>
+                                        <div class="card-body">
+                                            
+                                            <table class="table ">
+                                                <thead >
+                                                    <tr class="table-primary text-center" >
+                                                    <th scope="col">AÑO</th>
+                                                    <th scope="col">TIPO DE DOUMENTO</th>
+                                                    <th scope="col">EMI/REC</th>   
+                                                    <th scope="col">Nº DOC</th> 
+                                                    <th scope="col">FECHA</th>                                          
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="text-center">
+                                                    <th scope="row">2020</th>
+                                                    <td>CONSTANCIA VIRTUAL</td>
+                                                    <td>
+                                                    <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input" id="customSwitch1" >
+                                                            <label class="custom-control-label" for="customSwitch1"></label>
+                                                        </div>                                              
+
+                                                    </td>    
+                                                    <td>20200016709</td> 
+                                                    <td>01/08/2020</td>                                         
+                                                    </tr>                                                                                        
+                                                </tbody>
+                                                </table>
+
+                                            
+                                        </div>
+                                        </div>
+                                    </div>
                                     
                                 </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="card border-primary">
-                                    <h5 class="card-header border-primary text-primary">REFERENCIAS</h5>
-                                <div class="card-body">
-                                    
-                                     <table class="table">
-                                        <thead >
-                                            <tr class="table-primary" >
-                                            <th scope="col">AÑO</th>
-                                            <th scope="col">TIPO DE DOUMENTO</th>
-                                            <th scope="col">EMI/REC</th>   
-                                            <th scope="col">Nº DOC</th> 
-                                            <th scope="col">FECHA</th>                                          
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                            <th scope="row">2020</th>
-                                            <td>CONSTANCIA VIRTUAL</td>
-                                            <td class="row d-flex justify-content-center">
-                                               <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input" id="customSwitch1" >
-                                                    <label class="custom-control-label" for="customSwitch1"></label>
-                                                </div>                                              
-
-                                            </td>    
-                                            <td>20200016709</td> 
-                                            <td>01/08/2020</td>                                         
-                                            </tr>                                                                                        
-                                        </tbody>
-                                        </table>
-
-                                    
-                                </div>
-                                </div>
-                            </div>
+  
                             
-                            </div>
+                        </div>
 
                             <div class="card text-center border-primary">
-                                <div class="card-header border-primary text-primary">                                  
-                                    DESTINATARIO
+                                <div class="card-header border-primary  bg-primary text-whit">                                  
+                                    REQUISITOS
                                 </div>
                                 <div class="card-body">
                                     
@@ -300,3 +329,5 @@
     </div>        
 
 </div>
+
+<script src="/js/constancy/constancyProcessWork.js"></script>

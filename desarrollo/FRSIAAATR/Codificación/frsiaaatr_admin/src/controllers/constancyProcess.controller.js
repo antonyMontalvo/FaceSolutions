@@ -5,9 +5,113 @@ const { QueryTypes } = require('sequelize');
 const { sequelizeDB } = require("../../config/database");
 const ConstancyController = require("./constancy.controller");
 
+
 const Employee = require("../models/department"),
     { createToken, getPayload } = require("../services/jwt"),
     ConstancyProcessController = {};
+
+ConstancyProcessController.getProcess = async(req, res) => {
+    
+    
+    var hoy = new Date();
+    var dd = hoy.getDate();
+    var mm = hoy.getMonth()+1;
+    var yyyy = hoy.getFullYear();
+            
+    var fecha_actual = dd+'/'+mm+'/'+yyyy;
+    
+    const id = req.params.id;
+    let q = `select 
+	concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
+    ps.dni as dni,
+    f.name as facultad,
+    sp.name as especialidad,
+	p.code as numero_expediente,
+    p.date_created as fecha_expediente_completa,
+    cast(p.date_created as date) as fecha_expediente,
+    EXTRACT(YEAR FROM p.date_created) as año,
+    SUBSTR(p.code,3) as numero_emision,
+    pt.state_name as estado_expediente,
+    concat_ws(' ', ad.name, ad.last_name_1, ad.last_name_2) as encargado_expediente,
+    p.document as documento
+    from postulant ps 
+    left join specialty sp on sp.id = ps.specialty_id
+    left join faculty f on sp.faculty_id = f.id
+    left join process p on p.postulant_id = ps.id
+    left join process_state pt on p.state_process = pt.idprocess_state
+    left join administrator ad on p.administrator_id = ad.id
+    where p.code = `+ id;
+    console.log(q);
+    const process = await sequelizeDB.query(q);
+    //res.send(process[0]); 
+    try {
+        var solicitante = process[0][0]["solicitante"];
+        var dni = process[0][0]["dni"];
+        var facultad = process[0][0]["facultad"];
+        var especialidad = process[0][0]["especialidad"];
+        var numero_expediente = process[0][0]["numero_expediente"];
+        var fecha_expediente_completa = process[0][0]["fecha_expediente_completa"];
+        var anio = process[0][0]["año"];
+        var numero_emision = process[0][0]["numero_emision"];
+        var estado_expediente = process[0][0]["estado_expediente"];
+        var encargado_expediente = process[0][0]["encargado_expediente"];
+        //console.log(sl);
+        console.log(process[0][0]["solicitante"]); 
+        res.render("constancy/derivedConstancy", {
+            solicitante: solicitante,
+            dni: dni,
+            facultad: facultad, 
+            especialidad: especialidad,
+            numero_expediente: numero_expediente,
+            fecha_expediente_completa: fecha_expediente_completa,
+            anio: anio,
+            numero_emision: numero_emision,
+            estado_expediente: estado_expediente,
+            encargado_expediente: encargado_expediente,
+            fecha_actual: fecha_actual
+        });
+        
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }
+}
+
+ConstancyProcessController.getRequestProcess = async(req, res) => {
+    const id = req.params.id;
+    /*let q = `select 
+	concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
+    ps.dni as dni,
+    f.name as facultad,
+    sp.name as especialidad,
+	p.code as numero_expediente,
+    p.date_created as fecha_expediente_completa,
+    cast(p.date_created as date) as fecha_expediente,
+    EXTRACT(YEAR FROM p.date_created) as año,
+    SUBSTR(p.code,3) as numero_emision,
+    pt.state_name as estado_expediente,
+    concat_ws(' ', ad.name, ad.last_name_1, ad.last_name_2) as encargado_expediente,
+    p.document as documento
+    from postulant ps 
+    left join specialty sp on sp.id = ps.specialty_id
+    left join faculty f on sp.faculty_id = f.id
+    left join process p on p.postulant_id = ps.id
+    left join process_state pt on p.state_process = pt.idprocess_state
+    left join administrator ad on p.administrator_id = ad.id
+    where p.code = `+ id;
+    console.log(q);
+    const process = await sequelizeDB.query(q);
+    //res.send(process[0]);
+    try {
+        console.log("Renderizando");
+        res.render("constancy/derivedConstancy",{data: process[0]});
+
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({ error: error.stack });
+    }*/
+    res.send(200);
+}
 
 ConstancyProcessController.filterProcess = async(req, res) => {
     const name = req.body.name;

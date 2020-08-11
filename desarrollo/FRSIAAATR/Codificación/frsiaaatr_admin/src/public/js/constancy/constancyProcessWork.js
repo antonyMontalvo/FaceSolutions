@@ -1,20 +1,18 @@
 $(document).ready(function() {
-
+    
     var $local = {
-        $tblEnProceso: $("#tblEnProceso"),
-        tblEnProceso: "",
-        $cmbEscuela: $("#cmbEscuela"),
-        $cmbFacultad: $("#cmbFacultad"),
-        $cmbEstado: $("#cmbEstado"),
-        $btnSearch: $("#btnSearch"),
-        $btnReset: $("#btnReset"),
-        $filaSeleccionada : ""
+        $solicitante: $("#solicitante"),
+        $dni: $("#dni"),
+        $facultad: $("#facultad"),
+        $especialidad: $("#especialiad")
     };
 
-    crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
+    
+    //crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
     //crearSelect($local.$cmbEstado, "getProcessState", "idProcessState", "stateName");
 
-    $local.tblEnProceso = $local.$tblEnProceso.DataTable({
+    
+    /*$local.tblEnProceso = $local.$tblEnProceso.DataTable({
         "ajax": {
             "url": "http://localhost:3000/constancy-inp/request-process-list",
             "dataSrc": "",
@@ -30,20 +28,8 @@ $(document).ready(function() {
                 "targets": [0, 1, 2, 3, 4, 5, 6, 7],
                 "className": "all filtrable text-center",
             },
-            /* {
-                       "targets": [4],
-                       "width": "70%"
-                   } */
         ],
-        "columns": [
-            {
-                "data": 'codigoSolicitud',
-                "title": "Acción",
-                "render": function(data, type, row){
-                    return '<a id="btnSelect" href="/constancy-inp/redirect-request-process/'+ row.codigoSolicitud +'" class="btn btn-mini btn-primary pull-right solicitudSeleccionada"><i class="far fa-file-alt"></i></a>';
-                 }
-            }, 
-            { // 0
+        "columns": [{ // 0
                 "data": 'estadoSolicitud',
                 "title": "Estado",
                 "render": function(data, type, row) {
@@ -104,28 +90,7 @@ $(document).ready(function() {
             }
         ],
 
-    });
-
-    $local.$tblEnProceso.children("tbody").on("click", "#btnSelect",constanciaSeleccionada);
-
-    function constanciaSeleccionada(){
-        /*var data;
-        $local.$filaSeleccionada = $(this).parents("tr");
-        var fila = $local.tblEnProceso.row($local.$filaSeleccionada).data();
-        console.log(fila);
-        $.ajax({
-            url: "http://localhost:3000/constancy-inp/request-process-work/" + fila.codigoSolicitud,
-            dataType: 'json',
-            type: 'GET',
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Content-Type', 'application/json');
-            },
-        }).then(function(response) {
-            console.log("Cambiando de vista.");
-            data = response;
-            console.log(data);
-        });*/
-    } 
+    });*/
 
     function crearSelect(select, filtro, valor, nombre) {
         select.empty(); //Reiniciar opciones de select
@@ -170,10 +135,10 @@ $(document).ready(function() {
 
     };
 
-    $local.$cmbFacultad.on('select2:select', function(e) {
+    /*$local.$cmbFacultad.on('select2:select', function(e) {
         let data = e.params.data;
         cambiarSelect($local.$cmbEscuela, "Seleccione un programa", "especialidades", "getSpecialties", "id", "name", data.id)
-    });
+    });*/
 
     function cambiarSelect(select, textoPorDefecto, mantenimiento, filtro, valor, nombre, id) {
         select.empty(); //Reiniciar opciones de select
@@ -222,72 +187,4 @@ $(document).ready(function() {
         });
     }
 
-    $("#btnReset").on("click", function() {
-        resetFiltros();
-    })
-
-    $("#btnSearch").on("click", function() {
-        filtrarRegistros();
-    })
-
-    function resetFiltros() {
-        $("#nombres").val('');
-        $("#apellidoPaterno").val('');
-        $("#apellidoMaterno").val('');
-        $("#numeroDocumento").val('');
-        $("#rangoFechas").val('');
-        crearSelect($local.$cmbEscuela, "getSpecialties", "id", "name");
-        crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
-        //crearSelect($local.$cmbEstado, "getProcessState", "idProcessState", "stateName");
-    }
-
-    function filtrarRegistros() {
-        name = $('#nombres').val();
-        lastnamePatern = $('#apellidoPaterno').val();
-        lastnameMatern = $('#apellidoMaterno').val();
-        dni = $('#numeroDocumento').val();
-        number_doc = $("#codigoSolicitud").val();
-        date = $("#rangoFechas").val();
-        cmbFacultad = $("#cmbFacultad").val();
-        cmbEscuela = $("#cmbEscuela").val();
-
-        if (cmbFacultad == "DEFAULT") cmbFacultad = null;
-        if (cmbEscuela == "DEFAULT") cmbEscuela = null;
-
-        if (lastnamePatern == "") { lastnamePatern = null; }
-        if (lastnameMatern == "") { lastnameMatern = null; }
-        if (dni == "") { dni = null; }
-        if (number_doc == "") { number_doc = null; }
-        if (date == "") { date = null; }
-        if (name == "") { name = null; }
-        var data = {
-            "name": name,
-            "lastnamePatern": lastnamePatern,
-            "lastnameMatern": lastnameMatern,
-            "dni": dni,
-            "number_doc": number_doc,
-            "date": date,
-            "id_faculty": cmbFacultad,
-            "id_specialty": cmbEscuela
-        };
-
-        //console.log("DATA: ", data);
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:3000/constancy-inp/filterProcess",
-            data: JSON.stringify(data),
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('Content-Type', 'application/json');
-            },
-            success: function(response) {
-                console.log(response);
-                $local.tblEnProceso.clear();
-                $.each(response, function(index, value) {
-                    $local.tblEnProceso.row.add(value);
-                });
-
-                $local.tblEnProceso.draw();
-            }
-        });
-    }
 });

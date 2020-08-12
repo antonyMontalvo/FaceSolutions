@@ -27,7 +27,7 @@ EmployeesController.getEmployees = async(req, res) => {
 };
 
 EmployeesController.generatePdf = async(req, res) => {
-
+    
     const path = require("path");
     const puppeteer = require("puppeteer");
     const handlebars = require("handlebars");
@@ -48,7 +48,7 @@ EmployeesController.generatePdf = async(req, res) => {
             const file = fs.readFileSync('./src/template/constancy.html', 'utf8');
             const template = handlebars.compile(file);
             const html = template({ name: "Evelin Sofia Pariona Gutierrez", dni: "09988830", puntaje: "1350.50" });
-
+            
             browser = await puppeteer.launch({
                 pipe: true,
                 args: ['--headless', '--disable-gpu', '--full-memory-crash-report', '--unlimited-storage',

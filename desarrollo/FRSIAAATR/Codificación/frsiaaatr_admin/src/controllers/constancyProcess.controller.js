@@ -10,9 +10,14 @@ const Employee = require("../models/department"),
     { createToken, getPayload } = require("../services/jwt"),
     ConstancyProcessController = {};
 
+//Creas un servicio rest.
+//Cuando des click en "generar doc", sacas el dni
+//Con el dni armas un query que te bote: nombrecompleto, facultad, especialidad, puntaje, sexo.
+//Formas tu objeto.
+//
+
 ConstancyProcessController.getProcess = async(req, res) => {
-    
-    
+      
     var hoy = new Date();
     var dd = hoy.getDate();
     var mm = hoy.getMonth()+1;

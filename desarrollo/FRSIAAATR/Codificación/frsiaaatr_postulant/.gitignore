@@ -7,3 +7,5 @@ package-lock.json
 .scannerwork/
 .env
 .idea/
+
+src/public/moment/

@@ -34,7 +34,7 @@ app.engine(
 );
 app.use(
     session({
-        secret: process.env.JWT_KEY,
+        secret: process.env.APP_SESSION,
         resave: false,
         saveUninitialized: false
     })
@@ -45,7 +45,7 @@ app.use(
  */
 app.use(morgan("dev")); // permite que las peticiones se vean en la consola
 app.use(express.json()); // reemplaza a body-parser
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(cors());
 
 /**

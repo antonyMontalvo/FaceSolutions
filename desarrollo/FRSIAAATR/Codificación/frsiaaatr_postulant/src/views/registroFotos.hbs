@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>Tomar foto con Javascript</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script src="/api/face-api.min.js"></script>
+    <style>
+        @media only screen and (max-width: 700px) {
+            video {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<input id="user_id" type="text" hidden value="{{data.id}}">
+<div class="container">
+    <section class="register">
+        <div class="formulario">
+            <div class="row">
+                <div class="col-f" style="margin-right: 10px;">
+                    <button id="openCamara">abrir camara</button>
+                    <select name="listaDeDispositivos" id="listaDeDispositivos" type="hidden"></select>
+                    <button id="boton">Tomar foto</button>
+                </div>
+                <div class="col-f" style="margin-right: 10px;">
+                    <video muted="muted" id="video" style="padding: 10px 10px;"></video>
+                    <canvas id="canvas" style="display: none;"></canvas>
+                </div>
+            </div>
+            <button type="button" onclick="saveUserImages()">Prueba</button>
+            <button type="submit">Enviar</button>
+        </div>
+    </section>
+</div>
+</body>
+<script>
+
+    let contador = 0;
+    let images = [];
+    $openCamara = document.querySelector("#openCamara");
+    $openCamara.addEventListener("click", function () {
+        const tieneSoporteUserMedia = () =>
+                !!(
+                        navigator.getUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.msGetUserMedia
+                );
+        const _getUserMedia = (...arguments) =>
+                (
+                        navigator.getUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.msGetUserMedia
+                ).apply(navigator, arguments);
+
+        // Declaramos elementos del DOM
+        const $video = document.querySelector("#video"),
+                $canvas = document.querySelector("#canvas"),
+                $boton = document.querySelector("#boton"),
+                $listaDeDispositivos = document.querySelector("#listaDeDispositivos");
+
+        const limpiarSelect = () => {
+            for (let x = $listaDeDispositivos.options.length - 1; x >= 0; x--)
+                $listaDeDispositivos.remove(x);
+        };
+        const obtenerDispositivos = () => navigator.mediaDevices.enumerateDevices();
+
+        // La función que es llamada después de que ya se dieron los permisos
+        // Lo que hace es llenar el select con los dispositivos obtenidos
+        const llenarSelectConDispositivosDisponibles = () => {
+            limpiarSelect();
+            obtenerDispositivos().then((dispositivos) => {
+                const dispositivosDeVideo = [];
+                dispositivos.forEach((dispositivo) => {
+                    const tipo = dispositivo.kind;
+                    if (tipo === "videoinput") {
+                        dispositivosDeVideo.push(dispositivo);
+                    }
+                });
+
+                // Vemos si encontramos algún dispositivo, y en caso de que si, entonces llamamos a la función
+                if (dispositivosDeVideo.length > 0) {
+                    // Llenar el select
+                    dispositivosDeVideo.forEach((dispositivo) => {
+                        const option = document.createElement("option");
+                        option.value = dispositivo.deviceId;
+                        option.text = dispositivo.label;
+                        $listaDeDispositivos.appendChild(option);
+                    });
+                }
+            });
+        };
+
+        (function () {
+            // Comenzamos viendo si tiene soporte, si no, nos detenemos
+            if (!tieneSoporteUserMedia()) {
+                alert("Lo siento. Tu navegador no soporta esta característica");
+                return;
+            }
+            //Aquí guardaremos el stream globalmente
+            let stream;
+
+            // Comenzamos pidiendo los dispositivos
+            obtenerDispositivos().then((dispositivos) => {
+                // Vamos a filtrarlos y guardar aquí los de vídeo
+                const dispositivosDeVideo = [];
+
+                // Recorrer y filtrar
+                dispositivos.forEach(function (dispositivo) {
+                    const tipo = dispositivo.kind;
+                    if (tipo === "videoinput") {
+                        dispositivosDeVideo.push(dispositivo);
+                    }
+                });
+
+                // Vemos si encontramos algún dispositivo, y en caso de que si, entonces llamamos a la función
+                // y le pasamos el id de dispositivo
+                if (dispositivosDeVideo.length > 0) {
+                    // Mostrar stream con el ID del primer dispositivo, luego el usuario puede cambiar
+                    mostrarStream(dispositivosDeVideo[0].deviceId);
+                }
+            });
+
+            function DataURIToBlob(dataURI) {
+                const splitDataURI = dataURI.split(',')
+                const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
+                const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
+
+                const ia = new Uint8Array(byteString.length)
+                for (let i = 0; i < byteString.length; i++)
+                    ia[i] = byteString.charCodeAt(i)
+
+                return new Blob([ia], {type: mimeString})
+            }
+
+            const mostrarStream = (idDeDispositivo) => {
+                _getUserMedia(
+                        {
+                            video: {
+                                // Justo aquí indicamos cuál dispositivo usar
+                                deviceId: idDeDispositivo,
+                            },
+                        },
+                        (streamObtenido) => {
+                            // Aquí ya tenemos permisos, ahora sí llenamos el select,
+                            // pues si no, no nos daría el nombre de los dispositivos
+                            llenarSelectConDispositivosDisponibles();
+
+                            // Escuchar cuando seleccionen otra opción y entonces llamar a esta función
+                            $listaDeDispositivos.onchange = () => {
+                                // Detener el stream
+                                if (stream) {
+                                    stream.getTracks().forEach(function (track) {
+                                        track.stop();
+                                    });
+                                }
+                                // Mostrar el nuevo stream con el dispositivo seleccionado
+                                mostrarStream($listaDeDispositivos.value);
+                            };
+
+                            // Simple asignación
+                            stream = streamObtenido;
+
+                            // Mandamos el stream de la cámara al elemento de vídeo
+                            $video.srcObject = stream;
+                            $video.play();
+
+                            //Escuchar el click del botón para tomar la foto
+                            $boton.addEventListener("click", function () {
+                                contador++;
+
+                                //Obtener contexto del canvas y dibujar sobre él
+                                let contexto = $canvas.getContext("2d");
+                                $canvas.width = $video.videoWidth;
+                                $canvas.height = $video.videoHeight;
+                                contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+
+                                let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                                var file = dataURLtoFile(foto, `${contador}.jpg`);
+                                // const file = DataURIToBlob(foto);
+                                console.log(file)
+                                images.push(file)
+
+                                $video.play();
+                            });
+                        },
+                        (error) => {
+                            console.log("Permiso denegado o error: ", error);
+                        }
+                );
+            };
+        })();
+    });
+
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {type: mime});
+    }
+
+    async function saveUserImages() {
+        const formData = new FormData();
+
+        const id = document.getElementById("user_id").value;
+        formData.append("id", id);
+        for (let i = 0; i < images.length; i++) {
+            formData.append('images', images[i]);
+        }
+
+        // const img = await faceapi.fetchImage(images[0].path);
+        // const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+        // if (!detections) {
+            console.log("error no cumple")
+        await fetch('http://localhost:3000/registreFotos', {
+            method: 'POST', // or 'PUT'
+            body: formData, // data can be `string` or {object}!
+
+        }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then(response => {
+                    if (response.message) {
+                        window.location.href = "/";
+                    }
+                });
+
+        // }
+
+    }
+
+
+</script>
+
+</html>

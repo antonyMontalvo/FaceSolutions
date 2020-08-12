@@ -6,6 +6,7 @@ const morgan = require("morgan"),
   path = require("path"),
   cors = require("cors"),
   expbhs = require("express-handlebars"),
+  session = require("express-session"),
   express = require("express"),
   app = express();
 
@@ -31,7 +32,14 @@ app.engine(
     extname: ".hbs",
   })
 );
-
+/**app.use(
+    session({
+        secret: process.env.JWT_KEY,
+        resave: false,
+        saveUninitialized: false
+    })
+);
+**/
 /**
  * Middlewares
  */

@@ -1,0 +1,205 @@
+<div class="content-page">
+
+    <!-- Page Header -->
+    <div class="page-header page-header-light">
+        <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a class="breadcrumb-item" href="/"><i class="icon-home2 mr-2"></i>Inicio</a> <a
+                        class="breadcrumb-item link-solicitudes" href="/postulants/request_list">Solicitudes de
+                        Trámites</a>
+                    <span class="breadcrumb-item active">Revisión Solicitud</span>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="page-header-content header-elements-md-inline">
+            <div class="" style=" padding-top: 1.2%; padding-bottom:0.4%;">
+                <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Revisión de Solicitud
+                    </span></h4>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- /page Header -->
+
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="d-flex align-items-start flex-column flex-md-row">
+
+                <!-- Left content -->
+                <div class="w-100 overflow-auto order-2 order-md-1">
+
+                    <!-- Task overview -->
+                    <div class="card">
+
+                        <div class="card-body">
+                            <div class="hidden" id="codigoSolicitud" value="{{data.idRequest}}"></div>
+                            <div class="hidden" id="idSolicitud" value=""></div> <!-- Primary key -->
+                            <div class="media flex-column flex-md-row mb-4">
+
+                                <div class="media-body">
+                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">Documentos
+                                        solicitados</h5>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p>Los documentos que se solicitan para la gestión de la constancia de ingreso
+                                    se muestran en la siguiente tabla.
+                                    Disponga a verificar que todos los documentos
+                                    presentados sean los correctos. En caso alguno de los documentos presente un error o
+                                    no sea el adecuado, desde el botón "Observar"
+                                    de la tabla puede especificar al postulante la razón del error para que este lo
+                                    corrija
+                                    a la brevedad; en caso esté todo correcto con el
+                                    documento, apruébelo desde el botón "Aprobar".
+                                </p>
+                                <br>
+
+                                <table id="tblRequisitos" class="table datatable-pagination dataTable no-footer"
+                                    data-permiso-evaluar-requisito-solicitud="true" role="grid" style="width: 100%;">
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /task overview -->
+                </div>
+                <!-- /left content -->
+                <!-- Right sidebar component -->
+                <div
+                    class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-350 border-0 shadow-0 order-1 order-md-2 sidebar-expand-md">
+
+                    <!-- Sidebar content -->
+                    <div class="sidebar-content">
+
+                        <!-- Task details -->
+                        <div
+                            class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
+                            <b>¡Atención!</b> Una vez que todos los documentos sean aprobados, le aparecerá un
+                            botón en la parte superior para aprobar
+                            la solicitud y que esta sea derivada. Una vez esta sea aprobada, no se podrán
+                            observar de nuevo los documentos y el postulante
+                            tampoco podrá editarlos.
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                        </div>
+                        <div class="card d-none">
+                            <div class="card-header bg-transparent header-elements-inline">
+                                <span class="text-uppercase font-size-sm font-weight-semibold">Acciones</span>
+                                <div class="header-elements">
+                                    <div class="list-icons">
+                                        <a class="list-icons-item" data-action="collapse"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="tblPrueba" class="table table-borderless table-xs my-2 dataTable no-footer"
+                                    role="grid" style="width: 100%;">
+                                    <tbody>
+                                        <tr role="row" class="odd">
+                                            <td><i class="fa fa-check"></i> Pasar a en proceso:</td>
+                                            <td class=" text-right">
+                                                <button type="button" class="btn btn-success btn-lg" id="btnAprobar">Aprobar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card">
+                            <div class="card-header bg-transparent header-elements-inline">
+                                <span class="text-uppercase font-size-sm font-weight-semibold">Detalle</span>
+                                <div class="header-elements">
+                                    <div class="list-icons">
+                                        <a class="list-icons-item" data-action="collapse"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="tblInfo" class="table table-borderless table-xs my-2">
+                                </table>
+                            </div>
+
+                        </div>
+
+                        <!-- /task details -->
+
+                        {{!--  <div class="card">
+                            <div class="card-header bg-transparent header-elements-inline">
+                                <span class="text-uppercase font-size-sm font-weight-semibold">Seguimiento</span>
+                                <div class="header-elements">
+                                    <div class="list-icons">
+                                        <a class="list-icons-item" data-action="collapse"></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-body">
+                                <ul class="media-list">
+                                    <li class="media">
+                                        <div class="mr-3">
+                                            <a href="#"
+                                                class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon">
+                                                <i class="icon-git-pull-request"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="media-body">
+                                            Presentación de la solicitud
+                                            <div class="text-muted font-size-sm fechaSolicitud"></div>
+
+                                        </div>
+                                    </li>
+
+                                    <li class="media">
+                                        <div class="mr-3">
+                                            <a href="#"
+                                                class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon">
+                                                <i class="icon-git-commit"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="media-body">
+                                            Evaluación de la Solicitud
+                                            <div class="text-muted font-size-sm fechaSolicitudDetalle">- Pendiente -
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div> --}}
+
+                    </div>
+                    <!-- /sidebar content -->
+
+                </div>
+                <!-- /right sidebar component -->
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Project JS files -->
+<script src="/js/constancy/reviewRequest.js"></script>
+<!-- /projectFiles -->
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<!-- /dataTables -->

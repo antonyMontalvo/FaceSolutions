@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    * html,
+    body {
+      font-family: Verdana, Arial, Helvetica, sans-serif;
+    }
+    .contenedor{
+      width: 1000px;
+      height: 80vh;
+      margin:0 auto;
+      text-align:center;
+    }
+    .marco{
+      margin-top:60px;
+      position: relative;
+    }
+    .marco img{
+      width: 100%;
+      height: 100%;
+    }
+    .contenido{
+      position: absolute;
+      width: 725px;
+      top:240px;
+      left: 137.5px;
+    }
+    .titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.5em;
+    }
+    .datos-personales{
+      margin-top: 30px;
+      text-align: justify;
+      font-family: 'Lobster', serif;
+      font-size: 2em;
+    }
+    .datos-personales span{
+      font-style: italic;
+      font-weight: bold;
+    }
+    .fotografia img{
+      width:200px;
+      height: 200px;
+    }
+    .autorizacion{
+      width:100%;
+      margin-top:190px;
+      position: relative;
+    }
+    .autoridad1{
+      width:50%;
+      font-family: 'Lobster', serif;
+      font-size: 1.5em;
+      float:left;
+    }
+    .autoridad2{
+      width:50%;
+      font-family: 'Lobster', serif;
+      font-size: 1.5em;
+      float:right;
+    }
+    .firma1{
+      position:absolute;
+      top:-110px;
+      left: 75px;
+    }
+    .firma1 img{
+      width: 200px;
+      height: 100px;
+    }
+    .firma2{
+      position:absolute;
+      top:-110px;
+      left: 445px;
+    }
+    .firma2 img{
+      width: 200px;
+      height: 100px;
+    }
+  </style>
+  <!-- CSS only -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+  
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js" integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.google.com/specimen/Lobster?query=++&selection.family=Lobster|Playfair+Display:wght@600#standard-styles" rel="stylesheet">
+</head>
+<body>
+  <div class="contenedor">
+    <div class="marco">
+      <!--<img src="https://i.pinimg.com/originals/73/b2/f3/73b2f3a22081145894937af82ef38dce.png">-->
+      <!--<img src="https://thumbs.dreamstime.com/b/frame-border-certificate-vintage-ornament-suitable-achievement-education-awards-wedding-85700469.jpg">-->
+      <img src="https://image.freepik.com/vector-gratis/borde-marco-monocromatico-vintage_2967-601.jpg">
+      <div class="contenido">
+        <p class="titulo">Constancia de Ingreso</p>
+        <div class="datos-personales">
+          <p>Se hace presente, que la alumna <span>{{name}}</span> 
+            <!--<span>{{data.name}} Pariona Gutierrez </span> -->
+            identificada con DNI <span>{{dni}}</span>,
+            ingreso a la 
+            <span> Escuela Profesional de Obstetricia,</span>
+            perteneciente a la <span>Facultad de Medicina</span> con un puntaje aprobatorio de
+            <span>{{puntaje}}</span>
+            puntos.
+          </p>
+        </div>
+        <div class="fotografia">
+          <img src="https://www.enfoca2.com.mx/wp-content/uploads/2018/infantil/infantil%206.jpg">
+        </div>
+        <div class="autorizacion">
+          <div class="autoridad1">
+            <p>Pedron Alex Noboa Quintana</p>
+          </div>
+          <div class="autoridad2">
+            <p>Maria Fuller Cordova</p>
+          </div>
+          <div class="firma1">
+            <img src="https://tusejemplos.com/wp-content/uploads/2016/04/firma-carlos-arturo.png">
+          </div>
+          <div class="firma2">
+            <img src="https://sobrehistoria.com/wp-content/uploads/2010/08/firmas-y-grafologia-600x431.jpg">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

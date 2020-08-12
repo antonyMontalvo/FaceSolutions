@@ -24,6 +24,7 @@
         "express": "^4.16.4",
         "express-fileupload": "^1.1.10",
         "express-handlebars": "3.1.0",
+        "express-session": "^1.17.1",
         "express-validator": "^5.3.1",
         "jsonwebtoken": "8.5.1",
         "mocha": "^6.2.0",

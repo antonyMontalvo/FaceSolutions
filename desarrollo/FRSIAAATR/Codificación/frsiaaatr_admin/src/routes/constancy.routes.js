@@ -1,0 +1,20 @@
+const router = require("express").Router();
+
+const constancyController = require("../controllers/constancy.controller"),
+    validator = require("../middlewares/validation"),
+    authenticate = require("../middlewares/authenticate");
+
+router
+    .get("/request-unread", constancyController.getRequestUnreadList)
+    .get("/review-request/:id", constancyController.getReviewUnreadInfo)
+    //Revisar todas las solicitudes
+    .get("/all-review-request/:id", constancyController.getAllReviewRequest)
+    .get("/postulant-info-request/:id", constancyController.getPostulantRequestInfo)
+    //Actualizar estado de requerimiento (procedure cambia solicitud y añade en seguimiento)
+    .put("/update-req-state", constancyController.updateRequestState)
+    .get("/all-process", constancyController.getAllProcess)
+    .post("/filter-process", constancyController.filterProcess);
+
+/* .get("/request-in-derived", constancyController.getRequestInDerivedList)
+.get("/derived-constancy", constancyController.getRequestInDerivedConstancy) */
+module.exports = router;

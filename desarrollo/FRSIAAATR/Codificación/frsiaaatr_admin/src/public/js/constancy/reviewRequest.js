@@ -77,12 +77,17 @@ $(document).ready(function() {
             },
             { //4
                 "title": 'Evaluar Requisito',
-                "render": function() {
-                    var a = `<button class="btn btn-xs btn-success aprobar" title="" data-tooltip="tooltip" style="padding: 8px 8px;" 
-                        data-original-title="Aprobar"><i class="icon-checkmark4"></i></button>`;
-                    var o = `<button class="btn btn-xs btn-danger observar" title="Observar" 
-                        data-tooltip="tooltip" style="padding: 8px 8px;"><i class="icon-cross2"></i></button>`
-                    return a + " " + o;
+                "render": function(data, type, row) {
+                    if (row.estadoRequisito != 4) {
+                        var a = `<button class="btn btn-xs btn-success aprobar" title="" data-tooltip="tooltip" style="padding: 8px 8px;" 
+                            data-original-title="Aprobar"><i class="icon-checkmark4"></i></button>`;
+                        var o = `<button class="btn btn-xs btn-danger observar" title="Observar" 
+                            data-tooltip="tooltip" style="padding: 8px 8px;"><i class="icon-cross2"></i></button>`
+                        return a + " " + o;
+                    } else {
+                        return "-";
+                    }
+
                 }
 
             },
@@ -208,7 +213,7 @@ $(document).ready(function() {
             idProcess: idSolicitud,
             idRequirement: dataRequisito.codigoRequisito,
             state: 4, //Estado APROBADO
-            observation: '-'
+            observation: 'Requisito APROBADO'
         }
 
         //console.log(data);
@@ -226,7 +231,6 @@ $(document).ready(function() {
 
                 dataRequisito.estadoRequisito = response[0].state_requirement;
                 dataRequisito.nombreEstadoRequisito = response[0].state_name;
-                //dataRequisito.estadoRequisito
 
                 var row = $local.tblRequisitos.row.add(dataRequisito).draw();
                 //$(row.node()).animateHighlight();

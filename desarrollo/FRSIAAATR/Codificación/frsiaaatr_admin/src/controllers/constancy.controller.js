@@ -218,7 +218,7 @@ ConstancyController.updateRequestState = async(req, res) => {
     const idRequirement = req.body.idRequirement; //id de Requerimiento
     const observation = req.body.observation;
 
-    //Actualizando estado de requisito
+    //Actualizando estado de requisito (Aprobado o Observado)
     var q = `UPDATE requirement r 
         SET r.state_requirement = ` + stateRequirement +
         `, r.description = '` + observation +
@@ -227,41 +227,56 @@ ConstancyController.updateRequestState = async(req, res) => {
 
     await sequelizeDB.query(q);
 
-    //Si se va a observar...
-    if (stateRequirement == 2) {
-        var q2 = `SELECT
+    //Total requisitos
+    var q2 = `SELECT COUNT(*) as cantidadRequisitos FROM requirement WHERE process_id = ` + idProcess;
+    var t = await sequelizeDB.query(q2);
+    var totalQty = t[0];
+    console.log(totalQty[0].cantidadRequisitos);
+
+    //Cuando se observe (2) o se apruebe (4)...
+    var q3 = `SELECT
         state_requirement as estadoRequisito, 
         COUNT(state_requirement) as cantidadRequisitos
         FROM requirement 
         WHERE process_id = ` + idProcess +
-            ` GROUP BY state_requirement`;
+        ` GROUP BY state_requirement`;
 
-        var stateQty = await sequelizeDB.query(q2);
-        var arrayState = stateQty[0];
+    var stateQty = await sequelizeDB.query(q3);
+    //Devuelve los estados de los requisitos y cuanto hay de cada estado
+    var arrayState = stateQty[0];
 
-        var requestObs = false,
-            newRequestState;
-        arrayState.forEach(function(r, index, value) {
-            //Contando la cantidad de requisitos observados de la solcitud
-            if (r.estadoRequisito == 2 && r.cantidadRequisitos >= 1) {
-                requestObs = true;
-                newRequestState = 2;
-            }
-            //Falta cambiar que cuando todos esten aprobados, cambie el estadito también... 
-        });
+    var requestObs = false,
+        requestAprob = false,
+        newRequestState;
 
-        //Si tiene al menos un requisito observado, la solicitud se observa
-        if (requestObs) {
-            var q3 = `UPDATE process p 
-                SET p.state_process = ` + newRequestState +
-                ` WHERE p.id = ` + idProcess;
+    //Contando la cantidad de requisitos observados de la solcitud
+    arrayState.forEach(function(r, index, value) {
 
-            await sequelizeDB.query(q3);
+        //Si existe más de un estado observado (2)
+        if (r.estadoRequisito == 2 && r.cantidadRequisitos >= 1) {
+            requestObs = true;
+            newRequestState = 2; //Solicitud OBSERVADA
         }
+
+        //Si todos los requisitos estan aprobados (4)
+        if (r.estadoRequisito == 4 && r.cantidadRequisitos == totalQty[0].cantidadRequisitos) {
+            requestAprob = true;
+            newRequestState = 3; //Solicitud APROBADA
+        }
+
+    });
+
+    //Si hay un requisito observado o todos estan aprobados, se actualiza el estado general de la solicitud
+    if (requestObs || requestAprob) {
+        var q4 = `UPDATE process p 
+                SET p.state_process = ` + newRequestState + //2 ó 3
+            ` WHERE p.id = ` + idProcess;
+
+        await sequelizeDB.query(q4);
     }
 
     //Devolviendo el requisito actualizado (y el estado de la solicitud)
-    var q4 = `SELECT r.*, rs.state_name, p.state_process, ps.state_name as state_name_process FROM requirement r
+    var q5 = `SELECT r.*, rs.state_name, p.state_process, ps.state_name as state_name_process FROM requirement r
         LEFT JOIN requirement_state rs
         ON r.state_requirement = rs.idrequirement_state
         LEFT JOIN process p
@@ -270,7 +285,7 @@ ConstancyController.updateRequestState = async(req, res) => {
         ON p.state_process = ps.idprocess_state
         WHERE r.idrequirement = ` + idRequirement +
         ` AND r.process_id = ` + idProcess;
-    var result = await sequelizeDB.query(q4);
+    var result = await sequelizeDB.query(q5);
 
     res.send(result[0]);
 

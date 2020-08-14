@@ -113,9 +113,9 @@ PostulantController.register = async (req, res) => {
         if (!postulant) {
             message = postulant;
             console.log(message)
-            res.render("registro", {layout: null, data: {id: postulant.id}, message});
+            res.render("registro", {layout: null, data: {message}});
         } else {
-            res.render("registroFotos", {layout: null, data: {id: postulant.id}});
+            res.render("registroFotos", {layout: null, data: {id: postulant.null}});
         }
 
     } catch (error) {
@@ -127,6 +127,7 @@ PostulantController.register = async (req, res) => {
 PostulantController.registerPhotos = async (req, res) => {
     try {
         const {id} = req.body;
+        console.log(req.body)
         const files = req.files;
         const postulant = await Postulant.findByPk(id);
 

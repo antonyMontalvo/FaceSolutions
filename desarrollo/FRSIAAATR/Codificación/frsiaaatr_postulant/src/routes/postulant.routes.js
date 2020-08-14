@@ -30,6 +30,7 @@ router
     .post("/registreFotos", upload.array("images", 20), postulantController.registerPhotos)
     .post("/check_image", UploadImage.userPhoto, postulantController.checkPhoto)
     .get("/facial", postulantController.prueba)
+
     .get("/profile", postulantController.profile)
 
     .get("/TramitesCorreccion", postulantController.correccion)

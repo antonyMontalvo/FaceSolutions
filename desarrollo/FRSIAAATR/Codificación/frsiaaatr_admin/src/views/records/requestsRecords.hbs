@@ -1,0 +1,287 @@
+<div class="content-page">
+
+    <!-- Page Header -->
+    <div class="page-header page-header-light">
+        <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a class="breadcrumb-item" href="/"><i class="icon-home2 mr-2"></i>Inicio</a>
+                    <span class="breadcrumb-item active">Historial de trámites</span>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="page-header-content header-elements-md-inline">
+            <div class="" style=" padding-top: 1.2%; padding-bottom:0.4%;">
+                <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Panel de historial de solicitudes
+                    </span></h4>
+            </div>
+        </div>
+
+    </div><br>
+                         
+    <!-- /page Header -->
+
+	<div class="content">
+		<div class="row">
+			<div class="col-sm-3">
+				
+				<div class="card col-md-4"  style="max-width: 18rem;">
+					<div class="card-header bg-transparent header-elements-inline ">
+						<span class="text-uppercase font-size-sm font-weight-semibold">CATEGORÍAS</span>
+						<div class="header-elements">
+							<div class="list-icons">
+							<a class="list-icons-item" data-action="collapse"></a>
+							</div>
+						</div>                  
+					</div>
+
+        			<div class="card-body">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+							<label class="form-check-label" for="defaultCheck1">
+								No leido 
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+							<label class="form-check-label" for="defaultCheck2">
+								En proceso
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+							<label class="form-check-label" for="defaultCheck2">
+								Para Firma y envio
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+							<label class="form-check-label" for="defaultCheck2">
+								Tramitadas
+							</label>
+						</div>
+        			</div>
+    			</div>
+
+				<div class="card col-md-4"  style="max-width: 18rem;">
+					<div class="card-header bg-transparent header-elements-inline ">
+						<span class="text-uppercase font-size-sm font-weight-semibold">DESTINO</span>
+						<div class="header-elements">
+							<div class="list-icons">
+							<a class="list-icons-item" data-action="collapse"></a>
+							</div>
+						</div>                  
+					</div>
+
+        			<div class="card-body">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+							<label class="form-check-label" for="defaultCheck1">
+								Facultad
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+							<label class="form-check-label" for="defaultCheck2">
+								Dependencia
+							</label>
+						</div>
+        			</div>
+    			</div>
+
+				<div class="card col-md-4"  style="max-width: 18rem;">
+					<div class="card-header bg-transparent header-elements-inline ">
+						<span class="text-uppercase font-size-sm font-weight-semibold">TIPO DE TRAMITE</span>
+						<div class="header-elements">
+							<div class="list-icons">
+							<a class="list-icons-item" data-action="collapse"></a>
+							</div>
+						</div>                  
+					</div>
+
+        			<div class="card-body">
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+							<label class="form-check-label" for="defaultCheck1">
+								Constancia de Ingreso
+							</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+							<label class="form-check-label" for="defaultCheck2">
+								Otros
+							</label>
+						</div>
+        			</div>
+    			</div>
+
+			</div>
+
+			<div class="col-sm-9">
+				<div class="card col-md-12 ml-auto" >
+					<div class="card-header bg-transparent header-elements-inline ">
+						<span class="text-uppercase font-size-sm font-weight-semibold">Lista de Trámites - 
+							<span id="complementoTitulo" class="font-weight-bold"> UNIVERSIDAD NACIONAL MAYOR DE SAN MARCOS</span>
+						</span>
+							                
+					</div>
+
+					<div class="card-body">
+						<div class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
+                            <b>¡Atención!</b> La lista siguiente especifica la lista de todos las solicitudes de obtención
+							de la Constancia de Ingreso, si desea buscar una soliciud en especifio, puede buscarlo con el
+							filtro de busqueda.
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                        </div>
+
+						<div class="card-body">
+                        <div class="card-group-control card-group-control-right">
+
+                            <div class="card mb-2">
+                                <div class="card-header">
+                                    <h6 class="card-title">
+                                        <a class="text-default collapsed" data-toggle="collapse" href="#question2">
+                                            <i class="icon-help mr-2 text-slate"></i> Filtros de Búsqueda
+                                        </a>
+                                    </h6>
+                                </div>
+
+                                <div id="question2" class="collapse">
+                                    <div class="card-body">
+
+                                        <div id="collapse-item-default1" class="collapse show  card-body">
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">Nombres:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="text" class="form-control" id="nombres"
+                                                        placeholder="Nombre completo">
+                                                </div>
+                                                <div class="col-lg-1"></div>
+                                                <label class="col-lg-2 col-form-label">Apellido
+                                                    Paterno:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="text" class="form-control" id="apellidoPaterno"
+                                                        placeholder="Apellido paterno">
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">Apellido
+                                                    Materno:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="text" class="form-control" id="apellidoMaterno"
+                                                        placeholder="Apellido materno">
+                                                </div>
+                                                <div class="col-lg-1"></div>
+                                                <label class="col-lg-2 col-form-label">Numero
+                                                    documento:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="text" class="form-control" id="numeroDocumento"
+                                                        placeholder="N° de documento">
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-2 col-form-label">Código solicitud:</label>
+                                                <div class="col-lg-3">
+                                                    <input type="text" class="form-control" id="codigoSolicitud"
+                                                        placeholder="Código de solicitud">
+                                                </div>
+                                                <div class="col-lg-1"></div>
+                                                <label class="col-lg-2 col-form-label">Escuela:</label>
+                                                <div class="col-lg-3">
+                                                    <select id="cmbEscuela" class="form-control select2"
+                                                        name="cmbEscuela" style="width: 100%;">
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-2 col-form-label">Fecha de
+                                                    solicitud:</label>
+                                                <div class="col-lg-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-prepend"> <span
+                                                                class="input-group-text"><i
+                                                                    class="icon-calendar22"></i></span>
+                                                        </span> <input id="rangoFechas" style="float: left;" type="text"
+                                                            class="form-control daterange-basic" value="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-1"></div>
+                                                <label class="col-lg-2 col-form-label">Facultad</label>
+                                                <div class="col-lg-3">
+                                                    <select id="cmbFacultad" class="form-control select2"
+                                                        name="cmbFacultad">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-lg-8"></div>
+                                                <div class="col-lg-2">
+                                                    <button  type="submit" id="btnReset"
+                                                        class="btn btn-outline btn-danger bg-danger-400 text-danger-400 border-danger-400">
+                                                        BORRAR<i class="icon-eraser ml-1"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-lg-2">
+                                                    <button  type="button" id="btnSearch"
+                                                        class="btn btn-outline btn-primary bg-primary-400 text-primary-400 border-primary-400">
+                                                        BUSCAR <i class="icon-search4 ml-2"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+	
+
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>
+										<li class="media card-body flex-column flex-sm-row" style="margin-bottom: 0px ! important ;	margin-top: 0px ! important;">
+											<div class="mr-sm-3 mb-2 mb-sm-0">
+												<a href="#"><img src="/img/icono.png"> Constancia de Ingreso - Pregrado </a>
+												<span class="badge badge-flat border-danger text-danger-600">NO LEIDO</span>
+												<ul class="list-inline list-inline-dotted text-muted mb-2">
+													<li class="list-inline-item">Faultad: Ingeniería de Sistemas e Informatica</li><br>
+													<li class="list-inline-item">Escuela: Ingeniería de Software</li><br>
+													<li class="list-inline-item">Estudiante: Bryan Almonacid Parionana</li>
+												</ul>Aún no se inicia el proceso de emisión de la Contania de Ingreso.
+											</div>
+										</li>
+										
+									</td>
+								</tr>
+								
+							</tbody>
+						</table>
+
+					</div>		
+    			</div>
+			</div>
+		</div>
+			
+    	</div>
+
+
+</div>
+

@@ -27,7 +27,8 @@ router
     .post("/login", postulantController.login)
     .post("/register", postulantController.register)
     .get("/registreFotos", postulantController.getRegistrePhoto)
-    .post("/registreFotos", upload.array("images", 10), postulantController.registerPhotos)
+    .post("/registreFotos", upload.array("images", 20), postulantController.registerPhotos)
+    .post("/check_image", UploadImage.userPhoto, postulantController.checkPhoto)
     .get("/facial", postulantController.prueba)
     .get("/profile", postulantController.profile)
 

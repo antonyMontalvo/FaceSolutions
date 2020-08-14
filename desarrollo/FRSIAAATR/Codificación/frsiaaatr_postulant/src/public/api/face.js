@@ -8,7 +8,7 @@
 
 var dato = null;
 var ayuda = [];
-var cantidad=0;
+var cantidad = 0;
 console.log(typeof (cantidad));
 const formularioPostulante = document.getElementById('formularioPostulante');
 const loading = document.getElementById('loading');
@@ -165,11 +165,4 @@ function loadLabeledImages(dato) {
             return new faceapi.LabeledFaceDescriptors(label, descriptions);
         })
     )
-}
-
-async function verifyImages(imgE) {
-    const img = await faceapi.fetchImage(imgE);
-    const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-    return detections;
-
 }

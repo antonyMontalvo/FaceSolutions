@@ -153,30 +153,38 @@ PostulantController.registerPhotos = async (req, res) => {
     }
 };
 
+PostulantController.checkPhoto = async (req, res) => {
+    try {
+        return res.status(200).send({message: true});
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({error: error.stack});
+    }
+}
 
-PostulantController.profile = async(req, res) => {
+PostulantController.profile = async (req, res) => {
     try {
         res.render("postulant/profile");
     } catch (error) {
         console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
+        return res.status(500).json({error: error.stack});
     }
 };
 
-PostulantController.correccion = async(req, res) => {
+PostulantController.correccion = async (req, res) => {
     try {
         res.render("postulant/tramitesCorreccion");
     } catch (error) {
         console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
+        return res.status(500).json({error: error.stack});
     }
 };
-PostulantController.rechazados = async(req, res) => {
+PostulantController.rechazados = async (req, res) => {
     try {
         res.render("postulant/tramitesRechazados");
     } catch (error) {
         console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
+        return res.status(500).json({error: error.stack});
     }
 };
 

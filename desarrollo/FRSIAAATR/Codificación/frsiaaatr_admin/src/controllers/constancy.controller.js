@@ -66,7 +66,8 @@ ConstancyController.getAllProcess = async(req, res) => {
 		LEFT JOIN faculty f
 		ON sp.faculty_id = f.id
 		LEFT JOIN process_state pst
-		ON p.state_process = pst.idprocess_state`;
+        ON p.state_process = pst.idprocess_state
+        WHERE p.state_process IN (1, 2, 3)`; //No leído, observado, aprobado
 
         const process = await sequelizeDB.query(q);
         res.send(process[0]);
@@ -210,8 +211,8 @@ ConstancyController.getPostulantRequestInfo = async(req, res) => {
 
 }
 
-//Actualizar estado de requisito y registrar en seguimiento
-ConstancyController.updateRequestState = async(req, res) => {
+//Actualizar estado de requisito (y solicitud general según estados de requisitos)
+ConstancyController.updateRequirementState = async(req, res) => {
 
     const stateRequirement = req.body.state; //Estado de Requerimiento
     const idProcess = req.body.idProcess; //id de Solicitud
@@ -231,7 +232,6 @@ ConstancyController.updateRequestState = async(req, res) => {
     var q2 = `SELECT COUNT(*) as cantidadRequisitos FROM requirement WHERE process_id = ` + idProcess;
     var t = await sequelizeDB.query(q2);
     var totalQty = t[0];
-    console.log(totalQty[0].cantidadRequisitos);
 
     //Cuando se observe (2) o se apruebe (4)...
     var q3 = `SELECT
@@ -291,24 +291,28 @@ ConstancyController.updateRequestState = async(req, res) => {
 
 }
 
-/* //Lista de solicitudes Derivadas
-ConstancyController.getRequestInDerivedList = async(req, res) => {
-    try {
-        res.render("constancy/requestInDerived");
-    } catch (error) {
-        console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
-    }
-};
+//Actualizar solo el estado de la solicitud
+ConstancyController.updateRequestState = async(req, res) => {
 
-//Solicitud Derivada
-ConstancyController.getRequestInDerivedConstancy = async(req, res) => {
     try {
-        res.render("constancy/derivedConstancy");
+
+        const idProcess = req.body.id;
+        var newRequestState = req.body.state;
+
+        var q = `UPDATE process p 
+                SET p.state_process = ` + newRequestState +
+            ` WHERE p.id = ` + idProcess;
+
+        await sequelizeDB.query(q);
+        res.send("Aprobado");
+
     } catch (error) {
         console.log(error.stack);
         return res.status(500).json({ error: error.stack });
     }
-}; */
+
+
+
+}
 
 module.exports = ConstancyController;

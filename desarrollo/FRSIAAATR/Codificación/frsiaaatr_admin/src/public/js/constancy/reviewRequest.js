@@ -123,6 +123,7 @@ $(document).ready(function() {
                 ];
 
                 $("#idSolicitud").val(data[0].idSolicitud); //idSolicitud (PK)
+                if (data[0].estadoSolicitud == 3) { $("#blockAccion").removeClass("d-none"); }
                 return info;
             },
             "beforeSend": function(xhr) {
@@ -233,7 +234,14 @@ $(document).ready(function() {
                 dataRequisito.nombreEstadoRequisito = response[0].state_name;
 
                 var row = $local.tblRequisitos.row.add(dataRequisito).draw();
-                //$(row.node()).animateHighlight();
+
+                //Si el estado de la solicitud es APROBADO después de actualizar un requisito 
+                if (response[0].state_process == 3) {
+                    $("#badgeEstado").replaceWith(`<span class="badge badge-flat border-success 
+                    text-success-600" id="badgeEstado">` + response[0].state_name_process + `</span>`);
+                    $("#blockAccion").removeClass("d-none"); //Muestra el botón procesar
+                }
+
             },
             error: function(response) {},
             complete: function(response) {}
@@ -289,6 +297,38 @@ $(document).ready(function() {
                 }
             });
 
+    });
+
+    //Pasar solicitud (general) a estado "En Proceso"
+    $("#btnProcesar").on("click", function() {
+
+        var data = {
+            id: $("#idSolicitud").val(),
+            state: 4
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: "../../constancy/update-state",
+            data: JSON.stringify(data),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+            },
+            success: function(response) {
+                console.log(response);
+
+                if (response == "Aprobado") {
+                    //Actualizando estado en "Detalle"
+                    $("#badgeEstado").replaceWith(`<span class="badge badge-flat border-info 
+                    text-info-600" id="badgeEstado">EN PROCESO</span>`);
+                    $("#blockInfo").replaceWith(`<span>PROCESADA</span>`);
+                }
+
+
+            },
+            error: function(response) {},
+            complete: function(response) {}
+        });
     });
 
 });

@@ -10,11 +10,11 @@ router
     //Revisar todas las solicitudes
     .get("/all-review-request/:id", constancyController.getAllReviewRequest)
     .get("/postulant-info-request/:id", constancyController.getPostulantRequestInfo)
-    //Actualizar estado de requerimiento (procedure cambia solicitud y añade en seguimiento)
-    .put("/update-req-state", constancyController.updateRequestState)
+    //Actualizar estado de requisito (y el de la solicitud según estados req)
+    .put("/update-req-state", constancyController.updateRequirementState)
+    //Actaulizar estado de solicitud (general)
+    .put("/update-state", constancyController.updateRequestState)
     .get("/all-process", constancyController.getAllProcess)
     .post("/filter-process", constancyController.filterProcess);
 
-/* .get("/request-in-derived", constancyController.getRequestInDerivedList)
-.get("/derived-constancy", constancyController.getRequestInDerivedConstancy) */
 module.exports = router;

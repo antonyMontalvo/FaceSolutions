@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Face APi</title>
+	
+	<link rel="stylesheet" href="css/spinner.css">
+	<link rel="stylesheet" href="css/postulante.css">
+	<script src="/api/face-api.min.js"></script>
+	<style>
+	body{
+		margin: 0;
+		padding: 0;
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	canvas{
+		position: absolute;
+	}
+</style>
+</head>
+<body onload="CodigoValidacion('{{data.code}}')">
+	<div class="loading">
+		<h1 class="t-center">Reconocimiento Facial Postulante</h1>
+
+		<div class="redireccionar d-none" id="redir">
+			<a href="/login">Volver a ingresar Código</a>
+		</div>
+		
+		<!--  -->
+		<div id="formularioPostulante" class="wrapper">
+		</div>
+
+		<!--  -->
+
+		<video class="d-none" src="" id="video" width="720" height="560" autoplay muted>
+		</video>
+		
+		<div class="centrar d-none" id="loading">
+			<div class="sk-chase">
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+				<div class="sk-chase-dot"></div>
+			</div>	
+		</div>
+	</div>
+
+	<script src="/api/face.js"></script>
+</body>
+</html>

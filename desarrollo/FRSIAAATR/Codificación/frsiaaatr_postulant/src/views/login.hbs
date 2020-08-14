@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,10 +25,12 @@
 	}
 </style>
 </head>
+
 <body>
 	<div class="loading">
 		<h1 class="t-center">Reconocimiento Facial Postulante</h1>
 
+<<<<<<< HEAD
 		<div class="redireccionar d-none" id="redir">
 			<a href="/facial">Volver a ingresar Código</a>
 		</div>
@@ -62,4 +65,48 @@
 	<script src="../../../api/face.js"></script>
 	
 </body>
+=======
+	<div class="centrar">
+		<div class="row">
+			<div class="col">
+				<div class="informacion">
+					<div class="login">
+						<div class="logo">
+							<img src="/img/tramites.png" alt="logo">
+						</div>
+						<h2 class="t-center">Inicio de Sesión</h2>
+
+						<form action="/login" method="POST">
+							<div class="inputWithIcon">
+								<input name="dni" type="text" placeholder="Tu DNI" required>
+								<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+								<span class="underline"></span>
+							</div>
+							<div class="inputWithIcon">
+								<input name="postulant_code" type="text" placeholder="Código de postulante" required>
+								<i class="fa fa-lock" aria-hidden="true"></i>
+							</div>
+
+							<input type="submit" class="btn-login">
+						</form>
+					</div>
+					<div class="guia-usuario">
+						<p class="t-center">
+							Registrate haciendo click <a href="/register"> aquí</a> </p>
+					</div>
+				</div>
+			</div>
+			<div class="col d-none">
+				<img class="fondo-secundario" src="/img/login.jpg" alt="">
+			</div>
+		</div>
+
+	</div>
+
+	<script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
+
+
+</body>
+
+>>>>>>> master
 </html>

@@ -177,6 +177,7 @@
                                 contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
                                 let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                                const file = dataURLtoFile(foto, `${contador}.jpg`);
                                 const fileTest = dataURLtoFile(foto, `test.jpg`);
 
                                 const formData = new FormData();
@@ -196,7 +197,7 @@
                                                     contador--;
                                                     alert("La imagen no cumple los requisitos mínimos para poder guardarse.")
                                                 } else {
-                                                    const file = dataURLtoFile(foto, `${contador}.jpg`);
+
                                                     images.push(file)
                                                 }
                                             }
@@ -223,6 +224,7 @@
     }
 
     async function saveUserImages() {
+        console.log(images)
         if (images.length >= 10 && images.length <= 20) {
             const formData = new FormData();
 

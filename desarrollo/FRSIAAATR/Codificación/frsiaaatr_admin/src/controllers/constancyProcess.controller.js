@@ -6,28 +6,6 @@ const { sequelizeDB } = require("../../config/database");
 const ConstancyController = require("./constancy.controller");
 
 const Employee = require("../models/department"),
-<<<<<<< HEAD
-    { createToken, getPayload } = require("../services/jwt"),
-    ConstancyProcessController = {};
-
-//Creas un servicio rest.
-//Cuando des click en "generar doc", sacas el dni
-//Con el dni armas un query que te bote: nombrecompleto, facultad, especialidad, puntaje, sexo.
-//Formas tu objeto.
-//
-
-ConstancyProcessController.getProcess = async(req, res) => {
-      
-    var hoy = new Date();
-    var dd = hoy.getDate();
-    var mm = hoy.getMonth()+1;
-    var yyyy = hoy.getFullYear();
-            
-    var fecha_actual = dd+'/'+mm+'/'+yyyy;
-    
-    const id = req.params.id;
-    let q = `select 
-=======
   { createToken, getPayload } = require("../services/jwt"),
   ConstancyProcessController = {};
 
@@ -166,7 +144,6 @@ ConstancyProcessController.getProcess = async (req, res) => {
   const id = req.params.id;
   let q =
     `select 
->>>>>>> origin/tovar
 	concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
     ps.dni as dni,
     f.name as facultad,

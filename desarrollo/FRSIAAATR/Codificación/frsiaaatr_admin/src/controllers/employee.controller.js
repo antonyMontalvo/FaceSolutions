@@ -26,49 +26,6 @@ EmployeesController.getEmployees = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
-EmployeesController.generatePdf = async(req, res) => {
-    
-    const path = require("path");
-    const puppeteer = require("puppeteer");
-    const handlebars = require("handlebars");
-    var fs = require('fs');
-    var express = require("express");
-    var hbs = require("express-handlebars");
-
-    var app = express();
-
-    app.engine('hbs', hbs({ extname: 'hbs' }));
-    app.set('view engine', 'hbs');
-    app.use(express.static(path.join(__dirname, 'public')));
-    (async() => {
-        try {
-
-            let browser = null;
-
-            const file = fs.readFileSync('./src/template/constancy.html', 'utf8');
-            const template = handlebars.compile(file);
-            const html = template({ name: "Evelin Sofia Pariona Gutierrez", dni: "09988830", puntaje: "1350.50" });
-            
-            browser = await puppeteer.launch({
-                pipe: true,
-                args: ['--headless', '--disable-gpu', '--full-memory-crash-report', '--unlimited-storage',
-                    '--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'
-                ],
-            });
-
-            const page = await browser.newPage();
-            await page.setContent(html);
-            await page.pdf({ path: "./pdf/constancy.pdf", format: "Letter" });
-            await browser.close();
-
-            res.send("Se firmó la constancia satisfactoriamente");
-
-        } catch (error) {
-            console.log(error);
-        }
-    })();
-=======
 EmployeesController.generatePdf = async (req, res) => {
   const path = require("path");
   const puppeteer = require("puppeteer");
@@ -76,7 +33,6 @@ EmployeesController.generatePdf = async (req, res) => {
   var fs = require("fs");
   var express = require("express");
   var hbs = require("express-handlebars");
->>>>>>> origin/tovar
 
   var app = express();
 

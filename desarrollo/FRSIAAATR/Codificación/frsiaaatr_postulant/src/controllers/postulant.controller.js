@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const bcrypt = require("bcryptjs"),
     fs = require("fs"),
     path = require("path");
@@ -13,14 +12,6 @@ const Postulant = require("../models/postulant"),
     saltRounds = 10;
 
 // Views
-=======
-const bcrypt = require("bcryptjs");
-<<<<<<< HEAD
-const Department = require("../models/department"), //pongo Employee porque es un modelo
-  { createToken, getPayload } = require("../services/jwt"),
-  PostulantController = {},
-  saltRounds = 10;
->>>>>>> origin/tovar
 PostulantController.getIndex = async (req, res) => {
     try {
         res.render("postulant/index");
@@ -65,7 +56,6 @@ PostulantController.getRegistrePhoto = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
 // Logic
 PostulantController.login = async (req, res) => {
     try {
@@ -74,10 +64,6 @@ PostulantController.login = async (req, res) => {
                 where: {dni, postulant_code}
             }
         );
-=======
-module.exports = PostulantController;
-=======
->>>>>>> origin/tovar
 
         if (postulantFound) {
             const code = String("_" + dni + "_" + postulant_code);
@@ -167,37 +153,40 @@ PostulantController.registerPhotos = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
+PostulantController.checkPhoto = async (req, res) => {
+    try {
+        return res.status(200).send({message: true});
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({error: error.stack});
+    }
+}
 
-PostulantController.profile = async(req, res) => {
+PostulantController.profile = async (req, res) => {
     try {
         res.render("postulant/profile");
     } catch (error) {
         console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
+        return res.status(500).json({error: error.stack});
     }
 };
 
-PostulantController.correccion = async(req, res) => {
+PostulantController.correccion = async (req, res) => {
     try {
         res.render("postulant/tramitesCorreccion");
     } catch (error) {
         console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
+        return res.status(500).json({error: error.stack});
     }
 };
-PostulantController.rechazados = async(req, res) => {
+PostulantController.rechazados = async (req, res) => {
     try {
         res.render("postulant/tramitesRechazados");
     } catch (error) {
         console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
+        return res.status(500).json({error: error.stack});
     }
 };
 
 
 module.exports = PostulantController;
-=======
-module.exports = EmployeesController;
->>>>>>> 8e29c51194a8209341e1129bea6fa0951c6c2147
->>>>>>> origin/tovar

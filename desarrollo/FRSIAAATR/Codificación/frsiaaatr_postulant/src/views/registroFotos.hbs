@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body>
+<body onload="loadModels()">
 <input id="user_id" type="text" hidden value="{{data.id}}">
 <div class="container">
     <section class="register">
@@ -41,6 +41,7 @@
         </div>
     </section>
 </div>
+<script src="/api/faceCheck.js"></script>
 </body>
 <script>
 
@@ -133,15 +134,6 @@
                 }
             });
 
-            function DataURIToBlob(dataURI) {
-                const splitDataURI = dataURI.split(',')
-                const byteString = splitDataURI[0].indexOf('base64') >= 0 ? atob(splitDataURI[1]) : decodeURI(splitDataURI[1])
-                const mimeString = splitDataURI[0].split(':')[1].split(';')[0]
-
-
-                return new Blob([ia], {type: mimeString})
-            }
-
             const mostrarStream = (idDeDispositivo) => {
                 _getUserMedia(
                         {
@@ -175,7 +167,7 @@
                             $video.play();
 
                             //Escuchar el click del botón para tomar la foto
-                            $boton.addEventListener("click", function () {
+                            $boton.addEventListener("click", async function () {
                                 contador++;
 
                                 //Obtener contexto del canvas y dibujar sobre él
@@ -185,12 +177,33 @@
                                 contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
                                 let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-                                var file = dataURLtoFile(foto, `${contador}.jpg`);
-                                // const file = DataURIToBlob(foto);
-                                console.log(file)
-                                images.push(file)
+                                const file = dataURLtoFile(foto, `${contador}.jpg`);
+                                const fileTest = dataURLtoFile(foto, `test.jpg`);
 
-                                $video.play();
+                                const formData = new FormData();
+                                formData.append('image', fileTest);
+
+                                await fetch('http://localhost:3000/check_image', {
+                                    method: 'POST', // or 'PUT'
+                                    body: formData, // data can be `string` or {object}!
+
+                                }).then(res => res.json())
+                                        .catch(error => console.error('Error:', error))
+                                        .then(async (response) => {
+                                            console.log(response)
+                                            if (response.message) {
+                                                const detections = await verifyImages()
+                                                if (!detections) {
+                                                    contador--;
+                                                    alert("La imagen no cumple los requisitos mínimos para poder guardarse.")
+                                                } else {
+
+                                                    images.push(file)
+                                                }
+                                            }
+                                        });
+
+                                // $video.play();
                             });
                         },
                         (error) => {
@@ -211,31 +224,30 @@
     }
 
     async function saveUserImages() {
-        const formData = new FormData();
+        console.log(images)
+        if (images.length >= 10 && images.length <= 20) {
+            const formData = new FormData();
 
-        const id = document.getElementById("user_id").value;
-        formData.append("id", id);
-        for (let i = 0; i < images.length; i++) {
-            formData.append('images', images[i]);
+            const id = document.getElementById("user_id").value;
+            formData.append("id", id);
+            for (let i = 0; i < images.length; i++) {
+                formData.append('images', images[i]);
+            }
+
+            await fetch('http://localhost:3000/registreFotos', {
+                method: 'POST', // or 'PUT'
+                body: formData, // data can be `string` or {object}!
+
+            }).then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        if (response.message) {
+                            window.location.href = "/";
+                        }
+                    });
+        } else {
+            alert("Debes completar un mínimo de 10 fotos y como máximo de 20")
         }
-
-        // const img = await faceapi.fetchImage(images[0].path);
-        // const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-        // if (!detections) {
-            console.log("error no cumple")
-        await fetch('http://localhost:3000/registreFotos', {
-            method: 'POST', // or 'PUT'
-            body: formData, // data can be `string` or {object}!
-
-        }).then(res => res.json())
-                .catch(error => console.error('Error:', error))
-                .then(response => {
-                    if (response.message) {
-                        window.location.href = "/";
-                    }
-                });
-
-        // }
 
     }
 

@@ -10,10 +10,6 @@ const morgan = require("morgan"),
     express = require("express"),
     app = express();
 
-var fileupload = require("express-fileupload");
-app.use(fileupload());
-
-var bodyParser = require("body-parser");
 /**
  * Settings
  */
@@ -21,7 +17,9 @@ if (process.env.NODE_ENV != "production") {
     require("dotenv").config(); // variables de entorno
 }
 const HOST = process.env.APP_HOST ? process.env.APP_HOST : "0.0.0.0",
-  routes = require("./routes/index");
+    routes = require("./routes/index"),
+    io = require("./services/socket")(app);
+
 app.set("port", process.env.APP_PORT ? process.env.APP_PORT : 3000);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -68,9 +66,20 @@ routes.getRoutes(app);
 app.use(express.static(path.join(__dirname + "/public")));
 
 /**
+ * Error pagues
+ */
+app.use(function (req, res) {
+    res.status(404).render('errors/404', {layout: null});
+});
+
+app.use(function (req, res) {
+    res.status(500).render('errors/500', {layout: null});
+});
+
+/**
  * Start server
  */
-app.listen(app.get("port"), HOST, () => {
+io.listen(app.get("port"), HOST, () => {
     process.env.NODE_ENV !== "production"
         ? console.log(
         chalk.bgGreen.black(`Server start on:`) +

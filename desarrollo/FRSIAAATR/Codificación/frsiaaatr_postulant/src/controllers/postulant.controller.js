@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const bcrypt = require("bcryptjs"),
     fs = require("fs"),
     path = require("path");
@@ -12,6 +13,14 @@ const Postulant = require("../models/postulant"),
     saltRounds = 10;
 
 // Views
+=======
+const bcrypt = require("bcryptjs");
+<<<<<<< HEAD
+const Department = require("../models/department"), //pongo Employee porque es un modelo
+  { createToken, getPayload } = require("../services/jwt"),
+  PostulantController = {},
+  saltRounds = 10;
+>>>>>>> origin/tovar
 PostulantController.getIndex = async (req, res) => {
     try {
         res.render("postulant/index");
@@ -56,6 +65,7 @@ PostulantController.getRegistrePhoto = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 // Logic
 PostulantController.login = async (req, res) => {
     try {
@@ -64,6 +74,10 @@ PostulantController.login = async (req, res) => {
                 where: {dni, postulant_code}
             }
         );
+=======
+module.exports = PostulantController;
+=======
+>>>>>>> origin/tovar
 
         if (postulantFound) {
             const code = String("_" + dni + "_" + postulant_code);
@@ -153,6 +167,7 @@ PostulantController.registerPhotos = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 
 PostulantController.profile = async(req, res) => {
     try {
@@ -182,3 +197,7 @@ PostulantController.rechazados = async(req, res) => {
 
 
 module.exports = PostulantController;
+=======
+module.exports = EmployeesController;
+>>>>>>> 8e29c51194a8209341e1129bea6fa0951c6c2147
+>>>>>>> origin/tovar

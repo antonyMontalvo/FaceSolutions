@@ -78,9 +78,11 @@ p.code as numero_expediente,
       const file = fs.readFileSync("./src/template/constancy.html", "utf8");
       const template = handlebars.compile(file);
       const html = template({
-        name: "Evelin Sofia Pariona Gutierrez",
-        dni: "09988830",
-        puntaje: "1350.50",
+        name: solicitante,
+        dni: dni,
+        especialidad: especialidad,
+        facultad: facultad,
+        puntaje: "1530.00",
       });
 
       browser = await puppeteer.launch({
@@ -98,7 +100,10 @@ p.code as numero_expediente,
 
       const page = await browser.newPage();
       await page.setContent(html);
-      await page.pdf({ path: "./pdf/constancy.pdf", format: "Letter" });
+      await page.pdf({
+        path: "./pdf/constancy" + dni + ".pdf",
+        format: "Letter",
+      });
       await browser.close();
     }
     // res.render("constancy/derivedConstancy", {
@@ -352,34 +357,24 @@ ConstancyProcessController.getRequestInProcessList = async (req, res) => {
   try {
     const q = `SELECT 
 		p.code as codigoSolicitud,
-		p.state_process as estadoSolicitud,
-		pst.state_name as nombreEstadoSolicitud,  
-		p.date_created as fechaSolicitud,
+		p.state_process as estadoSolicitud,		pst.state_name as nombreEstadoSolicitud,  p.date_created as fechaSolicitud,
 		c.name as nombreConstancia,
-		ps.name as nombre, 
-		ps.last_name_1 as apellidoPaterno, 
-		ps.last_name_2 as apellidoMaterno,
-		concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as nombreCompleto,  
-		ps.postulant_code as codigoPostulante,
-		ps.dni as numeroDocumento,
-		sp.name as escuelaAcademica,
-        sp.initials as escuelaIniciales,
-		f.name as facultad,
-        f.initials as facultadIniciales
-		FROM 
-		process p LEFT JOIN postulant ps 
+		ps.name as nombre, ps.last_name_1 as apellidoPaterno, 
+		ps.last_name_2 as apellidoMaterno,concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as nombreCompleto,  
+		ps.postulant_code as codigoPostulante,ps.dni as numeroDocumento,
+		sp.name as escuelaAcademica,sp.initials as escuelaIniciales,
+		f.name as facultad,f.initials as facultadIniciales
+		FROM process p LEFT JOIN postulant ps 
 		ON p.postulant_id = ps.id 
-		LEFT JOIN constancy c 
-		ON p.constancy_id = c.id
-		LEFT JOIN specialty sp
-		ON ps.specialty_id = sp.id
-		LEFT JOIN faculty f
-		ON sp.faculty_id = f.id
+		LEFT JOIN constancy c ON p.constancy_id = c.id
+		LEFT JOIN specialty sp ON ps.specialty_id = sp.id
+		LEFT JOIN faculty f ON sp.faculty_id = f.id
 		LEFT JOIN process_state pst
         ON p.state_process = pst.idprocess_state
         where p.state_process = 2`;
 
     const process = await sequelizeDB.query(q);
+    console.log("xd", process);
     res.send(process[0]);
   } catch (error) {
     console.log(error.stack);

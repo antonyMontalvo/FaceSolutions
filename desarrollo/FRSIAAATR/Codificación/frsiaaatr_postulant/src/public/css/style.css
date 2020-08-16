@@ -236,8 +236,18 @@ label {
   font: 1rem "Fira Sans", sans-serif;
 }
 section {
-  background-color: #343a40;
-  padding: 10px;
+  padding: 20px;
+  position: fixed;
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  /*background: #f3f3f3;*/
+  /*font-family: 'Roboto', sans-serif;*/
+  background-image: linear-gradient(
+          rgba(22, 22, 26, 0.9),
+          rgba(22, 22, 26, 0.9)
+  ),
+  url("../img/admin.jpg");
 }
 section .header {
 }
@@ -296,4 +306,25 @@ section .footer {
   .row {
     display: flex;
   }
+}
+
+label.cameraButton {
+  display: inline-block;
+  margin: 1em 0;
+
+  /* Styles to make it look like a button */
+  padding: 0.5em;
+  border: 2px solid #666;
+  border-color: #EEE #CCC #CCC #EEE;
+  background-color: #DDD;
+}
+
+/* Look like a clicked/depressed button */
+label.cameraButton:active {
+  border-color: #CCC #EEE #EEE #CCC;
+}
+
+/* This is the part that actually hides the 'Choose file' text box for camera inputs */
+label.cameraButton input[accept*="camera"] {
+  display: none;
 }

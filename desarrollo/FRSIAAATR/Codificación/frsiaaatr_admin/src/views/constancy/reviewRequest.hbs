@@ -44,7 +44,7 @@
                             <div class="media flex-column flex-md-row mb-4">
 
                                 <div class="media-body">
-                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">Documentos
+                                    <h5 class="media-title font-weight-semibold">Documentos
                                         solicitados</h5>
                                 </div>
                             </div>
@@ -85,13 +85,13 @@
                         <div
                             class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
                             <b>¡Atención!</b> Una vez que todos los documentos sean aprobados, le aparecerá un
-                            botón en la parte superior para aprobar
-                            la solicitud y que esta sea derivada. Una vez esta sea aprobada, no se podrán
+                            botón en la parte superior derecha para procesar
+                            la solicitud. Una vez esta sea procesada, no se podrán
                             observar de nuevo los documentos y el postulante
                             tampoco podrá editarlos.
                             <button type="button" class="close" data-dismiss="alert">×</button>
                         </div>
-                        <div class="card d-none">
+                        <div class="card d-none" id="blockAccion">
                             <div class="card-header bg-transparent header-elements-inline">
                                 <span class="text-uppercase font-size-sm font-weight-semibold">Acciones</span>
                                 <div class="header-elements">
@@ -100,14 +100,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive" id="blockInfo">
                                 <table id="tblPrueba" class="table table-borderless table-xs my-2 dataTable no-footer"
                                     role="grid" style="width: 100%;">
                                     <tbody>
                                         <tr role="row" class="odd">
-                                            <td><i class="fa fa-check"></i> Pasar a en proceso:</td>
+                                            <td><i class="fa fa-check"></i>Procesar solicitud:</td>
                                             <td class=" text-right">
-                                                <button type="button" class="btn btn-success btn-lg" id="btnAprobar">Aprobar</button>
+                                                <button type="button" class="btn btn-success btn-lg"
+                                                    id="btnProcesar">Procesar</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -133,54 +134,6 @@
 
                         </div>
 
-                        <!-- /task details -->
-
-                        {{!--  <div class="card">
-                            <div class="card-header bg-transparent header-elements-inline">
-                                <span class="text-uppercase font-size-sm font-weight-semibold">Seguimiento</span>
-                                <div class="header-elements">
-                                    <div class="list-icons">
-                                        <a class="list-icons-item" data-action="collapse"></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <ul class="media-list">
-                                    <li class="media">
-                                        <div class="mr-3">
-                                            <a href="#"
-                                                class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon">
-                                                <i class="icon-git-pull-request"></i>
-                                            </a>
-                                        </div>
-
-                                        <div class="media-body">
-                                            Presentación de la solicitud
-                                            <div class="text-muted font-size-sm fechaSolicitud"></div>
-
-                                        </div>
-                                    </li>
-
-                                    <li class="media">
-                                        <div class="mr-3">
-                                            <a href="#"
-                                                class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon">
-                                                <i class="icon-git-commit"></i>
-                                            </a>
-                                        </div>
-
-                                        <div class="media-body">
-                                            Evaluación de la Solicitud
-                                            <div class="text-muted font-size-sm fechaSolicitudDetalle">- Pendiente -
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div> --}}
-
                     </div>
                     <!-- /sidebar content -->
 
@@ -194,7 +147,6 @@
     </div>
 
 </div>
-
 <!-- Project JS files -->
 <script src="/js/constancy/reviewRequest.js"></script>
 <!-- /projectFiles -->
@@ -203,3 +155,7 @@
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 <!-- /dataTables -->
+
+<!-- Sweet Alert -->
+<script type="text/javascript" src="../../../../global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<!-- /sweetAlert -->

@@ -2,175 +2,208 @@
 <html lang="en">
 
 <head>
-	<!-- Required meta tags -->
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="/css/style.css" type="text/css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
 
+    <!--    <script src="/assets/js/main/jquery.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
 
-	<title>Register | USER </title>
+    <title>Registro | Usuario </title>
 </head>
 
 <body>
-	<section class="register" style="min-height: 100vh;">
-		<div class="header">
-			<div class="logo"></div>
-			<h1 class="t-center" style="font-size: 40px;">Registro de usuario</h1>
-		</div>
-		<div class="formulario">
-			<form>
-				<div class="row">
-					<div class="col-f" style="margin-right: 10px;">
-						<label>Apellido Paterno</label>
-						<div class="inputWithIcon">
+<section class="register">
 
-							<input type="email" placeholder="Tú apellido paterno" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
-					<div class="col-f">
+    <div class="header">
+        <div class="logo"></div>
+        <h1 class="t-center" style="font-size: 40px;">Registro de usuario</h1>
+    </div>
 
-						<label>apellido Materno</label>
-						<div class="inputWithIcon">
+    <div class="formulario">
+        <form action="/register" method="POST">
+            <div class="row">
+                <div class="col-f" style="margin-right: 10px;">
+                    <label>Apellido Paterno</label>
+                    <div class="inputWithIcon">
+                        <input type="text" name="last_name_1" placeholder="Tú apellido paterno" required>
+                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                        <span class="underline"></span>
+                    </div>
+                </div>
 
-							<input type="email" placeholder="Tú apellido materno" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-f" style="margin-right: 10px;">
-						<label>Nombre</label>
-						<div class="inputWithIcon">
+                <div class="col-f">
+                    <label>apellido Materno</label>
+                    <div class="inputWithIcon">
+                        <input type="text" name="last_name_2" placeholder="Tú apellido materno" required>
+                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                        <span class="underline"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-f" style="margin-right: 10px;">
+                    <label>Nombre</label>
+                    <div class="inputWithIcon">
+                        <input type="text" name="name" placeholder="Tú nombre" required>
+                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                        <span class="underline"></span>
+                    </div>
+                </div>
 
-							<input type="email" placeholder="Tú nombre" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
-					<div class="col-f">
-						<label>Fecha de Nacimiento</label>
-						<div class="inputWithIcon">
+                <div class="col-f">
+                    <label>Fecha de Nacimiento</label>
+                    <div class="inputWithIcon">
+                        <input id="date" type="date" name="birthdate" required>
+                        <span class="underline"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-f" style="margin-right: 10px;">
+                    <label>Domicilio</label>
+                    <div class="inputWithIcon">
+                        <input type="text" name="address" placeholder="Tu Domicilio" required>
+                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                        <span class="underline"></span>
+                    </div>
+                </div>
 
-							<input id="date" type="date" required>
-							<span class="underline"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-f" style="margin-right: 10px;">
-						<label>Domicilio</label>
-						<div class="inputWithIcon">
+                <div class="col-f">
+                    <label>Correo</label>
+                    <div class="inputWithIcon">
+                        <input type="email" name="email" placeholder="Tu Correo" required>
+                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                        <span class="underline"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
 
-							<input type="email" placeholder="Tu Domicilio" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
-					<div class="col-f">
-						<label>Correo</label>
-						<div class="inputWithIcon">
-							<input type="text" placeholder="Tu Correo" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
+                <div class="col-f" style="margin-right: 10px;">
+                    <label>DNI</label>
+                    <div class="inputWithIcon">
+                        <input type="text" name="dni" placeholder="Tu DNI" required>
+                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                        <span class="underline"></span>
+                    </div>
+                </div>
 
-					<div class="col-f" style="margin-right: 10px;">
-						<label>DNI</label>
-						<div class="inputWithIcon">
+                <div class="col-f">
+                    <label>Teléfono</label>
+                    <div class="inputWithIcon">
+                        <input type="text" name="cell_phone" placeholder="Tu Telefono" required>
+                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                        <span class="underline"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
 
-							<input type="text" placeholder="Tu DNI" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
+                <div class="col-f" style="margin-right: 10px;">
+                    <label>Codigo Postulante</label>
+                    <div class="inputWithIcon">
+                        <input type="text" name="postulant_code" placeholder="Tu Codigo" required>
+                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
+                        <span class="underline"></span>
+                    </div>
+                </div>
 
+                <div class="col-f">
+                    <label>Fecha de postulacion</label>
+                    <div class="inputWithIcon">
+                        <input id="date" type="date" name="date_postulation" required>
+                        <span class="underline"></span>
+                    </div>
+                </div>
+            </div>
 
-					<div class="col-f">
-						<label>Teléfono</label>
-						<div class="inputWithIcon">
+            <div class="row">
+                <div class="col-f" style="margin-right: 10px;">
+                    <div class="form-group">
+                        <label>Departamento</label>
+                        <div class="inputWithIcon">
+                            <select onchange="selectProvinces('{{data.provinces}}')" id="department"
+                                    data-placeholder="Select " required>
+                                <option selected value="0" hidden></option>
+                                {{#each data.departments}}
+                                    <option value="{{id}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                            <span class="underline"></span>
+                        </div>
+                    </div>
+                </div>
 
-							<input type="text" placeholder="Tu Telefono" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
+                <div class="col-f">
+                    <label>Provincia</label>
+                    <div class="inputWithIcon">
+                        <select onchange="selectDistricts('{{data.districts}}')" id="province"
+                                data-placeholder="Select " required>
+                            <option selected value="0" hidden></option>
+                        </select>
+                        <span class="underline"></span>
+                    </div>
+                </div>
+            </div>
 
-					<div class="col-f" style="margin-right: 10px;">
-						<label>Codigo Postulante</label>
-						<div class="inputWithIcon">
+            <div class="row">
+                <div class="col-f" style="margin-right: 10px;">
+                    <div class="form-group">
+                        <label>Distrito</label>
+                        <div class="inputWithIcon">
+                            <select id="district" name="district_id" data-placeholder="Select " required>
+                                <option selected value="0" hidden></option>
+                            </select>
+                            <span class="underline"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn-login btn-chico" value="Cargar fotos">
+        </form>
+    </div>
 
-							<input type="text" placeholder="Tu Codigo" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
+    <div class="footer t-center">
+        © Grupo 6- 2020
+    </div>
+</section>
 
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
+<script>
+    function selectProvinces(provinces) {
+        const prov = JSON.parse(provinces);
+        const dep = document.getElementById("department").value;
+        const newArray = prov.filter(el => el.department_id == dep);
 
-					<div class="col-f">
-						<label>Fecha de postulacion</label>
-						<div class="inputWithIcon">
+        let provinceSelect = document.getElementById("province");
+        provinceSelect.options.length = 1;
+        let option = document.createElement("option");
+        for (let i = 0; i < newArray.length; i++) {
+            option.text = newArray[i].name;
+            option.value = newArray[i].id;
+            provinceSelect.appendChild(option);
+        }
+    }
 
-							<input id="date" type="date" required>
-							<span class="underline"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-f" style="margin-right: 10px;">
-						<label>Departamento</label>
-						<div class="inputWithIcon">
+    function selectDistricts(districts) {
+        const disc = JSON.parse(districts);
+        const pro = document.getElementById("province").value;
+        const newArray = disc.filter(el => el.province_id == pro);
 
-							<input type="text" placeholder="Tu departamenteo" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
-					<div class="col-f">
-						<label>Provincia</label>
-						<div class="inputWithIcon">
-
-							<input type="text" placeholder="Tu provincia" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span> </div>
-					</div>
-				</div>
-				<div class="row">
-
-					<div class="col-f" style="margin-right: 10px;">
-						<label>Distrito</label>
-						<div class="inputWithIcon">
-
-							<input type="text" placeholder="Tu distrito" required>
-							<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-							<span class="underline"></span>
-						</div>
-					</div>
-				</div>
-				<input type="submit" class="btn-login btn-chico" id="loadPhoto" value="Cargar fotos">
-			</form>
-		</div>
-
-		{{!-- <div class="footer t-center">
-			© Grupo 6- 2020
-		</div> --}}
-	</section>
-
-	<!-- Font Awesome -->
-	<script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
-	<script>
-		const load = document.querySelector('#loadPhoto');
-		load.addEventListener('click', function () {
-			window.location.href = "http://localhost:3000/registreFotos"
-		})
-	</script>
+        let districtSelect = document.getElementById("district");
+        districtSelect.options.length = 1;
+        let option = document.createElement("option");
+        for (let i = 0; i < newArray.length; i++) {
+            option.text = newArray[i].name;
+            option.value = newArray[i].id;
+            districtSelect.appendChild(option);
+        }
+    }
+</script>
 
 </body>
 

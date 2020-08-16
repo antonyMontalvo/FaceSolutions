@@ -1,0 +1,223 @@
+<div class="content-page">
+
+	<!-- Page Header -->
+	<div class="page-header page-header-light">
+		<div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+			<div class="d-flex">
+				<div class="breadcrumb">
+					<a href="/" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Inicio</a>
+					<span class="breadcrumb-item active">Solicitudes para Coregir</span>
+				</div>
+
+				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+			</div>
+
+
+		</div>
+
+		<div class="page-header-content header-elements-md-inline">
+			<div class="mt-2">
+				<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Trámites para Corrección</span></h4>
+				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+			</div>
+
+
+		</div>
+
+
+	</div>
+	<!-- /page Header -->
+
+
+	<div class="content">
+		<div class="container-fluid">
+			
+			<div class="row">
+				<div class="card col-md-12 col-sm-12 col-xs-12">
+					<div class="card-header bg-transparent header-elements-inline">
+						<h6 id="titulo-card" class="card-title">Revisar los Requerimientos de los Trámites</h6>
+					</div>
+					<div class="card-body">
+						<div class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
+							Las  solicitudes hechas de los postulantes para  el proceso de solicitud de trámite de
+							constancia se mostrarán aquí. Contiene:
+							<ul>
+								<li>Filtros requeridos que se encuentran debajo para aplicar una búsqueda más precisa</li>
+								<li>Ajustar la visibilidad de las columnas según crea conveniente (botón "COLUMNAS")</li>
+								<li>Abrir las solicitudes en nuevas pestañas, para revisar a detalle el estado de la
+									solicitud
+								</li>
+								<li><a href="infoRequest" class="nav-link">Solicitud detalle</a></li>
+							</ul>
+						</div>
+
+
+
+						<div class="table-responsive">
+							<div id="tblConsulta_wrapper" class="dataTables_wrapper no-footer">
+								<div class="datatable-header">
+
+									<div class="dt-buttons">
+										<button class="dt-button buttons-collection buttons-colvis btn btn-outline bg-teal text-teal btn-icon dropdown-toggle"
+										tabindex="0" aria-controls="tblConsulta" type="button"
+										aria-haspopup="true"><span><i
+											class="icon-grid3 mr-2"></i>Columnas</span></button>
+										</div>
+										<div class="dataTables_length" id="tblConsulta_length"><label>Mostrar &nbsp; <select
+											name="tblConsulta_length" aria-controls="tblConsulta" class="">
+											<option value="10">10</option>
+											<option value="25">25</option>
+											<option value="50">50</option>
+											<option value="100">100</option>
+										</select> &nbsp; registros</label></div>
+									</div>
+									<div class="datatable-scroll-wrap">
+										<div class="table-responsive">
+											<table id="tblConsulta"
+											class="table tasks-list table-lg dataTable dataTablee no-footer table-striped table-hover"
+											role="grid" aria-describedby="tblConsulta_info" style="width: 100%;">
+
+
+											<thead>
+												<tr role="row">
+													<th class="all filtrable sorting_desc" tabindex="0"
+													aria-controls="tblConsulta" rowspan="1" colspan="1"
+													style="width: 32px;"
+													aria-label="Id: Activar para ordenar la columna de manera ascendente"
+													aria-sort="descending">Id
+												</th>
+												<th class="all seleccionable sorting" tabindex="0"
+												aria-controls="tblConsulta" rowspan="1" colspan="1"
+												style="width: 131px;"
+												aria-label="Tipo Tramite: Activar para ordenar la columna de manera ascendente">
+												Verificar 
+											</th>
+											<th class="all filtrable sorting" tabindex="0"
+											aria-controls="tblConsulta" rowspan="1" colspan="1"
+											style="width: 72px;"
+											aria-label="Fecha Solicitud: Activar para ordenar la columna de manera ascendente">
+											Fecha Solicitud
+										</th>
+										<th class="all filtrable sorting" tabindex="0"
+										aria-controls="tblConsulta" rowspan="1" colspan="1"
+										style="width: 63px;"
+										aria-label="Asunto: Activar para ordenar la columna de manera ascendente">
+										Asunto
+									</th>
+									<!-- <th class="all filtrable sorting" tabindex="0"
+									aria-controls="tblConsulta" rowspan="1" colspan="1"
+									style="width: 76px;"
+									aria-label="N° Doc. Identidad: Activar para ordenar la columna de manera ascendente">
+									N° Doc. Identidad
+								</th>
+								<th class="all filtrable sorting" tabindex="0"
+								aria-controls="tblConsulta" rowspan="1" colspan="1"
+								style="width: 77px;"
+								aria-label="Nombre Completo: Activar para ordenar la columna de manera ascendente">
+								Nombre Completo
+							</th>
+							<th class="all seleccionable sorting" tabindex="0"
+							aria-controls="tblConsulta" rowspan="1" colspan="1"
+							style="width: 131px;"
+							aria-label="Facultad: Activar para ordenar la columna de manera ascendente">
+							Facultad
+						</th>
+						<th class="all seleccionable sorting" tabindex="0"
+						aria-controls="tblConsulta" rowspan="1" colspan="1"
+						style="width: 131px;"
+						aria-label="Escuela: Activar para ordenar la columna de manera ascendente">
+						Escuela
+					</th> -->
+					<th class="all seleccionable sorting" tabindex="0"
+					aria-controls="tblConsulta" rowspan="1" colspan="1"
+					style="width: 131px;"
+					aria-label="Estado: Activar para ordenar la columna de manera ascendente">
+					Estado de Requisitos
+				</th>
+				<th class="all seleccionable sorting" tabindex="0"
+				aria-controls="tblConsulta" rowspan="1" colspan="1"
+				style="width: 131px;"
+				aria-label="Estado Tramite: Activar para ordenar la columna de manera ascendente">
+				Estado Tramite
+			</th>                                               
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="odd">
+			<td >00001</td>
+			<td class=" all dt-center">
+				<a class="btn btn-xs btn-success verDocumento" title="Ver Documento"
+				data-tooltip="tooltip" style="padding: 8px 8px;"
+				href="derived-constancy">
+				<i class="icon-file-eye"></i>
+			</a>                                                                
+		</td>
+		<td class=" all filtrable">
+			<span class="badge badge-flat border-info text-info-600">2020-07-17 11:30</span>                                                
+		</td>
+		<td >Constancia de Ingreso - Pregrado</td>
+		<!-- <td >70229990</td>
+		<td >PEREZ LOPEZ, JUAN</td>
+		<td>Facultad de Ingeniería de Sistemas</td>
+		<td>Escuela Academia Profesional de Ingeniería de Software</td> -->
+		<td class=" all filtrable">
+			<span class="badge badge-flat border-danger text-danger">Correción</span> 
+		</td>
+		<td>
+			<span class="badge badge-flat border-danger text-danger">En Proceso</span> 
+		</td>                                                
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="datatable-footer">
+	<div class="dataTables_info" id="tblConsulta_info" role="status" aria-live="polite"> Mostrando solicitudes de trámites del 0 al 0 de un total de 0 solicitudes de trámites
+	</div>
+	<div class="dataTables_paginate paging_simple_numbers" id="tblConsulta_paginate"><a
+		class="paginate_button previous disabled" aria-controls="tblConsulta"
+		data-dt-idx="0" tabindex="0"
+		id="tblConsulta_previous">Anterior</a><span></span><a
+		class="paginate_button next disabled" aria-controls="tblConsulta"
+		data-dt-idx="1" tabindex="0" id="tblConsulta_next">Siguiente</a></div>
+	</div>
+</div>
+</div>
+<div class="modal fade custom-modal show" id="modalVistaDocumento" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLabel" aria-hidden="true">
+<form id="formMantenimiento" class="form-horizontal" data-parsley-validate=""
+data-parsley-excluded="input[type=button], input[type=submit], input[type=reset], input[type=hidden], :disabled, :hidden"
+novalidate="" enctype="multipart/form-data" method="post">
+<div class="modal-dialog modal-lg modal-dialog-centered">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title"><i class="icon-menu7 mr-2"></i> &nbsp; Vista del Documento</h5>
+			<button type="button" class="close" data-dismiss="modal"></button>
+		</div>
+		<div class="modal-body">
+
+
+			<div class="form-group">
+				<div id="contenedor"></div>
+			</div>
+
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary legitRipple"
+			data-dismiss="modal">Cerrar
+		</button>
+
+
+	</div>
+</div>
+</div>
+
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

@@ -2,14 +2,15 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <title>Tomar foto con Javascript</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <script src="/api/face-api.min.js"></script>
     <style>
         @media only screen and (max-width: 700px) {
             video {
@@ -19,81 +20,85 @@
     </style>
 </head>
 
-<body>
-    <div class="container">
-        <section class="register" style="min-height: 100vh;">
-            <div class="formulario"
-                style="height: 400px;background: rgb(240, 81, 81);display: flex;align-items: center;justify-content: center;">
-                <button id="openCamara" onclick="document.getElementById('id01').style.display='block'" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
+<body onload="loadModels()">
+<input id="user_id" type="text" hidden value="{{data.id}}">
+<div class="container">
+    <section class="register" style="min-height: 100vh;">
+        <button type="button" style="float: right" onclick="saveUserImages()">Guardar</button>
+        <div class="formulario"
+             style="height: 400px;background: rgb(240, 81, 81);display: flex;align-items: center;justify-content: center;">
+            <button id="openCamara" onclick="document.getElementById('id01').style.display='block'" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
                     background: #343a40!important;" class="w3-button w3-black">
-                    <div style="display: flex;justify-content: center;width: 100%;">
-                        <img src="img/camera.svg" style="width: 30px;height: 30px;margin:0 10px; background: #fff;">
-                    </div>
-                    <div style="display: flex;justify-content:center;width: 100%;mar">
-                        <label>abrir camara</label>
-                    </div>
-                </button>
-            </div>
-            <div class="imagen-upload"
-                style="display: flex;align-items: center;justify-content: center;flex-wrap: wrap;">
-                <img id="image-preview1" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-                <img id="image-preview2" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-                <img id="image-preview3" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-                <img id="image-preview4" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-                <img id="image-preview5" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-            </div>
-            <select name="listaDeDispositivos" id="listaDeDispositivos" style="display: none;" type="hidden"></select>
-            <div id="id01" class="w3-modal">
-                <div class="w3-modal-content"
-                    style="height:600px;display:flex;justify-content: center;align-items: center;">
-                    <div class="w3-container">
+                <div style="display: flex;justify-content: center;width: 100%;">
+                    <img src="img/camera.svg" style="width: 30px;height: 30px;margin:0 10px; background: #fff;">
+                </div>
+                <div style="display: flex;justify-content:center;width: 100%;mar">
+                    <label>abrir camara</label>
+                </div>
+            </button>
+        </div>
+        <div class="imagen-upload"
+             style="display: flex;align-items: center;justify-content: center;flex-wrap: wrap;">
+            <img id="image-preview1" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+            <img id="image-preview2" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+            <img id="image-preview3" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+            <img id="image-preview4" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+            <img id="image-preview5" style="height: 500px !important;width:400px!important;padding: 20px 20px">
+        </div>
+        <select name="listaDeDispositivos" id="listaDeDispositivos" style="display: none;" type="hidden"></select>
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content"
+                 style="height:600px;display:flex;justify-content: center;align-items: center;">
+                <div class="w3-container">
                         <span onclick="document.getElementById('id01').style.display='none'"
-                            class="w3-button w3-display-topright">&times;</span>
-                        <div class="row">
-                            <video muted="muted" id="video" style="padding: 10px 10px;" width="100%"
-                                height="400px"></video>
-                            <canvas id="canvas" style="display: none;"></canvas>
-                        </div>
-                        <div class="row" style="display: flex;justify-content:center">
-                            <button id="boton">Tomar foto</button>
-                        </div>
+                              class="w3-button w3-display-topright">&times;</span>
+                    <div class="row">
+                        <video muted="muted" id="video" style="padding: 10px 10px;" width="100%"
+                               height="400px"></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                    </div>
+                    <div class="row" style="display: flex;justify-content:center">
+                        <button id="boton">Tomar foto</button>
                     </div>
                 </div>
             </div>
+        </div>
 
-            {{!-- <div id="photo"></div> --}}
+        {{!-- <div id="photo"></div> --}}
 
-            <button>Registrar Foto</button>
-        </section>
-    </div>
+        <button>Registrar Foto</button>
+    </section>
+</div>
+<script src="/api/faceCheck.js"></script>
 </body>
 <script>
 
-    let contador = 1;
+    let contador = 0;
+    let images = [];
     $openCamara = document.querySelector("#openCamara");
     $openCamara.addEventListener("click", function () {
         const tieneSoporteUserMedia = () =>
-            !!(
-                navigator.getUserMedia ||
-                navigator.mozGetUserMedia ||
-                navigator.mediaDevices.getUserMedia ||
-                navigator.webkitGetUserMedia ||
-                navigator.msGetUserMedia
-            );
+                !!(
+                        navigator.getUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.msGetUserMedia
+                );
         const _getUserMedia = (...arguments) =>
-            (
-                navigator.getUserMedia ||
-                navigator.mozGetUserMedia ||
-                navigator.mediaDevices.getUserMedia ||
-                navigator.webkitGetUserMedia ||
-                navigator.msGetUserMedia
-            ).apply(navigator, arguments);
+                (
+                        navigator.getUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.msGetUserMedia
+                ).apply(navigator, arguments);
 
         // Declaramos elementos del DOM
         const $video = document.querySelector("#video"),
-            $canvas = document.querySelector("#canvas"),
-            $boton = document.querySelector("#boton"),
-            $listaDeDispositivos = document.querySelector("#listaDeDispositivos");
+                $canvas = document.querySelector("#canvas"),
+                $boton = document.querySelector("#boton"),
+                $listaDeDispositivos = document.querySelector("#listaDeDispositivos");
 
         const limpiarSelect = () => {
             for (let x = $listaDeDispositivos.options.length - 1; x >= 0; x--)
@@ -157,106 +162,122 @@
                 }
             });
 
-
-
-            const blobToFile = (blob, suffix) => {
-                return new File([blob], `${new Date().toISOString()}__${suffix}.jpg`, {
-                    type: 'application/jpeg'
-                });
-            }
-
-
             const mostrarStream = (idDeDispositivo) => {
                 _getUserMedia(
-                    {
-                        video: {
-                            // Justo aquí indicamos cuál dispositivo usar
-                            deviceId: idDeDispositivo,
+                        {
+                            video: {
+                                // Justo aquí indicamos cuál dispositivo usar
+                                deviceId: idDeDispositivo,
+                            },
                         },
-                    },
-                    (streamObtenido) => {
-                        // Aquí ya tenemos permisos, ahora sí llenamos el select,
-                        // pues si no, no nos daría el nombre de los dispositivos
-                        llenarSelectConDispositivosDisponibles();
+                        (streamObtenido) => {
+                            // Aquí ya tenemos permisos, ahora sí llenamos el select,
+                            // pues si no, no nos daría el nombre de los dispositivos
+                            llenarSelectConDispositivosDisponibles();
 
-                        // Escuchar cuando seleccionen otra opción y entonces llamar a esta función
-                        $listaDeDispositivos.onchange = () => {
-                            // Detener el stream
-                            if (stream) {
-                                stream.getTracks().forEach(function (track) {
-                                    track.stop();
-                                });
-                            }
-                            // Mostrar el nuevo stream con el dispositivo seleccionado
-                            mostrarStream($listaDeDispositivos.value);
-                        };
+                            // Escuchar cuando seleccionen otra opción y entonces llamar a esta función
+                            $listaDeDispositivos.onchange = () => {
+                                // Detener el stream
+                                if (stream) {
+                                    stream.getTracks().forEach(function (track) {
+                                        track.stop();
+                                    });
+                                }
+                                // Mostrar el nuevo stream con el dispositivo seleccionado
+                                mostrarStream($listaDeDispositivos.value);
+                            };
 
-                        // Simple asignación
-                        stream = streamObtenido;
+                            // Simple asignación
+                            stream = streamObtenido;
 
-                        // Mandamos el stream de la cámara al elemento de vídeo
-                        $video.srcObject = stream;
-                        $video.play();
+                            // Mandamos el stream de la cámara al elemento de vídeo
+                            $video.srcObject = stream;
+                            $video.play();
 
-                        //Escuchar el click del botón para tomar la foto
-                        $boton.addEventListener("click", function () {
-                            //Pausar reproducción
-                            $video.pause();
+                            //Escuchar el click del botón para tomar la foto
+                            $boton.addEventListener("click", async function () {
+                                contador++;
 
-                            //Obtener contexto del canvas y dibujar sobre él
-                            let contexto = $canvas.getContext("2d");
-                            $canvas.width = $video.videoWidth;
-                            $canvas.height = $video.videoHeight;
-                            contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+                                //Obtener contexto del canvas y dibujar sobre él
+                                let contexto = $canvas.getContext("2d");
+                                $canvas.width = $video.videoWidth;
+                                $canvas.height = $video.videoHeight;
+                                contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
 
-                            let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
-                            let data = new FormData();
+                                let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                                const file = dataURLtoFile(foto, `${contador}.jpg`);
+                                const fileTest = dataURLtoFile(foto, `test.jpg`);
 
+                                const formData = new FormData();
+                                formData.append('image', fileTest);
 
+                                await fetch('http://localhost:3000/check_image', {
+                                    method: 'POST', // or 'PUT'
+                                    body: formData, // data can be `string` or {object}!
 
-                            fetch(foto)
-                                .then(res => res.blob())
-                                .then(blob => {
-                                    var fd = new FormData()
-                                    const file = blobToFile(blob, 'test');
-                                    console.log(file);
-                                    fd.append('photoMe', file, 'imagen.jpg')
-                                    fetch('http://localhost:3000/registreFotos',
-                                        {
-                                            method: 'post',
-                                            body: fd,
+                                }).then(res => res.json())
+                                        .catch(error => console.error('Error:', error))
+                                        .then(async (response) => {
+                                            console.log(response)
+                                            if (response.message) {
+                                                const detections = await verifyImages()
+                                                if (!detections) {
+                                                    contador--;
+                                                    alert("La imagen no cumple los requisitos mínimos para poder guardarse.")
+                                                } else {
 
-                                        }).then(res => res.json())
-                                        .then(res => console.log(res))
+                                                    images.push(file)
+                                                }
+                                            }
+                                        });
 
-                                })
-
-
-
-
-                            let enlace = document.createElement("a"); // Crear un <a>
-                            enlace.download = "foto_me.png";
-                            enlace.href = foto;
-
-                            enlace.click();
-                            document.getElementById('id01').style.display = 'none'
-                            var idImg = ('image-preview' + contador).toString();
-                            console.log(idImg);
-                            const idImg1 = document.getElementById(idImg);
-                            idImg1.src = 'https://i.picsum.photos/id/213/200/300.jpg?hmac=t-54teMEgFL3q9WPaRq2t7YdGCU9aIRw77OCaHlSVRs';
-                            // openCamara.style.background = "yellow"
-                            //$video.pause();
-                            contador++;
-
-                        });
-                    },
-                    (error) => {
-                        console.log("Permiso denegado o error: ", error);
-                    }
+                                // $video.play();
+                            });
+                        },
+                        (error) => {
+                            console.log("Permiso denegado o error: ", error);
+                        }
                 );
             };
         })();
     });
+
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {type: mime});
+    }
+
+    async function saveUserImages() {
+        console.log(images)
+        if (images.length >= 10 && images.length <= 20) {
+            const formData = new FormData();
+
+            const id = document.getElementById("user_id").value;
+            formData.append("id", id);
+            for (let i = 0; i < images.length; i++) {
+                formData.append('images', images[i]);
+            }
+
+            await fetch('http://localhost:3000/registreFotos', {
+                method: 'POST', // or 'PUT'
+                body: formData, // data can be `string` or {object}!
+
+            }).then(res => res.json())
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        if (response.message) {
+                            window.location.href = "/";
+                        }
+                    });
+        } else {
+            alert("Debes completar un mínimo de 10 fotos y como máximo de 20")
+        }
+
+    }
 
 
 </script>

@@ -17,13 +17,13 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   var fs = require("fs");
   var express = require("express");
   var hbs = require("express-handlebars");
-
+  var toastr = require("express-toastr");
   var app = express();
 
   app.engine("hbs", hbs({ extname: "hbs" }));
   app.set("view engine", "hbs");
   app.use(express.static(path.join(__dirname, "public")));
-
+  app.use(toastr());
   var hoy = new Date();
   var dd = hoy.getDate();
   var mm = hoy.getMonth() + 1;
@@ -98,27 +98,30 @@ p.code as numero_expediente,
         ],
       });
 
+      res.render("constancy/derivedConstancy", {
+        solicitante: solicitante,
+        dni: dni,
+        facultad: facultad,
+        especialidad: especialidad,
+        numero_expediente: numero_expediente,
+        fecha_expediente_completa: fecha_expediente_completa,
+        anio: anio,
+        numero_emision: numero_emision,
+        estado_expediente: estado_expediente,
+        encargado_expediente: encargado_expediente,
+        fecha_actual: fecha_actual,
+        succesfull: "Envio exitoso",
+      });
+
       const page = await browser.newPage();
       await page.setContent(html);
       await page.pdf({
-        path: "./pdf/constancy" + dni + ".pdf",
+        path: "./src/public/pdf/constancy" + dni + ".pdf",
         format: "Letter",
       });
+
       await browser.close();
     }
-    // res.render("constancy/derivedConstancy", {
-    //   solicitante: solicitante,
-    //   dni: dni,
-    //   facultad: facultad,
-    //   especialidad: especialidad,
-    //   numero_expediente: numero_expediente,
-    //   fecha_expediente_completa: fecha_expediente_completa,
-    //   anio: anio,
-    //   numero_emision: numero_emision,
-    //   estado_expediente: estado_expediente,
-    //   encargado_expediente: encargado_expediente,
-    //   fecha_actual: fecha_actual,
-    // });
   } catch (error) {
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });
@@ -196,6 +199,7 @@ ConstancyProcessController.getProcess = async (req, res) => {
       estado_expediente: estado_expediente,
       encargado_expediente: encargado_expediente,
       fecha_actual: fecha_actual,
+      succesfull: "",
     });
   } catch (error) {
     console.log(error.stack);

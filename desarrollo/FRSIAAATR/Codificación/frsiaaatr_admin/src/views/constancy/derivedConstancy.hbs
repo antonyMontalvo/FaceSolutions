@@ -46,11 +46,11 @@
                                 </div>
 
                             </div>
-
+                            <h1>{{succesfull}}</h1>
                             <div class="btn-group btn-group-lg btn-group-justified " role="group">
                                 <button type="button" class="btn btn-primary "><i class="far fa-save"></i>
                                     Grabar</button>
-                                <button type="button" class="btn btn-primary" onclick="myFunction()"><i
+                                <button type="button" class="btn btn-primary" id="generarDoc" onclick="myFunction()"><i
                                         class="far fa-file-alt"></i> Generar
                                     Doc.</button>
                                 <button type="button" class="btn btn-primary " data-toggle="modal"
@@ -77,8 +77,12 @@
                                                 data-dismiss="modal">&times;</button>
                                         </div>
                                         <div class="modal-body">
-                                            <embed src="/pdf/constancy_with_signatures.pdf" frameborder="0" width="100%"
-                                                height="400px">
+                                            <!----->
+
+                                            <embed id="test" src="test" frameborder="0" width="100%" height="400px">
+                                            <script type="text/javascript">
+                                                document.getElementById("test").src = "/pdf/constancy" + {{ dni }} + ".pdf";
+                                            </script>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default"
@@ -368,8 +372,10 @@
                     </div>
                 </div>
                 <!-- /left content -->
-
-
+                <div class="alert alert-primary" id="myElem"
+                    style="display: none;width: 1017px;position:absolute !important" role="alert">
+                    Generando documento...
+                </div>
             </div>
         </div>
     </div>
@@ -379,7 +385,11 @@
     function myFunction() {
         var dni = document.getElementById('dni').value;
 
-
+        $(document).ready(function () {
+            $('#myElem').fadeIn('slow', function () {
+                $('#myElem').delay(3000).fadeOut();
+            });
+        });
         $.ajax({
             url: "http://localhost:3000/constancy-inp/redirect-request-process-dni",
             data: { "dni": dni },
@@ -391,5 +401,18 @@
         });
 
     }
+
+    function doHide() {
+        document.getElementById('myElem').style.display = 'none!important';
+    }
+
+</script>
+<div id="satisfactorio"></div>
+
+<script>
+    document.getElementById('satisfactorio').innerHTML = {{ succesfull }}
+
+    console.log({{ succesfull }})
+
 </script>
 <script src="/js/constancy/constancyProcessWork.js"></script>

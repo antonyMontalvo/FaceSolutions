@@ -60,6 +60,9 @@ $(document).ready(function() {
         }
     }
 
+    //Select2 Bootstrap theme
+    $.fn.select2.defaults.set("theme", "bootstrap");
+
     $("#rangoFechas").daterangepicker();
     $globalFunction.createFilterSelect($local.$cmbFacultad, "Selecciona una facultad", "getFaculties", "id", "name");
     $globalFunction.createFilterSelect($local.$cmbEstado, "Selecciona un estado", "getProcessState", "idProcessState", "stateName");

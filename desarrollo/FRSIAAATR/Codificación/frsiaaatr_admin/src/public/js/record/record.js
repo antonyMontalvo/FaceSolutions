@@ -5,6 +5,13 @@ $(document).ready(function() {
         tblHistorial: ""
     }
 
+    //Select2 Bootstrap theme
+    $.fn.select2.defaults.set("theme", "bootstrap");
+
+    //Select de Facultades
+    $globalFunction.createFilterSelect($("#codigoFacultad"), "Selecciona una facultad", "getFaculties", "id", "name");
+
+    //Llenando tabla de finalizados y rechazados
     $local.tblHistorial = $local.$tblHistorial.DataTable({
         "ajax": {
             "url": "../../record/requests-all",
@@ -101,7 +108,7 @@ $(document).ready(function() {
                     x = constancias.indexOf($(this).val());
                     constancias.splice(x, 1);
                     break;
-                case 'destino':
+                case 'especialidades':
                     x = especialidades.indexOf($(this).val());
                     especialidades.splice(x, 1);
                     break;
@@ -138,6 +145,35 @@ $(document).ready(function() {
         }).fail(function(xhr) {
             console.log("Error");
         });
+
+    });
+
+    $("#codigoFacultad").on('select2:select', function(e) {
+        var data = e.params.data;
+        console.log(data);
+
+        $.ajax({
+            type: "GET",
+            url: "../../filter/getSpecialties",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+            },
+            success: function(response) {
+                response.forEach(function(r, index, array) {
+                    var checkbox = `<div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="` + r.id + `" id="checkbox_` + r.id + `"
+                        name="especialidades">
+                    <label class="form-check-label" for="checkbox_` + r.id + `">
+                        ` + r.name + `
+                    </label>
+                    </div>`;
+
+                    $("#checkbox-container-especialidades").append(checkbox);
+                });
+            }
+        });
+
+        $("#cardEspecialidades").removeClass("d-none");
 
     });
 

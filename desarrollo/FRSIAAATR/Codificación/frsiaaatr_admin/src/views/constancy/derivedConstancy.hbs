@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="btn-group btn-group-lg btn-group-justified " role="group">
-                                <button type="button" class="btn btn-primary "><i class="far fa-save"></i>
+                                <button id="btnGrabar" type="button" class="btn btn-primary "><i class="far fa-save"></i>
                                     Grabar</button>
                                 <button type="button" class="btn btn-primary" onclick="myFunction()"><i
                                         class="far fa-file-alt"></i> Generar
@@ -137,7 +137,7 @@
                                                     <div class="form-group col-md-6">
                                                         <label for="disabledTextInput">Número:</label>
                                                         <input type="text" value="{{numero_expediente}}"
-                                                            id="disabledTextInput" class="form-control" disabled>
+                                                            id="numero_expediente" class="form-control" disabled>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="disabledTextInput">Fecha:</label>
@@ -256,9 +256,9 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="disabledTextInput">Tipo:</label>
-                                                        <select class="form-control" id="exampleFormControlSelect1">
-                                                            <option>CONSTANCIA DE INGRESO</option>
-                                                            <option>OFICIO</option>
+                                                        <select id="cmbTipoDocumento" class="form-control" id="exampleFormControlSelect1">
+                                                            <option value="Constancia de Ingreso">CONSTANCIA DE INGRESO</option>
+                                                            <option value="Oficio">OFICIO</option>
                                                         </select>
                                                     </div>
 
@@ -272,7 +272,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="disabledTextInput">Asunto:</label>
-                                                    <textarea class="form-control " id="validationTextarea"
+                                                    <textarea class="form-control " id="asunto"
                                                         placeholder="Porfavor complete el asunto correspondiente al expediente a trabajar."></textarea>
                                                 </div>
 

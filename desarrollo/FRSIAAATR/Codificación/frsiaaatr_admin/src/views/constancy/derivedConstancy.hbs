@@ -48,7 +48,7 @@
                             </div>
                             <h1>{{succesfull}}</h1>
                             <div class="btn-group btn-group-lg btn-group-justified " role="group">
-                                <button type="button" class="btn btn-primary " id="grabar" onclick="saveData()"><i
+                                <button id="btnGrabar" type="button" class="btn btn-primary "><i
                                         class="far fa-save"></i>
                                     Grabar</button>
                                 <button type="button" class="btn btn-primary" id="generarDoc" onclick="myFunction()"><i
@@ -261,9 +261,11 @@
                                                 <div class="form-row">
                                                     <div class="form-group col-md-6">
                                                         <label for="disabledTextInput">Tipo:</label>
-                                                        <select class="form-control" id="exampleFormControlSelect1">
-                                                            <option value="constancia">CONSTANCIA DE INGRESO</option>
-                                                            <option value="oficio">OFICIO</option>
+                                                        <select id="cmbTipoDocumento" class="form-control"
+                                                            id="exampleFormControlSelect1">
+                                                            <option value="Constancia de Ingreso">CONSTANCIA DE INGRESO
+                                                            </option>
+                                                            <option value="Oficio">OFICIO</option>
                                                         </select>
                                                     </div>
 
@@ -277,7 +279,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="disabledTextInput">Asunto:</label>
-                                                    <textarea class="form-control " id="validationTextarea"
+                                                    <textarea class="form-control " id="asunto"
                                                         placeholder="Porfavor complete el asunto correspondiente al expediente a trabajar."></textarea>
                                                 </div>
 

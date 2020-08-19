@@ -6,12 +6,24 @@ $(document).ready(function () {
     $especialidad: $("#especialiad"),
   };
 
-  //Click btn grabar
-  $("#grabar").on("click", function () {
-    //Obtener mos el valor del cod, numero de expediente
-    var id = document.getElementById("numero_expediente").value;
-    alert(id);
-    console.log(id);
+  //CLICK EN EL BOTON GRABAR
+  $("#btnGrabar").on("click", function () {
+    //Obtienes valor de "numero_expediente"
+    var id_constancia = document.getElementById("numero_expediente").value;
+    var tipo_documento = document.getElementById("cmbTipoDocumento").value;
+    var asunto = document.getElementById("asunto").value;
+    console.log(id_constancia + "+" + tipo_documento + "+" + asunto);
+    $.ajax({
+      url: "http://localhost:3000/constancy-inp/updatedProcessConstancy",
+      data: {
+        id_constancia: id_constancia,
+        tipo_documento: tipo_documento,
+        asunto: asunto,
+      },
+      type: "PUT",
+    }).then(function (response) {
+      console.log("Constancia editada");
+    });
   });
 
   //crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");

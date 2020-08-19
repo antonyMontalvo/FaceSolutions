@@ -9,6 +9,35 @@ const Employee = require("../models/department"),
   { createToken, getPayload } = require("../services/jwt"),
   ConstancyProcessController = {};
 
+//Crear un metodo
+/* updated process set document_category = + tipo_documento +  and document_description = + asunto 
+   where code = + numero_expediente;
+
+*/
+ConstancyProcessController.updatedConstancy = async (req, res) => {
+  try{
+  console.log("LLEGUE");
+  const id_constancia = req.body.id_constancia;
+  const tipo_documento = req.body.tipo_documento;
+  const asunto = req.body.asunto;
+
+  let q =
+    `UPDATE process p SET p.document_category = '` + tipo_documento + 
+    `' , p.document_description = '` + asunto +
+    `' WHERE p.code =  '` + id_constancia+`';`;
+
+    //let q = `UPDATE process p SET p.document_category = 'Constancia de Ingreso' , p.document_description = 'sdkjdskjsdjk' WHERE p.code =  '00002';`;
+
+  console.log(q);
+  const process = await sequelizeDB.query(q);
+  console.log("grabe");
+  } catch (error) {
+    //console.log(error);
+    console.log(error.stack);
+    return res.status(500).json({ error: error.stack });
+  }
+} 
+
 ConstancyProcessController.getProcessByDni = async (req, res) => {
   // Pdf
   const path = require("path");
@@ -149,6 +178,7 @@ ConstancyProcessController.getProcess = async (req, res) => {
 
   var fecha_actual = dd + "/" + mm + "/" + yyyy;
 
+  //Codigo de la solicitud
   const id = req.params.id;
   let q =
     `select 

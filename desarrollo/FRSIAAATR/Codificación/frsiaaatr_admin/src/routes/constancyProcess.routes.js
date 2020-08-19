@@ -12,6 +12,10 @@ router
     constancyProcessController.getRequestInProcessList
   )
   .post("/filterProcess", constancyProcessController.filterProcess)
+  .post(
+    "/updateProcessConstancy",
+    constancyProcessController.updateProcessConstancy
+  )
   .get(
     "/request-process-work/:id",
     constancyProcessController.getRequestProcess

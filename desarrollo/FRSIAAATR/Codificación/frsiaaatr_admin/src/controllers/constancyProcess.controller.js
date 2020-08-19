@@ -17,13 +17,13 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   var fs = require("fs");
   var express = require("express");
   var hbs = require("express-handlebars");
-
+  var toastr = require("express-toastr");
   var app = express();
 
   app.engine("hbs", hbs({ extname: "hbs" }));
   app.set("view engine", "hbs");
   app.use(express.static(path.join(__dirname, "public")));
-
+  app.use(toastr());
   var hoy = new Date();
   var dd = hoy.getDate();
   var mm = hoy.getMonth() + 1;
@@ -33,7 +33,7 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   console.log("raaaaaa", req.query.dni);
   const dni2 = req.query.dni;
   let q =
-    `select 
+    `select  
 concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
   ps.dni as dni,
   f.name as facultad,
@@ -98,27 +98,30 @@ p.code as numero_expediente,
         ],
       });
 
+      res.render("constancy/derivedConstancy", {
+        solicitante: solicitante,
+        dni: dni,
+        facultad: facultad,
+        especialidad: especialidad,
+        numero_expediente: numero_expediente,
+        fecha_expediente_completa: fecha_expediente_completa,
+        anio: anio,
+        numero_emision: numero_emision,
+        estado_expediente: estado_expediente,
+        encargado_expediente: encargado_expediente,
+        fecha_actual: fecha_actual,
+        succesfull: "Envio exitoso",
+      });
+
       const page = await browser.newPage();
       await page.setContent(html);
       await page.pdf({
-        path: "./pdf/constancy" + dni + ".pdf",
+        path: "./src/public/pdf/constancy" + dni + ".pdf",
         format: "Letter",
       });
+
       await browser.close();
     }
-    // res.render("constancy/derivedConstancy", {
-    //   solicitante: solicitante,
-    //   dni: dni,
-    //   facultad: facultad,
-    //   especialidad: especialidad,
-    //   numero_expediente: numero_expediente,
-    //   fecha_expediente_completa: fecha_expediente_completa,
-    //   anio: anio,
-    //   numero_emision: numero_emision,
-    //   estado_expediente: estado_expediente,
-    //   encargado_expediente: encargado_expediente,
-    //   fecha_actual: fecha_actual,
-    // });
   } catch (error) {
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });
@@ -196,6 +199,7 @@ ConstancyProcessController.getProcess = async (req, res) => {
       estado_expediente: estado_expediente,
       encargado_expediente: encargado_expediente,
       fecha_actual: fecha_actual,
+      succesfull: "",
     });
   } catch (error) {
     console.log(error.stack);
@@ -382,6 +386,30 @@ ConstancyProcessController.getRequestInProcessList = async (req, res) => {
   }
 };
 
+ConstancyProcessController.updateProcessConstancy = async (req, res) => {
+  //
+
+  try {
+    const idConstancia = req.body.id;
+    const tipo_documento = req.body;
+    const asunto = req.body;
+    let q =
+      `
+UPDATE PROCESS SET DOCUMENT_CATEGORY = ` +
+      tipo_documento +
+      `AND DOCUMENT_DESCRIPTION= ` +
+      asunto +
+      `
+WHERE code=` +
+      idConstancia;
+
+    console.log(req.body);
+
+    const process = await sequelizeDB.query(q);
+  } catch (error) {
+    return res.status(500).json({ error: error.stack });
+  }
+};
 //Información de solicitud en proceso
 ConstancyProcessController.getReviewInProcessInfo = async (req, res) => {
   try {

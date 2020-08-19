@@ -2,26 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Face Solutions</title>
-    <!-- BOOTSTRAP 4 -->
-    <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Face Solutions</title>
+	<!-- BOOTSTRAP 4 -->
+	<link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
+	<!-- FONT AWESOME -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+		integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <!-- Global stylesheets -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<!-- Global stylesheets -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+		type="text/css">
 	<link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/layout.min.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/components.min.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 	<!-- /global stylesheets -->
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 	<!-- Core JS files -->
 	<script src="/assets/js/main/jquery.min.js"></script>
 	<script src="/assets/js/main/bootstrap.bundle.min.js"></script>
@@ -30,7 +40,7 @@
 	<!-- Theme JS files -->
 	<script src="/assets/js/plugins/prism.min.js"></script>
 	<script src="/assets/js/plugins/sticky.min.js"></script>
-	
+
 	<script src="/assets/js/main/app.js"></script>
 	<script src="/assets/js/pages/components_scrollspy.js"></script>
 	<!-- /theme JS files -->
@@ -43,7 +53,7 @@
 
 <body>
 
-    <!-- Main navbar -->
+	<!-- Main navbar -->
 	<div class="navbar navbar-expand-md navbar-light">
 		<div class="navbar-header navbar-dark d-none d-md-flex align-items-md-center">
 			<div class="navbar-brand navbar-brand-md">
@@ -51,7 +61,7 @@
 					<img src="/assets/images/logo1.png" alt="">
 				</a>
 			</div>
-	
+
 			<div class="navbar-brand navbar-brand-xs">
 				<a href="" class="d-inline-block">
 					<img src="/assets/images/logo_icon_light.png" alt="">
@@ -94,8 +104,9 @@
 			<ul class="navbar-nav ml-md-auto">
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link dropdown-toggle legitRipple" data-toggle="dropdown">
-						<img id="imgUsuario" src="/assets/images/person.svg" class="rounded-circle" alt="" width="40" height="40">
-						<span>Jose Torres</span> 
+						<img id="imgUsuario" src="/assets/images/person.svg" class="rounded-circle" alt="" width="40"
+							height="40">
+						<span>Jose Torres</span>
 					</a>
 
 					<div class="dropdown-menu dropdown-menu-right">
@@ -110,9 +121,9 @@
 	</div>
 	<!-- /main navbar -->
 
-    <div class="page-content">
+	<div class="page-content">
 
-        <!-- Main sidebar -->
+		<!-- Main sidebar -->
 		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
 
 			<!-- Sidebar mobile toggler -->
@@ -132,7 +143,7 @@
 			<!-- Sidebar content -->
 			<div class="sidebar-content">
 
-        		<!-- Support 
+				<!-- Support 
 				<div class="card card-body">
 					<a href="http://kopyov.ticksy.com" class="btn bg-success-400 btn-block" target="_blank"><i class="icon-lifebuoy mr-2"></i> Limitless support</a>
 				</div>
@@ -142,9 +153,13 @@
 				<!-- Main navigation -->
 				<div class="card card-sidebar-mobile">
 					<ul class="nav nav-sidebar" data-nav-type="accordion">
-						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Inicio</div> <i class="icon-menu"></i></li>
+						<li class="nav-item-header">
+							<div class="text-uppercase font-size-xs line-height-xs">Inicio</div> <i
+								class="icon-menu"></i>
+						</li>
 						<li class="nav-item"><a href="/" class="nav-link"><i class="fas fa-user"></i>Inicio</a></li>
-						<li class="nav-item"><a href="/requirements/all-postulant" class="nav-link"><i class="	fas fa-tasks"></i>Requisitos</a></li>
+						<li class="nav-item"><a href="/requirements/all-postulant" class="nav-link"><i
+									class="	fas fa-tasks"></i>Requisitos</a></li>
 						<li class="nav-item nav-item-submenu">
 							<a href="#" class="nav-link legitRipple">
 								<i class="fas fa-edit"></i>
@@ -152,18 +167,25 @@
 							</a>
 							<ul class="nav nav-group-sub" data-submenu-title="Mantenimiento">
 								<li class="nav-item nav-item-submenu">
-									<a   href="/constancy/request-unread" class="nav-link legitRipple">	<i class="icon-clipboard3"></i><span>Consulta</span></a>									
+									<a href="/constancy/request-unread" class="nav-link legitRipple"> <i
+											class="icon-clipboard3"></i><span>No leidas</span></a>
 								</li>
 
 								<li class="nav-item nav-item-submenu">
-									<a   href="/constancy-inp/request-in-process" class="nav-link legitRipple">	<i class="icon-clipboard3"></i><span>En proceso</span></a>
+									<a href="/constancy-inp/request-in-process" class="nav-link legitRipple"> <i
+											class="icon-clipboard3"></i><span>En proceso</span></a>
 								</li>
 
-							</ul>	
+								<li class="nav-item nav-item-submenu">
+									<a href="/constancy/request-in-derived" class="nav-link legitRipple"> <i
+											class="icon-clipboard3"></i><span>Derivados</span></a>
+								</li>
+							</ul>
 						</li>
-						
-						
-						<li class="nav-item"><a href="/record/requests-record" class="nav-link"><i class="fas fa-calendar-alt"></i>Historial</a></li>
+
+
+						<li class="nav-item"><a href="/" class="nav-link"><i
+									class="fas fa-calendar-alt"></i>Historial</a></li>
 
 					</ul>
 				</div>
@@ -173,13 +195,13 @@
 		</div>
 		<!-- /main sidebar -->
 
-        <!-- Main content -->
-        <div class="content-wrapper">
-            {{{ body }}}
-        </div>
-        <!-- /main content -->
+		<!-- Main content -->
+		<div class="content-wrapper">
+			{{{ body }}}
+		</div>
+		<!-- /main content -->
 
-    </div>
+	</div>
 </body>
 
 </html>

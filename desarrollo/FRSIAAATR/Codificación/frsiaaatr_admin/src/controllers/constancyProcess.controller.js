@@ -33,7 +33,7 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   console.log("raaaaaa", req.query.dni);
   const dni2 = req.query.dni;
   let q =
-    `select 
+    `select  
 concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
   ps.dni as dni,
   f.name as facultad,
@@ -386,6 +386,30 @@ ConstancyProcessController.getRequestInProcessList = async (req, res) => {
   }
 };
 
+ConstancyProcessController.updateProcessConstancy = async (req, res) => {
+  //
+
+  try {
+    const idConstancia = req.body.id;
+    const tipo_documento = req.body;
+    const asunto = req.body;
+    let q =
+      `
+UPDATE PROCESS SET DOCUMENT_CATEGORY = ` +
+      tipo_documento +
+      `AND DOCUMENT_DESCRIPTION= ` +
+      asunto +
+      `
+WHERE code=` +
+      idConstancia;
+
+    console.log(req.body);
+
+    const process = await sequelizeDB.query(q);
+  } catch (error) {
+    return res.status(500).json({ error: error.stack });
+  }
+};
 //Información de solicitud en proceso
 ConstancyProcessController.getReviewInProcessInfo = async (req, res) => {
   try {

@@ -74,7 +74,8 @@ $(document).ready(function() {
     //Filtro checkbox
     var estados = [];
     var constancias = [];
-    var especialidades = [];
+    /* 
+        var especialidades = []; */
 
     //BUSQUEDA FILTRO
     $(':checkbox').change(function() {
@@ -89,14 +90,16 @@ $(document).ready(function() {
                 constancias.push($(this).val());
             });
 
-            especialidades = [];
+            /* especialidades = [];
             $("#checkbox-container-especialidades :checked").each(function() {
+                console.log($(this).val);
                 especialidades.push($(this).val());
-            });
+            }); */
 
         } else {
             //Extrae el name del checkbox que ha cambiado a 'unchecked' / se ha desmarcado.
             var name = $(this).attr('name');
+            console.log(name);
             var x = "";
 
             switch (name) { //En base a este name, sabemos de que array vamos a quitar el valor que se ha desmarcado
@@ -108,18 +111,19 @@ $(document).ready(function() {
                     x = constancias.indexOf($(this).val());
                     constancias.splice(x, 1);
                     break;
-                case 'especialidades':
-                    x = especialidades.indexOf($(this).val());
-                    especialidades.splice(x, 1);
-                    break;
+                    /* 
+                                    case 'especialidades':
+                                        x = especialidades.indexOf($(this).val());
+                                        especialidades.splice(x, 1);
+                                        break; */
             }
         }
-        console.log(estados);
+        //console.log(estados);
         var data = {
             "idFacultad": 1,
             "arrayEstados": estados,
             "arrayConstancias": constancias,
-            "arrayEspecialidades": especialidades
+            "arrayEspecialidades": ""
         }
         console.log(data);
 
@@ -148,6 +152,9 @@ $(document).ready(function() {
 
     });
 
+
+    var bloqueCheckbox = $('.checkTemplate');
+
     $("#codigoFacultad").on('select2:select', function(e) {
         var data = e.params.data;
         console.log(data);
@@ -159,16 +166,27 @@ $(document).ready(function() {
                 xhr.setRequestHeader('Content-Type', 'application/json');
             },
             success: function(response) {
+                $("#checkbox-container-especialidades").empty();
                 response.forEach(function(r, index, array) {
-                    var checkbox = `<div class="form-check">
+
+                    var bloqueCheckboxCopia = bloqueCheckbox.clone();
+                    bloqueCheckboxCopia.find('.valorCheckbox').attr('value', r.id);
+                    bloqueCheckboxCopia.find('.valorCheckbox').attr('id', "checkbox_" + (index + 1));
+                    bloqueCheckboxCopia.find('.labelCheckbox').empty().append(r.name);
+                    bloqueCheckboxCopia.find('.labelCheckbox').attr('for', "checkbox_" + (index + 1))
+
+                    $("#checkbox-container-especialidades").append(bloqueCheckboxCopia);
+
+
+                    /* var checkbox = `<div class="form-check">
                     <input class="form-check-input" type="checkbox" value="` + r.id + `" id="checkbox_` + r.id + `"
                         name="especialidades">
                     <label class="form-check-label" for="checkbox_` + r.id + `">
                         ` + r.name + `
                     </label>
-                    </div>`;
+                    </div>`; */
 
-                    $("#checkbox-container-especialidades").append(checkbox);
+                    //$("#checkbox-container-especialidades").append(checkbox);
                 });
             }
         });

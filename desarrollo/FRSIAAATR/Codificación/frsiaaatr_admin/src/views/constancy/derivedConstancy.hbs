@@ -37,14 +37,18 @@
 
                         <div class="card-body">
                             <div class="media flex-column flex-md-row mb-4">
-
+                                <div class="media-body">
+                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">
+                                        <button class="btn btn-success" id="privarDoc">Privar</button>
+                                    </h5>
+                                </div>
+                            </div>
+                            <div class="media flex-column flex-md-row mb-4">
                                 <div class="media-body">
                                     <h5 class="media-title font-weight-semibold nombreTipoTramite">
                                         Emisión de Constancia de Ingreso
                                     </h5>
-
                                 </div>
-
                             </div>
                             <h1>{{succesfull}}</h1>
                             <div class="btn-group btn-group-lg btn-group-justified " role="group">
@@ -421,7 +425,7 @@
         $.ajax({
             url: "http://localhost:3000/constancy-inp/redirect-request-process-dni",
             data: { "dni": dni },
-            type: 'get', 
+            type: 'get',
 
         }).then(function (response) {
             console.log("Cambiando de vista.");

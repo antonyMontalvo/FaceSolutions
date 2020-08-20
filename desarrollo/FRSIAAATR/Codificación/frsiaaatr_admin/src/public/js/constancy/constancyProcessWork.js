@@ -55,6 +55,27 @@ $(document).ready(function () {
     });
   });
 
+  $("#privarDoc").on("click", function () {
+    var id_constancia = document.getElementById("numero_expediente").value;
+
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Este documento ha sido privado",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    $.ajax({
+      url: "http://localhost:3000/constancy-inp/privateProcessConstancy",
+      data: {
+        id_constancia: id_constancia,
+      },
+      type: "PUT",
+    }).then(function (response) {
+      console.log("Constancia actualizada");
+    });
+  });
+
   //crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
   //crearSelect($local.$cmbEstado, "getProcessState", "idProcessState", "stateName");
 

@@ -66,19 +66,20 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   var fs = require("fs");
   var express = require("express");
   var hbs = require("express-handlebars");
-  var toastr = require("express-toastr");
+  //var toastr = require("express-toastr");
   var app = express();
 
   app.engine("hbs", hbs({ extname: "hbs" }));
   app.set("view engine", "hbs");
   app.use(express.static(path.join(__dirname, "public")));
-  app.use(toastr());
+  //app.use(toastr());
   var hoy = new Date();
   var dd = hoy.getDate();
   var mm = hoy.getMonth() + 1;
   var yyyy = hoy.getFullYear();
   var fecha_actual = dd + "/" + mm + "/" + yyyy;
   const dni2 = req.query.dni;
+  console.log("DNI RECIBIDO: "+ dni2); 
   let q =
     `select  
 concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,

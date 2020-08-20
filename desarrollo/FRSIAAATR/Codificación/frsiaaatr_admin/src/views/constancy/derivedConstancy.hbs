@@ -417,10 +417,11 @@
                 console.log('I was closed by the timer')
             }
         })
+        //BOTON GENERAR CONSTANCIA
         $.ajax({
             url: "http://localhost:3000/constancy-inp/redirect-request-process-dni",
             data: { "dni": dni },
-            type: 'GET',
+            type: 'get', 
 
         }).then(function (response) {
             console.log("Cambiando de vista.");

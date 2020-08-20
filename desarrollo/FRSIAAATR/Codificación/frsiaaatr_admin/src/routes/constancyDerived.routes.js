@@ -9,5 +9,6 @@ const constancyDerivedController = require("../controllers/constancyDeridev.cont
   .get("/request-in-derived", constancyDerivedController.cargarVistaParaFirma)
   .get("/request-in-derived-list", constancyDerivedController.llenarTablaSolicitudesParaFirmar)
   .post("/filtrarSolicitudes", constancyDerivedController.filtrar)
-  .get("/redireccionarVistaFirmaContancia/:id", constancyDerivedController.getProcess);
+  .get("/redireccionarVistaFirmaContancia/:id", constancyDerivedController.getProcess)
+  .get("/firmarConstancia", constancyDerivedController.firmaConstancia);
 module.exports = router;

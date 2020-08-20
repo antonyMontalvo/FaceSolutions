@@ -416,7 +416,7 @@ ConstancyProcessController.getRequestInProcessList = async (req, res) => {
 		LEFT JOIN faculty f ON sp.faculty_id = f.id
 		LEFT JOIN process_state pst
         ON p.state_process = pst.idprocess_state
-        where p.state_process = 2`;
+        where p.state_process = 4`;
 
     const process = await sequelizeDB.query(q);
     res.send(process[0]);

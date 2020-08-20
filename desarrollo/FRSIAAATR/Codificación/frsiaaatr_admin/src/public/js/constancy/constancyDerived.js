@@ -15,7 +15,7 @@ $(document).ready(function () {
   
     $local.tblEnProceso = $local.$tblEnProceso.DataTable({
       ajax: {
-        url: "http://localhost:3000/constancy-inp/request-process-list",
+        url: "http://localhost:3000/constancy-der/request-in-derived-list",
         dataSrc: "",
         beforeSend: function (xhr) {
           xhr.setRequestHeader("Content-Type", "application/json");
@@ -41,7 +41,7 @@ $(document).ready(function () {
           title: "Acción",
           render: function (data, type, row) {
             return (
-              '<a id="btnSelect" href="/constancy-inp/redirect-request-process/' +
+              '<a id="btnSelect" href="/constancy-der/redireccionarVistaFirmaContancia/' +
               row.codigoSolicitud +
               '" class="btn btn-mini btn-primary pull-right solicitudSeleccionada"><i class="far fa-file-alt"></i></a>'
             );
@@ -330,7 +330,7 @@ $(document).ready(function () {
       //console.log("DATA: ", data);
       $.ajax({
         type: "POST",
-        url: "http://localhost:3000/constancy-inp/filterProcess",
+        url: "http://localhost:3000/constancy-der/filtrarSolicitudes",
         data: JSON.stringify(data),
         beforeSend: function (xhr) {
           xhr.setRequestHeader("Content-Type", "application/json");

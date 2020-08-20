@@ -25,9 +25,13 @@ $(document).ready(function() {
             $(window).resize();
         },
         "columnDefs": [{
-            "targets": [0, 1, 2, 3],
+            "targets": [0, 1, 2],
             "className": "all filtrable text-center",
-        }, ],
+        }, {
+            "targets": 3,
+            "className": "all filtrable text-center",
+            "width": "30%"
+        }],
         "columns": [{ // 0
                 "data": 'estadoSolicitud',
                 "title": "Estado",
@@ -68,6 +72,8 @@ $(document).ready(function() {
                 }
             }
         ],
+        "searching": false, //Quitando input de busqueda
+        "lengthChange": false
 
     });
 
@@ -153,7 +159,7 @@ $(document).ready(function() {
     });
 
 
-    var bloqueCheckbox = $('.checkTemplate');
+    /* var bloqueCheckbox = $('.checkTemplate');
 
     $("#codigoFacultad").on('select2:select', function(e) {
         var data = e.params.data;
@@ -177,22 +183,12 @@ $(document).ready(function() {
 
                     $("#checkbox-container-especialidades").append(bloqueCheckboxCopia);
 
-
-                    /* var checkbox = `<div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="` + r.id + `" id="checkbox_` + r.id + `"
-                        name="especialidades">
-                    <label class="form-check-label" for="checkbox_` + r.id + `">
-                        ` + r.name + `
-                    </label>
-                    </div>`; */
-
-                    //$("#checkbox-container-especialidades").append(checkbox);
                 });
             }
         });
 
-        $("#cardEspecialidades").removeClass("d-none");
+        $("#cardEspecialidades").removeClass("d-none"); 
 
-    });
+    });*/
 
 });

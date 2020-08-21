@@ -20,7 +20,7 @@
     </style>
 </head>
 
-<body onload="loadModels()">
+<body onload="loadModels();checkMessage('{{data.message}}')">
 <input id="user_id" type="text" hidden value="{{data.id}}">
 <div class="container">
     <section class="register" style="min-height: 100vh;">
@@ -68,9 +68,14 @@
     </section>
 </div>
 <script src="/api/faceCheck.js"></script>
+<script>
+    function checkMessage(message) {
+        if (message) alert(message);
+    }
+
+</script>
 </body>
 <script>
-
     let contador = 0;
     let images = [];
     $openCamara = document.querySelector("#openCamara");

@@ -53,6 +53,9 @@ const Postulant = sequelizeDB.define(
         observation: {
             type: DataTypes.TEXT,
         },
+        score: {
+            type: DataTypes.FLOAT,
+        },
     },
     {
         freezeTableName: true,

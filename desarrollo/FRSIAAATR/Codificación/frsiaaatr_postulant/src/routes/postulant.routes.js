@@ -21,21 +21,24 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 router
-    .get("/", checkToken, postulantController.getIndex)
+    //views
+    .get("/", checkToken, postulantController.profile)
     .get("/login", postulantController.loginView)
     .get("/register", postulantController.registerView)
+    .get("/profile", postulantController.profile)
+    .get("/message", checkToken, postulantController.message)
+    .get("/TramitesCorreccion", checkToken, postulantController.correccion)
+    .get("/TramitesCorreccion/editar", checkToken, postulantController.correccionDocumento)
+    .get("/TramitesRechazados", checkToken, postulantController.rechazados)
+
     .post("/login", postulantController.login)
+    .post("/logout", postulantController.logout)
+    .post("/login_camera", postulantController.loginCamera)
     .post("/register", postulantController.register)
     .get("/registreFotos", postulantController.getRegistrePhoto)
     .post("/registreFotos", upload.array("images", 20), postulantController.registerPhotos)
     .post("/check_image", UploadImage.userPhoto, postulantController.checkPhoto)
-    .get("/facial", postulantController.prueba)
 
-    .get("/profile", postulantController.profile)
-    .get("/message", postulantController.message)
 
-    .get("/TramitesCorreccion", postulantController.correccion)
-    .get("/TramitesCorreccion/editar", postulantController.correccionDocumento)
-    .get("/TramitesRechazados", postulantController.rechazados)
-
+    // .get("/facial", postulantController.prueba)
 module.exports = router;

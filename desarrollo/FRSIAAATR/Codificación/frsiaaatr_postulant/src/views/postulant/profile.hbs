@@ -29,26 +29,26 @@
                         alt="" /> --}}
                     <div class="card-img-actions-overlay rounded-circle">
                         <a href="#"
-                            class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
+                           class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round">
                             <i class="icon-plus3"></i>
                         </a>
                         <a href="user_pages_profile.html"
-                            class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2">
+                           class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round ml-2">
                             <i class="icon-link"></i>
                         </a>
                     </div>
                 </div>
 
-                <h6 class="font-weight-semibold mb-0">Iver Pernia Meza</h6>
+                <h6 class="font-weight-semibold mb-0">{{data.postulant.name}} {{data.postulant.last_name_1}} {{data.postulant.last_name_2}}</h6>
                 <span class="d-block opacity-75">Postulante</span>
 
                 <div class="list-icons list-icons-extended mt-3">
                     <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body"
-                        data-original-title="Google Drive"><i class="icon-google-drive"></i></a>
+                       data-original-title="Google Drive"><i class="icon-google-drive"></i></a>
                     <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body"
-                        data-original-title="Twitter"><i class="icon-twitter"></i></a>
+                       data-original-title="Twitter"><i class="icon-twitter"></i></a>
                     <a href="#" class="list-icons-item text-white" data-popup="tooltip" title="" data-container="body"
-                        data-original-title="Github"><i class="icon-github"></i></a>
+                       data-original-title="Github"><i class="icon-github"></i></a>
                 </div>
             </div>
 
@@ -62,18 +62,22 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#schedule" class="nav-link" data-toggle="tab">
-                            <i class="icon-calendar3"></i>
-                            Horario
-                            <span class="font-size-sm font-weight-normal opacity-75 ml-auto">02:56pm</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="#inbox" class="nav-link" data-toggle="tab">
                             <i class="icon-envelop2"></i>
                             Inbox
                             <span class="badge bg-danger badge-pill ml-auto">29</span>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#inbox" onclick="validScore()" class="nav-link" data-toggle="tab">
+                            <i class="icon-stars"></i>
+                            Puntaje
+                            <span class="badge bg-success badge-pill ml-auto">{{data.postulant.score}}</span>
+                        </a>
+                        <form action="/process" method="post" hidden>
+                            <input type="text" name="id" value="{{data.id}}">
+                            <button id="submit-button" type="submit"></button>
+                        </form>
                     </li>
                     <li class="nav-item">
                         <a href="#orders" class="nav-link" data-toggle="tab">
@@ -84,11 +88,14 @@
                     </li>
                     <li class="nav-item-divider"></li>
                     <li class="nav-item">
-                        <a href="login_advanced.html" class="nav-link" data-toggle="tab">
-                            <i class="icon-switch2"></i>
-                            Cerrar sesión
-                        </a>
+                        <form action="/logout" method="post">
+                            <a href="javascript:;" onclick="parentNode.submit();" class="nav-link" data-toggle="tab">
+                                <i class="icon-switch2"></i>
+                                Cerrar sesión
+                            </a>
+                        </form>
                     </li>
+
                 </ul>
             </div>
         </div>
@@ -115,11 +122,11 @@
                             _
                         </h4>
                         <ul class="list list-unstyled mb-0">
-                            <li>77040982</li>
-                            <li>Torres</li>
-                            <li>Arevalo</li>
-                            <li>Jose</li>
-                            <li>joseTorre@gmail.com</li>
+                            <li>{{data.postulant.dni}}</li>
+                            <li>{{data.postulant.name}}</li>
+                            <li>{{data.postulant.last_name_1}}</li>
+                            <li>{{data.postulant.last_name_2}}</li>
+                            <li>{{data.postulant.email}}</li>
                         </ul>
                     </div>
                 </div>
@@ -128,8 +135,7 @@
             <div class="card-footer d-sm-flex justify-content-sm-between align-items-sm-center">
                 <span>
                     <span class="badge badge-mark border-danger mr-2"></span>
-                    Due:
-                    <span class="font-weight-semibold">2015/02/25</span>
+                    Fecha: <span class="font-weight-semibold">{{data.date}}</span>
                 </span>
 
                 <ul class="list-inline list-inline-condensed mb-0 mt-2 mt-sm-0">
@@ -188,3 +194,11 @@
 
     </div>
 </div>
+<script>
+function validScore() {
+    const resp = confirm('¿Desea iniciar el proceso de trámite de Constancia de Ingreso?')
+    if(resp){
+
+    }
+}
+</script>

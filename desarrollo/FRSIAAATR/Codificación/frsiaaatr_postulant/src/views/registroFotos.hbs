@@ -24,7 +24,7 @@
 <input id="user_id" type="text" hidden value="{{data.id}}">
 <div class="container">
     <section class="register" style="min-height: 100vh;">
-        <button type="button" style="float: right" onclick="saveUserImages()">Guardar</button>
+        <button type="button" style="float: right" onclick="saveUserImages()">Registrar fotos</button>
         <div class="formulario"
              style="height: 400px;background: rgb(240, 81, 81);display: flex;align-items: center;justify-content: center;">
             <button id="openCamara" onclick="document.getElementById('id01').style.display='block'" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
@@ -32,29 +32,27 @@
                 <div style="display: flex;justify-content: center;width: 100%;">
                     <img src="img/camera.svg" style="width: 30px;height: 30px;margin:0 10px; background: #fff;">
                 </div>
-                <div style="display: flex;justify-content:center;width: 100%;mar">
+                <div style="display: flex;justify-content:center;width: 100%">
                     <label>abrir camara</label>
                 </div>
             </button>
         </div>
-        <div class="imagen-upload"
+        <div id="images-preview" class="imagen-upload"
              style="display: flex;align-items: center;justify-content: center;flex-wrap: wrap;">
-            <img id="image-preview1" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-            <img id="image-preview2" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-            <img id="image-preview3" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-            <img id="image-preview4" style="height: 500px !important;width:400px!important;padding: 20px 20px">
-            <img id="image-preview5" style="height: 500px !important;width:400px!important;padding: 20px 20px">
         </div>
-        <select name="listaDeDispositivos" id="listaDeDispositivos" style="display: none;" type="hidden"></select>
+
         <div id="id01" class="w3-modal">
             <div class="w3-modal-content"
                  style="height:600px;display:flex;justify-content: center;align-items: center;">
                 <div class="w3-container">
-                        <span onclick="document.getElementById('id01').style.display='none'"
-                              class="w3-button w3-display-topright">&times;</span>
+                    <span id="closeCamara" onclick="detenerStream();"
+                          class="w3-button w3-display-topright">&times;</span>
+                    <div class="row" style="display: flex;justify-content:center">
+                        <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                    </div>
                     <div class="row">
                         <video muted="muted" id="video" style="padding: 10px 10px;" width="100%"
-                               height="400px"></video>
+                               height="300px"></video>
                         <canvas id="canvas" style="display: none;"></canvas>
                     </div>
                     <div class="row" style="display: flex;justify-content:center">
@@ -66,7 +64,7 @@
 
         {{!-- <div id="photo"></div> --}}
 
-        <button>Registrar Foto</button>
+        <!--        <button>Registrar Foto</button>-->
     </section>
 </div>
 <script src="/api/faceCheck.js"></script>
@@ -76,7 +74,9 @@
     let contador = 0;
     let images = [];
     $openCamara = document.querySelector("#openCamara");
-    $openCamara.addEventListener("click", function () {
+    $openCamara.addEventListener("click", coreFunction);
+
+    function coreFunction() {
         const tieneSoporteUserMedia = () =>
                 !!(
                         navigator.getUserMedia ||
@@ -220,12 +220,23 @@
                                         .then(async (response) => {
                                             console.log(response)
                                             if (response.message) {
-                                                const detections = await verifyImages()
+                                                const detections = await verifyImages();
+                                                console.log(detections)
                                                 if (!detections) {
                                                     contador--;
                                                     alert("La imagen no cumple los requisitos mínimos para poder guardarse.")
                                                 } else {
+                                                    let node = document.createElement("img");
+                                                    node.id = `image-preview-${contador}`;
+                                                    node.className = 'img-preview';
+                                                    document.getElementById('images-preview').appendChild(node)
+                                                    let reader = new FileReader();
 
+                                                    reader.onload = function (e) {
+                                                        document.getElementById(node.id).setAttribute('src', e.target.result);
+                                                    }
+
+                                                    reader.readAsDataURL(file);
                                                     images.push(file)
                                                 }
                                             }
@@ -240,7 +251,7 @@
                 );
             };
         })();
-    });
+    }
 
     function dataURLtoFile(dataurl, filename) {
         var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
@@ -252,7 +263,6 @@
     }
 
     async function saveUserImages() {
-        console.log(images)
         if (images.length >= 10 && images.length <= 20) {
             const formData = new FormData();
 
@@ -277,6 +287,11 @@
             alert("Debes completar un mínimo de 10 fotos y como máximo de 20")
         }
 
+    }
+
+    function detenerStream() {
+        document.getElementById('id01').style.display = 'none';
+        $openCamara.removeEventListener('click', coreFunction)
     }
 
 

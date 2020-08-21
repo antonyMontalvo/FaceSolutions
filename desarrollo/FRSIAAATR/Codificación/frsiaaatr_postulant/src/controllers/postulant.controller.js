@@ -246,9 +246,6 @@ PostulantController.correccion = async (req, res) => {
         return res.status(500).json({error: error.stack});
     }
 };
-<<<<<<< HEAD
-
-=======
 PostulantController.correccionDocumento = async (req, res) => {
   try {
     res.render("postulant/tramitesCorreccionDoc");
@@ -257,7 +254,6 @@ PostulantController.correccionDocumento = async (req, res) => {
     return res.status(500).json({ error: error.stack });
   }
 };
->>>>>>> master
 PostulantController.rechazados = async (req, res) => {
     try {
         res.render("postulant/tramitesRechazados");

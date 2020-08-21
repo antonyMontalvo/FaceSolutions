@@ -41,6 +41,8 @@ PostulantController.getPostulantList = async(req, res) => {
 
 //Revisar requisitos (fotos) de postulante
 PostulantController.getReviewInfo = async(req, res) => {
+    const id = req.params.id;
+    console.log("Valor es ="+id);
     try {
         res.render("postulantRequirement/reviewRequirement");
 
@@ -55,6 +57,7 @@ PostulantController.getAllPostulant = async(req, res) => {
     try {
 
         const q = `SELECT
+            ps.id as identificadorPostulante,
             ps.postulant_code as codigoPostulante,
             concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as nombreCompleto,
             ps.dni as dni,
@@ -88,9 +91,10 @@ PostulantController.getAllPostulant = async(req, res) => {
 PostulantController.getPostulantInfo = async(req, res) => {
     try {
 
-        const idPostulant = req.params.idPostulante; //Se saca de la ruta
+        const id = req.params.id; //Se saca de la ruta
 
         const q = `SELECT
+            ps.id as idPostulante,
             ps.postulant_code as codigoPostulante,
             concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as nombreCompleto,
             ps.dni as dni,
@@ -110,7 +114,7 @@ PostulantController.getPostulantInfo = async(req, res) => {
         ON d.province_id = pr.id
         LEFT JOIN department dp
         ON pr.department_id = dp.id
-        WHERE ps.postulant_code = ` + idPostulant;
+        WHERE ps.id = ` + id;
 
         const result = await sequelizeDB.query(q);
         res.send(result[0]);
@@ -124,16 +128,18 @@ PostulantController.getPostulantInfo = async(req, res) => {
 //Lista de requisitos según postulante
 PostulantController.getAllRequirement = async(req, res) => {
     try {
-        const idPostulant = req.params.idPostulante; //Viene desde la ruta
-
+        const idPostulant = req.params.id; //Viene desde la ruta
         const q = `SELECT
             pr.idpost_req as idRequisito,
             pr.name as nombreRequisito,
             pr.path as rutaRequisito,
             pr.state as estadoRequisito,
-            pr.observation as observacionRequisito
+            pr.observation as observacionRequisito,
+            rs.state_name as nombreEstadoRequisito
         FROM postulant_requirements pr
-        WHERE pr.idpostulant = ` + idPostulant;
+        INNER JOIN requirement_state rs ON
+        pr.state=rs.idrequirement_state  
+        WHERE pr.idpostulant = `+idPostulant;
 
         const result = await sequelizeDB.query(q);
         res.send(result[0]);
@@ -169,8 +175,11 @@ PostulantController.updateRequirementPostulant = async(req, res) => {
             pr.name as nombreRequisito,
             pr.path as rutaRequisito,
             pr.state as estadoRequisito,
-            pr.observation as observacionRequisito
+            pr.observation as observacionRequisito,
+            rs.state_name as nombreEstadoRequisito
         FROM postulant_requirements pr
+        INNER JOIN requirement_state rs ON
+        pr.state=rs.idrequirement_state  
         WHERE pr.idpostulant = ` + idPostulant + `
         AND pr.idpost_req = ` + idRequirement;
 

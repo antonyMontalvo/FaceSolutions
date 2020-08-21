@@ -27,9 +27,9 @@ router
     .get("/register", postulantController.registerView)
     .get("/profile", postulantController.profile)
     .get("/message", checkToken, postulantController.message)
-    .get("/TramitesCorreccion", checkToken, postulantController.correccion)
-    .get("/TramitesCorreccion/editar", checkToken, postulantController.correccionDocumento)
-    .get("/TramitesRechazados", checkToken, postulantController.rechazados)
+    // .get("/TramitesCorreccion", checkToken, postulantController.correccion)
+    // .get("/TramitesCorreccion/editar", checkToken, postulantController.correccionDocumento)
+    // .get("/TramitesRechazados", checkToken, postulantController.rechazados)
 
     .post("/login", postulantController.login)
     .post("/logout", postulantController.logout)

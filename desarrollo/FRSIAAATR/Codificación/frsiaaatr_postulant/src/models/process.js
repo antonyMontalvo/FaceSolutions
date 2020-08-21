@@ -1,4 +1,4 @@
-const {DataTypes} = require("sequelize");
+const {DataTypes, fn} = require("sequelize");
 const {sequelizeDB} = require("../../config/database");
 const Postulant = require("./postulant");
 

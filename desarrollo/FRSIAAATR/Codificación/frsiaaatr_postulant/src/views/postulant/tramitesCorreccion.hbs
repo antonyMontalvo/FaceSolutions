@@ -53,7 +53,6 @@
                             </ul>
                         </div>
 
-
                         <div class="table-responsive">
                             <div id="tblConsulta_wrapper" class="dataTables_wrapper no-footer">
                                 <div class="datatable-header">
@@ -150,38 +149,45 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr class="odd">
-                                                <td>00001</td>
-                                                <td class=" all dt-center">
-                                                    <a class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                       data-tooltip="tooltip" style="padding: 8px 8px;"
-                                                       href="derived-constancy">
-                                                        <i class="icon-file-eye"></i>
-                                                    </a>
-                                                </td>
-                                                <td class=" all filtrable">
-                                                    <span class="badge badge-flat border-info text-info-600">2020-07-17 11:30</span>
-                                                </td>
-                                                <td>Constancia de Ingreso - Pregrado</td>
-                                                <!-- <td >70229990</td>
-                                                <td >PEREZ LOPEZ, JUAN</td>
-                                                <td>Facultad de Ingeniería de Sistemas</td>
-                                                <td>Escuela Academia Profesional de Ingeniería de Software</td> -->
-                                                <td class=" all filtrable">
-                                                    <span class="badge badge-flat border-danger text-danger">Correción</span>
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-flat border-danger text-danger">En Proceso</span>
-                                                </td>
-                                                <td class=" all dt-center">
-                                                    <a class="btn btn-xs btn-danger verDocumento"
-                                                       title="Realizar Corrección de Documento"
-                                                       data-tooltip="tooltip" style="padding: 8px 8px;"
-                                                       href="/TramitesCorreccion/editar">
-                                                        <i class="icon-file-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                            {{#each data.process}}
+                                                <tr class="odd">
+                                                    <td>{{id}}</td>
+                                                    <td class=" all dt-center">
+                                                        {{#if constancy_id}}
+
+                                                        <a class="btn btn-xs btn-success verDocumento"
+                                                           title="Ver Documento"
+                                                           data-tooltip="tooltip" style="padding: 8px 8px;"
+                                                           href="derived-constancy">
+                                                            <i class="icon-file-eye"></i>
+                                                        </a>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td class=" all filtrable">
+                                                        <span class="badge badge-flat border-info text-info-600">{{date_created}}</span>
+                                                    </td>
+                                                    <td>Constancia de Ingreso - Pregrado</td>
+                                                    <!-- <td >70229990</td>
+                                                    <td >PEREZ LOPEZ, JUAN</td>
+                                                    <td>Facultad de Ingeniería de Sistemas</td>
+                                                    <td>Escuela Academia Profesional de Ingeniería de Software</td> -->
+                                                    <td class=" all filtrable">
+                                                        <span class="badge badge-flat border-danger text-danger">Correción</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="badge badge-flat border-danger text-danger">No leído</span>
+                                                    </td>
+                                                    <td class=" all dt-center">
+                                                        <a class="btn btn-xs btn-danger verDocumento"
+                                                           title="Realizar Corrección de Documento"
+                                                           data-tooltip="tooltip" style="padding: 8px 8px;"
+                                                           href="/documents/TramitesCorreccion/editar/{{id}}">
+                                                            <i class="icon-file-eye"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {{/each}}
+
                                             </tbody>
                                         </table>
                                     </div>

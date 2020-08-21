@@ -5,75 +5,63 @@ const bcrypt = require("bcryptjs"),
     moment = require("moment");
 
 const Postulant = require("../models/postulant"),
-    Department = require("../models/department"),
-    Province = require("../models/province"),
-    District = require("../models/district"),
     Process = require("../models/process"),
+    Requirement = require("../models/requirement"),
     Photo = require("../models/photo"),
     {createToken, getPayload} = require("../services/jwt"),
     bucketName = process.env.GCP_BUCKET_NAME,
     ProcessController = {},
     saltRounds = 10;
 
+let _requirements = [
+    {
+        name: 'Acta de notas de secundaria',
+        state_requirement: 1,
+    },
+    {
+        name: 'Comprobante de orden de merito',
+        state_requirement: 1,
+    },
+    {
+        name: 'Voucher de Pago',
+        state_requirement: 1,
+    },
+    {
+        name: 'Acta de nacimiento',
+        state_requirement: 1,
+    },
+]
 const gc = new Storage({
     keyFilename: path.join(__dirname, `${process.env.GCP_KEY_FILE}`),
     projectId: `${process.env.GCP_PROJECT_ID}`,
 });
 
 // Views
-ProcessController.create = async (req, res) => {
+ProcessController.correccion = async (req, res) => {
     try {
-
-        const pro = await Process.findAll();
-        const process = await Process.create({
-            code: `0000${pro.length}`,
-            state_process:1,
-            administrator_id: 1,
-            postulant_id: req.session.postulant.id,
-        })
-        if(process)
-        return res.render("postulant/index");
+        let process = await Process.findAll({raw: true, where: {postulant_id: req.session.usuario.id}});
+        console.log(process)
+        return res.render("postulant/tramitesCorreccion", {layout: 'main', data: {process}});
     } catch (error) {
         console.log(error);
         return res.render('errors/500');
     }
 };
-
-ProcessController.loginView = async (req, res) => {
+ProcessController.correccionDocumento = async (req, res) => {
     try {
-        return res.render("login", {layout: null});
+        let {id} = req.params;
+        let requirements = Requirement.findAll({where: {process_id: id}})
+        res.render("postulant/tramitesCorreccionDoc", {layout: 'main', data: {requirements}});
     } catch (error) {
         console.log(error);
         return res.render('errors/500');
     }
 };
-
-ProcessController.registerView = async (req, res) => {
+ProcessController.rechazados = async (req, res) => {
     try {
-        const departments = await Department.findAll({raw: true, order: [['name', 'ASC']]});
-        const provinces = JSON.stringify(await Province.findAll({raw: true, order: [['name', 'ASC']]}));
-        const districts = JSON.stringify(await District.findAll({raw: true, order: [['name', 'ASC']]}));
-
-        return res.render("registro", {
-            layout: null,
-            data: {departments, provinces, districts},
-        });
+        res.render("postulant/tramitesRechazados");
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
-    }
-};
-
-ProcessController.prueba = async (req, res) => {
-    res.render("postulantelogin", {layout: null});
-};
-
-ProcessController.getRegistrePhoto = async (req, res) => {
-    try {
-        const postulant = await Postulant.findByPk(3);
-        res.render("registroFotos", {layout: null, data: {id: postulant.id}});
-    } catch (err) {
-        console.error(err);
         return res.render('errors/500');
     }
 };
@@ -93,57 +81,32 @@ ProcessController.getById = async (req, res) => {
     }
 };
 
-ProcessController.profile = async (req, res) => {
-    try {
-        console.log(req.session)
-        res.render("postulant/profile", {
-            layout: 'main',
-            data: {postulant: req.session.usuario, date: moment(Date.now()).format('DD/MM/YYYY')}
-        });
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-
-ProcessController.message = async (req, res) => {
-    try {
-        res.render("postulant/message");
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-
-ProcessController.correccion = async (req, res) => {
-    try {
-        res.render("postulant/tramitesCorreccion");
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-ProcessController.correccionDocumento = async (req, res) => {
-    try {
-        res.render("postulant/tramitesCorreccionDoc");
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-ProcessController.rechazados = async (req, res) => {
-    try {
-        res.render("postulant/tramitesRechazados");
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-
 /**
  * Logic
  */
+ProcessController.create = async (req, res) => {
+    try {
+        const pro = await Process.findAll({where: {postulant_id: req.session.usuario.id,}});
+        console.log(pro)
+        if (pro.length == 0) {
+            const process = await Process.create({
+                code: `0000${pro.length + 1}`,
+                state_process: 1,
+                administrator_id: 1,
+                postulant_id: req.session.usuario.id,
+            })
+            for (let i = 0; i < _requirements.length; i++) {
+                _requirements[i].process_id = process.null;
+            }
+            const requirements = await Requirement.bulkCreate(_requirements);
+        }
 
+        return res.redirect("/documents/TramitesCorreccion");
+    } catch (error) {
+        console.log(error);
+        return res.render('errors/500');
+    }
+};
 
 ProcessController.login = async (req, res) => {
     try {

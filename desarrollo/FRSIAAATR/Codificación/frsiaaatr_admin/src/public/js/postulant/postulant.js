@@ -22,7 +22,7 @@ $(document).ready(function() {
             },
         },
         "initComplete": function() {
-            $local.$tblNoLeidos.wrap("<div class='table-responsive'></div>");
+            $local.$tblAlumnos.wrap("<div class='table-responsive'></div>");
             $(window).resize();
         },
         "columnDefs": [{
@@ -38,7 +38,7 @@ $(document).ready(function() {
                 "data": 'codigoPostulante',
                 "title": "Código",
                 "render": function(data, type, row) {
-                    var code = '<span style="font-size: 100%; " class="badge badge-light badge-striped badge-striped-left border-left-primary">' + row.codigoPostulante+ '</span>'
+                    var code = '<span style="font-size: 100%; " class="badge badge-light badge-striped badge-striped-left border-left-primary">' + row.codigoPostulante + '</span>'
                     return code;
                 }
             },
@@ -60,18 +60,18 @@ $(document).ready(function() {
                 "title": 'Sexo',
                 "render": function(data, type, row) {
                     var Resultado;
-                    switch(row.sexoPostulante){
+                    switch (row.sexoPostulante) {
                         case 'F':
-                            Resultado ="Femenino";
+                            Resultado = "Femenino";
                             break;
                         case 'M':
-                            Resultado ="Masculino";
+                            Resultado = "Masculino";
                             break;
                         default:
-                            Resultado ="-";
+                            Resultado = "-";
                             break;
-                    }                    
-                    
+                    }
+
                     return Resultado;
 
                 }

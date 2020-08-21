@@ -7,26 +7,28 @@ $(document).ready(function() {
         tblInfo: "",
     }
 
+    var split = window.location.href.split('/');
+    var codigoSolicitud = split[5];
 
     $local.tblFotos = $local.$tblFotos.DataTable({
 
         "ajax": {
-            "url": "http://localhost:3000/postulant/get-all-requirement/"+"1", //Aquí va el cod solicitud
+            "url": "http://localhost:3000/postulant/get-all-requirement/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
             }
         },
         "initComplete": function() {
-            $local.$tblRequisitos.wrap("<div class='table-responsive'></div>");
-            $local.$tblRequisitos.attr('style', 'width: 100%;');
+            $local.$tblFotos.wrap("<div class='table-responsive'></div>");
+            $local.$tblFotos.attr('style', 'width: 100%;');
             $(window).resize();
         },
         "columnDefs": [{
             "targets": [0, 1, 2, 3, 4],
             "className": "all text-center",
         }],
-        
+
         "columns": [{ //0
                 "data": 'idRequisito',
                 "title": "Identificador",
@@ -105,7 +107,7 @@ $(document).ready(function() {
 
     $local.tblInfo = $local.$tblInfo.DataTable({
         "ajax": {
-            "url": "../../postulant/get-one-postulant/" + "1", //Aquí va el cod solicitud
+            "url": "../../postulant/get-one-postulant/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": function(data) {
                 //console.log(data);
                 var info;
@@ -148,42 +150,42 @@ $(document).ready(function() {
                     return '<i class="fas fa-transgender mr-2"></i>Sexo Postulante:'
                 } else if (row.hasOwnProperty('especialidadPostulada')) {
                     return '<i class="fas fa-user-graduate mr-2"></i>Especialidad:'
-                }else if (row.hasOwnProperty('facultadPostulada')) {
+                } else if (row.hasOwnProperty('facultadPostulada')) {
                     return '<i class="fas fa-university mr-2"></i>Facultad:'
-                }else if (row.hasOwnProperty('procedenciaPostulante')) {
+                } else if (row.hasOwnProperty('procedenciaPostulante')) {
                     return '<i class="fas fa-city mr-2"></i>Procedencia:'
                 }
-                
+
             }
         }, {
             "render": function(data, type, row) {
                 if (row.hasOwnProperty('codigoPostulante')) {
                     return row.codigoPostulante
                 } else if (row.hasOwnProperty('nombreCompleto')) {
-                    return row.nombreCompleto  
+                    return row.nombreCompleto
                 } else if (row.hasOwnProperty('dni')) {
                     return row.dni
                 } else if (row.hasOwnProperty('sexoPostulante')) {
                     var Resultado;
-                    switch(row.sexoPostulante){
+                    switch (row.sexoPostulante) {
                         case 'F':
-                            Resultado ="Femenino";
+                            Resultado = "Femenino";
                             break;
                         case 'M':
-                            Resultado ="Masculino";
+                            Resultado = "Masculino";
                             break;
                         default:
-                            Resultado ="-";
+                            Resultado = "-";
                             break;
-                    }                    
-                    
+                    }
+
                     return Resultado;
                 } else if (row.hasOwnProperty('especialidadPostulada')) {
                     return row.especialidadPostulada
                 } else if (row.hasOwnProperty('facultadPostulada')) {
                     return row.facultadPostulada
-                }else if (row.hasOwnProperty('procedenciaPostulante')) {
-                    return row. procedenciaPostulante
+                } else if (row.hasOwnProperty('procedenciaPostulante')) {
+                    return row.procedenciaPostulante
                 }
             }
         }],
@@ -201,7 +203,7 @@ $(document).ready(function() {
         var dataRequisito = $local.tblFotos.row(filaSeleccionada).data();
         var idPostulante = $("#idPostulante").val();
 
-        console.log("Valores"+idPostulante );
+        console.log("Valores" + idPostulante);
 
         var data = {
             idPostulante: idPostulante,
@@ -275,7 +277,7 @@ $(document).ready(function() {
 
                             //Actualizando estado en "Detalle"
                             $("#badgeEstado").replaceWith(`<span class="badge badge-flat border-warning 
-                                text-warning-600" id="badgeEstado">` + response[0].nombreEstadoRequisito+ `</span>`)
+                                text-warning-600" id="badgeEstado">` + response[0].nombreEstadoRequisito + `</span>`)
 
                         },
                         error: function(response) {},

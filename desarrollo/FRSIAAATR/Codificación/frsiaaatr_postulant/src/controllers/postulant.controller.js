@@ -8,7 +8,7 @@ const Postulant = require("../models/postulant"),
     Province = require("../models/province"),
     District = require("../models/district"),
     Photo = require("../models/photo"),
-    {createToken, getPayload} = require("../services/jwt")
+    {createToken, getPayload} = require("../services/jwt"),
     bucketName = process.env.GCP_BUCKET_NAME,
     PostulantController = {},
     saltRounds = 10;
@@ -18,7 +18,6 @@ const gc = new Storage({
     projectId: `${process.env.GCP_PROJECT_ID}`,
 });
 
-gc.getBuckets().then(x => console.log(x))
 // Views
 PostulantController.getIndex = async (req, res) => {
     try {
@@ -44,7 +43,7 @@ PostulantController.registerView = async (req, res) => {
         const provinces = JSON.stringify(await Province.findAll({raw: true}));
         const districts = JSON.stringify(await District.findAll({raw: true}));
 
-        res.render("registro", {
+        return res.render("registro", {
             layout: null,
             data: {departments, provinces, districts},
         });
@@ -63,6 +62,21 @@ PostulantController.getRegistrePhoto = async (req, res) => {
         res.render("registroFotos", {layout: null, data: {id: postulant.id}});
     } catch (err) {
         console.error(err);
+        return res.status(500).json({error: error.stack});
+    }
+};
+
+PostulantController.getById = async (req, res) => {
+    try {
+        const {id} = req.body;
+        const postulant = await Department.findByPk(id, {raw: true});
+
+        return res.render("", {
+            layout: "main",
+            data: {postulant},
+        });
+    } catch (error) {
+        console.log(error.stack);
         return res.status(500).json({error: error.stack});
     }
 };
@@ -127,6 +141,7 @@ PostulantController.register = async (req, res) => {
             });
         }
     } catch (error) {
+        console.log(error);
         console.log(error.stack);
         return res.status(500).json({error: error.stack});
     }
@@ -135,24 +150,34 @@ PostulantController.register = async (req, res) => {
 PostulantController.registerPhotos = async (req, res) => {
     try {
         const {id} = req.body;
-        console.log(req.body);
+
         const files = req.files;
         const postulant = await Postulant.findByPk(id);
-
+        const folder = `_${postulant.dni}_${postulant.postulant_code}`;
         const dir = path.join(
             __dirname,
-            `../public/perfiles/_${postulant.dni}_${postulant.postulant_code}`
+            `../public/perfiles/${folder}`
         );
-        if (!fs.existsSync(dir)) fs.mkdirSync(dir, {recursive: true});
+
+        if (!fs.existsSync(dir)) {
+            await fs.mkdirSync(dir, {recursive: true});
+        }
 
         let photos = [];
         for (let i = 0; i < files.length; i++) {
+            await gc.bucket(bucketName).upload(files[i].path, {
+                destination: `${folder}_${i}.jpg`,
+                gzip: true,
+                metadata: {
+                    cacheControl: 'public, max-age=31536000',
+                },
+            })
             photos.push({
                 filename: files[i].originalname,
                 state: 1,
                 postulant_id: id,
             });
-            fs.renameSync(files[i].path, path.join(dir, `${files[i].originalname}`));
+            await fs.renameSync(files[i].path, path.join(dir, `${files[i].originalname}`));
         }
 
         await Photo.bulkCreate(photos);
@@ -182,6 +207,28 @@ PostulantController.profile = async (req, res) => {
     }
 };
 
+PostulantController.update = async (req, res) => {
+    try {
+        const {id} = req.params;
+        const body = req.body;
+        const postulant = await Department.update({
+            ...body,
+            acepted_state: 0
+        }, {where: {id}});
+
+        if(!postulant){
+            return res.render("", {
+                layout: "main",
+                data: {postulant},
+            });
+        }
+        return res.redirect("/");
+    } catch (error) {
+        console.log(error.stack);
+        return res.status(500).json({error: error.stack});
+    }
+};
+
 PostulantController.correccion = async (req, res) => {
     try {
         res.render("postulant/tramitesCorreccion");
@@ -190,6 +237,7 @@ PostulantController.correccion = async (req, res) => {
         return res.status(500).json({error: error.stack});
     }
 };
+
 PostulantController.rechazados = async (req, res) => {
     try {
         res.render("postulant/tramitesRechazados");

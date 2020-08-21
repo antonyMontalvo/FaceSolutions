@@ -49,7 +49,10 @@ const Postulant = sequelizeDB.define(
         },
         district_id: {
             type: DataTypes.INTEGER,
-        }
+        },
+        observation: {
+            type: DataTypes.TEXT,
+        },
     },
     {
         freezeTableName: true,

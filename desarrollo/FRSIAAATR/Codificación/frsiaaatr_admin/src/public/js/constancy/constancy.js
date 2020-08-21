@@ -131,7 +131,7 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     var a = (row.nombreConstancia + " - " + row.facultadIniciales + " - Cod postulante: " +
                         row.codigoPostulante + " - DNI: " + row.numeroDocumento).toUpperCase();
-                    var ref = '<a href="review-request/' + row.codigoSolicitud + '">' + a + '</a>';
+                    var ref = '<a href="review-request/' + row.codigoSolicitud + '" id="rutaSolicitud">' + a + '</a>';
                     return ref;
                 }
             },
@@ -153,6 +153,10 @@ $(document).ready(function() {
             }
         ],
 
+    });
+
+    $("#rutaSolicitud").on("click", function() {
+        console.log($("#rutaSolicitud").attr('href'));
     });
 
     $local.$cmbFacultad.on('select2:select', function(e) {

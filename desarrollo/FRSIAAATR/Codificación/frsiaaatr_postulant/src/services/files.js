@@ -28,7 +28,7 @@ UploadFile.userPhoto = ( req, res, next ) => {
             fileSize: fileSize
         },
         fileFilter: fileFilter
-    }).single('userPhoto')
+    }).single('image')
 
     uploadPhotoProfile( req, res, (error) => {
         if (typeof req.file !== 'undefined') {
@@ -44,6 +44,15 @@ UploadFile.photos = ( req, res, next ) => {
     const uploadPhotos = multer({
         storage: storage,
     }).array('images',10)
+
+    uploadPhotos( req, res, (error) => {
+        if (typeof req.file !== 'undefined') {
+            if(error) return res.status(422).json({ error: 'Invalid file' })
+            next()
+        } else {
+            return res.status(422).json({ error: req.fileValidationError })
+        }
+    })
 }
 
 module.exports = UploadFile

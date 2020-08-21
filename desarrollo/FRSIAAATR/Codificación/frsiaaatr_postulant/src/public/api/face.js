@@ -1,7 +1,7 @@
 
 var dato = null;
 var ayuda = [];
-var cantidad=0;
+var cantidad = 0;
 console.log(typeof (cantidad));
 const formularioPostulante = document.getElementById('formularioPostulante');
 const loading = document.getElementById('loading');
@@ -204,7 +204,7 @@ function loadLabeledImages(dato) {
     return Promise.all(
         labels.map(async label => {
             const descriptions = []
-            for (let i = 1; i <= 2; i++) {
+            for (let i = 1; i <= 10; i++) {
                 const img = await faceapi.fetchImage(`/perfiles/${label}/${i}.jpg`);
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
                 descriptions.push(detections.descriptor);
@@ -214,6 +214,7 @@ function loadLabeledImages(dato) {
         })
     )
 }
+<<<<<<< HEAD
 
 async function verifyImages(imgE) {
     const img = await faceapi.fetchImage(imgE);
@@ -221,4 +222,6 @@ async function verifyImages(imgE) {
     return detections;
 
 }
+>>>>>>> master
+=======
 >>>>>>> master

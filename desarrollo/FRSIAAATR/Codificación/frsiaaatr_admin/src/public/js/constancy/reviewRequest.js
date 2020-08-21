@@ -232,6 +232,7 @@ $(document).ready(function() {
 
                 dataRequisito.estadoRequisito = response[0].state_requirement;
                 dataRequisito.nombreEstadoRequisito = response[0].state_name;
+                dataRequisito.observacionRequisito = 'Requisito APROBADO';
 
                 var row = $local.tblRequisitos.row.add(dataRequisito).draw();
 

@@ -6,7 +6,7 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a class="breadcrumb-item" href="/"><i class="icon-home2 mr-2"></i>Inicio</a>
-                     <a  class="breadcrumb-item link-solicitudes" href="request-in-derived">Solicitudes derivadas </a>
+                    <a class="breadcrumb-item link-solicitudes" href="request-in-derived">Solicitudes derivadas </a>
                     <span class="breadcrumb-item active">Solititud</span>
                 </div>
             </div>
@@ -27,118 +27,166 @@
     <div class="content">
         <div class="container-fluid">
             <div class="d-flex align-items-start flex-column flex-md-row">
-                
+
                 <!-- Left content -->
                 <div class="w-100 overflow-auto order-2 order-md-1">
-                    
+
                     <!-- Task overview -->
                     <div class="card">
-                        
-                        
+
+
                         <div class="card-body">
                             <div class="media flex-column flex-md-row mb-4">
 
                                 <div class="media-body">
                                     <h5 class="media-title font-weight-semibold nombreTipoTramite">
-										Emisión de Constancia de Ingreso
-									</h5>
-                                    
+                                        Emisión de Constancia de Ingreso
+                                    </h5>
+
                                 </div>
 
                             </div>
-
-                            <div class="btn-group btn-group-lg btn-group-justified " role="group"  >
-                                    <button type="button" class="btn btn-primary "><i class="far fa-save"></i> Grabar</button>
-                                    <button type="button" class="btn btn-primary "><i class="far fa-file-alt"></i> Generar Doc.</button>
-                                    <button type="button" class="btn btn-primary "><i class="fas fa-cloud-upload-alt"></i> Cargar Doc.</button>
-                                    <button type="button" class="btn btn-primary "> <i class="fas fa-paperclip"></i> Cargar Anexos</button>
-                                    <button type="button" class="btn btn-primary "><i class="fas fa-times"></i> Anular</button>
-                                    <button type="button" class="btn btn-primary "><i class="fas fa-arrow-left"></i> Cerrar</button>
-                                    <button type="button" class="btn btn-primary "><i class="fas fa-sign-out-alt"></i> Salir</button>
+                            <h1>{{succesfull}}</h1>
+                            <div class="btn-group btn-group-lg btn-group-justified " role="group">
+                                <button id="btnGrabar" type="button" class="btn btn-primary "><i
+                                        class="far fa-save"></i>
+                                    Grabar</button>
+                                <button type="button" class="btn btn-primary" id="generarDoc" onclick="myFunction()"><i
+                                        class="far fa-file-alt"></i> Generar
+                                    Doc.</button>
+                                <button type="button" class="btn btn-primary " data-toggle="modal"
+                                    data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i>
+                                    Ver Doc.</button>
+                                <button type="button" class="btn btn-primary "> <i class="fas fa-paperclip"></i> Cargar
+                                    Anexos</button>
+                                <button type="button" class="btn btn-primary" id="anularDoc"><i
+                                        class="fas fa-times"></i>
+                                    Anular</button>
+                                <button type="button" class="btn btn-primary " onClick="redirectDatatable()"><i
+                                        class="fas fa-arrow-left"></i>
+                                    Cerrar</button>
+                                <button type="button" class="btn btn-primary " onClick="redirectIndex()"><i
+                                        class="fas fa-sign-out-alt"></i>
+                                    Salir</button>
                             </div><br><br><br>
-                           
-                           <div class="row">
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="display:'flex';align-item:'center'">
+                                            <h4 class="modal-title" style="text-align='center'">Constancia de ingreso
+                                            </h4>
+
+                                            <button type="button" class="close" style="margin-left:0"
+                                                data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <embed id="test" src="test" frameborder="0" width="100%" height="400px">
+                                            <script type="text/javascript">
+                                                document.getElementById("test").src = "/pdf/constancy" + {{ dni }} + ".pdf";
+                                            </script>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-sm-6">
-                                <div class="card border-primary">
-                                    <h5 class="card-header border-primary  bg-primary text-whit">REMITENTE</h5>
-                                <div class="card-body">
-                                    
-                                    <form>
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-lg-8">
-                                                    <label for="disabledTextInput">Solicitante:</label>
-                                                    <input type="text" value="{{solicitante}}" class="form-control" id="solicitante"  disabled>
+                                    <div class="card border-primary">
+                                        <h5 class="card-header border-primary  bg-primary text-whit">REMITENTE</h5>
+                                        <div class="card-body">
+
+                                            <form>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-lg-8">
+                                                            <label for="disabledTextInput">Solicitante:</label>
+                                                            <input type="text" value="{{solicitante}}"
+                                                                class="form-control" id="solicitante" disabled>
+                                                        </div>
+                                                        <div class="col-lg-4">
+                                                            <label for="disabledTextInput">DNI:</label>
+                                                            <input type="text" value="{{dni}}" class="form-control"
+                                                                id="dni" disabled>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-lg-4">
-                                                    <label for="disabledTextInput">DNI:</label>
-                                                    <input type="text" value="{{dni}}" class="form-control" id="dni" disabled>
+                                                <div class="form-group">
+                                                    <label for="disabledTextInput">Facultad:</label>
+                                                    <input type="text" value="{{facultad}}" class="form-control"
+                                                        id="facultad" disabled>
+
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="disabledTextInput">Facultad:</label>
-                                            <input type="text" value="{{facultad}}" class="form-control" id="facultad" disabled>
-                                            
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="disabledTextInput">Especialidad:</label>
-                                            <input type="text" value="{{especialidad}}" class="form-control" id="especialidad" disabled>
-                                        </div>
+                                                <div class="form-group">
+                                                    <label for="disabledTextInput">Especialidad:</label>
+                                                    <input type="text" value="{{especialidad}}" class="form-control"
+                                                        id="especialidad" disabled>
+                                                </div>
 
-                                        
-                                    </form>
+
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="col-sm-6">
+                                    <div class="card border-primary">
+
+                                        <h5 class="card-header border-primary  bg-primary text-whit">EXPEDIENTE</h5>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="disabledTextInput">Número:</label>
+                                                        <input type="text" value="{{numero_expediente}}"
+                                                            id="numero_expediente" class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="disabledTextInput">Fecha:</label>
+                                                        <input type="text" value="{{fecha_expediente_completa}}"
+                                                            id="disabledTextInput" class="form-control" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="disabledTextInput">AÑO:</label>
+                                                        <input type="text" value="{{anio}}" id="disabledTextInput"
+                                                            class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="disabledTextInput">Nro Emisión:</label>
+                                                        <input type="text" value="{{numero_emision}}"
+                                                            class="form-control" id="inputNrEmision" disabled>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="disabledTextInput">Encargado:</label>
+                                                    <input type="text" value="{{encargado_expediente}}"
+                                                        class="form-control" id="inputElaboradir" disabled>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="disabledTextInput">Estado:</label>
+                                                    <input type="text" value="{{estado_expediente}}"
+                                                        class="form-control" id="inputEstado" disabled>
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
                                 </div>
+
+
                             </div>
-
-                            <div class="col-sm-6">
-                                <div class="card border-primary">
-                                    
-                                <h5 class="card-header border-primary  bg-primary text-whit">EXPEDIENTE</h5>
-                                <div class="card-body">                                    
-                                    <form>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                            <label for="disabledTextInput">Número:</label>
-                                            <input type="text" value="{{numero_expediente}}" id="disabledTextInput" class="form-control" disabled>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                            <label for="disabledTextInput">Fecha:</label>
-                                            <input type="text" value="{{fecha_expediente_completa}}" id="disabledTextInput" class="form-control" disabled>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="disabledTextInput">AÑO:</label>
-                                                <input type="text" value="{{anio}}" id="disabledTextInput" class="form-control" disabled>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="disabledTextInput">Nro Emisión:</label>
-                                                <input type="text" value="{{numero_emision}}" class="form-control" id="inputNrEmision" disabled>
-                                            </div>
-                                        </div>  
-
-                                        <div class="form-group">
-                                            <label for="disabledTextInput">Encargado:</label>
-                                            <input type="text" value="{{encargado_expediente}}" class="form-control" id="inputElaboradir" disabled>
-                                        </div>
-
-                                         <div class="form-group">
-                                            <label for="disabledTextInput">Estado:</label>
-                                            <input type="text" value="{{estado_expediente}}" class="form-control" id="inputEstado" disabled>
-                                        </div>                                   
-                                        
-                                    </form>
-                                    
-                                </div>
-                                </div>
-                            </div>
-                            
-
-                            </div>
-<!--
+                            <!--
                             <div class="row">
                             <div class="col-sm-6">
                                 <div class="card border-primary">
@@ -204,111 +252,118 @@
                             </div>
                             
                             </div>
-  -->                          
-                        <div class="row">
-                            <div class="col">
-                                <div class="card border-primary">
-                                    <h5 class="card-header border-primary  bg-primary text-whit">DOCUMENTO</h5>
-                                <div class="card-body">
-                                    
-                                    <form>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                            <label for="disabledTextInput">Tipo:</label>
-                                                <select class="form-control" id="exampleFormControlSelect1" >
-                                                <option>CONSTANCIA DE INGRESO</option>
-                                                <option>OFICIO</option>  
-                                                </select>                                              
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label for="disabledTextInput">Fecha:</label>
-                                                <input type="text" value="{{fecha_actual}}" class="form-control" id="inputAddress" disabled>
-                                                                                          
-                                            </div>
-                                                                                        
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="disabledTextInput">Asunto:</label>
-                                            <textarea class="form-control " id="validationTextarea" placeholder="Porfavor complete el asunto correspondiente al expediente a trabajar."></textarea>                                            
-                                        </div>
-                                                                               
-                                    </form>
-
-                                    <div class="col">
-                                        <div class="card border-light">
-                                            <h5 class="card-header border-light bg-light">REFERENCIAS</h5>
+  -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="card border-primary">
+                                        <h5 class="card-header border-primary  bg-primary text-whit">DOCUMENTO</h5>
                                         <div class="card-body">
-                                            
-                                            <table class="table ">
-                                                <thead >
-                                                    <tr class="table-primary text-center" >
-                                                    <th scope="col">AÑO</th>
-                                                    <th scope="col">TIPO DE DOUMENTO</th>
-                                                    <th scope="col">EMI/REC</th>   
-                                                    <th scope="col">Nº DOC</th> 
-                                                    <th scope="col">FECHA</th>                                          
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr class="text-center">
-                                                    <th scope="row">2020</th>
-                                                    <td>CONSTANCIA VIRTUAL</td>
-                                                    <td>
-                                                    <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input" id="customSwitch1" >
-                                                            <label class="custom-control-label" for="customSwitch1"></label>
-                                                        </div>                                              
 
-                                                    </td>    
-                                                    <td>20200016709</td> 
-                                                    <td>01/08/2020</td>                                         
-                                                    </tr>                                                                                        
-                                                </tbody>
-                                                </table>
+                                            <form>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="disabledTextInput">Tipo:</label>
+                                                        <select id="cmbTipoDocumento" class="form-control"
+                                                            id="exampleFormControlSelect1">
+                                                            <option value="Constancia de Ingreso">CONSTANCIA DE INGRESO
+                                                            </option>
+                                                            <option value="Oficio">OFICIO</option>
+                                                        </select>
+                                                    </div>
 
-                                            
-                                        </div>
+                                                    <div class="form-group col-md-6">
+                                                        <label for="disabledTextInput">Fecha:</label>
+                                                        <input type="text" value="{{fecha_actual}}" class="form-control"
+                                                            id="inputAddress" disabled>
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="disabledTextInput">Asunto:</label>
+                                                    <textarea class="form-control " id="asunto"
+                                                        placeholder="Porfavor complete el asunto correspondiente al expediente a trabajar."></textarea>
+                                                </div>
+
+                                            </form>
+
+                                            <div class="col">
+                                                <div class="card border-light">
+                                                    <h5 class="card-header border-light bg-light">REFERENCIAS</h5>
+                                                    <div class="card-body">
+
+                                                        <table class="table ">
+                                                            <thead>
+                                                                <tr class="table-primary text-center">
+                                                                    <th scope="col">AÑO</th>
+                                                                    <th scope="col">TIPO DE DOUMENTO</th>
+                                                                    <th scope="col">EMI/REC</th>
+                                                                    <th scope="col">Nº DOC</th>
+                                                                    <th scope="col">FECHA</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr class="text-center">
+                                                                    <th scope="row">2020</th>
+                                                                    <td>CONSTANCIA VIRTUAL</td>
+                                                                    <td>
+                                                                        <div class="custom-control custom-switch">
+                                                                            <input type="checkbox"
+                                                                                class="custom-control-input"
+                                                                                id="customSwitch1">
+                                                                            <label class="custom-control-label"
+                                                                                for="customSwitch1"></label>
+                                                                        </div>
+
+                                                                    </td>
+                                                                    <td>20200016709</td>
+                                                                    <td>01/08/2020</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
-                                    
                                 </div>
-                                </div>
+
+
                             </div>
-  
-                            
-                        </div>
 
                             <div class="card text-center border-primary">
-                                <div class="card-header border-primary  bg-primary text-whit">                                  
+                                <div class="card-header border-primary  bg-primary text-whit">
                                     REQUISITOS
                                 </div>
                                 <div class="card-body">
-                                    
+
                                     <table class="table">
-                                        <thead >
-                                            <tr class="table-primary" >
-                                            <th scope="col">DEPENDENCIA</th>
-                                            <th scope="col">LOCAL</th>
-                                            <th scope="col">PERSONAL</th>   
-                                            <th scope="col">TRÁMITE</th> 
-                                            <th scope="col">INDICACIONES</th> 
-                                            <th scope="col">PRIORIDAD</th>                                          
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th scope="col">DEPENDENCIA</th>
+                                                <th scope="col">LOCAL</th>
+                                                <th scope="col">PERSONAL</th>
+                                                <th scope="col">TRÁMITE</th>
+                                                <th scope="col">INDICACIONES</th>
+                                                <th scope="col">PRIORIDAD</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                            <td>E.A.P.S</td>
-                                            <td>FACULTAD DE MEDICINA</td>                                             
-                                            <td>TORRES ESPINOZA JOSÉ</td> 
-                                            <td>CONSTANCIA</td>  
-                                            <td></td>
-                                            <td>NORMAL</td>                                       
-                                            </tr>                                                                                        
+                                                <td>E.A.P.S</td>
+                                                <td>FACULTAD DE MEDICINA</td>
+                                                <td>TORRES ESPINOZA JOSÉ</td>
+                                                <td>CONSTANCIA</td>
+                                                <td></td>
+                                                <td>NORMAL</td>
+                                            </tr>
                                         </tbody>
-                                        </table>
-                                    
-                                </div>                              
+                                    </table>
+
+                                </div>
                             </div>
 
                         </div>
@@ -317,17 +372,115 @@
                     <!-- /task overview -->
                     <div class="card-body" class="mx-2">
                         <div class="media flex-column flex-md-row">
-                            
-                        </div>    
+
+                        </div>
                     </div>
                 </div>
                 <!-- /left content -->
-
-            
+                <div class="alert alert-primary" id="myElem"
+                    style="display: none;width: 1017px;position:absolute !important" role="alert">
+                    Generando documento...
+                </div>
             </div>
         </div>
-    </div>        
+    </div>
 
 </div>
+<script>
 
+    function myFunction() {
+        var dni = document.getElementById('dni').value;
+
+        let timerInterval
+        Swal.fire({
+            title: 'Generando constancia',
+            timer: 2000,
+            timerProgressBar: true,
+            onBeforeOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                    const content = Swal.getContent()
+                    if (content) {
+                        const b = content.querySelector('b')
+                        if (b) {
+                            b.textContent = Swal.getTimerLeft()
+                        }
+                    }
+                }, 100)
+            },
+            onClose: () => {
+                clearInterval(timerInterval)
+            }
+        }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+                console.log('I was closed by the timer')
+            }
+        })
+        //BOTON GENERAR CONSTANCIA
+        $.ajax({
+            url: "http://localhost:3000/constancy-inp/redirect-request-process-dni",
+            data: { "dni": dni },
+            type: 'get', 
+
+        }).then(function (response) {
+            console.log("Cambiando de vista.");
+            console.log(data);
+        });
+
+    }
+
+    function doHide() {
+        document.getElementById('myElem').style.display = 'none!important';
+    }
+
+</script>
+<div id="satisfactorio"></div>
+
+<script>
+    document.getElementById('satisfactorio').innerHTML = {{ succesfull }}
+
+    console.log({{ succesfull }})
+
+</script>
 <script src="/js/constancy/constancyProcessWork.js"></script>
+
+<script>
+
+    function redirectDatatable() {
+        $(location).attr('href', 'http://localhost:3000/constancy-inp/request-in-process')
+
+    }
+
+    function redirectIndex() {
+        $(location).attr('href', 'http://localhost:3000/')
+
+    }
+    function saveData() {
+        // Select
+        var e = document.getElementById("exampleFormControlSelect1");
+        var strUser = e.options[e.selectedIndex].value;
+
+        // Textarea
+        var eTextArea = document.getElementById("validationTextarea")
+        var validationTextarea = eTextArea.value;
+
+
+        // Disabled
+        $('#exampleFormControlSelect1').prop('disabled', true);
+        var textareaValue = document.getElementById('validationTextarea');
+        textareaValue.value = validationTextarea;
+        textareaValue.disabled = true;
+
+        $.ajax({
+            url: "http://localhost:3000/constancy-inp/redirect-request-process-dni",
+            data: { "textAreaValidation": validationTextarea, "selectDocument": strUser },
+            type: 'UPDATE',
+
+        }).then(function (response) {
+            console.log("Cambiando de vista.");
+            console.log(data);
+        });
+
+    }
+</script>

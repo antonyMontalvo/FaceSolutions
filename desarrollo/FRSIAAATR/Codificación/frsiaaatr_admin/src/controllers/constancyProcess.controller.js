@@ -14,29 +14,49 @@ const Employee = require("../models/department"),
    where code = + numero_expediente;
 
 */
-ConstancyProcessController.updatedConstancy = async (req, res) => {
-  try{
-  console.log("LLEGUE");
-  const id_constancia = req.body.id_constancia;
-  const tipo_documento = req.body.tipo_documento;
-  const asunto = req.body.asunto;
 
-  let q =
-    `UPDATE process p SET p.document_category = '` + tipo_documento + 
-    `' , p.document_description = '` + asunto +
-    `' WHERE p.code =  '` + id_constancia+`';`;
+ConstancyProcessController.cancelConstancy = async (req, res) => {
+  try {
+    const id_constancia = req.body.id_constancia;
+    console.log("id_constancia", id_constancia);
+    let q =
+      `UPDATE process p SET p.state_process=7 WHERE p.code = '` +
+      id_constancia +
+      `';`;
 
     //let q = `UPDATE process p SET p.document_category = 'Constancia de Ingreso' , p.document_description = 'sdkjdskjsdjk' WHERE p.code =  '00002';`;
+    const process = await sequelizeDB.query(q);
+  } catch (error) {
+    return res.status(500).json({ error: error.stack });
+  }
+};
+ConstancyProcessController.updatedConstancy = async (req, res) => {
+  try {
+    const id_constancia = req.body.id_constancia;
+    const tipo_documento = req.body.tipo_documento;
+    const asunto = req.body.asunto;
 
-  console.log(q);
-  const process = await sequelizeDB.query(q);
-  console.log("grabe");
+    if (id_constancia !== undefined || id_constancia !== null) {
+      let q =
+        `UPDATE process p SET p.document_category = '` +
+        tipo_documento +
+        `' , p.document_description = '` +
+        asunto +
+        `' WHERE p.code =  '` +
+        id_constancia +
+        `';`;
+
+      //let q = `UPDATE process p SET p.document_category = 'Constancia de Ingreso' , p.document_description = 'sdkjdskjsdjk' WHERE p.code =  '00002';`;
+
+      const process = await sequelizeDB.query(q);
+      console.log("se grabo");
+    }
   } catch (error) {
     //console.log(error);
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });
   }
-} 
+};
 
 ConstancyProcessController.getProcessByDni = async (req, res) => {
   // Pdf
@@ -46,21 +66,20 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   var fs = require("fs");
   var express = require("express");
   var hbs = require("express-handlebars");
-  var toastr = require("express-toastr");
+  //var toastr = require("express-toastr");
   var app = express();
 
   app.engine("hbs", hbs({ extname: "hbs" }));
   app.set("view engine", "hbs");
   app.use(express.static(path.join(__dirname, "public")));
-  app.use(toastr());
+  //app.use(toastr());
   var hoy = new Date();
   var dd = hoy.getDate();
   var mm = hoy.getMonth() + 1;
   var yyyy = hoy.getFullYear();
-
   var fecha_actual = dd + "/" + mm + "/" + yyyy;
-  console.log("raaaaaa", req.query.dni);
   const dni2 = req.query.dni;
+  console.log("DNI RECIBIDO: "+ dni2); 
   let q =
     `select  
 concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
@@ -82,13 +101,10 @@ p.code as numero_expediente,
   left join process_state pt on p.state_process = pt.idprocess_state
   left join administrator ad on p.administrator_id = ad.id
   where ps.dni = ` + dni2;
-  console.log(q);
   const process = await sequelizeDB.query(q);
   //res.send(process[0]);
   try {
-    console.log("prro", process);
     var solicitante = process[0][0]["solicitante"];
-    console.log("solicitante", solicitante);
     var dni = process[0][0]["dni"];
     var facultad = process[0][0]["facultad"];
     var especialidad = process[0][0]["especialidad"];
@@ -98,9 +114,6 @@ p.code as numero_expediente,
     var numero_emision = process[0][0]["numero_emision"];
     var estado_expediente = process[0][0]["estado_expediente"];
     var encargado_expediente = process[0][0]["encargado_expediente"];
-    //console.log(sl);
-    // console.log(process[0][0]["solicitante"]);
-
     if (process[0][0]["solicitante"] !== undefined) {
       let browser = null;
 
@@ -215,8 +228,7 @@ ConstancyProcessController.getProcess = async (req, res) => {
     var numero_emision = process[0][0]["numero_emision"];
     var estado_expediente = process[0][0]["estado_expediente"];
     var encargado_expediente = process[0][0]["encargado_expediente"];
-    //console.log(sl);
-    console.log(process[0][0]["solicitante"]);
+
     res.render("constancy/derivedConstancy", {
       solicitante: solicitante,
       dni: dni,
@@ -405,10 +417,9 @@ ConstancyProcessController.getRequestInProcessList = async (req, res) => {
 		LEFT JOIN faculty f ON sp.faculty_id = f.id
 		LEFT JOIN process_state pst
         ON p.state_process = pst.idprocess_state
-        where p.state_process = 2`;
+        where p.state_process = 4`;
 
     const process = await sequelizeDB.query(q);
-    console.log("xd", process);
     res.send(process[0]);
   } catch (error) {
     console.log(error.stack);

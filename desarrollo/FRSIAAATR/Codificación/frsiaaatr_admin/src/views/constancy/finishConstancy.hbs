@@ -40,7 +40,7 @@
 
                                 <div class="media-body">
                                     <h5 class="media-title font-weight-semibold nombreTipoTramite">
-                                        Emisión de Constancia de Ingreso
+                                        Firma y Envio de Constancia de Ingreso
                                     </h5>
 
                                 </div>
@@ -52,7 +52,7 @@
                                         class="far fa-save"></i>
                                     Grabar</button>
                                 <button type="button" class="btn btn-primary" id="generarDoc" onclick="myFunction()"><i
-                                        class="far fa-file-alt"></i> Generar
+                                        class="far fa-file-alt"></i> Firmar
                                     Doc.</button>
                                 <button type="button" class="btn btn-primary " data-toggle="modal"
                                     data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i>
@@ -417,11 +417,10 @@
                 console.log('I was closed by the timer')
             }
         })
-        //BOTON GENERAR CONSTANCIA
         $.ajax({
-            url: "http://localhost:3000/constancy-inp/redirect-request-process-dni",
+            url: "http://localhost:3000/constancy-der/firmarConstancia",
             data: { "dni": dni },
-            type: 'get', 
+            type: 'get',
 
         }).then(function (response) {
             console.log("Cambiando de vista.");

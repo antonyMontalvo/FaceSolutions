@@ -12,13 +12,42 @@ $(document).ready(function () {
     var id_constancia = document.getElementById("numero_expediente").value;
     var tipo_documento = document.getElementById("cmbTipoDocumento").value;
     var asunto = document.getElementById("asunto").value;
+
     console.log(id_constancia + "+" + tipo_documento + "+" + asunto);
+    document.getElementById("asunto").disabled = true;
+    document.getElementById("cmbTipoDocumento").disabled = true;
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Este documento ha sido grabado",
+      showConfirmButton: false,
+      timer: 1500,
+    });
     $.ajax({
       url: "http://localhost:3000/constancy-inp/updatedProcessConstancy",
       data: {
         id_constancia: id_constancia,
         tipo_documento: tipo_documento,
         asunto: asunto,
+      },
+      type: "PUT",
+    }).then(function (response) {});
+  });
+
+  $("#anularDoc").on("click", function () {
+    var id_constancia = document.getElementById("numero_expediente").value;
+    console.log("id_constancia", id_constancia);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Este documento ha sido anulado",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    $.ajax({
+      url: "http://localhost:3000/constancy-inp/cancelProcessConstancy",
+      data: {
+        id_constancia: id_constancia,
       },
       type: "PUT",
     }).then(function (response) {

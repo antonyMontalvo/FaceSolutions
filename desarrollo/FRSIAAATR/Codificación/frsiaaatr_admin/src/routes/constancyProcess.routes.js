@@ -13,6 +13,7 @@ router
   )
   .post("/filterProcess", constancyProcessController.filterProcess)
   .put("/updatedProcessConstancy", constancyProcessController.updatedConstancy)
+  .put("/cancelProcessConstancy", constancyProcessController.cancelConstancy)
   .get(
     "/request-process-work/:id",
     constancyProcessController.getRequestProcess

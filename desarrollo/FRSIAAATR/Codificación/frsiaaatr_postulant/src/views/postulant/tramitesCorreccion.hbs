@@ -139,7 +139,13 @@
 				style="width: 131px;"
 				aria-label="Estado Tramite: Activar para ordenar la columna de manera ascendente">
 				Estado Tramite
-			</th>                                               
+			</th>  
+			<th class="all seleccionable sorting" tabindex="0"
+				aria-controls="tblConsulta" rowspan="1" colspan="1"
+				style="width: 131px;"
+				aria-label="Estado Tramite: Activar para ordenar la columna de manera ascendente">
+				Corregir
+			</th>                                             
 		</tr>
 	</thead>
 	<tbody>
@@ -165,7 +171,14 @@
 		</td>
 		<td>
 			<span class="badge badge-flat border-danger text-danger">En Proceso</span> 
-		</td>                                                
+		</td>    
+		<td class=" all dt-center">
+				<a class="btn btn-xs btn-danger verDocumento" title="Realizar Corrección de Documento"
+				data-tooltip="tooltip" style="padding: 8px 8px;"
+				href="derived-constancy">
+				<i class="icon-file-eye"></i>
+			</a>                                                                
+		</td>                                            
 	</tr>
 </tbody>
 </table>

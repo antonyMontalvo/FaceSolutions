@@ -173,10 +173,27 @@ PostulantController.profile = async (req, res) => {
     return res.status(500).json({ error: error.stack });
   }
 };
+PostulantController.message = async (req, res) => {
+  try {
+    res.render("postulant/message");
+  } catch (error) {
+    console.log(error.stack);
+    return res.status(500).json({ error: error.stack });
+  }
+};
+
 
 PostulantController.correccion = async (req, res) => {
   try {
     res.render("postulant/tramitesCorreccion");
+  } catch (error) {
+    console.log(error.stack);
+    return res.status(500).json({ error: error.stack });
+  }
+};
+PostulantController.correccionDocumento = async (req, res) => {
+  try {
+    res.render("postulant/tramitesCorreccionDoc");
   } catch (error) {
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });

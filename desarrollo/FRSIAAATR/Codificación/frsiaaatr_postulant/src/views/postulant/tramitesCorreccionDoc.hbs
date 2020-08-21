@@ -1,3 +1,20 @@
+<!-- FILE -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/piexif.min.js"
+        type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/sortable.min.js"
+        type="text/javascript"></script>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
+	HTML files. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/plugins/purify.min.js"
+        type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/fileinput.min.js"></script>
+<!-- following theme script is needed to use the Font Awesome 5.x theme (`fas`) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/themes/fas/theme.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/js/locales/LANG.js"></script>
+<!-- FIN FILE -->
+
 <div class="content-page">
 
     <!-- Page Header -->
@@ -6,7 +23,7 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="/" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Inicio</a>
-                    <span class="breadcrumb-item active">Solicitudes para Coregir</span>
+                    <span class="breadcrumb-item active">Edición de Documento</span>
                 </div>
 
                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -18,7 +35,7 @@
         <div class="page-header-content header-elements-md-inline">
             <div class="mt-2">
                 <h4><i class="icon-arrow-left52 mr-2"></i> <span
-                        class="font-weight-semibold">Trámites para Corrección</span></h4>
+                        class="font-weight-semibold">Corrección de Requisito</span></h4>
                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
             </div>
 
@@ -35,42 +52,13 @@
 
             <div class="row">
                 <div class="card col-md-12 col-sm-12 col-xs-12">
-                    <div class="card-header bg-transparent header-elements-inline">
-                        <h6 id="titulo-card" class="card-title">Revisar los Requerimientos de los Trámites</h6>
-                    </div>
+
                     <div class="card-body">
-                        <div class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
-                            Las solicitudes hechas de los postulantes para el proceso de solicitud de trámite de
-                            constancia se mostrarán aquí. Contiene:
-                            <ul>
-                                <li>Filtros requeridos que se encuentran debajo para aplicar una búsqueda más precisa
-                                </li>
-                                <li>Ajustar la visibilidad de las columnas según crea conveniente (botón "COLUMNAS")
-                                </li>
-                                <li>Abrir las solicitudes en nuevas pestañas, para revisar a detalle el estado de la
-                                    solicitud
-                                </li>
-                            </ul>
-                        </div>
+
 
                         <div class="table-responsive">
                             <div id="tblConsulta_wrapper" class="dataTables_wrapper no-footer">
-                                <div class="datatable-header">
 
-                                    <div class="dt-buttons">
-                                        <button class="dt-button buttons-collection buttons-colvis btn btn-outline bg-teal text-teal btn-icon dropdown-toggle"
-                                                tabindex="0" aria-controls="tblConsulta" type="button"
-                                                aria-haspopup="true"><span><i
-                                                class="icon-grid3 mr-2"></i>Columnas</span></button>
-                                    </div>
-                                    <div class="dataTables_length" id="tblConsulta_length"><label>Mostrar &nbsp; <select
-                                            name="tblConsulta_length" aria-controls="tblConsulta" class="">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select> &nbsp; registros</label></div>
-                                </div>
                                 <div class="datatable-scroll-wrap">
                                     <div class="table-responsive">
                                         <table id="tblConsulta"
@@ -128,84 +116,71 @@
                                     aria-label="Escuela: Activar para ordenar la columna de manera ascendente">
                                     Escuela
                                 </th> -->
-                                                <th class="all seleccionable sorting" tabindex="0"
-                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
-                                                    style="width: 131px;"
-                                                    aria-label="Estado: Activar para ordenar la columna de manera ascendente">
-                                                    Estado de Requisitos
-                                                </th>
-                                                <th class="all seleccionable sorting" tabindex="0"
-                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
-                                                    style="width: 131px;"
-                                                    aria-label="Estado Tramite: Activar para ordenar la columna de manera ascendente">
-                                                    Estado Tramite
-                                                </th>
-                                                <th class="all seleccionable sorting" tabindex="0"
-                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
-                                                    style="width: 131px;"
-                                                    aria-label="Estado Tramite: Activar para ordenar la columna de manera ascendente">
-                                                    Corregir
-                                                </th>
+
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {{#each data.process}}
+                                            {{#each data.requirements}}
                                                 <tr class="odd">
                                                     <td>{{id}}</td>
                                                     <td class=" all dt-center">
-                                                        {{#if constancy_id}}
-
                                                         <a class="btn btn-xs btn-success verDocumento"
                                                            title="Ver Documento"
                                                            data-tooltip="tooltip" style="padding: 8px 8px;"
                                                            href="derived-constancy">
                                                             <i class="icon-file-eye"></i>
                                                         </a>
-                                                        {{/if}}
                                                     </td>
                                                     <td class=" all filtrable">
                                                         <span class="badge badge-flat border-info text-info-600">{{date_created}}</span>
                                                     </td>
-                                                    <td>Constancia de Ingreso - Pregrado</td>
+                                                    <td>{{name}}</td>
                                                     <!-- <td >70229990</td>
                                                     <td >PEREZ LOPEZ, JUAN</td>
                                                     <td>Facultad de Ingeniería de Sistemas</td>
                                                     <td>Escuela Academia Profesional de Ingeniería de Software</td> -->
-                                                    <td class=" all filtrable">
-                                                        <span class="badge badge-flat border-danger text-danger">Correción</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="badge badge-flat border-danger text-danger">No leído</span>
-                                                    </td>
-                                                    <td class=" all dt-center">
-                                                        <a class="btn btn-xs btn-danger verDocumento"
-                                                           title="Realizar Corrección de Documento"
-                                                           data-tooltip="tooltip" style="padding: 8px 8px;"
-                                                           href="/documents/TramitesCorreccion/editar/{{id}}">
-                                                            <i class="icon-file-eye"></i>
-                                                        </a>
-                                                    </td>
+
                                                 </tr>
                                             {{/each}}
-
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="datatable-footer">
-                                    <div class="dataTables_info" id="tblConsulta_info" role="status" aria-live="polite">
-                                        Mostrando solicitudes de trámites del 0 al 0 de un total de 0 solicitudes de
-                                        trámites
-                                    </div>
-                                    <div class="dataTables_paginate paging_simple_numbers" id="tblConsulta_paginate"><a
-                                            class="paginate_button previous disabled" aria-controls="tblConsulta"
-                                            data-dt-idx="0" tabindex="0"
-                                            id="tblConsulta_previous">Anterior</a><span></span><a
-                                            class="paginate_button next disabled" aria-controls="tblConsulta"
-                                            data-dt-idx="1" tabindex="0" id="tblConsulta_next">Siguiente</a></div>
-                                </div>
+
                             </div>
                         </div>
+
+                        <!-- ****************************** -->
+
+                        <label for="input-res-1">File Gallery</label>
+                        <div class="file-loading">
+                            <input id="input-res-1" name="input-res-1[]" type="file" multiple>
+                        </div>
+
+                        <!-- AQUI BOTON DE SUBIR ARCHIVO -->
+                        <script>
+                            $(document).ready(function () {
+                                $("#input-res-1").fileinput({
+                                    uploadUrl: "/site/test-upload",
+                                    enableResumableUpload: true,
+                                    initialPreviewAsData: true,
+                                    maxFileCount: 5,
+                                    theme: 'fas',
+                                    deleteUrl: '/site/file-delete',
+                                    fileActionSettings: {
+                                        showZoom: function (config) {
+                                            if (config.type === 'pdf' || config.type === 'image') {
+                                                return true;
+                                            }
+                                            return false;
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+
+
+                        <!-- ********************************* -->
                         <div class="modal fade custom-modal show" id="modalVistaDocumento" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <form id="formMantenimiento" class="form-horizontal" data-parsley-validate=""

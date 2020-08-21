@@ -3,7 +3,6 @@ function loadModels() {
 }
 
 function llamarPromise2() {
-    console.log("entro");
     Promise.all([
         faceapi.loadTinyFaceDetectorModel('/models'),
         faceapi.loadFaceLandmarkTinyModel('/models'),

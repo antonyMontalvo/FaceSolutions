@@ -7,13 +7,14 @@ $(document).ready(function() {
         tblInfo: "",
     }
 
-    var codigoSolicitud = $("#codigoSolicitud").val();
-    console.log(codigoSolicitud);
+    var split = window.location.href.split('/');
+    var codigoSolicitud = split[5];
+    console.log(split[5]);
 
     $local.tblRequisitos = $local.$tblRequisitos.DataTable({
 
         "ajax": {
-            "url": "../../constancy/all-review-request/" + "00001", //Aquí va el cod solicitud
+            "url": "../../constancy/all-review-request/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -109,7 +110,7 @@ $(document).ready(function() {
 
     $local.tblInfo = $local.$tblInfo.DataTable({
         "ajax": {
-            "url": "../../constancy/postulant-info-request/" + "00001", //Aquí va el cod solicitud
+            "url": "../../constancy/postulant-info-request/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": function(data) {
                 //console.log(data);
                 var info;

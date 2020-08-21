@@ -1,0 +1,62 @@
+.flag {
+  display: table;
+  width: 95%;
+  margin: 15px;
+}
+
+.flag__image,
+.flag__body {
+  display: table-cell;
+  vertical-align: middle;
+  
+}
+
+.flag__image {
+  padding-right: 32px;
+  
+  
+}
+.flag__image > img {
+    display: block;
+    max-width: none;
+  }
+.flag__image .flag--rev  {
+    padding-right: 0;
+    padding-left: 32px;
+  }
+
+.flag__body {
+  width: 100%;
+}
+
+  
+/**
+* Notification Styles
+*/
+.note {
+  position: relative;
+  overflow: hidden;
+  color: white;
+  background-color: #9b59b6;
+}
+
+
+
+  .note__icon,
+  .note__text {
+    padding: 32px;
+  }
+
+  .note__icon {
+    min-width: 70px;
+    text-align: center;
+    font-size: 32px;
+    font-size: 2rem;
+    background-color: rgba(black, 0.25);
+  }
+
+  .note__text {
+    padding-right: 48px;
+  }
+
+ 

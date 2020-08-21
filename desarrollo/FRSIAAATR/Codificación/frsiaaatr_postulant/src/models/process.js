@@ -2,17 +2,14 @@ const {DataTypes, fn} = require("sequelize");
 const {sequelizeDB} = require("../../config/database");
 const Postulant = require("./postulant");
 
-const Photo = sequelizeDB.define(
-    "postulant_requirements",
+const Process = sequelizeDB.define(
+    "process",
     {
-        idpost_req: {
+        id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
         },
-        name: {
-            type: DataTypes.STRING,
-        },
-        path: {
+        code: {
             type: DataTypes.STRING,
         },
         date_created: {
@@ -28,14 +25,26 @@ const Photo = sequelizeDB.define(
         date_deleted: {
             type: DataTypes.DATE,
         },
-        observation: {
-            type: DataTypes.STRING
-        },
-        state: {
+        state_process: {
             type: DataTypes.INTEGER,
         },
-        idpostulant: {
+        administrator_id: {
             type: DataTypes.INTEGER,
+        },
+        postulant_id: {
+            type: DataTypes.INTEGER,
+        },
+        constancy_id: {
+            type: DataTypes.INTEGER,
+        },
+        document: {
+            type: DataTypes.TEXT,
+        },
+        document_category: {
+            type: DataTypes.TEXT,
+        },
+        document_description: {
+            type: DataTypes.TEXT,
         },
     },
     {
@@ -44,6 +53,6 @@ const Photo = sequelizeDB.define(
     }
 );
 
-Photo.belongsTo(Postulant, {as: "postulant", foreignKey: "idpostulant"});
+Process.belongsTo(Postulant, {as: "postulant", foreignKey: "postulant_id"});
 
-module.exports = Photo;
+module.exports = Process;

@@ -5,71 +5,68 @@ const bcrypt = require("bcryptjs"),
     moment = require("moment");
 
 const Postulant = require("../models/postulant"),
-    Department = require("../models/department"),
-    Province = require("../models/province"),
-    District = require("../models/district"),
+    Process = require("../models/process"),
+    Requirement = require("../models/requirement"),
     Photo = require("../models/photo"),
     {createToken, getPayload} = require("../services/jwt"),
     bucketName = process.env.GCP_BUCKET_NAME,
-    PostulantController = {},
+    ProcessController = {},
     saltRounds = 10;
 
+let _requirements = [
+    {
+        name: 'Acta de notas de secundaria',
+        state_requirement: 1,
+    },
+    {
+        name: 'Comprobante de orden de merito',
+        state_requirement: 1,
+    },
+    {
+        name: 'Voucher de Pago',
+        state_requirement: 1,
+    },
+    {
+        name: 'Acta de nacimiento',
+        state_requirement: 1,
+    },
+]
 const gc = new Storage({
     keyFilename: path.join(__dirname, `${process.env.GCP_KEY_FILE}`),
     projectId: `${process.env.GCP_PROJECT_ID}`,
 });
 
 // Views
-PostulantController.getIndex = async (req, res) => {
+ProcessController.correccion = async (req, res) => {
     try {
-        return res.render("postulant/index");
-    } catch (error) {
-        console.log(error);
-        // return res.status(500).json({error: error});
-        return res.render('errors/500');
-    }
-};
-
-PostulantController.loginView = async (req, res) => {
-    try {
-        return res.render("login", {layout: null});
+        let process = await Process.findAll({raw: true, where: {postulant_id: req.session.usuario.id}});
+        console.log(process)
+        return res.render("postulant/tramitesCorreccion", {layout: 'main', data: {process}});
     } catch (error) {
         console.log(error);
         return res.render('errors/500');
     }
 };
-
-PostulantController.registerView = async (req, res) => {
+ProcessController.correccionDocumento = async (req, res) => {
     try {
-        const departments = await Department.findAll({raw: true, order: [['name', 'ASC']]});
-        const provinces = JSON.stringify(await Province.findAll({raw: true, order: [['name', 'ASC']]}));
-        const districts = JSON.stringify(await District.findAll({raw: true, order: [['name', 'ASC']]}));
-
-        return res.render("registro", {
-            layout: null,
-            data: {departments, provinces, districts},
-        });
+        let {id} = req.params;
+        let requirements = Requirement.findAll({where: {process_id: id}})
+        res.render("postulant/tramitesCorreccionDoc", {layout: 'main', data: {requirements}});
+    } catch (error) {
+        console.log(error);
+        return res.render('errors/500');
+    }
+};
+ProcessController.rechazados = async (req, res) => {
+    try {
+        res.render("postulant/tramitesRechazados");
     } catch (error) {
         console.log(error);
         return res.render('errors/500');
     }
 };
 
-PostulantController.prueba = async (req, res) => {
-    res.render("postulantelogin", {layout: null});
-};
-
-PostulantController.getRegistrePhoto = async (req, res) => {
-    try {
-        const postulant = await Postulant.findByPk(3);
-        res.render("registroFotos", {layout: null, data: {id: postulant.id}});
-    } catch (err) {
-        console.error(err);
-        return res.render('errors/500');
-    }
-};
-
-PostulantController.getById = async (req, res) => {
+ProcessController.getById = async (req, res) => {
     try {
         const {id} = req.body;
         const postulant = await Department.findByPk(id, {raw: true});
@@ -84,59 +81,34 @@ PostulantController.getById = async (req, res) => {
     }
 };
 
-PostulantController.profile = async (req, res) => {
-    try {
-        console.log(req.session)
-        res.render("postulant/profile", {
-            layout: 'main',
-            data: {postulant: req.session.usuario, date: moment(Date.now()).format('DD/MM/YYYY')}
-        });
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-
-PostulantController.message = async (req, res) => {
-    try {
-        res.render("postulant/message");
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-
-PostulantController.correccion = async (req, res) => {
-    try {
-        res.render("postulant/tramitesCorreccion");
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-PostulantController.correccionDocumento = async (req, res) => {
-    try {
-        res.render("postulant/tramitesCorreccionDoc");
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-PostulantController.rechazados = async (req, res) => {
-    try {
-        res.render("postulant/tramitesRechazados");
-    } catch (error) {
-        console.log(error);
-        return res.render('errors/500');
-    }
-};
-
 /**
  * Logic
  */
+ProcessController.create = async (req, res) => {
+    try {
+        const pro = await Process.findAll({where: {postulant_id: req.session.usuario.id,}});
+        console.log(pro)
+        if (pro.length == 0) {
+            const process = await Process.create({
+                code: `0000${pro.length + 1}`,
+                state_process: 1,
+                administrator_id: 1,
+                postulant_id: req.session.usuario.id,
+            })
+            for (let i = 0; i < _requirements.length; i++) {
+                _requirements[i].process_id = process.null;
+            }
+            const requirements = await Requirement.bulkCreate(_requirements);
+        }
 
+        return res.redirect("/documents/TramitesCorreccion");
+    } catch (error) {
+        console.log(error);
+        return res.render('errors/500');
+    }
+};
 
-PostulantController.login = async (req, res) => {
+ProcessController.login = async (req, res) => {
     try {
         const {dni, postulant_code} = req.body;
         const postulantFound = await Postulant.findOne({
@@ -168,7 +140,7 @@ PostulantController.login = async (req, res) => {
     }
 };
 
-PostulantController.loginCamera = async (req, res) => {
+ProcessController.loginCamera = async (req, res) => {
     try {
         const {id} = req.body;
         const postulantFound = await Postulant.findByPk(Number(id), {raw: true});
@@ -185,7 +157,7 @@ PostulantController.loginCamera = async (req, res) => {
     }
 };
 
-PostulantController.register = async (req, res) => {
+ProcessController.register = async (req, res) => {
     try {
         const body = req.body;
         const postulantFormat = {
@@ -212,7 +184,7 @@ PostulantController.register = async (req, res) => {
     }
 };
 
-PostulantController.registerPhotos = async (req, res) => {
+ProcessController.registerPhotos = async (req, res) => {
     try {
         const {id} = req.body;
 
@@ -254,7 +226,7 @@ PostulantController.registerPhotos = async (req, res) => {
     }
 };
 
-PostulantController.checkPhoto = async (req, res) => {
+ProcessController.checkPhoto = async (req, res) => {
     try {
         return res.status(200).send({message: true});
     } catch (error) {
@@ -263,7 +235,7 @@ PostulantController.checkPhoto = async (req, res) => {
     }
 };
 
-PostulantController.update = async (req, res) => {
+ProcessController.update = async (req, res) => {
     try {
         const {id} = req.params;
         const body = req.body;
@@ -285,7 +257,7 @@ PostulantController.update = async (req, res) => {
     }
 };
 
-PostulantController.logout = async (req, res) => {
+ProcessController.logout = async (req, res) => {
     try {
         req.session.usuario = null;
         req.session.token = null;
@@ -296,4 +268,4 @@ PostulantController.logout = async (req, res) => {
     }
 };
 
-module.exports = PostulantController;
+module.exports = ProcessController;

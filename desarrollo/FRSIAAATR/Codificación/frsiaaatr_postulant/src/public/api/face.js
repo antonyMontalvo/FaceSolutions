@@ -6,24 +6,29 @@
 //   faceapi.loadFaceRecognitionModel('/models')
 
 
-var dato = null;
-var ayuda = [];
-var cantidad = 0;
-console.log(typeof (cantidad));
+let dato = null;
+let ayuda = [];
+let cantidad = 0;
+let numImages = null;
+let idUser = null;
+let endAnalysis = false;
+
 const formularioPostulante = document.getElementById('formularioPostulante');
 const loading = document.getElementById('loading');
 const videoWC = document.getElementById('video');
 const botonR = document.getElementById('redir');
 
-function CodigoValidacion(codigo) {
-    // if(codigo!=null && codigo.length !=0){
-    formularioPostulante.classList.add('d-none');
-    formularioPostulante.classList.remove('wrapper');
+function CodigoValidacion(codigo, numFotos, id) {
+    if (codigo != null) {
+        formularioPostulante.classList.add('d-none');
+        formularioPostulante.classList.remove('wrapper');
 
-    loading.classList.remove('d-none');
-    // video.classList.remove('d-none');
-    dato = codigo;
-    // }
+        loading.classList.remove('d-none');
+        // video.classList.remove('d-none');
+        dato = codigo;
+        numImages = Number(numFotos);
+        idUser = Number(id);
+    }
     llamarPromise();
 }
 
@@ -63,19 +68,13 @@ function startVideo() {
 // navigator.getUserMedia( ,nos devuelve el stream de video que vamos a capturar y se lo enviamos a src de video, aca vemos los errore)
 
 // startVideo();
-console.log('prueba 1');
 
 // Abrir la webCam cuando se reconoce a todos los modelos
 
 // faceapi.nets.tinyFaceDetector.loadFromUri('/models') =>Detectar las caras
 // faceLandmark68Net => PAra reconocimiento de las caras
 
-console.log('prueba 2');
-
 video.addEventListener('play', async () => {
-
-
-    console.log('prueba 3');
     // ******************************
     //AQUI SE ALMACENA LOS DATOS DE LA IMG 
     const labeledFaceDescriptors = await loadLabeledImages(dato);
@@ -92,60 +91,74 @@ video.addEventListener('play', async () => {
     faceapi.matchDimensions(canvas, displaySize);
 
     setInterval(async () => {
-        const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
-        ;
-        // console.log(detections);
+        if (endAnalysis == false) {
+            if (cantidad <= 20) {
+                const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors();
 
-        // ahora redireccionamos el tamaño del Canvas
-        const resizedDetections = await faceapi.resizeResults(detections, displaySize);
+                // ahora redireccionamos el tamaño del Canvas
+                const resizedDetections = await faceapi.resizeResults(detections, displaySize);
 
+                // -----------------------------------------------------
+                // limpiar
+                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+                // Pintamos
+                faceapi.draw.drawDetections(canvas, resizedDetections);
+                // faceapi.draw.drawFaceLandmarks(canvas,resizedDetections);
+                // -----------------------------------------------------
 
-        // -----------------------------------------------------
-        // limpiar
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-        // Pintamos
-        faceapi.draw.drawDetections(canvas, resizedDetections);
-        // faceapi.draw.drawFaceLandmarks(canvas,resizedDetections);
-        // -----------------------------------------------------
+                const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
 
-        const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor));
-
-        results.forEach((result, i) => {
-            const box = resizedDetections[i].detection.box;
-            const drawBox = new faceapi.draw.DrawBox(box, {label: result.toString()});
-            drawBox.draw(canvas);
-            console.log(drawBox.options.label);
-            console.log(typeof (drawBox.options.label));
-
-
-            ayuda = drawBox.options.label.split(' (');
-            console.log(ayuda);
-            if (dato == ayuda[0]) {
-                cantidad++;
-                console.log('comparo');
-            }
-
-
-            if (cantidad > 5) {
-                // FETCG
-
-                // fetch('http://127.0.0.1:3000/api', {
+                results.forEach((result, i) => {
+                    const box = resizedDetections[i].detection.box;
+                    const drawBox = new faceapi.draw.DrawBox(box, {label: result.toString()});
+                    drawBox.draw(canvas);
+                    ayuda = drawBox.options.label.split(' (');
+                    console.log(ayuda)
+                    if (dato == ayuda[0]) {
+                        cantidad++;
+                    } else {
+                        alert('No se le llego a reconocer completamente, vuelva a intentarlo')
+                        cantidad = 0;
+                    }
+                });
+            } else {
+                endAnalysis = true;
+                const acept = confirm('Inicio de sesión exitoso');
+                if (acept) {
+                    document.getElementById('submit-button').click();
+                }
+                // await fetch(`http://127.0.0.1:3000/login_camera`, {
                 //     method: 'POST', // or 'PUT'
-                // }).then(function (response) {
-                //     console.log('entro a API');
-                // })
-                //     .catch(function (error) {
-                //         console.log('Hubo un problema con la petición Fetch:' + error.message);
-                //     });
-                // FIN FETCH
+                //     headers: {'Content-Type': 'application/json'},
+                //     body: JSON.stringify({id: idUser})
+                // }).then(res => res.json())
+                //     .catch(error => console.error('Error:', error))
+                //     .then((response) => {
+                //         console.log(response)
+                //         if (response.message) {
+                //             window.location.href = '/';
+                //         } else {
+                //             cantidad=0;
+                //             endAnalysis++;
+                //             alert('Ocurrio un error el usuario no se encontro')
+                //         }
+                //     })
             }
-        })
-        // console.log(ayuda);
+        }
 
-
-    }, 100)
-
+    }, 100);
 });
+
+// console.log(newCant)
+// if (this.newCant > 20) {
+//     console.log('ssss')
+//     // video.removeEventListener('play', coreFunction)
+//
+// }
+
+function detenerVideo() {
+    document.getElementById('id01').style.display = 'none';
+}
 
 
 // ***************************
@@ -156,7 +169,7 @@ function loadLabeledImages(dato) {
     return Promise.all(
         labels.map(async label => {
             const descriptions = []
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= numImages; i++) {
                 const img = await faceapi.fetchImage(`/perfiles/${label}/${i}.jpg`);
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
                 descriptions.push(detections.descriptor);

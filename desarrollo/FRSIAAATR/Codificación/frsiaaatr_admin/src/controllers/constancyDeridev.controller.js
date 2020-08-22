@@ -299,7 +299,8 @@ ConstancyDerivedController.filtrar = async (req, res) => {
 ConstancyDerivedController.enviar = async (req, res) => {
   try {
     const nodemailer = require("nodemailer");
-
+    const { email } = req.body;
+    console.log("email", email);
     var transporter = nodemailer.createTransport({
       service: "gmail",
       //Auth es un objeto con las credenciales de mi correo,en
@@ -320,7 +321,8 @@ ConstancyDerivedController.enviar = async (req, res) => {
    `,
       attachments: [
         {
-          filename: "constancy72468245.pdf",
+          filename: "auditoria.pdf",
+          path: "src/public/pdf/constancy72468245.pdf",
           contentType: "application/pdf",
         },
       ],

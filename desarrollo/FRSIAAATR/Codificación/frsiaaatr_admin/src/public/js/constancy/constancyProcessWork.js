@@ -34,6 +34,27 @@ $(document).ready(function () {
     }).then(function (response) {});
   });
 
+  $("#enviarDoc").on("click", function () {
+    // var email = document.getElementById("numero_expediente").value;
+    // console.log("email", email);
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Este documento ha sido ennviado a su correo",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    $.ajax({
+      url: "http://localhost:3000/constancy-der/enviarConstancia",
+      data: {
+        email: "tricardo003@gmail.com",
+      },
+      type: "POST",
+    }).then(function (response) {
+      console.log("Constancia editada");
+    });
+  });
+
   $("#anularDoc").on("click", function () {
     var id_constancia = document.getElementById("numero_expediente").value;
     console.log("id_constancia", id_constancia);

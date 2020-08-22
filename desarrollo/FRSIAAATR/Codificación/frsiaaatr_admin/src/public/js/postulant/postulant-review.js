@@ -25,7 +25,7 @@ $(document).ready(function() {
             $(window).resize();
         },
         "columnDefs": [{
-            "targets": [0, 1, 2, 3, 4],
+            "targets": [0, 1, 2, 3, 4, 5, 6],
             "className": "all text-center",
         }],
 
@@ -90,6 +90,11 @@ $(document).ready(function() {
 
             },
             { //5
+                "data": 'rutaFoto',
+                "title": "Ruta foto",
+                "visible": false
+            },
+            { //6
                 "title": 'Observación',
                 "render": function(data, type, row) {
                     if (row.observacionRequisito == "") {
@@ -286,6 +291,38 @@ $(document).ready(function() {
 
                 }
             });
+
+    });
+
+    $local.$tblFotos.children("tbody").on("click", ".verDocumento", function() {
+
+        var filaSeleccionada = $(this).parents("tr");
+        var dataRequisito = $local.tblFotos.row(filaSeleccionada).data();
+        //console.log(dataRequisito);
+
+        var swalInit = swal.mixin({
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-light'
+        });
+
+        if (dataRequisito.rutaFoto == null) {
+            swalInit.fire({
+                type: 'info',
+                html: "El postulante no subió una foto o ha ocurrido un error.",
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonAriaLabel: 'OK',
+            });
+        } else {
+            swalInit.fire({
+                title: dataRequisito.nombreRequisito,
+                html: `<img src="` + dataRequisito.rutaFoto + `" style='width:400px;'>`,
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonAriaLabel: 'OK',
+            });
+        }
 
     });
 

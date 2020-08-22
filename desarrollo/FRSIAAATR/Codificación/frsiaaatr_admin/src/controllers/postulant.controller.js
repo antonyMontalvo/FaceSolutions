@@ -42,7 +42,7 @@ PostulantController.getPostulantList = async(req, res) => {
 //Revisar requisitos (fotos) de postulante
 PostulantController.getReviewInfo = async(req, res) => {
     const id = req.params.id;
-    console.log("Valor es ="+id);
+    console.log("Valor es =" + id);
     try {
         res.render("postulantRequirement/reviewRequirement");
 
@@ -135,11 +135,12 @@ PostulantController.getAllRequirement = async(req, res) => {
             pr.path as rutaRequisito,
             pr.state as estadoRequisito,
             pr.observation as observacionRequisito,
+            pr.path as rutaFoto,
             rs.state_name as nombreEstadoRequisito
         FROM postulant_requirements pr
         INNER JOIN requirement_state rs ON
         pr.state=rs.idrequirement_state  
-        WHERE pr.idpostulant = `+idPostulant;
+        WHERE pr.idpostulant = ` + idPostulant;
 
         const result = await sequelizeDB.query(q);
         res.send(result[0]);

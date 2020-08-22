@@ -344,13 +344,32 @@ $(document).ready(function() {
         var dataRequisito = $local.tblRequisitos.row(filaSeleccionada).data();
         //console.log(dataRequisito);
 
-        Swal.fire({
-            icon: 'info',
-            html: dataRequisito.rutaDocumento == null ? "El postulante no subió el documento o ha ocurrido un error." : `<embed id="test" src="` + dataRequisito.rutaDocumento +
-                `" frameborder="0" width="100%" height="400px"></embed>`,
-            showCloseButton: true,
-            focusConfirm: false,
-        })
+        var swalInit = swal.mixin({
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-light'
+        });
+
+        if (dataRequisito.rutaDocumento == null) {
+            swalInit.fire({
+                type: 'info',
+                html: "El postulante no subió el documento o ha ocurrido un error.",
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonAriaLabel: 'OK',
+            });
+        } else {
+            swalInit.fire({
+                title: 'Documento - ' + dataRequisito.nombreRequisito,
+                grow: 'column',
+                html: `<embed id="test" src="` + dataRequisito.rutaDocumento +
+                    `" frameborder="0" width="100%" height="600px"></embed>`,
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonAriaLabel: 'OK',
+            });
+        }
+
     });
 
 });

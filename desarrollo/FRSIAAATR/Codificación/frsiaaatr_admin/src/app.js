@@ -22,7 +22,7 @@ const HOST = process.env.APP_HOST ? process.env.APP_HOST : "0.0.0.0",
 
 app.set("port", process.env.APP_PORT ? process.env.APP_PORT : 3000);
 app.set("views", path.join(__dirname, "views"));
-app.set('view engine', 'hbs');
+app.set("view engine", "hbs");
 app.engine(
   ".hbs",
   expbhs({

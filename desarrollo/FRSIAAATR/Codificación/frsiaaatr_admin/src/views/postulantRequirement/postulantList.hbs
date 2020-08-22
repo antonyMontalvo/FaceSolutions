@@ -52,18 +52,18 @@
                             <div class="mb-4" style="text-align: left">
                                 <div
                                     class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
-                                    <b>¡Atención!</b> Mediante el siguiente panel, podrá agilizar la busqueda de un postulante o grupo 
-                                    mediante el uso de filtros.  
+                                    <b>¡Atención!</b> En esta vista se visualizara a todos los postulantes.
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                 </div>
 
                                     <div class="card">
+<!--		
 									    <div class="card-header">
 											<h6 class="card-title">
-												<a class="collapsed text-default" data-toggle="collapse" href="#accordion-control-group3">Desplegar otras opciones</a>
+												<a class="collapsed text-default" data-toggle="collapse" href="#accordion-control-group3">Lista de todos los postulantes </a>
 											</h6>
 										</div>
-																				
+												
 									    <div class="card-body" style="padding-bottom: 0px;">
 											<div class="form-group row">
 																					
@@ -119,7 +119,7 @@
 																						
 											</div>
 																							
-																			
+													
 											<div class="form-group row">
 												<div class="col-lg-3">
 												    <label class="col-lg-12 col-form-label">Nombres:</label>
@@ -186,64 +186,15 @@
                                                             <option>Aprobado</option>                                                            
 														</select>
 													</div>
-												</div>											
+												</div>
+                                                											
 									        </div>
+-->
 
-                                            <div class="row">
-                                                <table id="tblOperaciones" class="table datatable-pagination dataTable no-footer"
-                                                    data-permiso-evaluar-requisito-solicitud="true" role="grid" style="width: 100%;">
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th class="all dt-center sorting" tabindex="0"
-                                                                aria-controls="tblOperaciones" rowspan="1" colspan="1"
-                                                                style="width: 49px;"
-                                                                aria-label="Verificar Archivo: Activar para ordenar la columna de manera ascendente">
-                                                                Verificar req</th>
-                                                            <th class="all filtrable sorting" tabindex="0"
-                                                                aria-controls="tblOperaciones" rowspan="1" colspan="1"
-                                                                style="width: 53px;"
-                                                                aria-label="Estado: Activar para ordenar la columna de manera ascendente">
-                                                                Nombres</th>
-                                                            <th class="all filtrable sorting" tabindex="0"
-                                                                aria-controls="tblOperaciones" rowspan="1" colspan="1"
-                                                                style="width: 53px;"
-                                                                aria-label="Estado: Activar para ordenar la columna de manera ascendente">
-                                                                Apellido Paterno</th>
-                                                            <th class="all filtrable sorting" tabindex="0"
-                                                                aria-controls="tblOperaciones" rowspan="1" colspan="1"
-                                                                style="width: 53px;"
-                                                                aria-label="Estado: Activar para ordenar la columna de manera ascendente">
-                                                                Apellido Materno</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="tblOperaciones" rowspan="1"
-                                                                colspan="1" style="width: 88px;"
-                                                                aria-label="Observación: Activar para ordenar la columna de manera ascendente">
-                                                                Especialidad a postular</th>
-                                                            <th class="sorting" tabindex="0" aria-controls="tblOperaciones" rowspan="1"
-                                                                colspan="1" style="width: 88px;"
-                                                                aria-label="Observación: Activar para ordenar la columna de manera ascendente">
-                                                                Fecha de inscripción</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr role="row" class="odd">
-                                                            <td class=" all dt-center">
-                                                                <a class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                                    data-tooltip="tooltip" style="padding: 8px 8px;"
-                                                                     href="/postulants/review_requirement">
-                                                                    <i class="icon-file-eye"></i>
-                                                                </a>
-                                                                
-                                                            </td>
-                                                            <td class="all filtrable sorting_1">Alejandra Sofía</td>
-                                                            <td class="all filtrable sorting_1">Pariona</td>
-                                                            <td class="all filtrable sorting_1">Gutierrez</td>
-                                                            <td class="all filtrable sorting_1"> Enfermería </td>
-                                                            <td class=" all filtrable"><span
-                                                                    class="badge badge-flat border-info text-info-600">07/06/2020</span></td>
-                                                        </tr>
-                                                        
-                                                    </tbody>
-                                                </table>
+                                            <div class="table-responsive" id="tblAlBlock">
+                                                <table id="tblAlumnos"  class="table tasks-list table-lg dataTable no-footer table-striped table-hover"
+                                                    role="grid" aria-describedby="DataTables_Table_0_info" style="width: 100%;" ></table>                                              
+                                                
                                             </div>    
 									    
                                         </div>
@@ -268,3 +219,23 @@
     </div>        
 
 </div>
+
+<!-- Project JS files -->
+<script src="/js/postulant/postulant.js"></script>
+<!-- /projectFiles -->
+
+<!-- Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<!-- /select2 -->
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<!-- /dataTables -->
+
+<!-- DatePicker -->
+<script src="../../../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="../../../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
+<!-- /daterangepicker -->

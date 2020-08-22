@@ -165,6 +165,7 @@ ConstancyController.getAllReviewRequest = async(req, res) => {
         r.description as observacionRequisito,
         r.date_created as fechaRequisito,
         r.state_requirement as estadoRequisito,
+        r.path as rutaDocumento,
         rq.state_name as nombreEstadoRequisito
     FROM requirement r
     LEFT JOIN process p ON

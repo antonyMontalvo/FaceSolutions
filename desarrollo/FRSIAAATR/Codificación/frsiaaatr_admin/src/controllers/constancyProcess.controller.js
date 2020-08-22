@@ -74,6 +74,22 @@ ConstancyProcessController.updatedConstancy = async (req, res) => {
   }
 };
 
+ConstancyProcessController.derivedConstancy = async (req, res) => {
+  try {
+    const id_constancia = req.body.id_constancia;
+    console.log("id_constancia", id_constancia);
+    let q =
+      `UPDATE process p SET p.state_process=8 WHERE p.code = '` +
+      id_constancia +
+      `';`;
+
+    //let q = `UPDATE process p SET p.document_category = 'Constancia de Ingreso' , p.document_description = 'sdkjdskjsdjk' WHERE p.code =  '00002';`;
+    const process = await sequelizeDB.query(q);
+  } catch (error) {
+    return res.status(500).json({ error: error.stack });
+  }
+};
+
 ConstancyProcessController.getProcessByDni = async (req, res) => {
   // Pdf
   const path = require("path");
@@ -133,7 +149,10 @@ p.code as numero_expediente,
     if (process[0][0]["solicitante"] !== undefined) {
       let browser = null;
 
-      const file = fs.readFileSync("./src/template/constancy.html", "utf8");
+      const file = fs.readFileSync(
+        "./src/template/constancy_without_signatures.html",
+        "utf8"
+      );
       const template = handlebars.compile(file);
       const html = template({
         name: solicitante,

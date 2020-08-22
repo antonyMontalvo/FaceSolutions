@@ -55,18 +55,18 @@ $(document).ready(function () {
     });
   });
 
-  $("#privarDoc").on("click", function () {
+  $("#derivarDoc").on("click", function () {
     var id_constancia = document.getElementById("numero_expediente").value;
 
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Este documento ha sido privado",
+      title: "Este documento ha sido derivado",
       showConfirmButton: false,
       timer: 1500,
     });
     $.ajax({
-      url: "http://localhost:3000/constancy-inp/privateProcessConstancy",
+      url: "http://localhost:3000/constancy-inp/derivedProcessConstancy",
       data: {
         id_constancia: id_constancia,
       },
@@ -75,7 +75,6 @@ $(document).ready(function () {
       console.log("Constancia actualizada");
     });
   });
-
   //crearSelect($local.$cmbFacultad, "getFaculties", "id", "name");
   //crearSelect($local.$cmbEstado, "getProcessState", "idProcessState", "stateName");
 

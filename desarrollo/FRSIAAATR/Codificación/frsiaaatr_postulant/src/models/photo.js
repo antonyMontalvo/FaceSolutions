@@ -3,13 +3,13 @@ const {sequelizeDB} = require("../../config/database");
 const Postulant = require("./postulant");
 
 const Photo = sequelizeDB.define(
-    "photo",
+    "postulant_requirements",
     {
-        id: {
+        idpost_req: {
             type: DataTypes.INTEGER,
             primaryKey: true,
         },
-        filename: {
+        name: {
             type: DataTypes.STRING,
         },
         path: {
@@ -28,10 +28,13 @@ const Photo = sequelizeDB.define(
         date_deleted: {
             type: DataTypes.DATE,
         },
+        observation: {
+            type: DataTypes.STRING
+        },
         state: {
             type: DataTypes.INTEGER,
         },
-        postulant_id: {
+        idpostulant: {
             type: DataTypes.INTEGER,
         },
     },
@@ -41,6 +44,6 @@ const Photo = sequelizeDB.define(
     }
 );
 
-Photo.belongsTo(Postulant, { as: "postulant", foreignKey: "postulant_id" });
+Photo.belongsTo(Postulant, {as: "postulant", foreignKey: "idpostulant"});
 
 module.exports = Photo;

@@ -13,6 +13,7 @@ router
   )
   .post("/filterProcess", constancyProcessController.filterProcess)
   .put("/updatedProcessConstancy", constancyProcessController.updatedConstancy)
+  .put("/derivedProcessConstancy", constancyProcessController.derivedConstancy)
   .put("/cancelProcessConstancy", constancyProcessController.cancelConstancy)
   .put("/privateProcessConstancy", constancyProcessController.privateConstancy)
   .get(

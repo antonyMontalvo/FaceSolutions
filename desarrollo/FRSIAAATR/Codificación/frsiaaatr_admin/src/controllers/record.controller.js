@@ -48,7 +48,7 @@ RecordController.getAllRequest = async(req, res) => { //Finalizadas y Rechazadas
 		ON sp.faculty_id = f.id
 		LEFT JOIN process_state pst
         ON p.state_process = pst.idprocess_state
-        WHERE p.state_process IN (1,2)`; // 5 y 6
+        WHERE p.state_process IN (1,2)`; // 5 y 6, cambiar dps
 
         const process = await sequelizeDB.query(q);
         res.send(process[0]);

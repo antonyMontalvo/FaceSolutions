@@ -3,7 +3,6 @@ const bcrypt = require("bcryptjs");
 
 const { QueryTypes } = require("sequelize");
 const { sequelizeDB } = require("../../config/database");
-const ConstancyController = require("./constancy.controller");
 
 const Employee = require("../models/department"),
   { createToken, getPayload } = require("../services/jwt"),
@@ -193,18 +192,21 @@ ConstancyDerivedController.getProcess = async (req, res) => {
 };
 
 ConstancyDerivedController.cargarVistaParaFirma = async (req, res) => {
-    console.log("LLegue aqui");
-    try {
-        res.render("constancy/requestInFinish");
-      } catch (error) {
-        console.log(error.stack);
-        return res.status(500).json({ error: error.stack });
-      }
-  };
+  console.log("LLegue aqui");
+  try {
+    res.render("constancy/requestInFinish");
+  } catch (error) {
+    console.log(error.stack);
+    return res.status(500).json({ error: error.stack });
+  }
+};
 
-  ConstancyDerivedController.llenarTablaSolicitudesParaFirmar = async (req, res) => {
-    try {
-      const q = `SELECT 
+ConstancyDerivedController.llenarTablaSolicitudesParaFirmar = async (
+  req,
+  res
+) => {
+  try {
+    const q = `SELECT 
       p.code as codigoSolicitud,
       p.state_process as estadoSolicitud,		pst.state_name as nombreEstadoSolicitud,  p.date_created as fechaSolicitud,
       c.name as nombreConstancia,
@@ -221,26 +223,26 @@ ConstancyDerivedController.cargarVistaParaFirma = async (req, res) => {
       LEFT JOIN process_state pst
           ON p.state_process = pst.idprocess_state
           where p.state_process = 8`;
-  
-      const process = await sequelizeDB.query(q);
-      res.send(process[0]);
-    } catch (error) {
-      console.log(error.stack);
-      return res.status(500).json({ error: error.stack });
-    }
-  };
 
-  ConstancyDerivedController.filtrar = async (req, res) => {
-    const name = req.body.name;
-    const lastnamePatern = req.body.lastnamePatern;
-    const lastnameMatern = req.body.lastnameMatern;
-    const dni = req.body.dni;
-    const number_doc = req.body.number_doc;
-    const date = req.body.date;
-    const id_faculty = req.body.id_faculty;
-    const id_specialty = req.body.id_specialty;
-  
-    let q = `SELECT 
+    const process = await sequelizeDB.query(q);
+    res.send(process[0]);
+  } catch (error) {
+    console.log(error.stack);
+    return res.status(500).json({ error: error.stack });
+  }
+};
+
+ConstancyDerivedController.filtrar = async (req, res) => {
+  const name = req.body.name;
+  const lastnamePatern = req.body.lastnamePatern;
+  const lastnameMatern = req.body.lastnameMatern;
+  const dni = req.body.dni;
+  const number_doc = req.body.number_doc;
+  const date = req.body.date;
+  const id_faculty = req.body.id_faculty;
+  const id_specialty = req.body.id_specialty;
+
+  let q = `SELECT 
       p.code as codigoSolicitud,
       p.state_process as estadoSolicitud,
       pst.state_name as nombreEstadoSolicitud,  
@@ -267,31 +269,69 @@ ConstancyDerivedController.cargarVistaParaFirma = async (req, res) => {
       ON sp.faculty_id = f.id
       LEFT JOIN process_state pst
       ON p.state_process = pst.idprocess_state where p.state_process = '8' `;
-  
-    if (name != null && name != "null") {
-      q = q + ` and ps.name = ` + "'" + name + "'";
-    }
-    if (lastnamePatern != null) {
-      q = q + ` and ps.last_name_1 = ` + "'" + lastnamePatern + "'";
-    }
-    if (lastnameMatern != null) {
-      q = q + ` and ps.last_name_2 = ` + "'" + lastnameMatern + "'";
-    }
-    if (dni != null) {
-      q = q + ` and ps.dni = ` + "'" + dni + "'";
-    }
-    if (number_doc != null) {
-      q = q + ` and p.code = ` + "'" + number_doc + "'";
-    }
-    if (id_faculty != null) {
-      q = q + ` and f.id = ` + "'" + id_faculty + "'";
-    }
-    if (id_specialty != null) {
-      q = q + ` and sp.id = ` + "'" + id_specialty + "'";
-    }
-    console.log(q);
-    const process = await sequelizeDB.query(q);
-    res.send(process[0]);
-  };
 
-  module.exports = ConstancyDerivedController;
+  if (name != null && name != "null") {
+    q = q + ` and ps.name = ` + "'" + name + "'";
+  }
+  if (lastnamePatern != null) {
+    q = q + ` and ps.last_name_1 = ` + "'" + lastnamePatern + "'";
+  }
+  if (lastnameMatern != null) {
+    q = q + ` and ps.last_name_2 = ` + "'" + lastnameMatern + "'";
+  }
+  if (dni != null) {
+    q = q + ` and ps.dni = ` + "'" + dni + "'";
+  }
+  if (number_doc != null) {
+    q = q + ` and p.code = ` + "'" + number_doc + "'";
+  }
+  if (id_faculty != null) {
+    q = q + ` and f.id = ` + "'" + id_faculty + "'";
+  }
+  if (id_specialty != null) {
+    q = q + ` and sp.id = ` + "'" + id_specialty + "'";
+  }
+  console.log(q);
+  const process = await sequelizeDB.query(q);
+  res.send(process[0]);
+};
+
+ConstancyDerivedController.enviar = async (req, res) => {
+  try {
+    const nodemailer = require("nodemailer");
+
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      //Auth es un objeto con las credenciales de mi correo,en
+      //este caso gmail, el cual nodemailer usara para enviar el mensaje
+      auth: {
+        user: "tricardo003@gmail.com", // Cambialo por tu email
+        pass: "ricardotovar003", // Cambialo por tu password
+      },
+    });
+    const mailOptions = {
+      from: "Ricardoooooooooo",
+      to: "ricardotovar.grupobruild@gmail.com", // Cambia esta parte por el destinatario
+      subject: "test",
+      html: `
+   <strong>Nombre:Ricardo</strong>  <br/>
+   <strong>E-mail:tricardo003@gmial.cm</strong> <br/>
+   <strong>Mensaje:xd</strong> xd
+   `,
+      attachments: [
+        {
+          filename: "constancy72468245.pdf",
+          contentType: "application/pdf",
+        },
+      ],
+    };
+    transporter.sendMail(mailOptions, function (err, info) {
+      if (err) console.log("errrorr", err);
+      else res.json(200);
+    });
+  } catch (error) {
+    console.log("errr", error.stack);
+    return res.status(500).json({ error: error.stack });
+  }
+};
+module.exports = ConstancyDerivedController;

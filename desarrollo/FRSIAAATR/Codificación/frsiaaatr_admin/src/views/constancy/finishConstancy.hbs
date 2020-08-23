@@ -37,15 +37,26 @@
 
                         <div class="card-body">
                             <div class="media flex-column flex-md-row mb-4">
-
                                 <div class="media-body">
                                     <h5 class="media-title font-weight-semibold nombreTipoTramite">
                                         Firma y Envio de Constancia de Ingreso
+                                    </h5>
+                                </div>
+                            </div>
+
+
+                            <div class="media flex-column flex-md-row mb-4">
+                                <div class="media-body">
+                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">
+                                        <button class="btn btn-success" id="enviarDoc">Enviar</button>
                                     </h5>
 
                                 </div>
 
                             </div>
+
+
+
                             <h1>{{succesfull}}</h1>
                             <div class="btn-group btn-group-lg btn-group-justified " role="group">
                                 <button id="btnGrabar" type="button" class="btn btn-primary "><i
@@ -57,7 +68,8 @@
                                 <button type="button" class="btn btn-primary " data-toggle="modal"
                                     data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i>
                                     Ver Doc.</button>
-                                <button type="button" class="btn btn-primary "> <i class="fas fa-paperclip"></i> Cargar
+                                <button type="button" class="btn btn-primary "> <i class="fas fa-paperclip"></i> Enviar
+                                    por correo
                                     Anexos</button>
                                 <button type="button" class="btn btn-primary" id="anularDoc"><i
                                         class="fas fa-times"></i>
@@ -393,7 +405,7 @@
 
         let timerInterval
         Swal.fire({
-            title: 'Generando constancia',
+            title: 'Firmando constancia',
             timer: 2000,
             timerProgressBar: true,
             onBeforeOpen: () => {
@@ -432,14 +444,6 @@
     function doHide() {
         document.getElementById('myElem').style.display = 'none!important';
     }
-
-</script>
-<div id="satisfactorio"></div>
-
-<script>
-    document.getElementById('satisfactorio').innerHTML = {{ succesfull }}
-
-    console.log({{ succesfull }})
 
 </script>
 <script src="/js/constancy/constancyProcessWork.js"></script>

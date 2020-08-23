@@ -5,18 +5,18 @@
         <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
             <div class="d-flex">
                 <div class="breadcrumb">
-                    <a class="breadcrumb-item"  href="/"><i class="icon-home2 mr-2"></i>Inicio</a> <a
-                        class="breadcrumb-item link-solicitudes"  href="/postulants/list">Requísitos</a>
-                    <span class="breadcrumb-item active">Revisión de requisitos</span>
+                    <a class="breadcrumb-item" href="/"><i class="icon-home2 mr-2"></i>Inicio</a> <a
+                        class="breadcrumb-item link-solicitudes" href="/postulants/request_list">Lista de Postulantes</a>
+                    <span class="breadcrumb-item active">Revisión de Requisitos</span>
                 </div>
-            </div> 
+            </div>
 
 
 
         </div>
         <div class="page-header-content header-elements-md-inline">
             <div class="" style=" padding-top: 1.2%; padding-bottom:0.4%;">
-                <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Panel de requisitos
+                <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Revisión de Fotos del Postulante 
                     </span></h4>
             </div>
         </div>
@@ -33,207 +33,31 @@
 
                 <!-- Left content -->
                 <div class="w-100 overflow-auto order-2 order-md-1">
-                    
+
                     <!-- Task overview -->
                     <div class="card">
 
                         <div class="card-body">
+                            <div class="hidden" id="codigoSolicitud" value="{{data.idRequest}}"></div>
+                            <div class="hidden" id="idPostulante" value=""></div> <!-- Primary key -->
                             <div class="media flex-column flex-md-row mb-4">
 
                                 <div class="media-body">
-                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">
-										Listado de fotografías registradas
-									</h5>
-                                    <ul class="list-inline list-inline-dotted text-muted mb-0">
-                                        <li class="list-inline-item subtitulo"></li>
-                                    </ul>
-                                </div>
-
-                                <div class="align-self-md-center ml-md-3 mt-2 mt-md-0">
-
-                                    <div class="row">
-                                        <button id="btnGenerarReporte" type="button"
-                                            class="d-none btn btn-outline-primary legitRipple">
-                                            <i class="fas fa-file-export mr-2"></i>FUT Virtual
-                                        </button>
-                                        &nbsp; &nbsp;
-                                        <div id="divBtnAprobarSoli" class="d-none">
-                                            <button id="btnAprobarSolicitud" type="button" disabled="disabled"
-                                                class="btn btn-outline-primary legitRipple aprobarSolicitud">
-                                                <i class="icon-paperplane mr-2"></i>Aprobar Solicitud
-                                            </button>
-                                        </div>
-                                        <div id="divBtnDerivar" class="d-none">
-                                            <button id="btnDerivar" type="button"
-                                                class="btn btn-outline-success legitRipple derivar" diabled="disabled">
-                                                <i class="icon-move-up2 mr-2"></i>Derivar Solicitud
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <h5 class="media-title font-weight-semibold">Documentos
+                                        solicitados</h5>
                                 </div>
                             </div>
 
-                            <div class="mb-4" style="text-align: left">
-                                <p>
-                                    Disponga a verificar que todas las fotografías se encuentran en óptimas
-                                    condiciones. En caso alguna(s) fotografía(s) presente un error o
-                                    no sea la adecuada, desde el botón "Observar"
-                                    de la tabla puede especificar al postulante el motivo del error para que este lo
-                                    subsane
-                                    a la brevedad; en caso la fotografía inspeccionada cumpla con las especificaciones
-                                    correspondientes, apruébela desde el botón "Aprobar".
+                            <div class="mb-4">
+                                <p>Disponga a verificar que todas las fotografías se encuentran en óptimas condiciones.
+                                En caso alguna(s) fotografía(s) presente un error o no sea la adecuada, desde el botón "Observar" de la tabla 
+                                puede especificar al postulante el motivo del error para que este lo subsane a la brevedad; en caso la fotografía 
+                                inspeccionada cumpla con las especificaciones correspondientes, apruébela desde el botón "Aprobar".
                                 </p>
                                 <br>
-                                <div
-                                    class="alert alert-warning alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
-                                    <b>¡Atención!</b> En caso se observe alguna foto o más de una por motivos de legibilidad de la(s) misma(s),
-									aparecerá un boton en la parte inferior derecha a la tabla donde estan registradas las fotografías, 
-									para poder enviar una notificación hacia el postulante en específico. 
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                </div>
 
-                                <!--<table id="tblOperaciones" class="table datatable-pagination dataTable no-footer"
-                                    data-permiso-evaluar-requisito-solicitud="true">
-                                </table>-->
-                                <table id="tblOperaciones" class="table datatable-pagination dataTable no-footer"
+                                <table id="tblFotos" class="table datatable-pagination dataTable no-footer"
                                     data-permiso-evaluar-requisito-solicitud="true" role="grid" style="width: 100%;">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="all filtrable sorting_asc" tabindex="0"
-                                                aria-controls="tblOperaciones" rowspan="1" colspan="1"
-                                                style="width: 60px;"
-                                                aria-label="Nombre: Activar para ordenar la columna de manera descendente"
-                                                aria-sort="ascending">Requisito</th>
-                                            <th class="all filtrable sorting" tabindex="0"
-                                                aria-controls="tblOperaciones" rowspan="1" colspan="1"
-                                                style="width: 53px;"
-                                                aria-label="Estado: Activar para ordenar la columna de manera ascendente">
-                                                Estado</th>
-                                            <th class="all dt-center sorting" tabindex="0"
-                                                aria-controls="tblOperaciones" rowspan="1" colspan="1"
-                                                style="width: 49px;"
-                                                aria-label="Verificar Archivo: Activar para ordenar la columna de manera ascendente">
-                                                Verificar documento</th>
-                                            <th class="all dt-center sorting" tabindex="0"
-                                                aria-controls="tblOperaciones" rowspan="1" colspan="1"
-                                                style="width: 55px;"
-                                                aria-label="Evaluar Requisito: Activar para ordenar la columna de manera ascendente">
-                                                Evaluar documento</th>
-                                            <th class="sorting" tabindex="0" aria-controls="tblOperaciones" rowspan="1"
-                                                colspan="1" style="width: 88px;"
-                                                aria-label="Observación: Activar para ordenar la columna de manera ascendente">
-                                                Observación</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr role="row" class="odd">
-                                            <td class="all filtrable sorting_1"> Foto N°01 </td>
-                                            <td class=" all filtrable"><span
-                                                    class="badge badge-flat border-warning text-warning-600">Observado</span></td>
-                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-file-eye"></i></button> <button
-                                                    id="aniadirDescargar" class="btn btn-xs btn-primary descargar"
-                                                    title="Descargar" data-tooltip="tooltip"
-                                                    style="padding: 8px 8px;"><i
-                                                        class="icon-file-download"></i></button></td>
-                                            <td class=" all dt-center"><button class="btn btn-xs btn-success aprobar"
-                                                    title="Aprobar" data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-checkmark4"></i></button> <button
-                                                    class="btn btn-xs btn-danger observar" title="Observar"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;  opacity: 0.4; opacity: 0.4;pointer-events: none; cursor: default;"><i
-                                                        class="icon-cross2"></i></button></td>
-                                            <td class=" all dt-center">
-												No esta permitido el uso de lentes.
-											</td>
-                                        </tr>
-										<tr role="row" class="odd">
-                                            <td class="all filtrable sorting_1"> Foto N°02 </td>
-                                            <td class=" all filtrable"><span
-                                                    class="badge badge-flat border-primary text-primary-600">POR
-                                                    REVISAR</span></td>
-                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-file-eye"></i></button> <button
-                                                    id="aniadirDescargar" class="btn btn-xs btn-primary descargar"
-                                                    title="Descargar" data-tooltip="tooltip"
-                                                    style="padding: 8px 8px;"><i
-                                                        class="icon-file-download"></i></button></td>
-                                            <td class=" all dt-center"><button class="btn btn-xs btn-success aprobar"
-                                                    title="Aprobar" data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-checkmark4"></i></button> <button
-                                                    class="btn btn-xs btn-danger observar" title="Observar"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-cross2"></i></button></td>
-                                            <td></td>
-                                        </tr>
-										<tr role="row" class="odd">
-                                            <td class="all filtrable sorting_1"> Foto N°03 </td>
-                                            <td class=" all filtrable"><span
-                                                    class="badge badge-flat border-warning text-warning-600">Observado</span></td>
-                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-file-eye"></i></button> <button
-                                                    id="aniadirDescargar" class="btn btn-xs btn-primary descargar"
-                                                    title="Descargar" data-tooltip="tooltip"
-                                                    style="padding: 8px 8px;"><i
-                                                        class="icon-file-download"></i></button></td>
-                                            <td class=" all dt-center"><button class="btn btn-xs btn-success aprobar"
-                                                    title="Aprobar" data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-checkmark4"></i></button> <button
-                                                    class="btn btn-xs btn-danger observar" title="Observar"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;  opacity: 0.4; opacity: 0.4;pointer-events: none; cursor: default;"><i
-                                                        class="icon-cross2"></i></button></td>
-                                            <td class=" all dt-center">
-												No corresponde a una fotografía actual.
-											</td>
-                                        </tr>
-										<tr role="row" class="odd">
-                                            <td class="all filtrable sorting_1"> Foto N°04 </td>
-                                            <td class=" all filtrable"><span
-                                                    class="badge badge-flat border-primary text-primary-600">POR
-                                                    REVISAR</span></td>
-                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-file-eye"></i></button> <button
-                                                    id="aniadirDescargar" class="btn btn-xs btn-primary descargar"
-                                                    title="Descargar" data-tooltip="tooltip"
-                                                    style="padding: 8px 8px;"><i
-                                                        class="icon-file-download"></i></button></td>
-                                            <td class=" all dt-center"><button class="btn btn-xs btn-success aprobar"
-                                                    title="Aprobar" data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-checkmark4"></i></button> <button
-                                                    class="btn btn-xs btn-danger observar" title="Observar"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-cross2"></i></button></td>
-                                            <td></td>
-                                        </tr>
-										<tr role="row" class="odd">
-                                            <td class="all filtrable sorting_1"> Foto N°05 </td>
-                                            <td class=" all filtrable"><span
-                                                    class="badge badge-flat border-primary text-primary-600">POR
-                                                    REVISAR</span></td>
-                                            <td class=" all dt-center"><button id="aniadirDescargar"
-                                                    class="btn btn-xs btn-success verDocumento" title="Ver Documento"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-file-eye"></i></button> <button
-                                                    id="aniadirDescargar" class="btn btn-xs btn-primary descargar"
-                                                    title="Descargar" data-tooltip="tooltip"
-                                                    style="padding: 8px 8px;"><i
-                                                        class="icon-file-download"></i></button></td>
-                                            <td class=" all dt-center"><button class="btn btn-xs btn-success aprobar"
-                                                    title="Aprobar" data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-checkmark4"></i></button> <button
-                                                    class="btn btn-xs btn-danger observar" title="Observar"
-                                                    data-tooltip="tooltip" style="padding: 8px 8px;"><i
-                                                        class="icon-cross2"></i></button></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
                                 </table>
 
                             </div>
@@ -251,7 +75,14 @@
                     <!-- Sidebar content -->
                     <div class="sidebar-content">
 
-                         <div class="card">
+                        <!-- Task details -->
+                        <div
+                            class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
+                            <b>¡Atención!</b> Una vez que una foto sea aprobada,
+                            no se podrá realizar ninguna observación de ella.
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                        </div>
+                        <div class="card d-none" id="blockAccion">
                             <div class="card-header bg-transparent header-elements-inline">
                                 <span class="text-uppercase font-size-sm font-weight-semibold">Acciones</span>
                                 <div class="header-elements">
@@ -260,34 +91,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <table id="tblDetalle" class="table table-borderless table-xs my-2 dataTable no-footer"
+                            <div class="table-responsive" id="blockInfo">
+                                <table id="tblPrueba" class="table table-borderless table-xs my-2 dataTable no-footer"
                                     role="grid" style="width: 100%;">
                                     <tbody>
                                         <tr role="row" class="odd">
-                                            <td><i class="fa fa-check"></i> Aprobar:</td>
+                                            <td><i class="fa fa-check"></i>Procesar solicitud:</td>
                                             <td class=" text-right">
-                                                <button type="button" class="btn btn-success btn-lg">Aprobar</button>                                                                                             
+                                                <button type="button" class="btn btn-success btn-lg"
+                                                    id="btnProcesar">Procesar</button>
                                             </td>
-                                        </tr> 
-                                        <tr role="row" class="odd">
-                                            <td><i class="fa fa-times"></i> Observar:</td>
-                                            <td class=" text-right">
-                                                 <button type="button" class="btn btn-danger btn-lg">Observar</button>                                                  
-                                            </td>
-                                        </tr>                                                                          
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
 
                         </div>
 
-                        
 
-                        <!-- Task details -->
                         <div class="card">
                             <div class="card-header bg-transparent header-elements-inline">
-                                <span class="text-uppercase font-size-sm font-weight-semibold">Alumno</span>
+                                <span class="text-uppercase font-size-sm font-weight-semibold">Detalle</span>
                                 <div class="header-elements">
                                     <div class="list-icons">
                                         <a class="list-icons-item" data-action="collapse"></a>
@@ -295,49 +119,11 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table id="tblDetalle" class="table table-borderless table-xs my-2 dataTable no-footer"
-                                    role="grid" style="width: 100%;">
-                                    <tbody>
-                                        <tr role="row" class="odd">
-                                            <td><i class="icon-file-check mr-2"></i>Datos completos:</td>
-                                            <td class=" text-right">
-                                                <a class="badge badge-flat border-success text-success estadoLbl" href="/postulants/info" >
-                                                    Ver
-                                                </a>
-                                                
-                                            </td>
-                                        </tr>
-                                        
-                                        <tr role="row" class="odd">
-                                            <td><i class="icon-file-check mr-2"></i>Estado:</td>
-                                            <td class=" text-right"><span
-                                                    class="badge badge-flat border-danger text-danger estadoLbl">Observado
-                                                    </span>
-                                            </td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td><i class="icon-user mr-2"></i>Solicitante:</td>
-                                            <td class=" text-right">PARIONA GUTIERREZ, ALEJANDRA SOFÍA</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td><i class="icon-mail5 mr-2"></i>Correo personal:</td>
-                                            <td class=" text-right">alejandra.pariona@unmsm.edu.pe</td>
-                                        </tr>
-                                        <tr role="row" class="even">
-                                            <td><i class="far fa-calendar-alt mr-2"></i>Fecha de inscripción:</td>
-                                            <td class=" text-right">2020-07-15 11:30</td>
-                                        </tr>
-                                        <tr role="row" class="odd">
-                                            <td><i class="far fa-calendar-alt mr-2"></i>Fecha de revisión:</td>
-                                            <td class=" text-right">2020-07-17 15:00</td>
-                                        </tr>
-                                    </tbody>
+                                <table id="tblInfo" class="table table-borderless table-xs my-2">
                                 </table>
                             </div>
 
                         </div>
-
-                        <!-- /task details -->
 
                     </div>
                     <!-- /sidebar content -->
@@ -350,4 +136,17 @@
 
         </div>
     </div>
+
 </div>
+<!-- Project JS files -->
+<script src="/js/postulant/postulant-review.js"></script>
+<!-- /projectFiles -->
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<!-- /dataTables -->
+
+<!-- Sweet Alert -->
+<script type="text/javascript" src="../../../../global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<!-- /sweetAlert -->

@@ -15,6 +15,22 @@ const Employee = require("../models/department"),
 
 */
 
+ConstancyProcessController.privateConstancy = async (req, res) => {
+  try {
+    const id_constancia = req.body.id_constancia;
+    console.log("id_constancia", id_constancia);
+    let q =
+      `UPDATE process p SET p.state_process=8 WHERE p.code = '` +
+      id_constancia +
+      `';`;
+
+    //let q = `UPDATE process p SET p.document_category = 'Constancia de Ingreso' , p.document_description = 'sdkjdskjsdjk' WHERE p.code =  '00002';`;
+    const process = await sequelizeDB.query(q);
+  } catch (error) {
+    return res.status(500).json({ error: error.stack });
+  }
+};
+
 ConstancyProcessController.cancelConstancy = async (req, res) => {
   try {
     const id_constancia = req.body.id_constancia;
@@ -58,6 +74,22 @@ ConstancyProcessController.updatedConstancy = async (req, res) => {
   }
 };
 
+ConstancyProcessController.derivedConstancy = async (req, res) => {
+  try {
+    const id_constancia = req.body.id_constancia;
+    console.log("id_constancia", id_constancia);
+    let q =
+      `UPDATE process p SET p.state_process=8 WHERE p.code = '` +
+      id_constancia +
+      `';`;
+
+    //let q = `UPDATE process p SET p.document_category = 'Constancia de Ingreso' , p.document_description = 'sdkjdskjsdjk' WHERE p.code =  '00002';`;
+    const process = await sequelizeDB.query(q);
+  } catch (error) {
+    return res.status(500).json({ error: error.stack });
+  }
+};
+
 ConstancyProcessController.getProcessByDni = async (req, res) => {
   // Pdf
   const path = require("path");
@@ -79,7 +111,7 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   var yyyy = hoy.getFullYear();
   var fecha_actual = dd + "/" + mm + "/" + yyyy;
   const dni2 = req.query.dni;
-  console.log("DNI RECIBIDO: "+ dni2); 
+  console.log("DNI RECIBIDO: " + dni2);
   let q =
     `select  
 concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
@@ -117,7 +149,10 @@ p.code as numero_expediente,
     if (process[0][0]["solicitante"] !== undefined) {
       let browser = null;
 
-      const file = fs.readFileSync("./src/template/constancy.html", "utf8");
+      const file = fs.readFileSync(
+        "./src/template/constancy_without_signatures.html",
+        "utf8"
+      );
       const template = handlebars.compile(file);
       const html = template({
         name: solicitante,

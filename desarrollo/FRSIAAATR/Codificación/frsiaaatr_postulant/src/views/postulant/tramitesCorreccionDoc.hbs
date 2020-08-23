@@ -122,14 +122,16 @@
                                             <tbody>
                                             {{#each data.requirements}}
                                                 <tr class="odd">
-                                                    <td>{{id}}</td>
+                                                    <td>{{idrequirement}}</td>
                                                     <td class=" all dt-center">
-                                                        <a class="btn btn-xs btn-success verDocumento"
-                                                           title="Ver Documento"
-                                                           data-tooltip="tooltip" style="padding: 8px 8px;"
-                                                           href="derived-constancy">
-                                                            <i class="icon-file-eye"></i>
-                                                        </a>
+                                                        {{#if path}}
+                                                            <a class="btn btn-xs btn-success verDocumento"
+                                                               title="Ver Documento"
+                                                               data-tooltip="tooltip" style="padding: 8px 8px;"
+                                                               href="{{path}}">
+                                                                <i class="icon-file-eye"></i>
+                                                            </a>
+                                                        {{/if}}
                                                     </td>
                                                     <td class=" all filtrable">
                                                         <span class="badge badge-flat border-info text-info-600">{{date_created}}</span>

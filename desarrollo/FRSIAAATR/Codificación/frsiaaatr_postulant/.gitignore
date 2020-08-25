@@ -9,3 +9,5 @@ package-lock.json
 .idea/
 
 src/public/moment/
+
+#config/focused-evening-283407-9fa3131fac35.json

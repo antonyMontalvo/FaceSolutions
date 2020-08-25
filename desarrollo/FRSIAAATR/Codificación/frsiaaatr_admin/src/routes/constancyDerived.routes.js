@@ -4,11 +4,18 @@ const constancyDerivedController = require("../controllers/constancyDeridev.cont
   validator = require("../middlewares/validation"),
   authenticate = require("../middlewares/authenticate");
 
-  router
+router
   //.get("/generate-constancy", constancyDerivedController)
   .get("/request-in-derived", constancyDerivedController.cargarVistaParaFirma)
-  .get("/request-in-derived-list", constancyDerivedController.llenarTablaSolicitudesParaFirmar)
+  .get(
+    "/request-in-derived-list",
+    constancyDerivedController.llenarTablaSolicitudesParaFirmar
+  )
   .post("/filtrarSolicitudes", constancyDerivedController.filtrar)
-  .get("/redireccionarVistaFirmaContancia/:id", constancyDerivedController.getProcess)
-  .get("/firmarConstancia", constancyDerivedController.firmaConstancia);
+  .get(
+    "/redireccionarVistaFirmaContancia/:id",
+    constancyDerivedController.getProcess
+  )
+  .get("/firmarConstancia", constancyDerivedController.firmaConstancia)
+  .post("/enviarConstancia", constancyDerivedController.enviar);
 module.exports = router;

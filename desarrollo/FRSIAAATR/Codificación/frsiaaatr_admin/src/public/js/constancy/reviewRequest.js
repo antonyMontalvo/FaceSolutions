@@ -7,13 +7,14 @@ $(document).ready(function() {
         tblInfo: "",
     }
 
-    var codigoSolicitud = $("#codigoSolicitud").val();
-    console.log(codigoSolicitud);
+    var split = window.location.href.split('/');
+    var codigoSolicitud = split[5];
+    console.log(split[5]);
 
     $local.tblRequisitos = $local.$tblRequisitos.DataTable({
 
         "ajax": {
-            "url": "../../constancy/all-review-request/" + "00001", //Aquí va el cod solicitud
+            "url": "../../constancy/all-review-request/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -25,7 +26,7 @@ $(document).ready(function() {
             $(window).resize();
         },
         "columnDefs": [{
-            "targets": [0, 1, 2, 3, 4, 5],
+            "targets": [0, 1, 2, 3, 4, 5, 6],
             "className": "all text-center",
         }],
         "order": [
@@ -41,6 +42,11 @@ $(document).ready(function() {
                 "title": "Nombre"
             },
             { //2
+                "data": "rutaDocumento",
+                "title": "Ruta documento",
+                "visible": false
+            },
+            { //3
                 "title": "Estado",
                 "render": function(data, type, row) {
                     var e = '';
@@ -67,7 +73,7 @@ $(document).ready(function() {
                 }
 
             },
-            { //3
+            { //4
                 "title": 'Verificar Archivo',
                 "render": function() {
                     var path = `<button id="observarDoc" class="btn btn-xs btn-success verDocumento" title="" data-tooltip="tooltip" style="padding: 8px 8px;" 
@@ -75,7 +81,7 @@ $(document).ready(function() {
                     return path;
                 }
             },
-            { //4
+            { //5
                 "title": 'Evaluar Requisito',
                 "render": function(data, type, row) {
                     if (row.estadoRequisito != 4) {
@@ -91,7 +97,7 @@ $(document).ready(function() {
                 }
 
             },
-            { //5
+            { //6
                 "title": 'Observación',
                 "render": function(data, type, row) {
                     if (row.observacionRequisito == "") {
@@ -109,7 +115,7 @@ $(document).ready(function() {
 
     $local.tblInfo = $local.$tblInfo.DataTable({
         "ajax": {
-            "url": "../../constancy/postulant-info-request/" + "00001", //Aquí va el cod solicitud
+            "url": "../../constancy/postulant-info-request/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": function(data) {
                 //console.log(data);
                 var info;
@@ -330,6 +336,40 @@ $(document).ready(function() {
             error: function(response) {},
             complete: function(response) {}
         });
+    });
+
+    $local.$tblRequisitos.children("tbody").on("click", ".verDocumento", function() {
+
+        var filaSeleccionada = $(this).parents("tr");
+        var dataRequisito = $local.tblRequisitos.row(filaSeleccionada).data();
+        //console.log(dataRequisito);
+
+        var swalInit = swal.mixin({
+            buttonsStyling: false,
+            confirmButtonClass: 'btn btn-primary',
+            cancelButtonClass: 'btn btn-light'
+        });
+
+        if (dataRequisito.rutaDocumento == null) {
+            swalInit.fire({
+                type: 'info',
+                html: "El postulante no subió el documento o ha ocurrido un error.",
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonAriaLabel: 'OK',
+            });
+        } else {
+            swalInit.fire({
+                title: 'Documento - ' + dataRequisito.nombreRequisito,
+                grow: 'column',
+                html: `<embed id="test" src="` + dataRequisito.rutaDocumento +
+                    `" frameborder="0" width="100%" height="600px"></embed>`,
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonAriaLabel: 'OK',
+            });
+        }
+
     });
 
 });

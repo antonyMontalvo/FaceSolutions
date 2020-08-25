@@ -45,7 +45,7 @@ $(document).ready(function () {
               row.codigoSolicitud +
               '" class="btn btn-mini btn-primary pull-right solicitudSeleccionada"><i class="far fa-file-alt"></i></a>'
             );
-          },
+          }, 
         },
         {
           // 0

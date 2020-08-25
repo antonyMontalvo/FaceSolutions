@@ -2,17 +2,17 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Simple Store</title>
-    <!-- BOOTSTRAP 4 -->
-    <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
-    <!-- FONT AWESOME -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Simple Store</title>
+	<!-- BOOTSTRAP 4 -->
+	<link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
+	<!-- FONT AWESOME -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <!-- Global stylesheets -->
+	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
 	<link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -35,120 +35,124 @@
 	<script src="/assets/js/main/app.js"></script>
 	<script src="/assets/js/pages/components_scrollspy.js"></script>
 	<!-- /theme JS files -->
-</head>
+	<!-- /FILE INPUT -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
-<body>
-
-    <!-- Main navbar -->
-	<div class="navbar navbar-expand-md navbar-light">
-		<div class="navbar-header navbar-dark d-none d-md-flex align-items-md-center">
-			<div class="navbar-brand navbar-brand-md">
-				<a href="index.html" class="d-inline-block">
-					<img src="/assets/images/logo_light.png" alt="">
-				</a>
-			</div>
 	
-			<div class="navbar-brand navbar-brand-xs">
-				<a href="index.html" class="d-inline-block">
-					<img src="/assets/images/logo_icon_light.png" alt="">
-				</a>
-			</div>
-		</div>
+	</head>
 
-		<div class="d-flex flex-1 d-md-none">
-			<div class="navbar-brand mr-auto">
-				<a href="index.html" class="d-inline-block">
-					<img src="/assets/images/logo_dark.png" alt="">
-				</a>
-			</div>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
-				<i class="icon-tree5"></i>
-			</button>
-			<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
-				<i class="icon-paragraph-justify3"></i>
-			</button>
-			<button class="navbar-toggler sidebar-mobile-component-toggle" type="button">
-				<i class="icon-unfold"></i>
-			</button>
-		</div>
+	<body>
 
-		<div class="collapse navbar-collapse" id="navbar-mobile">
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a href="#" class="navbar-nav-link sidebar-control sidebar-main-hide d-none d-md-block">
-						<i class="icon-paragraph-justify3"></i>
+		<!-- Main navbar -->
+		<div class="navbar navbar-expand-md navbar-light">
+			<div class="navbar-header navbar-dark d-none d-md-flex align-items-md-center">
+				<div class="navbar-brand navbar-brand-md">
+					<a href="index.html" class="d-inline-block">
+						<img src="/assets/images/logo_light.png" alt="">
 					</a>
-				</li>
-
-				<li class="nav-item">
-					<a href="#" class="navbar-nav-link sidebar-control sidebar-component-toggle d-none d-md-block">
-						<i class="icon-transmission"></i>
-					</a>
-				</li>
-			</ul>
-
-			<ul class="navbar-nav ml-md-auto">
-				<li class="nav-item dropdown">
-					<a href="other_changelog.html" class="navbar-nav-link">
-						<i class="icon-history mr-2"></i>
-						Changelog
-						<span class="badge bg-warning-400 badge-pill position-static ml-md-2">2.2</span>
-					</a>					
-				</li>
-			</ul>
-		</div>
-	</div>
-	<!-- /main navbar -->
-
-    <div class="page-content">
-
-        <!-- Main sidebar -->
-		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
-
-			<!-- Sidebar mobile toggler -->
-			<div class="sidebar-mobile-toggler text-center">
-				<a href="#" class="sidebar-mobile-main-toggle">
-					<i class="icon-arrow-left8"></i>
-				</a>
-				Navegación
-				<a href="#" class="sidebar-mobile-expand">
-					<i class="icon-screen-full"></i>
-					<i class="icon-screen-normal"></i>
-				</a>
-			</div>
-			<!-- /sidebar mobile toggler -->
-
-
-			<!-- Sidebar content -->
-			<div class="sidebar-content">
-
-        		<!-- Support -->
-				<div class="card card-body">
-					<a href="http://kopyov.ticksy.com" class="btn bg-success-400 btn-block" target="_blank"><i class="icon-lifebuoy mr-2"></i> Limitless support</a>
 				</div>
-				<!-- /support -->
+
+				<div class="navbar-brand navbar-brand-xs">
+					<a href="index.html" class="d-inline-block">
+						<img src="/assets/images/logo_icon_light.png" alt="">
+					</a>
+				</div>
+			</div>
+
+			<div class="d-flex flex-1 d-md-none">
+				<div class="navbar-brand mr-auto">
+					<a href="index.html" class="d-inline-block">
+						<img src="/assets/images/logo_dark.png" alt="">
+					</a>
+				</div>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+					<i class="icon-tree5"></i>
+				</button>
+				<button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
+					<i class="icon-paragraph-justify3"></i>
+				</button>
+				<button class="navbar-toggler sidebar-mobile-component-toggle" type="button">
+					<i class="icon-unfold"></i>
+				</button>
+			</div>
+
+			<div class="collapse navbar-collapse" id="navbar-mobile">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a href="#" class="navbar-nav-link sidebar-control sidebar-main-hide d-none d-md-block">
+							<i class="icon-paragraph-justify3"></i>
+						</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="#" class="navbar-nav-link sidebar-control sidebar-component-toggle d-none d-md-block">
+							<i class="icon-transmission"></i>
+						</a>
+					</li>
+				</ul>
+
+				<ul class="navbar-nav ml-md-auto">
+					<li class="nav-item dropdown">
+						<a href="other_changelog.html" class="navbar-nav-link">
+							<i class="icon-history mr-2"></i>
+							Changelog
+							<span class="badge bg-warning-400 badge-pill position-static ml-md-2">2.2</span>
+						</a>					
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- /main navbar -->
+
+		<div class="page-content">
+
+			<!-- Main sidebar -->
+			<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+
+				<!-- Sidebar mobile toggler -->
+				<div class="sidebar-mobile-toggler text-center">
+					<a href="#" class="sidebar-mobile-main-toggle">
+						<i class="icon-arrow-left8"></i>
+					</a>
+					Navegación
+					<a href="#" class="sidebar-mobile-expand">
+						<i class="icon-screen-full"></i>
+						<i class="icon-screen-normal"></i>
+					</a>
+				</div>
+				<!-- /sidebar mobile toggler -->
 
 
-				<!-- Main navigation -->
-				<div class="card card-sidebar-mobile">
-					<ul class="nav nav-sidebar" data-nav-type="accordion">
-						<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Inicio</div> <i class="icon-menu"></i></li>
-						<li class="nav-item"><a href="/profile" class="nav-link"><i class="fas fa-user"></i>Mi Información</a></li>
-						<li class="nav-item nav-item-submenu">
-							<a href="#" class="nav-link legitRipple">
-								<i class="icon-hammer-wrench"></i>
-								<span>Tramites</span>
-							</a>
-							<ul class="nav nav-group-sub" data-submenu-title="Mantenimiento">
-								<li class="nav-item">
-									<a   href="/TramitesCorreccion" class="nav-link legitRipple">	<i class="icon-clipboard3"></i><span>Corrección</span></a>
+				<!-- Sidebar content -->
+				<div class="sidebar-content">
+
+					<!-- Support -->
+					<div class="card card-body">
+						<a href="http://kopyov.ticksy.com" class="btn bg-success-400 btn-block" target="_blank"><i class="icon-lifebuoy mr-2"></i> Limitless support</a>
+					</div>
+					<!-- /support -->
+
+
+					<!-- Main navigation -->
+					<div class="card card-sidebar-mobile">
+						<ul class="nav nav-sidebar" data-nav-type="accordion">
+							<li class="nav-item-header"><div class="text-uppercase font-size-xs line-height-xs">Inicio</div> <i class="icon-menu"></i></li>
+							<li class="nav-item"><a href="/profile" class="nav-link"><i class="fas fa-user"></i>Mi Información</a></li>
+							<li class="nav-item nav-item-submenu">
+								<a href="#" class="nav-link legitRipple">
+									<i class="icon-hammer-wrench"></i>
+									<span>Tramites</span>
+								</a>
+								<ul class="nav nav-group-sub" data-submenu-title="Mantenimiento">
+									<li class="nav-item">
+										<a   href="/documents/TramitesCorreccion" class="nav-link legitRipple">	<i class="icon-clipboard3"></i><span>Corrección</span></a>
 								<!-- 	<ul class="nav nav-group-sub" data-submenu-title="SMManteniemiento1">
 										<li class="nav-item"><a href="/sgdfd/mat/mantenimiento/requisito" class="nav-link legitRipple"><i class="fas fa-clipboard-list"></i>a</a></li>
 									</ul> -->
 								</li>
 
 								<li class="nav-item">
-									<a   href="/TramitesRechazados" class="nav-link legitRipple">	<i class="icon-clipboard3"></i><span>Rechazados</span></a>
+									<a   href="/documents/TramitesRechazados" class="nav-link legitRipple">	<i class="icon-clipboard3"></i><span>Rechazados</span></a>
 									<!-- <ul class="nav nav-group-sub" data-submenu-title="SMManteniemiento2">
 										<li class="nav-item"><a href="/sgdfd/mat/mantenimiento/grupoLocal" class="nav-link legitRipple"><i class="fas fa-clipboard-list"></i>b</a></li>  
 										<li class="nav-item"><a href="/sgdfd/mat/mantenimiento/local" class="nav-link legitRipple"><i class="fas fa-clipboard-list"></i>c</a></li> 
@@ -158,7 +162,7 @@
 						</li>
 						<li class="nav-item"><a href="/message" class="nav-link"><i class="fas fa-comments"></i>Mis Mensaje</a></li>
 
-                     
+
 					</ul>
 				</div>
 			</div>
@@ -167,13 +171,13 @@
 		</div>
 		<!-- /main sidebar -->
 
-        <!-- Main content -->
-        <div class="content-wrapper">
-            {{{ body }}}
-        </div>
-        <!-- /main content -->
+		<!-- Main content -->
+		<div class="content-wrapper">
+			{{{ body }}}
+		</div>
+		<!-- /main content -->
 
-    </div>
+	</div>
 </body>
 
 </html>

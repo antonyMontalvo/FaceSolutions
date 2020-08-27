@@ -25,8 +25,7 @@ let _requirements = [
     {
         name: 'Voucher de Pago',
         state_requirement: 1,
-    },
-    {
+    },    {
         name: 'Acta de nacimiento',
         state_requirement: 1,
     },
@@ -58,6 +57,7 @@ ProcessController.correccionDocumento = async (req, res) => {
         return res.render('errors/500');
     }
 };
+
 ProcessController.rechazados = async (req, res) => {
     try {
         res.render("postulant/tramitesRechazados");

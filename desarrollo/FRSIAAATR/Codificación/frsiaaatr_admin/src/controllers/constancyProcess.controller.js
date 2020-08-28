@@ -113,6 +113,7 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   var fecha_actual = dd + "/" + mm + "/" + yyyy;
   const dni2 = req.query.dni;
   console.log("DNI RECIBIDO: " + dni2);
+  //CONSULTA PARA DATOS ASOCIADOS A LA CONSTANCIA Y SOLICITANTE
   let q =
     `select  
 concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
@@ -135,16 +136,30 @@ p.code as numero_expediente,
   left join administrator ad on p.administrator_id = ad.id
   where ps.dni = ` + dni2;
   const process = await sequelizeDB.query(q);
+
+  //CONSULTA PARA VERIFICAR EXISTENCIA DE DOCUMENTO PDF
+  let m = `SELECT url_constancy from process where code='`+process[0][0]["numero_expediente"]+"';"
+  console.log(m);
+  const result = await sequelizeDB.query(m);
+  //console.log("Resultado de validacion:");
+  //console.log(result[0][0]);
+  //console.log(result[0][0]["url_constancy"]);
+  
+  if(result[0][0]["url_constancy"]==null){
+    console.log("Se generara la constancia pdf");
+
   try{
-  let s =`UPDATE process SET url_constancy = 'Constancy_N` +
-  dni2 +  `' WHERE code= '` +process[0][0]["numero_expediente"]+"'";
-  const p = await sequelizeDB.query(s);
-  console.log(s);
+    //ACTUALIZAR EL CAMPO URL_CONSTANCY CON EL NOMBRE DEL DOCUMENTO PDF  
+    let s =`UPDATE process SET url_constancy = 'Constancy_N` +
+    dni2 +  `' WHERE code= '` +process[0][0]["numero_expediente"]+"'";
+    const p = await sequelizeDB.query(s);
+    console.log(s);
   }catch(e){
     console.log(e);
   }
   //res.send(process[0]);
   try {
+    //CAPTURAR VARIABLES DE SQL
     var solicitante = process[0][0]["solicitante"];
     var dni = process[0][0]["dni"];
     var facultad = process[0][0]["facultad"];
@@ -214,6 +229,11 @@ p.code as numero_expediente,
   } catch (error) {
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });
+  }
+  }else{
+    console.log("El documento pdf ya existe");
+    alert("El documento pdf seleccionado ya existe.");
+    res.json(300);
   }
 };
 

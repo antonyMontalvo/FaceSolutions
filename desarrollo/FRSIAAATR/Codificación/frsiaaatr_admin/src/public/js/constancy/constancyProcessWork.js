@@ -35,8 +35,7 @@ $(document).ready(function () {
   });
 
   $("#enviarDoc").on("click", function () {
-    // var email = document.getElementById("numero_expediente").value;
-    // console.log("email", email);
+    // var email = document.getElementById('email).value;
     Swal.fire({
       position: "center",
       icon: "success",
@@ -47,7 +46,7 @@ $(document).ready(function () {
     $.ajax({
       url: "http://localhost:3000/constancy-der/enviarConstancia",
       data: {
-        email: "tricardo003@gmail.com",
+        email: "antony.almonacid@unmsm.edu.pe",
       },
       type: "POST",
     }).then(function (response) {

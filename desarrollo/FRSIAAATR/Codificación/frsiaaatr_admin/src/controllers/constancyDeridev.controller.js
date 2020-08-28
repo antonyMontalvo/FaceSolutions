@@ -300,7 +300,7 @@ ConstancyDerivedController.enviar = async (req, res) => {
   try {
     const nodemailer = require("nodemailer");
     const { email } = req.body;
-    console.log("email", email);
+    console.log("emaillllllllll", email);
     var transporter = nodemailer.createTransport({
       service: "gmail",
       //Auth es un objeto con las credenciales de mi correo,en
@@ -311,17 +311,16 @@ ConstancyDerivedController.enviar = async (req, res) => {
       },
     });
     const mailOptions = {
-      from: "Ricardoooooooooo",
-      to: "ricardotovar.grupobruild@gmail.com", // Cambia esta parte por el destinatario
-      subject: "test",
+      from: "admisionUnmsm@gmail.com",
+      to: "xxxxxxx@gmail.com", // Cambia esta parte por el destinatario
+      subject: "Constancia",
       html: `
-   <strong>Nombre:Ricardo</strong>  <br/>
-   <strong>E-mail:tricardo003@gmial.cm</strong> <br/>
-   <strong>Mensaje:xd</strong> xd
+   <strong>Buenos dias: </strong>  <br/>
+    <strong>Se le adjunta mediante un archivo pdf su constancia de ingreso.</strong>
    `,
       attachments: [
         {
-          filename: "auditoria.pdf",
+          filename: "Constancias.pdf",
           path: "src/public/pdf/constancy72468245.pdf",
           contentType: "application/pdf",
         },

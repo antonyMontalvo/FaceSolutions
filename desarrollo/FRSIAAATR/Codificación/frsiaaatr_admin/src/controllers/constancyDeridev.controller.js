@@ -13,8 +13,8 @@ const Employee = require("../models/department"),
    where code = + numero_expediente;
 
 */
+//SERVICIO REST PARA FIRMAR LA CONSTANCIA
 ConstancyDerivedController.firmaConstancia = async (req, res) => {
-  // Pdf
   console.log("LLEGO A LA VISTA DE FIRMA DE CONSTANCIA");
   const path = require("path");
   const puppeteer = require("puppeteer");
@@ -34,7 +34,7 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
   var mm = hoy.getMonth() + 1;
   var yyyy = hoy.getFullYear();
   var fecha_actual = dd + "/" + mm + "/" + yyyy;
-  const dni2 = req.query.dni;
+  const dni2 = req.params.dni;
   let q =
     `select  
 concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
@@ -59,8 +59,9 @@ p.code as numero_expediente,
   left join administrator ad on p.administrator_id = ad.id
   where ps.dni = ` + dni2;
   const process = await sequelizeDB.query(q);
-  //res.send(process[0]);
+
   try {
+    //RECOPILAR VARIABLES SQL
     var solicitante = process[0][0]["solicitante"];
     var dni = process[0][0]["dni"];
     var correo = process[0][0]["correo"];
@@ -73,7 +74,10 @@ p.code as numero_expediente,
     var numero_emision = process[0][0]["numero_emision"];
     var estado_expediente = process[0][0]["estado_expediente"];
     var encargado_expediente = process[0][0]["encargado_expediente"];
+
+    //VALIDACION SI EL USUARIO NO EXISTE
     if (process[0][0]["solicitante"] !== undefined) {
+      console.log("Se procedera a firmar las constancias...");
       let browser = null;
 
       const file = fs.readFileSync("./src/template/constancy.html", "utf8");
@@ -107,11 +111,14 @@ p.code as numero_expediente,
       });
 
       await browser.close();
+    }else{
+      res.sendStatus(400);
     }
   } catch (error) {
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });
   }
+
 };
 
 ConstancyDerivedController.getProcess = async (req, res) => {
@@ -298,6 +305,7 @@ ConstancyDerivedController.filtrar = async (req, res) => {
   res.send(process[0]);
 };
 
+//METODO PARA ENVIAR VIA CORREO ELECTRONICO EL DOCUMENTO PDF
 ConstancyDerivedController.enviar = async (req, res) => {
   try {
     const nodemailer = require("nodemailer");

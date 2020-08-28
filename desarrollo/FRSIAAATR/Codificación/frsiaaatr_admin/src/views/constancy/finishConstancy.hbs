@@ -45,7 +45,7 @@
                                             </h5>
                                         </div>
                                         <div class="col-lg-6"></div>
-                                        <div class="col-lg-2" style="padding-left:100px;">
+                                        <div class="col-lg-2" style="padding-left:75px;">
                                             <h5 class="media-title font-weight-semibold nombreTipoTramite">
                                                 <button class="btn btn-success" id="enviarDoc">Enviar</button>
                                             </h5>
@@ -53,15 +53,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            <div class="media flex-column flex-md-row mb-4">
-                                <div class="media-body">
-                                    
-                                </div>
-
-                            </div>
-
 
 
                             <h1>{{succesfull}}</h1>
@@ -76,8 +67,7 @@
                                     data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i>
                                     Ver Doc.</button>
                                 <button type="button" class="btn btn-primary "> <i class="fas fa-paperclip"></i> Enviar
-                                    por correo
-                                    Anexos</button>
+                                    vía correo</button>
                                 <button type="button" class="btn btn-primary" id="anularDoc"><i
                                         class="fas fa-times"></i>
                                     Anular</button>
@@ -412,7 +402,7 @@
 
         let timerInterval
         Swal.fire({
-            title: 'Firmando constancia',
+            title: 'Tiempo de espera...',
             timer: 2000,
             timerProgressBar: true,
             onBeforeOpen: () => {
@@ -437,10 +427,10 @@
             }
         })
         $.ajax({
-            url: "http://localhost:3000/constancy-der/firmarConstancia",
-            data: { "dni": dni },
+            //LLAMANDO SERVICIO PARA FIRMAR CONSTANCIA PDF
+            url: "http://localhost:3000/constancy-der/firmarConstancia/"+dni,
             type: 'get',
-
+            
         }).then(function (response) {
             console.log("Cambiando de vista.");
             console.log(data);

@@ -148,6 +148,7 @@ ConstancyDerivedController.getProcess = async (req, res) => {
     `select 
 	concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
     ps.dni as dni,
+    ps.email as correo,
     f.name as facultad,
     sp.name as especialidad,
 	p.code as numero_expediente,
@@ -171,6 +172,7 @@ ConstancyDerivedController.getProcess = async (req, res) => {
   try {
     var solicitante = process[0][0]["solicitante"];
     var dni = process[0][0]["dni"];
+    var correo = process[0][0]["correo"];
     var facultad = process[0][0]["facultad"];
     var especialidad = process[0][0]["especialidad"];
     var numero_expediente = process[0][0]["numero_expediente"];
@@ -183,6 +185,7 @@ ConstancyDerivedController.getProcess = async (req, res) => {
     res.render("constancy/finishConstancy", {
       solicitante: solicitante,
       dni: dni,
+      correo: correo,
       facultad: facultad,
       especialidad: especialidad,
       numero_expediente: numero_expediente,
@@ -309,8 +312,12 @@ ConstancyDerivedController.filtrar = async (req, res) => {
 ConstancyDerivedController.enviar = async (req, res) => {
   try {
     const nodemailer = require("nodemailer");
-    const { email } = req.body;
-    console.log("emaillllllllll", email);
+    const email_recibido  = req.body.email;
+    const dni_recibido = req.body.dni;
+    const ruta = req.body.ruta;
+    console.log("Email recibido: "+ email_recibido);
+    console.log("Ruta recibido: "+ ruta);
+
     var transporter = nodemailer.createTransport({
       service: "gmail",
       //Auth es un objeto con las credenciales de mi correo,en
@@ -320,9 +327,10 @@ ConstancyDerivedController.enviar = async (req, res) => {
         pass: "ricardotovar003", // Cambialo por tu password
       },
     });
+
     const mailOptions = {
       from: "admisionUnmsm@gmail.com",
-      to: "xxxxxxx@gmail.com", // Cambia esta parte por el destinatario
+      to: email_recibido, // Cambia esta parte por el destinatario
       subject: "Constancia",
       html: `
    <strong>Buenos dias: </strong>  <br/>
@@ -331,15 +339,18 @@ ConstancyDerivedController.enviar = async (req, res) => {
       attachments: [
         {
           filename: "Constancias.pdf",
-          path: "src/public/pdf/constancy72468245.pdf",
+          path: "src/public/pdf/"+ruta,
           contentType: "application/pdf",
         },
       ],
     };
+
+    
     transporter.sendMail(mailOptions, function (err, info) {
       if (err) console.log("errrorr", err);
       else res.json(200);
     });
+    
   } catch (error) {
     console.log("errr", error.stack);
     return res.status(500).json({ error: error.stack });

@@ -35,7 +35,12 @@ $(document).ready(function () {
   });
 
   $("#enviarDoc").on("click", function () {
-    // var email = document.getElementById('email).value;
+    var email = document.getElementById('correo').value;
+    var dni = document.getElementById('dni').value;
+    console.log("Email: "+email);
+    console.log("DNI: "+dni);
+    var ruta = "Constancy_N"+dni+".pdf";
+    console.log("Ruta: "+ruta);
     Swal.fire({
       position: "center",
       icon: "success",
@@ -43,10 +48,13 @@ $(document).ready(function () {
       showConfirmButton: false,
       timer: 1500,
     });
+
     $.ajax({
       url: "http://localhost:3000/constancy-der/enviarConstancia",
       data: {
-        email: "antony.almonacid@unmsm.edu.pe",
+        email: email,
+        dni: dni,
+        ruta: ruta
       },
       type: "POST",
     }).then(function (response) {

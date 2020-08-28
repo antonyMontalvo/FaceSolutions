@@ -39,6 +39,7 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
     `select  
 concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
   ps.dni as dni,
+  ps.email as correo,
   ps.sexo as sexo,
   f.name as facultad,
   sp.name as especialidad,
@@ -62,6 +63,7 @@ p.code as numero_expediente,
   try {
     var solicitante = process[0][0]["solicitante"];
     var dni = process[0][0]["dni"];
+    var correo = process[0][0]["correo"];
     var sexo = process[0][0]["sexo"];
     var facultad = process[0][0]["facultad"];
     var especialidad = process[0][0]["especialidad"];
@@ -100,7 +102,7 @@ p.code as numero_expediente,
       const page = await browser.newPage();
       await page.setContent(html);
       await page.pdf({
-        path: "./src/public/pdf/constancy" + dni + ".pdf",
+        path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
         format: "Letter",
       });
 

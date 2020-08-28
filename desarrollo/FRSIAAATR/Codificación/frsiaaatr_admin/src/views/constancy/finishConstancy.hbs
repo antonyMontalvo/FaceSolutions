@@ -38,19 +38,26 @@
                         <div class="card-body">
                             <div class="media flex-column flex-md-row mb-4">
                                 <div class="media-body">
-                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">
-                                        Firma y Envio de Constancia de Ingreso
-                                    </h5>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <h5 class="media-title font-weight-semibold nombreTipoTramite">
+                                            Firma y Envio de Constancia de Ingreso
+                                            </h5>
+                                        </div>
+                                        <div class="col-lg-6"></div>
+                                        <div class="col-lg-2" style="padding-left:100px;">
+                                            <h5 class="media-title font-weight-semibold nombreTipoTramite">
+                                                <button class="btn btn-success" id="enviarDoc">Enviar</button>
+                                            </h5>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
 
                             <div class="media flex-column flex-md-row mb-4">
                                 <div class="media-body">
-                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">
-                                        <button class="btn btn-success" id="enviarDoc">Enviar</button>
-                                    </h5>
-
+                                    
                                 </div>
 
                             </div>
@@ -96,7 +103,7 @@
                                         <div class="modal-body">
                                             <embed id="test" src="test" frameborder="0" width="100%" height="400px">
                                             <script type="text/javascript">
-                                                document.getElementById("test").src = "/pdf/constancy" + {{ dni }} + ".pdf";
+                                                document.getElementById("test").src = "/pdf/Constancy_N" + {{ dni }} + ".pdf";
                                             </script>
                                         </div>
                                         <div class="modal-footer">

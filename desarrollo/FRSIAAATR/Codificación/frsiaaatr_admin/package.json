@@ -14,6 +14,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "alert": "^5.0.4",
         "bcryptjs": "2.4.3",
         "body-parser": "^1.19.0",
         "chai": "^4.2.0",

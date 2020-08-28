@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 ("use strict");
-
 const { QueryTypes } = require("sequelize");
 const { sequelizeDB } = require("../../config/database");
 const ConstancyController = require("./constancy.controller");
@@ -227,13 +226,13 @@ p.code as numero_expediente,
 
     }
   } catch (error) {
+    console.log("ERROR ENCONTRADO");
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });
   }
   }else{
     console.log("El documento pdf ya existe");
-    alert("El documento pdf seleccionado ya existe.");
-    res.json(300);
+    res.send(300);
   }
 };
 

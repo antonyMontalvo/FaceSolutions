@@ -90,6 +90,7 @@ ConstancyProcessController.derivedConstancy = async (req, res) => {
   }
 };
 
+//Genero el pdf
 ConstancyProcessController.getProcessByDni = async (req, res) => {
   // Pdf
   const path = require("path");
@@ -134,6 +135,14 @@ p.code as numero_expediente,
   left join administrator ad on p.administrator_id = ad.id
   where ps.dni = ` + dni2;
   const process = await sequelizeDB.query(q);
+  try{
+  let s =`UPDATE process SET url_constancy = 'Constancy_N` +
+  dni2 +  `' WHERE code= '` +process[0][0]["numero_expediente"]+"'";
+  const p = await sequelizeDB.query(s);
+  console.log(s);
+  }catch(e){
+    console.log(e);
+  }
   //res.send(process[0]);
   try {
     var solicitante = process[0][0]["solicitante"];
@@ -193,11 +202,14 @@ p.code as numero_expediente,
       const page = await browser.newPage();
       await page.setContent(html);
       await page.pdf({
-        path: "./src/public/pdf/constancy" + dni + ".pdf",
+        path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
         format: "Letter",
       });
 
       await browser.close();
+      console.log("Ending");
+      //Actualiza nombre de la constancia en la tabla procesos
+
     }
   } catch (error) {
     console.log(error.stack);

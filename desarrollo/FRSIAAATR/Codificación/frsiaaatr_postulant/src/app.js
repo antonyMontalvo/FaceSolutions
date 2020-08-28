@@ -7,6 +7,7 @@ const morgan = require("morgan"),
     cors = require("cors"),
     session = require("express-session"),
     expbhs = require("express-handlebars"),
+    hbshelpers = require('handlebars-helpers'),
     cookieParser = require('cookie-parser'),
     express = require("express"),
     app = express();
@@ -28,6 +29,7 @@ app.set("view engine", "hbs");
 app.engine(
     ".hbs",
     expbhs({
+        helpers: hbshelpers(),
         defaultLayout: "main",
         layoutsDir: path.join(app.get("views"), "layouts"),
         partialsDir: path.join(app.get("views"), "partials"),
@@ -47,7 +49,7 @@ app.use(
         secret: process.env.APP_SESSION,
         resave: false,
         saveUninitialized: false,
-        cookie:{
+        cookie: {
             maxAge: 24 * hour,
         }
     })

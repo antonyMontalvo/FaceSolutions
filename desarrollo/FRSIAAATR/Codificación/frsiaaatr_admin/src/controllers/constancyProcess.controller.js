@@ -89,9 +89,9 @@ ConstancyProcessController.derivedConstancy = async (req, res) => {
   }
 };
 
-//Genero el pdf
+//BOTON GENERAR PDF
 ConstancyProcessController.getProcessByDni = async (req, res) => {
-  // Pdf
+  console.log("ENTRE"); 
   const path = require("path");
   const puppeteer = require("puppeteer");
   const handlebars = require("handlebars");
@@ -110,84 +110,80 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   var mm = hoy.getMonth() + 1;
   var yyyy = hoy.getFullYear();
   var fecha_actual = dd + "/" + mm + "/" + yyyy;
-  const dni2 = req.query.dni;
+  const dni2 = req.params.dni; 
   console.log("DNI RECIBIDO: " + dni2);
   //CONSULTA PARA DATOS ASOCIADOS A LA CONSTANCIA Y SOLICITANTE
   let q =
     `select  
-concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
-  ps.dni as dni,
-  f.name as facultad,
-  sp.name as especialidad,
-p.code as numero_expediente,
-  p.date_created as fecha_expediente_completa,
-  cast(p.date_created as date) as fecha_expediente,
-  EXTRACT(YEAR FROM p.date_created) as año,
-  SUBSTR(p.code,3) as numero_emision,
-  pt.state_name as estado_expediente,
-  concat_ws(' ', ad.name, ad.last_name_1, ad.last_name_2) as encargado_expediente,
-  p.document as documento
-  from postulant ps 
-  left join specialty sp on sp.id = ps.specialty_id
-  left join faculty f on sp.faculty_id = f.id
-  left join process p on p.postulant_id = ps.id
-  left join process_state pt on p.state_process = pt.idprocess_state
-  left join administrator ad on p.administrator_id = ad.id
-  where ps.dni = ` + dni2;
+        concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
+        ps.dni as dni,
+        f.name as facultad,
+        sp.name as especialidad,
+        p.code as numero_expediente,
+        p.date_created as fecha_expediente_completa,
+        cast(p.date_created as date) as fecha_expediente,
+        EXTRACT(YEAR FROM p.date_created) as año,
+        SUBSTR(p.code,3) as numero_emision,
+        pt.state_name as estado_expediente,
+        concat_ws(' ', ad.name, ad.last_name_1, ad.last_name_2) as encargado_expediente,
+        p.document as documento
+        from postulant ps 
+        left join specialty sp on sp.id = ps.specialty_id
+        left join faculty f on sp.faculty_id = f.id
+        left join process p on p.postulant_id = ps.id
+        left join process_state pt on p.state_process = pt.idprocess_state
+        left join administrator ad on p.administrator_id = ad.id
+        where ps.dni = ` + dni2;
+        
   const process = await sequelizeDB.query(q);
 
   //CONSULTA PARA VERIFICAR EXISTENCIA DE DOCUMENTO PDF
   let m = `SELECT url_constancy from process where code='`+process[0][0]["numero_expediente"]+"';"
   console.log(m);
   const result = await sequelizeDB.query(m);
-  //console.log("Resultado de validacion:");
-  //console.log(result[0][0]);
-  //console.log(result[0][0]["url_constancy"]);
   
   if(result[0][0]["url_constancy"]==null){
-    console.log("Se generara la constancia pdf");
+      //COMO NO EXISTE, SE PROCEDE A GENERAR EL PDF
+      console.log("Se generara la constancia pdf");
 
-  try{
-    //ACTUALIZAR EL CAMPO URL_CONSTANCY CON EL NOMBRE DEL DOCUMENTO PDF  
-    let s =`UPDATE process SET url_constancy = 'Constancy_N` +
-    dni2 +  `' WHERE code= '` +process[0][0]["numero_expediente"]+"'";
-    const p = await sequelizeDB.query(s);
-    console.log(s);
-  }catch(e){
-    console.log(e);
-  }
-  //res.send(process[0]);
-  try {
-    //CAPTURAR VARIABLES DE SQL
-    var solicitante = process[0][0]["solicitante"];
-    var dni = process[0][0]["dni"];
-    var facultad = process[0][0]["facultad"];
-    var especialidad = process[0][0]["especialidad"];
-    var numero_expediente = process[0][0]["numero_expediente"];
-    var fecha_expediente_completa = process[0][0]["fecha_expediente_completa"];
-    var anio = process[0][0]["año"];
-    var numero_emision = process[0][0]["numero_emision"];
-    var estado_expediente = process[0][0]["estado_expediente"];
-    var encargado_expediente = process[0][0]["encargado_expediente"];
-    if (process[0][0]["solicitante"] !== undefined) {
-      let browser = null;
+      //ACTUALIZAR EL CAMPO URL_CONSTANCY CON EL NOMBRE DEL DOCUMENTO PDF  
+      let s =`UPDATE process SET url_constancy = 'Constancy_N` +
+      dni2 +  `' WHERE code= '` +process[0][0]["numero_expediente"]+"'";
+      const p = await sequelizeDB.query(s);
+      console.log(s);
+ 
+      //res.send(process[0]);
+      try {
+        //CAPTURAR VARIABLES DE SQL
+        var solicitante = process[0][0]["solicitante"];
+        var dni = process[0][0]["dni"];
+        var facultad = process[0][0]["facultad"];
+        var especialidad = process[0][0]["especialidad"];
+        var numero_expediente = process[0][0]["numero_expediente"];
+        var fecha_expediente_completa = process[0][0]["fecha_expediente_completa"];
+        var anio = process[0][0]["año"];
+        var numero_emision = process[0][0]["numero_emision"];
+        var estado_expediente = process[0][0]["estado_expediente"];
+        var encargado_expediente = process[0][0]["encargado_expediente"];
+    
+        let browser = null;
 
-      const file = fs.readFileSync(
-        "./src/template/constancy_without_signatures.html",
-        "utf8"
-      );
-      const template = handlebars.compile(file);
-      const html = template({
-        name: solicitante,
-        dni: dni,
-        especialidad: especialidad,
-        facultad: facultad,
-        puntaje: "1530.00",
-      });
+        const file = fs.readFileSync(
+          "./src/template/constancy_without_signatures.html",
+          "utf8"
+        );
+        const template = handlebars.compile(file);
+        const html = template({
+          name: solicitante,
+          dni: dni,
+          especialidad: especialidad,
+          facultad: facultad,
+          puntaje: "1530.00",
+        });
 
-      browser = await puppeteer.launch({
-        pipe: true,
-        args: [
+        browser = await puppeteer.launch({
+          pipe: true,
+          args: [
           "--headless",
           "--disable-gpu",
           "--full-memory-crash-report",
@@ -195,45 +191,44 @@ p.code as numero_expediente,
           "--no-sandbox",
           "--disable-setuid-sandbox",
           "--disable-dev-shm-usage",
-        ],
-      });
+          ],
+        });
 
-      res.render("constancy/derivedConstancy", {
-        solicitante: solicitante,
-        dni: dni,
-        facultad: facultad,
-        especialidad: especialidad,
-        numero_expediente: numero_expediente,
-        fecha_expediente_completa: fecha_expediente_completa,
-        anio: anio,
-        numero_emision: numero_emision,
-        estado_expediente: estado_expediente,
-        encargado_expediente: encargado_expediente,
-        fecha_actual: fecha_actual,
-        succesfull: "Envio exitoso",
-      });
+        /*res.render("constancy/derivedConstancy", {
+          solicitante: solicitante,
+          dni: dni,
+          facultad: facultad,
+          especialidad: especialidad,
+          numero_expediente: numero_expediente,
+          fecha_expediente_completa: fecha_expediente_completa,
+          anio: anio,
+          numero_emision: numero_emision,
+          estado_expediente: estado_expediente,
+          encargado_expediente: encargado_expediente,
+          fecha_actual: fecha_actual,
+          succesfull: "Envio exitoso",
+        });*/
 
-      const page = await browser.newPage();
-      await page.setContent(html);
-      await page.pdf({
-        path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
-        format: "Letter",
-      });
+        const page = await browser.newPage();
+        await page.setContent(html);
+        await page.pdf({
+          path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
+          format: "Letter",
+        });
 
-      await browser.close();
-      console.log("Ending");
-      //Actualiza nombre de la constancia en la tabla procesos
-
+        await browser.close();
+        res.sendStatus(200);
+    }catch(e){
+      console.log(e);
+      res.sendStatus(400);
     }
-  } catch (error) {
-    console.log("ERROR ENCONTRADO");
-    console.log(error.stack);
-    return res.status(500).json({ error: error.stack });
-  }
+
   }else{
+    //EL DOCUMENTO YA ESTA REGISTRADO EN LA BD
     console.log("El documento pdf ya existe");
-    res.send(300);
+    res.sendStatus(400);
   }
+  
 };
 
 ConstancyProcessController.getProcess = async (req, res) => {

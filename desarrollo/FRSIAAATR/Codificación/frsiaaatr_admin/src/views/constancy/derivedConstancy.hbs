@@ -437,15 +437,18 @@
         })
         //BOTON GENERAR CONSTANCIA
         $.ajax({
-            url: "http://localhost:3000/constancy-inp/redirect-request-process-dni",
-            data: { "dni": dni },
-            type: 'get'
+            url: "http://localhost:3000/constancy-inp/redirect-request-process-dni2/"+dni,
+            // data: { "dni": dni },
+            type: 'get',
+            beforeSend : function(xhr) {
+				xhr.setRequestHeader('Content-Type', 'application/json');
+			}
         }).then(function (response) {
             console.log("Cambiando de vista.");
             console.log(data);
-        }).fail(function(e){
-            alert('El documento no se ha generado, porque ya existe.');
-        })
+        }).done(function ( data, textStatus, jqXHR) {
+            console.log("Error: "+jqXHR.status); //handle your 204 or other status codes here
+        });
     }
 
     function doHide() {

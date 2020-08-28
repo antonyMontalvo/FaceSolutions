@@ -22,7 +22,7 @@ router
   )
   .get("/redirect-request-process/:id", constancyProcessController.getProcess)
   .get(
-    "/redirect-request-process-dni",
+    "/redirect-request-process-dni2/:dni",
     constancyProcessController.getProcessByDni
   );
 

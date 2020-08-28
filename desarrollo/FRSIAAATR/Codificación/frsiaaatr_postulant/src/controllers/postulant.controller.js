@@ -30,6 +30,16 @@ PostulantController.getIndex = async (req, res) => {
     }
 };
 
+PostulantController.information = async (req, res) => {
+    try {
+        return res.render("postulant/Information");
+    } catch (error) {
+        console.log(error);
+        // return res.status(500).json({error: error});
+        return res.render('errors/500');
+    }
+};
+
 PostulantController.loginView = async (req, res) => {
     try {
         return res.render("login", {layout: null});

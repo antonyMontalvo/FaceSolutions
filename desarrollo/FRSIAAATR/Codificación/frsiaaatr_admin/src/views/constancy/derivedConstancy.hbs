@@ -446,8 +446,15 @@
         }).then(function (response) {
             console.log("Cambiando de vista.");
             console.log(data);
-        }).done(function ( data, textStatus, jqXHR) {
-            console.log("Error: "+jqXHR.status); //handle your 204 or other status codes here
+        }).fail(function(xhr, status, error) {
+        // error handling
+        console.log("NO SE IMPRIMIO NADA");
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "El documento ya existe",
+            showConfirmButton: true,
+            });
         });
     }
 

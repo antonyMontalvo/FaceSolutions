@@ -109,12 +109,14 @@ p.code as numero_expediente,
         path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
         format: "Letter",
       });
-
+      res.sendStatus(200);
       await browser.close();
     }else{
+      console.log("Error, no se firmo la constancia pdf.");
       res.sendStatus(400);
     }
   } catch (error) {
+    console.log("Error, no se firmo la constancia pdf.");
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });
   }
@@ -204,7 +206,6 @@ ConstancyDerivedController.getProcess = async (req, res) => {
 };
 
 ConstancyDerivedController.cargarVistaParaFirma = async (req, res) => {
-  console.log("LLegue aqui");
   try {
     res.render("constancy/requestInFinish");
   } catch (error) {
@@ -213,10 +214,7 @@ ConstancyDerivedController.cargarVistaParaFirma = async (req, res) => {
   }
 };
 
-ConstancyDerivedController.llenarTablaSolicitudesParaFirmar = async (
-  req,
-  res
-) => {
+ConstancyDerivedController.llenarTablaSolicitudesParaFirmar = async (req,res) => {
   try {
     const q = `SELECT 
       p.code as codigoSolicitud,
@@ -244,6 +242,7 @@ ConstancyDerivedController.llenarTablaSolicitudesParaFirmar = async (
   }
 };
 
+//METODO PARA FILTRAR LOS REGISTROS DE DATATABLE
 ConstancyDerivedController.filtrar = async (req, res) => {
   const name = req.body.name;
   const lastnamePatern = req.body.lastnamePatern;
@@ -315,27 +314,22 @@ ConstancyDerivedController.enviar = async (req, res) => {
     const email_recibido  = req.body.email;
     const dni_recibido = req.body.dni;
     const ruta = req.body.ruta;
-    console.log("Email recibido: "+ email_recibido);
-    console.log("Ruta recibido: "+ ruta);
 
     var transporter = nodemailer.createTransport({
       service: "gmail",
-      //Auth es un objeto con las credenciales de mi correo,en
-      //este caso gmail, el cual nodemailer usara para enviar el mensaje
       auth: {
-        user: "tricardo003@gmail.com", // Cambialo por tu email
-        pass: "ricardotovar003", // Cambialo por tu password
+        user: "tricardo003@gmail.com",
+        pass: "ricardotovar003",
       },
     });
 
     const mailOptions = {
       from: "admisionUnmsm@gmail.com",
-      to: email_recibido, // Cambia esta parte por el destinatario
+      to: email_recibido,
       subject: "Constancia",
-      html: `
-   <strong>Buenos dias: </strong>  <br/>
-    <strong>Se le adjunta mediante un archivo pdf su constancia de ingreso.</strong>
-   `,
+      html: `<strong>Saludos coordiales estimada(o): </strong>  <br/>
+            <strong>Se le adjunta mediante el presente correo electrónico la constancia de ingreso 
+            solicitada en formato pdf.</strong>`,
       attachments: [
         {
           filename: "Constancias.pdf",
@@ -344,11 +338,10 @@ ConstancyDerivedController.enviar = async (req, res) => {
         },
       ],
     };
-
     
     transporter.sendMail(mailOptions, function (err, info) {
       if (err) console.log("errrorr", err);
-      else res.json(200);
+      else res.sendStatus(200);
     });
     
   } catch (error) {

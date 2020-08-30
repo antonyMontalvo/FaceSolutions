@@ -141,8 +141,8 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   let m = `SELECT url_constancy from process where code='`+process[0][0]["numero_expediente"]+"';"
   console.log(m);
   const result = await sequelizeDB.query(m);
-  
-  if(result[0][0]["url_constancy"]==null){
+  console.log("URL recibida: "+result[0][0]["url_constancy"]);
+  if(result[0][0]["url_constancy"]==null || result[0][0]["url_constancy"]==""){
       //COMO NO EXISTE, SE PROCEDE A GENERAR EL PDF
       console.log("Se generara la constancia pdf");
 

@@ -1,6 +1,7 @@
 const {DataTypes, fn} = require("sequelize");
 const {sequelizeDB} = require("../../config/database");
 const Postulant = require("./postulant");
+const ProcessState = require("./processState");
 
 const Process = sequelizeDB.define(
     "process",
@@ -46,6 +47,9 @@ const Process = sequelizeDB.define(
         document_description: {
             type: DataTypes.TEXT,
         },
+        url_constancy: {
+            type: DataTypes.TEXT,
+        },
     },
     {
         freezeTableName: true,
@@ -54,5 +58,6 @@ const Process = sequelizeDB.define(
 );
 
 Process.belongsTo(Postulant, {as: "postulant", foreignKey: "postulant_id"});
+Process.belongsTo(ProcessState, {as: "state", foreignKey: "state_process"});
 
 module.exports = Process;

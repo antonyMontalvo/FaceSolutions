@@ -8,13 +8,8 @@ const Employee = require("../models/department"),
   { createToken, getPayload } = require("../services/jwt"),
   ConstancyDerivedController = {};
 
-//Crear un metodo
-/* updated process set document_category = + tipo_documento +  and document_description = + asunto 
-   where code = + numero_expediente;
-
-*/
+//SERVICIO REST PARA FIRMAR LA CONSTANCIA
 ConstancyDerivedController.firmaConstancia = async (req, res) => {
-  // Pdf
   console.log("LLEGO A LA VISTA DE FIRMA DE CONSTANCIA");
   const path = require("path");
   const puppeteer = require("puppeteer");
@@ -34,16 +29,16 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
   var mm = hoy.getMonth() + 1;
   var yyyy = hoy.getFullYear();
   var fecha_actual = dd + "/" + mm + "/" + yyyy;
-  const dni2 = req.query.dni;
+  const dni2 = req.params.dni;
   let q =
     `select  
-concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
+  concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
   ps.dni as dni,
   ps.email as correo,
   ps.sexo as sexo,
   f.name as facultad,
   sp.name as especialidad,
-p.code as numero_expediente,
+  p.code as numero_expediente,
   p.date_created as fecha_expediente_completa,
   cast(p.date_created as date) as fecha_expediente,
   EXTRACT(YEAR FROM p.date_created) as año,
@@ -59,61 +54,90 @@ p.code as numero_expediente,
   left join administrator ad on p.administrator_id = ad.id
   where ps.dni = ` + dni2;
   const process = await sequelizeDB.query(q);
-  //res.send(process[0]);
-  try {
-    var solicitante = process[0][0]["solicitante"];
-    var dni = process[0][0]["dni"];
-    var correo = process[0][0]["correo"];
-    var sexo = process[0][0]["sexo"];
-    var facultad = process[0][0]["facultad"];
-    var especialidad = process[0][0]["especialidad"];
-    var numero_expediente = process[0][0]["numero_expediente"];
-    var fecha_expediente_completa = process[0][0]["fecha_expediente_completa"];
-    var anio = process[0][0]["año"];
-    var numero_emision = process[0][0]["numero_emision"];
-    var estado_expediente = process[0][0]["estado_expediente"];
-    var encargado_expediente = process[0][0]["encargado_expediente"];
-    if (process[0][0]["solicitante"] !== undefined) {
-      let browser = null;
 
-      const file = fs.readFileSync("./src/template/constancy.html", "utf8");
-      const template = handlebars.compile(file);
-      const html = template({
-        name: solicitante,
-        dni: dni,
-        especialidad: especialidad,
-        facultad: facultad,
-        puntaje: "1530.00",
-      });
+  //CONSULTA PARA VERIFICAR EXISTENCIA DE DOCUMENTO PDF
+  let m = `SELECT sell from process where code='`+process[0][0]["numero_expediente"]+"';"
+  console.log(m);
+  const result = await sequelizeDB.query(m);
 
-      browser = await puppeteer.launch({
-        pipe: true,
-        args: [
-          "--headless",
-          "--disable-gpu",
-          "--full-memory-crash-report",
-          "--unlimited-storage",
-          "--no-sandbox",
-          "--disable-setuid-sandbox",
-          "--disable-dev-shm-usage",
-        ],
-      });
+  if(result[0][0]["sell"]==null || result[0][0]["sell"]==""){
+    //SE PROCEDE A FIRMAR EL PDF
+    console.log("Se firmará la constancia pdf");
 
-      const page = await browser.newPage();
-      await page.setContent(html);
-      await page.pdf({
-        path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
-        format: "Letter",
-      });
+    //ACTUALIZAR EL CAMPO SELL QUE INDICA QUE YA FUE FIRMADA LA CONSTANCIA  
+    let s =`UPDATE process SET sell = '` +`Si' WHERE code= '` +process[0][0]["numero_expediente"]+"'";
+    const p = await sequelizeDB.query(s);
+    console.log(s);
 
-      await browser.close();
+    try {
+      //RECOPILAR VARIABLES SQL
+      var solicitante = process[0][0]["solicitante"];
+      var dni = process[0][0]["dni"];
+      var correo = process[0][0]["correo"];
+      var sexo = process[0][0]["sexo"];
+      var facultad = process[0][0]["facultad"];
+      var especialidad = process[0][0]["especialidad"];
+      var numero_expediente = process[0][0]["numero_expediente"];
+      var fecha_expediente_completa = process[0][0]["fecha_expediente_completa"];
+      var anio = process[0][0]["año"];
+      var numero_emision = process[0][0]["numero_emision"];
+      var estado_expediente = process[0][0]["estado_expediente"];
+      var encargado_expediente = process[0][0]["encargado_expediente"];
+
+      //VALIDACION SI EL USUARIO NO EXISTE
+      if (process[0][0]["solicitante"] !== undefined) {
+        console.log("Se procedera a firmar las constancias...");
+        let browser = null;
+
+        const file = fs.readFileSync("./src/template/constancy.html", "utf8");
+        const template = handlebars.compile(file);
+        const html = template({
+          name: solicitante,
+          dni: dni,
+          especialidad: especialidad,
+          facultad: facultad,
+          puntaje: "1530.00",
+        });
+
+        browser = await puppeteer.launch({
+          pipe: true,
+          args: [
+            "--headless",
+            "--disable-gpu",
+            "--full-memory-crash-report",
+            "--unlimited-storage",
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+          ],
+        });
+        res.sendStatus(200);
+        const page = await browser.newPage();
+        await page.setContent(html);
+        await page.pdf({
+          path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
+          format: "Letter",
+        });
+        await browser.close();
+        
+        
+      }else{
+        console.log("Error, no se firmo la constancia pdf.");
+        res.sendStatus(400);
+      }
+    } catch (error) {
+      console.log("Error, no se firmo la constancia pdf.");
+      console.log(error.stack);
+      res.sendStatus(400);
     }
-  } catch (error) {
-    console.log(error.stack);
-    return res.status(500).json({ error: error.stack });
+  }else{
+    //EL DOCUMENTO YA ESTA REGISTRADO EN LA BD
+    console.log("El documento pdf ya fue firmado");
+    res.sendStatus(400);
   }
 };
 
+//CARGAR DASHBOARD PARA FIRMAR LA CONSTANCIA
 ConstancyDerivedController.getProcess = async (req, res) => {
   const path = require("path");
   const puppeteer = require("puppeteer");
@@ -141,6 +165,7 @@ ConstancyDerivedController.getProcess = async (req, res) => {
     `select 
 	concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
     ps.dni as dni,
+    ps.email as correo,
     f.name as facultad,
     sp.name as especialidad,
 	p.code as numero_expediente,
@@ -164,6 +189,7 @@ ConstancyDerivedController.getProcess = async (req, res) => {
   try {
     var solicitante = process[0][0]["solicitante"];
     var dni = process[0][0]["dni"];
+    var correo = process[0][0]["correo"];
     var facultad = process[0][0]["facultad"];
     var especialidad = process[0][0]["especialidad"];
     var numero_expediente = process[0][0]["numero_expediente"];
@@ -176,6 +202,7 @@ ConstancyDerivedController.getProcess = async (req, res) => {
     res.render("constancy/finishConstancy", {
       solicitante: solicitante,
       dni: dni,
+      correo: correo,
       facultad: facultad,
       especialidad: especialidad,
       numero_expediente: numero_expediente,
@@ -194,7 +221,6 @@ ConstancyDerivedController.getProcess = async (req, res) => {
 };
 
 ConstancyDerivedController.cargarVistaParaFirma = async (req, res) => {
-  console.log("LLegue aqui");
   try {
     res.render("constancy/requestInFinish");
   } catch (error) {
@@ -203,10 +229,7 @@ ConstancyDerivedController.cargarVistaParaFirma = async (req, res) => {
   }
 };
 
-ConstancyDerivedController.llenarTablaSolicitudesParaFirmar = async (
-  req,
-  res
-) => {
+ConstancyDerivedController.llenarTablaSolicitudesParaFirmar = async (req,res) => {
   try {
     const q = `SELECT 
       p.code as codigoSolicitud,
@@ -234,6 +257,7 @@ ConstancyDerivedController.llenarTablaSolicitudesParaFirmar = async (
   }
 };
 
+//METODO PARA FILTRAR LOS REGISTROS DE DATATABLE
 ConstancyDerivedController.filtrar = async (req, res) => {
   const name = req.body.name;
   const lastnamePatern = req.body.lastnamePatern;
@@ -298,40 +322,51 @@ ConstancyDerivedController.filtrar = async (req, res) => {
   res.send(process[0]);
 };
 
+//METODO PARA ENVIAR VIA CORREO ELECTRONICO EL DOCUMENTO PDF
 ConstancyDerivedController.enviar = async (req, res) => {
   try {
     const nodemailer = require("nodemailer");
-    const { email } = req.body;
-    console.log("emaillllllllll", email);
+    const email_recibido  = req.body.email;
+    const dni_recibido = req.body.dni;
+    const ruta = req.body.ruta;
+    const code = req.body.code;
+    console.log("Code recibido: "+code);
+
+    let q =
+      `UPDATE process p SET p.state_process=5 WHERE p.code = '` +
+      code +
+      `';`;
+    const process = await sequelizeDB.query(q);
+
     var transporter = nodemailer.createTransport({
       service: "gmail",
-      //Auth es un objeto con las credenciales de mi correo,en
-      //este caso gmail, el cual nodemailer usara para enviar el mensaje
       auth: {
-        user: "tricardo003@gmail.com", // Cambialo por tu email
-        pass: "ricardotovar003", // Cambialo por tu password
+        user: "tricardo003@gmail.com",
+        pass: "ricardotovar003",
       },
     });
+
     const mailOptions = {
       from: "admisionUnmsm@gmail.com",
-      to: "xxxxxxx@gmail.com", // Cambia esta parte por el destinatario
+      to: email_recibido,
       subject: "Constancia",
-      html: `
-   <strong>Buenos dias: </strong>  <br/>
-    <strong>Se le adjunta mediante un archivo pdf su constancia de ingreso.</strong>
-   `,
+      html: `<strong>Saludos coordiales estimada(o): </strong>  <br/>
+            <strong>Se le adjunta mediante el presente correo electrónico la constancia de ingreso 
+            solicitada en formato pdf.</strong>`,
       attachments: [
         {
           filename: "Constancias.pdf",
-          path: "src/public/pdf/constancy72468245.pdf",
+          path: "src/public/pdf/"+ruta,
           contentType: "application/pdf",
         },
       ],
     };
+    
     transporter.sendMail(mailOptions, function (err, info) {
       if (err) console.log("errrorr", err);
-      else res.json(200);
+      else res.sendStatus(200);
     });
+    
   } catch (error) {
     console.log("errr", error.stack);
     return res.status(500).json({ error: error.stack });

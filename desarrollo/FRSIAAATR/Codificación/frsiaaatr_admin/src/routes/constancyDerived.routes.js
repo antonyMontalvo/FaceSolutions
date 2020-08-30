@@ -16,6 +16,6 @@ router
     "/redireccionarVistaFirmaContancia/:id",
     constancyDerivedController.getProcess
   )
-  .get("/firmarConstancia", constancyDerivedController.firmaConstancia)
+  .get("/firmarConstancia/:dni", constancyDerivedController.firmaConstancia)
   .post("/enviarConstancia", constancyDerivedController.enviar);
 module.exports = router;

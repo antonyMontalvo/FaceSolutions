@@ -141,17 +141,15 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
   let m = `SELECT url_constancy from process where code='`+process[0][0]["numero_expediente"]+"';"
   console.log(m);
   const result = await sequelizeDB.query(m);
-  
-  if(result[0][0]["url_constancy"]==null){
+  console.log("URL recibida: "+result[0][0]["url_constancy"]);
+  if(result[0][0]["url_constancy"]==null || result[0][0]["url_constancy"]==""){
       //COMO NO EXISTE, SE PROCEDE A GENERAR EL PDF
       console.log("Se generara la constancia pdf");
-
       //ACTUALIZAR EL CAMPO URL_CONSTANCY CON EL NOMBRE DEL DOCUMENTO PDF  
       let s =`UPDATE process SET url_constancy = 'Constancy_N` +
       dni2 +  `' WHERE code= '` +process[0][0]["numero_expediente"]+"'";
       const p = await sequelizeDB.query(s);
       console.log(s);
- 
       //res.send(process[0]);
       try {
         //CAPTURAR VARIABLES DE SQL
@@ -215,7 +213,7 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
           path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
           format: "Letter",
         });
-
+        
         await browser.close();
         res.sendStatus(200);
     }catch(e){

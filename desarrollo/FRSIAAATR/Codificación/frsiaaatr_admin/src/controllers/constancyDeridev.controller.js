@@ -8,11 +8,6 @@ const Employee = require("../models/department"),
   { createToken, getPayload } = require("../services/jwt"),
   ConstancyDerivedController = {};
 
-//Crear un metodo
-/* updated process set document_category = + tipo_documento +  and document_description = + asunto 
-   where code = + numero_expediente;
-
-*/
 //SERVICIO REST PARA FIRMAR LA CONSTANCIA
 ConstancyDerivedController.firmaConstancia = async (req, res) => {
   console.log("LLEGO A LA VISTA DE FIRMA DE CONSTANCIA");
@@ -37,13 +32,13 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
   const dni2 = req.params.dni;
   let q =
     `select  
-concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
+  concat_ws(' ', ps.name, ps.last_name_1, ps.last_name_2) as solicitante,
   ps.dni as dni,
   ps.email as correo,
   ps.sexo as sexo,
   f.name as facultad,
   sp.name as especialidad,
-p.code as numero_expediente,
+  p.code as numero_expediente,
   p.date_created as fecha_expediente_completa,
   cast(p.date_created as date) as fecha_expediente,
   EXTRACT(YEAR FROM p.date_created) as año,
@@ -60,69 +55,89 @@ p.code as numero_expediente,
   where ps.dni = ` + dni2;
   const process = await sequelizeDB.query(q);
 
-  try {
-    //RECOPILAR VARIABLES SQL
-    var solicitante = process[0][0]["solicitante"];
-    var dni = process[0][0]["dni"];
-    var correo = process[0][0]["correo"];
-    var sexo = process[0][0]["sexo"];
-    var facultad = process[0][0]["facultad"];
-    var especialidad = process[0][0]["especialidad"];
-    var numero_expediente = process[0][0]["numero_expediente"];
-    var fecha_expediente_completa = process[0][0]["fecha_expediente_completa"];
-    var anio = process[0][0]["año"];
-    var numero_emision = process[0][0]["numero_emision"];
-    var estado_expediente = process[0][0]["estado_expediente"];
-    var encargado_expediente = process[0][0]["encargado_expediente"];
+  //CONSULTA PARA VERIFICAR EXISTENCIA DE DOCUMENTO PDF
+  let m = `SELECT sell from process where code='`+process[0][0]["numero_expediente"]+"';"
+  console.log(m);
+  const result = await sequelizeDB.query(m);
 
-    //VALIDACION SI EL USUARIO NO EXISTE
-    if (process[0][0]["solicitante"] !== undefined) {
-      console.log("Se procedera a firmar las constancias...");
-      let browser = null;
+  if(result[0][0]["sell"]==null){
+    //SE PROCEDE A FIRMAR EL PDF
+    console.log("Se firmará la constancia pdf");
 
-      const file = fs.readFileSync("./src/template/constancy.html", "utf8");
-      const template = handlebars.compile(file);
-      const html = template({
-        name: solicitante,
-        dni: dni,
-        especialidad: especialidad,
-        facultad: facultad,
-        puntaje: "1530.00",
-      });
+    //ACTUALIZAR EL CAMPO SELL QUE INDICA QUE YA FUE FIRMADA LA CONSTANCIA  
+    let s =`UPDATE process SET sell = '` +`Si' WHERE code= '` +process[0][0]["numero_expediente"]+"'";
+    const p = await sequelizeDB.query(s);
+    console.log(s);
 
-      browser = await puppeteer.launch({
-        pipe: true,
-        args: [
-          "--headless",
-          "--disable-gpu",
-          "--full-memory-crash-report",
-          "--unlimited-storage",
-          "--no-sandbox",
-          "--disable-setuid-sandbox",
-          "--disable-dev-shm-usage",
-        ],
-      });
+    try {
+      //RECOPILAR VARIABLES SQL
+      var solicitante = process[0][0]["solicitante"];
+      var dni = process[0][0]["dni"];
+      var correo = process[0][0]["correo"];
+      var sexo = process[0][0]["sexo"];
+      var facultad = process[0][0]["facultad"];
+      var especialidad = process[0][0]["especialidad"];
+      var numero_expediente = process[0][0]["numero_expediente"];
+      var fecha_expediente_completa = process[0][0]["fecha_expediente_completa"];
+      var anio = process[0][0]["año"];
+      var numero_emision = process[0][0]["numero_emision"];
+      var estado_expediente = process[0][0]["estado_expediente"];
+      var encargado_expediente = process[0][0]["encargado_expediente"];
 
-      const page = await browser.newPage();
-      await page.setContent(html);
-      await page.pdf({
-        path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
-        format: "Letter",
-      });
-      res.sendStatus(200);
-      await browser.close();
-    }else{
+      //VALIDACION SI EL USUARIO NO EXISTE
+      if (process[0][0]["solicitante"] !== undefined) {
+        console.log("Se procedera a firmar las constancias...");
+        let browser = null;
+
+        const file = fs.readFileSync("./src/template/constancy.html", "utf8");
+        const template = handlebars.compile(file);
+        const html = template({
+          name: solicitante,
+          dni: dni,
+          especialidad: especialidad,
+          facultad: facultad,
+          puntaje: "1530.00",
+        });
+
+        browser = await puppeteer.launch({
+          pipe: true,
+          args: [
+            "--headless",
+            "--disable-gpu",
+            "--full-memory-crash-report",
+            "--unlimited-storage",
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+          ],
+        });
+
+        const page = await browser.newPage();
+        await page.setContent(html);
+        await page.pdf({
+          path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
+          format: "Letter",
+        });
+        await browser.close();
+        res.sendStatus(200);
+        
+      }else{
+        console.log("Error, no se firmo la constancia pdf.");
+        res.sendStatus(400);
+      }
+    } catch (error) {
       console.log("Error, no se firmo la constancia pdf.");
+      console.log(error.stack);
       res.sendStatus(400);
     }
-  } catch (error) {
-    console.log("Error, no se firmo la constancia pdf.");
-    console.log(error.stack);
-    return res.status(500).json({ error: error.stack });
+  }else{
+    //EL DOCUMENTO YA ESTA REGISTRADO EN LA BD
+    console.log("El documento pdf ya fue firmado");
+    res.sendStatus(400);
   }
-
 };
 
+//CARGAR DASHBOARD PARA FIRMAR LA CONSTANCIA
 ConstancyDerivedController.getProcess = async (req, res) => {
   const path = require("path");
   const puppeteer = require("puppeteer");

@@ -438,6 +438,9 @@
         }).then(function (response) {
             console.log("Cambiando de vista.");
             console.log(data);
+        }).fail(function(xhr, status, error) {
+        // error handling
+        console.log("NO SE FIRMO EL DOCUMENTO");
         });
 
     }

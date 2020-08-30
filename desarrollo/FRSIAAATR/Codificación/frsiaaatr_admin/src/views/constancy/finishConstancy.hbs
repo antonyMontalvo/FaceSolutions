@@ -45,17 +45,25 @@
                                             </h5>
                                         </div>
                                         <div class="col-lg-6"></div>
-                                        <div class="col-lg-2" style="padding-left:75px;">
+                                        <!--<div class="col-lg-2" style="padding-left:75px;">
                                             <h5 class="media-title font-weight-semibold nombreTipoTramite">
                                                 <button class="btn btn-success" id="enviarDoc">Enviar</button>
                                             </h5>
+                                        </div>-->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="alert alert-success" role="alert" id="num1">
+                                                <p id="correcto"></p>
+                                            </div>
+                                            <div class="alert alert-danger" role="alert" id="num2" style="height:auto;">
+                                                <p id="incorrecto"></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-
-                            <h1>{{succesfull}}</h1>
                             <div class="btn-group btn-group-lg btn-group-justified " role="group">
                                 <button id="btnGrabar" type="button" class="btn btn-primary "><i
                                         class="far fa-save"></i>
@@ -400,6 +408,8 @@
 
 </div>
 <script>
+    $('#num1').hide();
+    $('#num2').hide();
 
     function myFunction() {
         var dni = document.getElementById('dni').value;
@@ -436,11 +446,15 @@
             type: 'get',
             
         }).then(function (response) {
-            console.log("Cambiando de vista.");
-            console.log(data);
+            console.log("Se genero correctamente la constancia.");
+            $('#correcto').text('El documento se ha firmado correctamente.');
+            $('#num1').show();
+            $('#num2').hide();
         }).fail(function(xhr, status, error) {
         // error handling
         console.log("NO SE FIRMO EL DOCUMENTO");
+        $('#incorrecto').text('El documento ya fue firmado.');
+        $('#num2').show();
         });
 
     }

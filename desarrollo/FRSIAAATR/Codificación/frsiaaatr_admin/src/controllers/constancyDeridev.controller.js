@@ -60,7 +60,7 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
   console.log(m);
   const result = await sequelizeDB.query(m);
 
-  if(result[0][0]["sell"]==null){
+  if(result[0][0]["sell"]==null || result[0][0]["sell"]==""){
     //SE PROCEDE A FIRMAR EL PDF
     console.log("Se firmará la constancia pdf");
 
@@ -111,7 +111,7 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
             "--disable-dev-shm-usage",
           ],
         });
-
+        res.sendStatus(200);
         const page = await browser.newPage();
         await page.setContent(html);
         await page.pdf({
@@ -119,7 +119,7 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
           format: "Letter",
         });
         await browser.close();
-        res.sendStatus(200);
+        
         
       }else{
         console.log("Error, no se firmo la constancia pdf.");

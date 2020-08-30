@@ -43,11 +43,11 @@
                                             <p>Emisión de Constancia de Ingreso</p>    
                                         </div>
                                         <div class="col-lg-6"></div>
-                                        <div class="col-lg-2" style="padding-left:70px;">
+                                       <!--<div class="col-lg-2" style="padding-left:70px;">
                                             <h5 class="media-title font-weight-semibold nombreTipoTramite">
                                                 <button class="btn btn-success" id="derivarDoc">Derivar</button>
                                             </h5>        
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
@@ -433,7 +433,7 @@
         let timerInterval
         Swal.fire({
             title: 'Tiempo de espera',
-            timer: 2000,
+            timer: 10000,
             timerProgressBar: true,
             onBeforeOpen: () => {
                 Swal.showLoading()
@@ -465,8 +465,10 @@
 				xhr.setRequestHeader('Content-Type', 'application/json');
 			}
         }).then(function (response) {
-            console.log("Cambiando de vista.");
-            console.log(data);
+            console.log("Se genero correctamente la constancia.");
+            $('#correcto').text('El documento se ha generado correctamente.');
+            $('#num1').show();
+            $('#num2').hide();
         }).fail(function(xhr, status, error) {
         // error handling
         console.log("NO SE IMPRIMIO NADA");

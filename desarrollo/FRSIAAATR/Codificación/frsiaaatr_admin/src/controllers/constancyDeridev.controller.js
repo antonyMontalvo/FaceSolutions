@@ -329,6 +329,14 @@ ConstancyDerivedController.enviar = async (req, res) => {
     const email_recibido  = req.body.email;
     const dni_recibido = req.body.dni;
     const ruta = req.body.ruta;
+    const code = req.body.code;
+    console.log("Code recibido: "+code);
+
+    let q =
+      `UPDATE process p SET p.state_process=5 WHERE p.code = '` +
+      code +
+      `';`;
+    const process = await sequelizeDB.query(q);
 
     var transporter = nodemailer.createTransport({
       service: "gmail",

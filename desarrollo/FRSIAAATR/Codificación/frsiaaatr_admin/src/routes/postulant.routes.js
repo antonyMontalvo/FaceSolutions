@@ -2,12 +2,13 @@ const router = require("express").Router();
 
 const postulantController = require("../controllers/postulant.controller"),
     validator = require("../middlewares/validation"),
-    authenticate = require("../middlewares/authenticate");
+    authenticate = require("../middlewares/authenticate"),
+    { checkToken } = require("../middlewares/auth");
 
 router
-    .get("/all-postulant", postulantController.getPostulantList)
-    .get("/postulant-review/:id", postulantController.getReviewInfo)
-    .get("/basic-information", postulantController.getDetailPostulant)
+    .get("/all-postulant", checkToken, postulantController.getPostulantList)
+    .get("/postulant-review/:id", checkToken, postulantController.getReviewInfo)
+    .get("/basic-information", checkToken, postulantController.getDetailPostulant)
 
 //Endpoints requisitos
 .get("/get-postulants", postulantController.getAllPostulant)

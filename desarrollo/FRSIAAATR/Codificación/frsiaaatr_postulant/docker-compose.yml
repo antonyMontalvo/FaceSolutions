@@ -6,6 +6,7 @@ services:
     restart: always
     environment:
       NODE_ENV: production
+      APP_SESSION: "123456"
       JWT_KEY: "ZXZvbHZpdF9wYWNhc21heW9fZ2VzdGlvbl9kb2N1bWVudGFyaWFfYXBwX2JhY2tlbmRfMjAxOQ=="
       APP_PORT: 3000
       APP_URL: ""
@@ -15,6 +16,10 @@ services:
       DB_USER: doadmin
       DB_PASSWORD: tfaco3jn9idpdvma
       DB_DATABASE: frsiaaatr_db
+      GCP_KEY_FILE: "../../config/focused-evening-283407-9fa3131fac35.json"
+      GCP_PROJECT_ID: focused-evening-283407
+      GCP_BUCKET_NAME: frsiaaatr-bucket
+      GCP_BUCKET_IMAGES: frsiaaatr-images
     ports:
       - "3000:3000"
     container_name: frsiaaatr_postulant

@@ -2,6 +2,8 @@ $(document).ready(function() {
 
     $("#btnLogin").on("click", function() {
 
+        $("#btnLogin").after(`<br><i class="icon-spinner2 spinner"></i>`);
+
         let data = {
             email: $("#email").val(),
             password: $("#password").val()

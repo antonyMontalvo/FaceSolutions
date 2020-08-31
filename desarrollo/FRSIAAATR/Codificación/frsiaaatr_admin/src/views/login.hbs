@@ -1,12 +1,50 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="/css/style.css" type="text/css">
 	<title>Login | ADMINISTRADOR </title>
+
+	<!-- Global stylesheets -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+		type="text/css">
+	<link href="/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/layout.min.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/components.min.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<!-- /global stylesheets -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+	<!-- Core JS files -->
+	<script src="/assets/js/main/jquery.min.js"></script>
+	<script src="/assets/js/main/bootstrap.bundle.min.js"></script>
+	<!-- /core JS files -->
+
+	<!-- Theme JS files -->
+	<script src="/assets/js/plugins/prism.min.js"></script>
+	<script src="/assets/js/plugins/sticky.min.js"></script>
+
+	<script src="/assets/js/main/app.js"></script>
+	<script src="/assets/js/pages/components_scrollspy.js"></script>
+	<!-- /theme JS files -->
+
+	<!-- Global JS files -->
+	<script src="../../../../global_assets/js/plugins/loaders/blockui.min.js"></script>
+	<!-- /global JS files -->
+
 </head>
+
 <body>
 	<div class="fondoUNMSM">.</div>
 
@@ -23,34 +61,37 @@
 
 						<form action="/">
 							<div class="inputWithIcon">
-								<input type="email" placeholder="Tu correo" required>
+								<input type="email" id="email" placeholder="Tu correo" required>
 								<i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
 								<span class="underline"></span>
 							</div>
 							<div class="inputWithIcon">
-								<input type="password" placeholder="Tu contraseña" required>
+								<input type="password" id="password" placeholder="Tu contraseña" required>
 								<i class="fa fa-lock" aria-hidden="true"></i>
 							</div>
 
-							<input href="/" type="submit" class="btn-login">
-							
+							<button type="button" id="btnLogin" class="btn btn-danger">Ingresar</button>
+
 						</form>
 					</div>
 					<div class="guia-usuario">
 						<p class="t-center">
 							Registrate haciendo click <a href="/registro"> aquí</a> </p>
-						</div>
 					</div>
 				</div>
-				<div class="col d-none">
-					<img class="fondo-secundario" src="/img/admin.jpg" alt="">
-				</div>
 			</div>
-
+			<div class="col d-none">
+				<img class="fondo-secundario" src="/img/admin.jpg" alt="">
+			</div>
 		</div>
 
-		<script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
+	</div>
 
-		
-	</body>
-	</html>
+	<script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
+	<!-- Project JS files -->
+	<script src="/js/login.js"></script>
+	<!-- /projectFiles -->
+
+</body>
+
+</html>

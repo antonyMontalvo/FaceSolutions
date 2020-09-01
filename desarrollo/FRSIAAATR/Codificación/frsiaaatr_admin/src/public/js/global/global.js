@@ -117,4 +117,20 @@ $(document).ready(function() {
 
     }
 
+    //Logout
+    $("#btnLogout").on("click", function() {
+        $.ajax({
+            type: "POST",
+            url: "../../logout",
+            data: "",
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('Content-Type', 'application/json');
+            }
+        }).done(function(response) {
+            window.location.href = '/login';
+        }).fail(function(xhr) {
+            console.log("Error");
+        });
+    });
+
 });

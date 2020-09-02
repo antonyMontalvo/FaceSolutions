@@ -1,257 +1,244 @@
-<<<<<<< HEAD
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Titillium+Web'>
-<link rel="stylesheet" href="css/registro.css">
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js'></script>
-<script src='https://www.greensock.com/js/src/utils/SplitText.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js'></script>
-
-<div class="view filter-red_blur">
-    <video id="stream"></video>
-        <div class="play-area">
-            <!-- <button id="btn-start" onclick="startStreaming()" type="button" class="button">Login</button> -->
-            <input type="text" id="name" placeholder="Name">
-            <button id="btn-register" type="button" class="button" onclick="startStreamingRegister()">Register</button>
-
-             <button id="btn-register" type="button" class="button" onclick="captureSnapshotsRegister2()">Capturar</button>
-
-            <h2 id="snapshot"></h2>
-        </div>
-    <canvas id="capture" width="320" height="240"></canvas>
-
-</div>
-<div class="ui">
-    <div class="frame" id="analysis"></div>
-    <div id="tracking"></div>
-    <div class="frame" id="report"> </div>
-
-</div>
-
-
-
-<script src="api/registro.js"></script>
-=======
 <!doctype html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="/css/style.css" type="text/css">
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- BOOTSTRAP 4 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+	<!-- FONT AWESOME -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="/css/style.css" type="text/css"> -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!--    <script src="/assets/js/main/jquery.min.js"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+	<!--    <script src="/assets/js/main/jquery.min.js"></script>-->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> -->
 
-    <title>Registro | Usuario </title>
+	<title>Registro | Usuario </title>
+	<style type="text/css">
+	.fondoUNMSM {
+		position: fixed;
+		content: "";
+		top: 0;
+		width: 100vw;
+		height: 100vh;
+		/*background: #f3f3f3;*/
+		/*font-family: 'Roboto', sans-serif;*/
+		background-image: linear-gradient(
+			rgba(22, 22, 26, 0.9),
+			rgba(22, 22, 26, 0.9)
+			),
+		url("../img/admin.jpg");
+		overflow-x: hidden;
+	}
+
+	.btn-register {
+		/* background-color: #e73835;*/
+		background-color: #4c6ace;
+		border: 2px solid #fff;
+		border-radius: 4px;
+		color: #fff;
+		width: 120px;
+		margin: auto;
+		text-align: center;
+		padding: 10px;
+		transition: all .5s ease;
+	}
+
+	.btn-register:hover {
+		background-color: #e73827;
+		border: 2px solid #e73827;
+		cursor: pointer;
+	}
+
+	.btn-register:focus {
+		border-color: #e73827 !important;
+		box-shadow: 0 0 8px 0 #e73827 !important;
+	}
+
+
+
+</style>
 </head>
 
-<body>
-<section class="register">
 
-    <div class="header">
-        <div class="logo"></div>
-        <h1 class="t-center" style="font-size: 40px;">Registro de usuario</h1>
-    </div>
+<body style=" overflow-x: hidden;">
+	<div class="fondoUNMSM"></div>
 
-    <div class="formulario">
-        <form action="/register" method="POST">
-            <div class="row">
-                <div class="col-f" style="margin-right: 10px;">
-                    <label>Apellido Paterno</label>
-                    <div class="inputWithIcon">
-                        <input type="text" name="last_name_1" placeholder="Tu apellido paterno" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
 
-                <div class="col-f">
-                    <label>Apellido Materno</label>
-                    <div class="inputWithIcon">
-                        <input type="text" name="last_name_2" placeholder="Tu apellido materno" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-f" style="margin-right: 10px;">
-                    <label>Nombre</label>
-                    <div class="inputWithIcon">
-                        <input type="text" name="name" placeholder="Tu nombre" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
+	<!--  -->
 
-                <div class="col-f">
-                    <label>Fecha de Nacimiento</label>
-                    <div class="inputWithIcon">
-                        <input id="date" type="date" name="birthdate" required>
-                        <span class="underline"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-f" style="margin-right: 10px;">
-                    <label>Puntaje</label>
-                    <div class="inputWithIcon">
-                        <input type="text" name="score" placeholder="Tu puntaje" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
+	<div class="container mt-5 mb-5 p-5">
+		<form action="/register" method="POST">
+			<div class="row mt-5">
+				<div class="col-sm-12">
+					<div class="card p-5">
+						<div class="card-header d-flex align-items-center mx-auto">
+							<i class="fa fa-user-plus fa-lg fa-fw" aria-hidden="true"></i>
+							REGISTRO DE USUARIO
+						</div>
+						<!--  -->
+						<div class="form-row mt-5">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="event_startdate">Apellido Paterno</label>
+									<input class="form-control"  type="text" name="last_name_1" placeholder="Tu apellido paterno" required>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="event_enddate">Apellido Materno</label>
+									<input class="form-control" id="event_tags" type="text" name="last_name_2" placeholder="Tu apellido materno" required>
+								</div>
+							</div>
+						</div>
+						<!--  -->
+						<div class="form-group">
+							<label class="col-form-label" for="venue_name">Nombre</label>
+							<input class="form-control" id="venue_name" name="name" type="text" name="name" placeholder="Tu nombre" required></input>
+						</div>
+						<!--  -->
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label class="col-form-label" for="venue_city">Fecha de Nacimiento</label>
+								<input class="form-control" id="date"  type="date" name="birthdate" required></input>
+							</div>
+							<div class="form-group col-md-4">
+								<label class="col-form-label" for="venue_name">Puntaje</label>
+								<input class="form-control"  name="score" placeholder="Tu puntaje" required type="text"></input>
+							</div>
+							<div class="form-group col-md-4">
+								<label class="col-form-label" for="venue_name">Correo</label>
+								<input class="form-control" id="venue_zip" name="email" type="email" placeholder="Tu Correo" required></input>
+							</div>
+						</div>
+						<!--  -->
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label class="col-form-label" for="venue_city">DNI</label>
+								<input class="form-control" id="venue_city" name="dni" type="text" placeholder="Tu DNI" required></input>
+							</div>
+							<div class="form-group col-md-4">
+								<label class="col-form-label" for="venue_name">Teléfono</label>
+								<input class="form-control" id="venue_state" name="cell_phone" type="text" placeholder="Tu Teléfono" required></input>
+							</div>
+							<div class="form-group col-md-4">
+								<label class="col-form-label" for="venue_name">Código de Postulante</label>
+								<input class="form-control" id="venue_zip" name="postulant_code" type="text" placeholder="Tu Codigo" required></input>
+							</div>
+						</div>
+						<!--  FACULTAD********************************************-->
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="event_category">Facultad</label>
+								<select  class="form-control"  id="facultad"
+								data-placeholder="Select " required>
+								<option selected value="0" hidden></option>
+								<!-- {{#each data.departments}} -->
+								<!-- <option value="{{id}}">{{name}}</option> -->
+								<option >FISI</option>
+								<option >FIEE</option>
+								<option >MEDICINA</option>
+								<!-- {{/each}} -->
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="event_category">Escuela</label>
+								<select class="form-control" id="escuela" name="escuela_id" data-placeholder="Select " required>
+									<option selected value="0" hidden></option>
+								</select>
+							</div>
+						</div>
+						<!-- ******************************************** -->
+						<!--  -->
+						<div class="form-row">
+							<div class="col-sm-3">
+								<div class="form-group">
+									<label for="event_startdate">Fecha de postulación</label>
+									<input class="form-control" id="date" type="date" name="date_postulation" required></input>
+								</div>
+							</div>
+							<div class="col-sm-9">
+								<div class="form-group">
+									<label for="event_enddate">Domicilio</label>
+									<input class="form-control" id="event_tags" type="text"  name="address" placeholder="Tu Domicilio" required></input>
+								</div>
+							</div>
+						</div>
+						<!--  -->
+						<div class="form-row">
+							<div class="form-group col-md-4">
+								<label for="event_category">Departamento</label>
+								<select  class="form-control" onchange="selectProvinces('{{data.provinces}}')" id="department"
+								data-placeholder="Select " required>
+								<option selected value="0" hidden></option>
+								{{#each data.departments}}
+								<option value="{{id}}">{{name}}</option>
+								{{/each}}
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="event_category">Provincia</label>
+								<select class="form-control"  onchange="selectDistricts('{{data.districts}}')" id="province"
+								data-placeholder="Select " required>
+								<option selected value="0" hidden></option>
+								</select>
+							</div>
+							<div class="form-group col-md-4">
+								<label for="event_category">Distrito</label>
+								<select class="form-control" id="district" name="district_id" data-placeholder="Select " required>
+									<option selected value="0" hidden></option>
+								</select>
+							</div>
+						</div>
+						<!--  -->
+						<input type="submit" class="d-flex align-items-center btn-register" value="Cargar fotos">
 
-                <div class="col-f">
-                    <label>Correo</label>
-                    <div class="inputWithIcon">
-                        <input type="email" name="email" placeholder="Tu Correo" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+					</div>
+				</div>
+			</div>
+		</form>
+</div>
 
-                <div class="col-f" style="margin-right: 10px;">
-                    <label>DNI</label>
-                    <div class="inputWithIcon">
-                        <input type="text" name="dni" placeholder="Tu DNI" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
 
-                <div class="col-f">
-                    <label>Teléfono</label>
-                    <div class="inputWithIcon">
-                        <input type="text" name="cell_phone" placeholder="Tu Teléfono" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
 
-                <div class="col-f" style="margin-right: 10px;">
-                    <label>Codigo Postulante</label>
-                    <div class="inputWithIcon">
-                        <input type="text" name="postulant_code" placeholder="Tu Codigo" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
-
-                <div class="col-f">
-                    <label>Fecha de postulacion</label>
-                    <div class="inputWithIcon">
-                        <input id="date" type="date" name="date_postulation" required>
-                        <span class="underline"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-f" style="margin-right: 10px;">
-                    <label>Domicilio</label>
-                    <div class="inputWithIcon">
-                        <input type="text" name="address" placeholder="Tu Domicilio" required>
-                        <i class="fa fa-user fa-lg fa-fw" aria-hidden="true"></i>
-                        <span class="underline"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-f" style="margin-right: 10px;">
-                    <div class="form-group">
-                        <label>Departamento</label>
-                        <div class="inputWithIcon">
-                            <select onchange="selectProvinces('{{data.provinces}}')" id="department"
-                                    data-placeholder="Select " required>
-                                <option selected value="0" hidden></option>
-                                {{#each data.departments}}
-                                    <option value="{{id}}">{{name}}</option>
-                                {{/each}}
-                            </select>
-                            <span class="underline"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-f">
-                    <label>Provincia</label>
-                    <div class="inputWithIcon">
-                        <select onchange="selectDistricts('{{data.districts}}')" id="province"
-                                data-placeholder="Select " required>
-                            <option selected value="0" hidden></option>
-                        </select>
-                        <span class="underline"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-f" style="margin-right: 10px;">
-                    <div class="form-group">
-                        <label>Distrito</label>
-                        <div class="inputWithIcon">
-                            <select id="district" name="district_id" data-placeholder="Select " required>
-                                <option selected value="0" hidden></option>
-                            </select>
-                            <span class="underline"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <input type="submit" class="btn-login btn-chico" value="Cargar fotos">
-        </form>
-    </div>
-
-    <div class="footer t-center">
-        © Grupo 6- 2020
-    </div>
-</section>
 
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
 <script>
-    function selectProvinces(provinces) {
-        const prov = JSON.parse(provinces);
-        const dep = document.getElementById("department").value;
-        const newArray = prov.filter(el => el.department_id == dep);
+	function selectProvinces(provinces) {
+		const prov = JSON.parse(provinces);
+		const dep = document.getElementById("department").value;
+		const newArray = prov.filter(el => el.department_id == dep);
 
-        let provinceSelect = document.getElementById("province");
-        provinceSelect.options.length = 1;
-        let option = document.createElement("option");
-        for (let i = 0; i < newArray.length; i++) {
-            option.text = newArray[i].name;
-            option.value = newArray[i].id;
-            provinceSelect.appendChild(option);
-        }
-    }
+		let provinceSelect = document.getElementById("province");
+		provinceSelect.options.length = 1;
+		let option = document.createElement("option");
+		for (let i = 0; i < newArray.length; i++) {
+			option.text = newArray[i].name;
+			option.value = newArray[i].id;
+			provinceSelect.appendChild(option);
+		}
+	}
 
-    function selectDistricts(districts) {
-        const disc = JSON.parse(districts);
-        const pro = document.getElementById("province").value;
-        const newArray = disc.filter(el => el.province_id == pro);
+	function selectDistricts(districts) {
+		const disc = JSON.parse(districts);
+		const pro = document.getElementById("province").value;
+		const newArray = disc.filter(el => el.province_id == pro);
 
-        let districtSelect = document.getElementById("district");
-        districtSelect.options.length = 1;
-        let option = document.createElement("option");
-        for (let i = 0; i < newArray.length; i++) {
-            option.text = newArray[i].name;
-            option.value = newArray[i].id;
-            districtSelect.appendChild(option);
-        }
-    }
+		let districtSelect = document.getElementById("district");
+		districtSelect.options.length = 1;
+		let option = document.createElement("option");
+		for (let i = 0; i < newArray.length; i++) {
+			option.text = newArray[i].name;
+			option.value = newArray[i].id;
+			districtSelect.appendChild(option);
+		}
+	}
 </script>
 
 </body>
 
-</html>
->>>>>>> master
+</html> 

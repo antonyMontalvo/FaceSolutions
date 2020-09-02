@@ -121,7 +121,7 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
             "--disable-dev-shm-usage",
           ],
         });
-        res.sendStatus(200);
+        
         const page = await browser.newPage();
         await page.setContent(html);
         await page.pdf({
@@ -129,18 +129,18 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
           format: "Letter",
         });
         var pathPdf="./src/public/pdf/Constancy_N" + dni + ".pdf"
-        
+        res.sendStatus(200);
         //NUBE
-        await gc.bucket(bucketName).upload(pathPdf, {
+        /*await gc.bucket(bucketName).upload(pathPdf, {
           gzip: true,
           metadata: {
               cacheControl: 'public, max-age=31536000',
           },
-        })
+        })*/
 
         //BD path , process
           
-        var destino=`https://storage.googleapis.com/${bucketName}/Constancy_N`+dni+`.pdf`
+        //var destino=`https://storage.googleapis.com/${bucketName}/Constancy_N`+dni+`.pdf`
         
         await browser.close();
         

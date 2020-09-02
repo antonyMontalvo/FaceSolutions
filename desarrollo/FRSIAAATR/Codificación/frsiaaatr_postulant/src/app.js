@@ -42,7 +42,7 @@ app.engine(
  */
 app.use(morgan("dev")); // permite que las peticiones se vean en la consola
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
     session({
@@ -76,25 +76,25 @@ app.use(express.static(path.join(__dirname + "/public")));
 /**
  * Error pagues
  */
-app.use(function (req, res) {
-    res.status(404).render("errors/404", {layout: null});
+app.use(function(req, res) {
+    res.status(404).render("errors/404", { layout: null });
 });
 
-app.use(function (req, res) {
-    res.status(500).render("errors/500", {layout: null});
+app.use(function(req, res) {
+    res.status(500).render("errors/500", { layout: null });
 });
 
 /**
  * Start server
  */
 io.listen(app.get("port"), HOST, () => {
-    process.env.NODE_ENV !== "production"
-        ? console.log(
-        chalk.bgGreen.black(`Server start on:`) +
-        " " +
-        `http://${HOST}:${app.get("port")}`
-        )
-        : console.log(chalk.bgGreen.black(`Server start`));
+    process.env.NODE_ENV !== "production" ?
+        console.log(
+            chalk.bgGreen.black(`Server start on:`) +
+            " " +
+            `http://${HOST}:${app.get("port")}`
+        ) :
+        console.log(chalk.bgGreen.black(`Server start`));
 });
 
 module.exports = app;

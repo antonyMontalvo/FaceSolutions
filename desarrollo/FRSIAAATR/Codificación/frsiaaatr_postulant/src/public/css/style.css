@@ -4,8 +4,7 @@
     box-sizing: border-box;
 }
 
-body {
-}
+body {}
 
 h2,
 h3 {
@@ -21,11 +20,7 @@ h3 {
     height: 100vh;
     /*background: #f3f3f3;*/
     /*font-family: 'Roboto', sans-serif;*/
-    background-image: linear-gradient(
-            rgba(22, 22, 26, 0.9),
-            rgba(22, 22, 26, 0.9)
-    ),
-    url("../img/admin.jpg");
+    background-image: linear-gradient( rgba(22, 22, 26, 0.9), rgba(22, 22, 26, 0.9)), url("https://image.jimcdn.com/app/cms/image/transf/none/path/s7ffd8944362d0bf7/image/ic605ecb614754ac3/version/1421406272/image.jpg");
 }
 
 .centrar {
@@ -41,7 +36,6 @@ h3 {
     /*margin-right:-15px;
       margin-left:-15px;*/
     background-color: white;
-
     -ms-flex-preferred-size: 0;
     flex-basis: 0;
     -ms-flex-positive: 1;
@@ -68,7 +62,6 @@ h3 {
 img {
     margin: 0;
     padding: 0;
-
     width: 100%;
     max-width: 100%;
     height: 100%;
@@ -83,7 +76,6 @@ img {
 
 .informacion {
     padding: 15px;
-
     height: 100%;
 }
 
@@ -111,7 +103,6 @@ img {
         flex: 0 0 100%;
         max-width: 100%;
     }
-
     .centrar {
         width: 98%;
     }
@@ -169,7 +160,7 @@ input:focus {
     transition: 0.3s;
 }
 
-.inputWithIcon input:focus + i {
+.inputWithIcon input:focus+i {
     color: #e73835;
 }
 
@@ -180,7 +171,7 @@ input:focus {
     border-radius: 4px 0 0 4px;
 }
 
-.inputWithIcon.inputIconBg input:focus + i {
+.inputWithIcon.inputIconBg input:focus+i {
     color: #fff;
     background-color: #000;
 }
@@ -204,7 +195,9 @@ input:focus {
     box-shadow: 0 0 8px 0 #e73827 !important;
 }
 
+
 /*Login*/
+
 .login {
     border-top: 1px solid #999;
     border-right: 1px solid #999;
@@ -260,15 +253,10 @@ section {
     /*height: 100vh;*/
     /*background: #f3f3f3;*/
     /*font-family: 'Roboto', sans-serif;*/
-    background-image: linear-gradient(
-            rgba(22, 22, 26, 0.9),
-            rgba(22, 22, 26, 0.9)
-    ),
-    url("../img/admin.jpg");
+    background-image: linear-gradient( rgba(22, 22, 26, 0.9), rgba(22, 22, 26, 0.9)), url("../img/admin.jpg");
 }
 
-section .header {
-}
+section .header {}
 
 section .header h1 {
     color: white;
@@ -306,7 +294,6 @@ section .footer {
 .col-f {
     position: relative;
     width: 100%;
-
     display: block;
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
@@ -332,7 +319,6 @@ section .footer {
 label.cameraButton {
     display: inline-block;
     margin: 1em 0;
-
     /* Styles to make it look like a button */
     padding: 0.5em;
     border: 2px solid #666;
@@ -340,12 +326,16 @@ label.cameraButton {
     background-color: #DDD;
 }
 
+
 /* Look like a clicked/depressed button */
+
 label.cameraButton:active {
     border-color: #CCC #EEE #EEE #CCC;
 }
 
+
 /* This is the part that actually hides the 'Choose file' text box for camera inputs */
+
 label.cameraButton input[accept*="camera"] {
     display: none;
 }
@@ -355,5 +345,3 @@ label.cameraButton input[accept*="camera"] {
     width: 350px !important;
     padding: 20px 20px;
 }
-
-

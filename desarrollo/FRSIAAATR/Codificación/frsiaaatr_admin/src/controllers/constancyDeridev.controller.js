@@ -1,8 +1,18 @@
+const path = require("path")
 const bcrypt = require("bcryptjs");
 ("use strict");
 
 const { QueryTypes } = require("sequelize");
 const { sequelizeDB } = require("../../config/database");
+
+//GOOGLE CLOUD
+const {Storage} = require("@google-cloud/storage")
+const bucketName = process.env.GCP_BUCKET_NAME
+
+const gc = new Storage({
+    keyFilename: path.join(__dirname, `${process.env.GCP_KEY_FILE}`),
+    projectId: `${process.env.GCP_PROJECT_ID}`,
+});
 
 const Employee = require("../models/department"),
   { createToken, getPayload } = require("../services/jwt"),
@@ -118,6 +128,20 @@ ConstancyDerivedController.firmaConstancia = async (req, res) => {
           path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
           format: "Letter",
         });
+        var pathPdf="./src/public/pdf/Constancy_N" + dni + ".pdf"
+        
+        //NUBE
+        await gc.bucket(bucketName).upload(pathPdf, {
+          gzip: true,
+          metadata: {
+              cacheControl: 'public, max-age=31536000',
+          },
+        })
+
+        //BD path , process
+          
+        var destino=`https://storage.googleapis.com/${bucketName}/Constancy_N`+dni+`.pdf`
+        
         await browser.close();
         
         

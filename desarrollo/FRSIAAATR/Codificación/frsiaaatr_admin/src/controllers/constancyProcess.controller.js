@@ -192,21 +192,7 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
           ],
         });
 
-        /*res.render("constancy/derivedConstancy", {
-          solicitante: solicitante,
-          dni: dni,
-          facultad: facultad,
-          especialidad: especialidad,
-          numero_expediente: numero_expediente,
-          fecha_expediente_completa: fecha_expediente_completa,
-          anio: anio,
-          numero_emision: numero_emision,
-          estado_expediente: estado_expediente,
-          encargado_expediente: encargado_expediente,
-          fecha_actual: fecha_actual,
-          succesfull: "Envio exitoso",
-        });*/
-
+        //SIN FIRMAS
         const page = await browser.newPage();
         await page.setContent(html);
         await page.pdf({

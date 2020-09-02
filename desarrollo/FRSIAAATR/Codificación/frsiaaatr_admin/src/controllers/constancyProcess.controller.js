@@ -386,9 +386,17 @@ ConstancyProcessController.filterProcess = async (req, res) => {
   const lastnameMatern = req.body.lastnameMatern;
   const dni = req.body.dni;
   const number_doc = req.body.number_doc;
-  const date = req.body.date;
+  //const date = req.body.date;
   const id_faculty = req.body.id_faculty;
   const id_specialty = req.body.id_specialty;
+
+  console.log("name: "+name);
+  console.log("lastnameP: "+lastnamePatern);
+  console.log("lastnameM: "+lastnameMatern);
+  console.log("dni: "+dni);
+  console.log("number_doc: "+number_doc);
+  console.log("facultad: "+id_faculty);
+  console.log("especialidad: "+id_specialty);
 
   let q = `SELECT 
     p.code as codigoSolicitud,
@@ -416,7 +424,7 @@ ConstancyProcessController.filterProcess = async (req, res) => {
     LEFT JOIN faculty f
     ON sp.faculty_id = f.id
     LEFT JOIN process_state pst
-    ON p.state_process = pst.idprocess_state where p.state_process = '2' `;
+    ON p.state_process = pst.idprocess_state where p.state_process = '4' `;
 
   if (name != null && name != "null") {
     q = q + ` and ps.name = ` + "'" + name + "'";

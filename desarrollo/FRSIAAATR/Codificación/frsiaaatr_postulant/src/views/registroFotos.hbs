@@ -12,6 +12,15 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <script src="/api/face-api.min.js"></script>
     <style>
+        .contador{
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding: 3px 5px;
+        }
+        .contador #conteo{
+            background-color: #dedede;
+        }
         @media only screen and (max-width: 700px) {
             video {
                 max-width: 100%;
@@ -57,6 +66,10 @@
                     </div>
                     <div class="row" style="display: flex;justify-content:center">
                         <button id="boton">Tomar foto</button>
+                    </div>
+
+                    <div class="contador">
+                        Cantidad de fotos: <span id="conteo"> 0 </span>
                     </div>
                 </div>
             </div>
@@ -202,6 +215,7 @@
                             //Escuchar el click del botón para tomar la foto
                             $boton.addEventListener("click", async function () {
                                 contador++;
+                                document.getElementById("conteo").textContent=contador;
 
                                 //Obtener contexto del canvas y dibujar sobre él
                                 let contexto = $canvas.getContext("2d");
@@ -229,6 +243,7 @@
                                                 console.log(detections)
                                                 if (!detections) {
                                                     contador--;
+                                                    document.getElementById("conteo").textContent=contador;
                                                     alert("La imagen no cumple los requisitos mínimos para poder guardarse.")
                                                 } else {
                                                     let node = document.createElement("img");

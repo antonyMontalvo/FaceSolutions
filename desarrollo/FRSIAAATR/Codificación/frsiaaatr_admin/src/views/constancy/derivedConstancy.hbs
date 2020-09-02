@@ -433,7 +433,7 @@
         let timerInterval
         Swal.fire({
             title: 'Tiempo de espera',
-            timer: 10000,
+            timer: 20000,
             timerProgressBar: true,
             onBeforeOpen: () => {
                 Swal.showLoading()
@@ -472,16 +472,16 @@
         }).fail(function(xhr, status, error) {
         // error handling
         console.log("NO SE IMPRIMIO NADA");
-        /*Swal.fire({
+        Swal.fire({
             position: "center",
             icon: "warning",
             title: "El documento ya existe",
             showConfirmButton: true,
             });
-        });*/
+        });
         $('#incorrecto').text('El documento no se ha generado porque ya existe.');
         $('#num2').show();
-        });
+        //});
     }
 
     function doHide() {
@@ -506,3 +506,4 @@
     }
 
 </script>
+<script type="text/javascript" src="../../../../global_assets/js/plugins/notifications/sweet_alert.min.js"></script>

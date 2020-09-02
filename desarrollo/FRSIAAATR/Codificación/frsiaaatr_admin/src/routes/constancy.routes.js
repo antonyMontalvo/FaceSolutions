@@ -2,11 +2,12 @@ const router = require("express").Router();
 
 const constancyController = require("../controllers/constancy.controller"),
     validator = require("../middlewares/validation"),
-    authenticate = require("../middlewares/authenticate");
+    authenticate = require("../middlewares/authenticate"),
+    { checkToken } = require("../middlewares/auth");
 
 router
-    .get("/request-unread", constancyController.getRequestUnreadList)
-    .get("/review-request/:id", constancyController.getReviewUnreadInfo)
+    .get("/request-unread", checkToken, constancyController.getRequestUnreadList)
+    .get("/review-request/:id", checkToken, constancyController.getReviewUnreadInfo)
     //Revisar todas las solicitudes
     .get("/all-review-request/:id", constancyController.getAllReviewRequest)
     .get("/postulant-info-request/:id", constancyController.getPostulantRequestInfo)

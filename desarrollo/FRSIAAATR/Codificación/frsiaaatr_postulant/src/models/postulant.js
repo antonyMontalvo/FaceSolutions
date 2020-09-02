@@ -1,5 +1,6 @@
 const {DataTypes} = require("sequelize");
 const {sequelizeDB} = require("../../config/database");
+const Specialty = require("./specialty");
 
 const Postulant = sequelizeDB.define(
     "postulant",
@@ -44,11 +45,17 @@ const Postulant = sequelizeDB.define(
         acepted_state: {
             type: DataTypes.BOOLEAN,
         },
+        firm_path:{
+            type: DataTypes.STRING,
+        },
         specialty_id: {
             type: DataTypes.INTEGER,
         },
         district_id: {
             type: DataTypes.INTEGER,
+        },
+        sexo:{
+            type: DataTypes.STRING,
         },
         observation: {
             type: DataTypes.TEXT,
@@ -56,11 +63,16 @@ const Postulant = sequelizeDB.define(
         score: {
             type: DataTypes.FLOAT,
         },
+        address: {
+            type: DataTypes.TEXT,
+        },
     },
     {
         freezeTableName: true,
         timestamps: false,
     }
 );
+
+Postulant.belongsTo(Specialty, {as: "specialty", foreignKey: "specialty_id"});
 
 module.exports = Postulant;

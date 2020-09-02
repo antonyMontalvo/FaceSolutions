@@ -50,9 +50,6 @@
 	<script src="/js/global/global.js"></script>
 	<!-- /global JS files -->
 
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
-
 </head>
 
 <body>
@@ -106,19 +103,21 @@
 			</ul>
 
 			<ul class="navbar-nav ml-md-auto">
-				<li class="nav-item dropdown dropdown-user">
+				<li class="nav-item dropdown-user">
 					<a href="#" class="navbar-nav-link dropdown-toggle legitRipple" data-toggle="dropdown">
 						<img id="imgUsuario" src="/assets/images/person.svg" class="rounded-circle" alt="" width="40"
 							height="40">
-						<span>Jose Torres</span>
+						<span>{{data.admin.nombre}} {{data.admin.apellidoPaterno}}</span>
 					</a>
-
-					<div class="dropdown-menu dropdown-menu-right">
-						<a href="/" class="dropdown-item"><i class="icon-user-plus"></i> Mi perfil</a>
-						<div class="dropdown-divider"></div>
-						<a href="/login" class="dropdown-item"><i class="icon-switch2"></i> Cerrar Sesión</a>
-					</div>
 				</li>
+
+				<li class="nav-item">
+					<a id="btnLogout" class="navbar-nav-link">
+						<i class="icon-switch2"></i>
+					</a>
+				</li>
+
+
 			</ul>
 
 		</div>
@@ -188,7 +187,7 @@
 						</li>
 
 
-						<li class="nav-item"><a href="/" class="nav-link"><i
+						<li class="nav-item"><a href="/record/requests-record" class="nav-link"><i
 									class="fas fa-calendar-alt"></i>Historial</a></li>
 
 					</ul>

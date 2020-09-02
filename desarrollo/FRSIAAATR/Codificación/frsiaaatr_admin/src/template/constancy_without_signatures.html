@@ -40,13 +40,17 @@
       font-style: italic;
       font-weight: bold;
     }
+    .autorizacion h4{
+      font-style: italic;
+      font-weight: bold;
+    }
     .fotografia img{
       width:200px;
       height: 200px;
     }
     .autorizacion{
       width:100%;
-      margin-top:190px;
+      margin-top:170px;
       position: relative;
     }
     .autoridad1{
@@ -98,32 +102,37 @@
       <div class="contenido">
         <p class="titulo">Constancia de Ingreso</p>
         <div class="datos-personales">
-          <p>Se hace presente, que la alumna 
+          <p>Se hace presente, que el alumno 
             <span>{{name}} </span> 
             identificada con DNI <span>{{dni}}</span>,
             ingreso a la 
-            <span> Escuela Profesional de Obstetricia,</span>
-            perteneciente a la <span>Facultad de Medicina</span> con un puntaje aprobatorio de
+            <span>{{especialidad}},</span>
+            perteneciente a la <span>{{facultad}}</span> con un puntaje aprobatorio de
             <span>{{puntaje}}</span>
             puntos.
           </p>
         </div>
         <div class="fotografia">
-          <img src="https://www.enfoca2.com.mx/wp-content/uploads/2018/infantil/infantil%206.jpg">
+          <img src="https://c8.alamy.com/compes/k4affg/el-icono-de-usuario-avatar-masculino-en-traje-de-negocios-empresario-icono-plano-hombre-en-traje-de-negocios-avatar-del-empresario-icono-de-internet-plana-en-forma-redondeada-web-k4affg.jpg">
         </div>
+        <!--Sin panel de firmas-->
         <div class="autorizacion">
           <div class="autoridad1">
-            <p>Pedron Alex Noboa Quintana</p>
+            <p>___________________</p>
+            <p>Orestes Cachay Bosa</p>
+            <h4>Rector</h4>
           </div>
           <div class="autoridad2">
-            <p>Maria Fuller Cordova</p>
+            <p>_____________________________</p>
+            <p>Angela Beatriz Morales Duares</p>
+            <h4>Secretaria General</h4>
           </div>
-          <div class="firma1">
-            <!--<img src="https://tusejemplos.com/wp-content/uploads/2016/04/firma-carlos-arturo.png">-->
+          <!--<div class="firma1">
+            <img src="https://tusejemplos.com/wp-content/uploads/2016/04/firma-carlos-arturo.png">
           </div>
           <div class="firma2">
-            <!--<img src="https://sobrehistoria.com/wp-content/uploads/2010/08/firmas-y-grafologia-600x431.jpg">-->
-          </div>
+            <img src="https://sobrehistoria.com/wp-content/uploads/2010/08/firmas-y-grafologia-600x431.jpg">
+          </div>-->
         </div>
       </div>
     </div>

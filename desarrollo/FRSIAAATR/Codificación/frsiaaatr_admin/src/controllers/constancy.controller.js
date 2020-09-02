@@ -9,6 +9,11 @@ const Employee = require("../models/department"),
     ConstancyController = {},
     saltRounds = 10;
 
+/*
+ * Endpoints tanto para las tablas de listado de constancias (Consulta) y el flujo para aprobar 
+ * o observar un requisito
+ */
+
 //Información de solicitud no leída (vista)
 ConstancyController.getReviewUnreadInfo = async(req, res) => {
 

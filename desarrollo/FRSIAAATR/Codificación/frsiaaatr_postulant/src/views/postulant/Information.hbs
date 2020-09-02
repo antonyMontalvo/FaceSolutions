@@ -1,0 +1,368 @@
+<div class="content-wrapper">
+    <div class="content-page">
+        <div class="page-header page-header-light">
+            <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+                <div class="d-flex">
+                    <div class="breadcrumb">
+                        <a class="breadcrumb-item" href="/profile"><i class="icon-home2 mr-2"></i>Inicio</a>
+                        <a class="breadcrumb-item" href="/postulants/list">Requísitos</a>
+                        <a class="breadcrumb-item" href="/postulants/review_requirement">Revisión de requisitos</a>
+                        <span class="breadcrumb-item active">Información del Postulante</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header-content header-elements-md-inline">
+                <div class="" style=" padding-top: 1.2%; padding-bottom:0.4%;">
+                    <h4><a class="breadcrumb-item" href="/profile"><i class="icon-arrow-left52 mr-2"></i></a> <span
+                            class="font-weight-semibold">Datos del postulante</span></h4>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="page-content" style="height: 1393px;">
+            <div class="content-wrapper" style="overflow: hidden !important; ">
+                <div class="content">
+                    <div class="d-md-flex align-items-md-start">
+
+                        <!-- Right content -->
+                        <div class="content w-100 overflow-auto">
+                            <div class="fade active show" id="profile">
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        <div class="card border-left-3 border-left-danger rounded-left-0">
+                                            <div class="card-body">
+                                                <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                        <h4 class="font-weight-semibold">DATOS PERSONALES</h4>
+                                                        <div class="table-responsive">
+                                                            <div id="tblDatosPersonales_wrapper"
+                                                                 class="dataTables_wrapper no-footer">
+                                                                <div class="table-responsive">
+                                                                    <table id="tblDatosPersonales"
+                                                                           class="table-borderless dataTable no-footer"
+                                                                           role="grid" style="width: 100%;">
+                                                                        <tbody>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td>DNI: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.dni}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Apellido Paterno: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.last_name_1}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td>Apellido Materno:</td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.last_name_2}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Nombres: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.name}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Correo Personal: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.email}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td>Celular: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.phone}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Telf. Fijo.: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.cell_phone}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td>Sexo :</td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.sexo}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Estado Civil: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value=""
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Fecha Nacimiento: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.birthdate}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td>Dirección: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.address}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="card border-left-3 border-left-success rounded-left-0">
+                                            <div class="card-body">
+                                                <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                        <div>
+                                                            <h4 class="font-weight-semibold">DATOS ACADÉMICOS</h4>
+
+                                                            <div class="table-responsive">
+                                                                <div id="tblDatosAcademicos_wrapper"
+                                                                     class="dataTables_wrapper no-footer">
+                                                                    <div class="table-responsive">
+                                                                        <table id="tblDatosAcademicos"
+                                                                               class="table-borderless dataTable no-footer"
+                                                                               role="grid" style="width: 100%;">
+                                                                            <tbody>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td>Código de Alumno:</td>
+                                                                                <td class=" text-right"><input
+                                                                                        type="text" value="{{data.usuario.postulant_code}}"
+                                                                                        readonly="readonly"
+                                                                                        class="form-control">
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td>Facultad:</td>
+                                                                                <td class=" text-right"><input
+                                                                                        type="text"
+                                                                                        value="{{data.usuario.specialty.faculty.name}}"
+                                                                                        readonly="readonly"
+                                                                                        class="form-control">
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td>Escuela Profesional:</td>
+                                                                                <td class=" text-right"><input
+                                                                                        type="text"
+                                                                                        value=" E.A.P. {{data.usuario.specialty.name}}"
+                                                                                        readonly="readonly"
+                                                                                        class="form-control">
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td>Plan: <br></td>
+                                                                                <td class=" text-right"><input
+                                                                                        type="text"
+                                                                                        value=" Plan de estudios 2021"
+                                                                                        readonly="readonly"
+                                                                                        class="form-control"></td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="card border-left-3 border-left-purple rounded-left-0">
+                                            <div class="card-body">
+                                                <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                        <h4 class="font-weight-semibold">FOTOS USADAS PARA EL
+                                                            RECONOCIMIENTO FACIAL</h4>
+
+                                                        <!-- FOTOS -->
+
+                                                        {{#each data.photos}}
+                                                        <div class="float-left m-1"
+                                                             style=" width: 250px;  height: 250px;">
+                                                            <img src="{{path}}"
+                                                                 class="img-fluid" alt="Face Solution"/>
+                                                        </div>
+                                                        {{/each}}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

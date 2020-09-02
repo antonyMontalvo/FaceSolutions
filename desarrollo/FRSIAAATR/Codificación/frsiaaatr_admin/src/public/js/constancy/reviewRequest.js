@@ -328,7 +328,7 @@ $(document).ready(function() {
                     //Actualizando estado en "Detalle"
                     $("#badgeEstado").replaceWith(`<span class="badge badge-flat border-info 
                     text-info-600" id="badgeEstado">EN PROCESO</span>`);
-                    $("#blockInfo").replaceWith(`<span>PROCESADA</span>`);
+                    $("#blockInfo").replaceWith(`<br><p class="text-center text-muted">SOLICITUD PROCESADA</p><br>`);
                 }
 
 

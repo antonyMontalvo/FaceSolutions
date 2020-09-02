@@ -336,6 +336,7 @@ $(document).ready(function () {
         xhr.setRequestHeader("Content-Type", "application/json");
       },
       success: function (response) {
+        console.log("Respuesta de filtro");
         console.log(response);
         $local.tblEnProceso.clear();
         $.each(response, function (index, value) {

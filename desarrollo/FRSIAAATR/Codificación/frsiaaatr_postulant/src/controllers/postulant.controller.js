@@ -78,8 +78,11 @@ EmployeesController.registrando = async (req, res) => {
     Department = require("../models/department"),
     Province = require("../models/province"),
     District = require("../models/district"),
+    Faculty = require("../models/faculty"),
+    Specialty = require("../models/specialty"),
     Photo = require("../models/photo"),
     {createToken, getPayload} = require("../services/jwt"),
+<<<<<<< HEAD
 <<<<<<< HEAD
     PostulantController = {},
     saltRounds = 10;
@@ -94,6 +97,9 @@ EmployeesController.registrando = async (req, res) => {
 >>>>>>> master
 =======
     bucketName = process.env.GCP_BUCKET_NAME,
+=======
+    bucketName = process.env.GCP_BUCKET_IMAGES,
+>>>>>>> master
     PostulantController = {},
     saltRounds = 10;
 
@@ -107,6 +113,23 @@ const gc = new Storage({
 PostulantController.getIndex = async (req, res) => {
     try {
         return res.render("postulant/index");
+    } catch (error) {
+        console.log(error);
+        // return res.status(500).json({error: error});
+        return res.render('errors/500');
+    }
+};
+
+PostulantController.information = async (req, res) => {
+    try {
+        const photos = await Photo.findAll({
+            raw: true,
+            where: {idpostulant: req.session.usuario.id}
+        })
+        return res.render("postulant/Information", {
+            layout: 'main',
+            data: {usuario: req.session.usuario, photos}
+        });
     } catch (error) {
         console.log(error);
         // return res.status(500).json({error: error});
@@ -288,7 +311,21 @@ PostulantController.login = async (req, res) => {
 PostulantController.loginCamera = async (req, res) => {
     try {
         const {id} = req.body;
-        const postulantFound = await Postulant.findByPk(Number(id), {raw: true});
+        const postulantFound = await Postulant.findByPk(Number(id), {
+            nest: true,
+            raw: true, include: [
+                {
+                    as: "specialty",
+                    model: Specialty,
+                    include: [
+                        {
+                            as: "faculty",
+                            model: Faculty
+                        }
+                    ]
+                }
+            ]
+        });
 
         if (postulantFound) {
             req.session.usuario = postulantFound;
@@ -346,16 +383,17 @@ PostulantController.registerPhotos = async (req, res) => {
         }
 
         let photos = [];
-        for (let i = 1; i <= files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
             await gc.bucket(bucketName).upload(files[i].path, {
-                destination: `${folder}_${i}.jpg`,
+                destination: `${folder}_${i+1}.jpg`,
                 gzip: true,
                 metadata: {
                     cacheControl: 'public, max-age=31536000',
                 },
             })
             photos.push({
-                filename: files[i].originalname,
+                name: files[i].originalname,
+                path: `https://storage.googleapis.com/${bucketName}/${folder}_${i+1}.jpg`,
                 state: 1,
                 idpostulant: id,
             });

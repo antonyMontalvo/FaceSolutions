@@ -2,12 +2,14 @@ const bcrypt = require("bcryptjs"),
     {Storage} = require("@google-cloud/storage"),
     fs = require("fs"),
     path = require("path"),
-    moment = require("moment");
+    moment = require("moment"),
+    {Op} = require("sequelize");
 
 const Postulant = require("../models/postulant"),
     Process = require("../models/process"),
     Requirement = require("../models/requirement"),
     Photo = require("../models/photo"),
+    ProcessState = require("../models/processState"),
     {createToken, getPayload} = require("../services/jwt"),
     bucketName = process.env.GCP_BUCKET_NAME,
     ProcessController = {},
@@ -25,8 +27,7 @@ let _requirements = [
     {
         name: 'Voucher de Pago',
         state_requirement: 1,
-    },
-    {
+    }, {
         name: 'Acta de nacimiento',
         state_requirement: 1,
     },
@@ -37,9 +38,33 @@ const gc = new Storage({
 });
 
 // Views
+ProcessController.newRequirements = async (req, res) => {
+    try {
+        let process = await Process.findAll({
+            nest: true,
+            raw: true,
+            include: [{as: 'state', model: ProcessState}],
+            where: {postulant_id: req.session.usuario.id, state_process: 1}
+        });
+        console.log(process)
+        return res.render("postulant/tramitesNuevos", {layout: 'main', data: {process}});
+    } catch (error) {
+        console.log(error);
+        return res.render('errors/500');
+    }
+};
 ProcessController.correccion = async (req, res) => {
     try {
-        let process = await Process.findAll({raw: true, where: {postulant_id: req.session.usuario.id}});
+        let process = await Process.findAll({
+            nest: true,
+            raw: true,
+            include: [{as: 'state', model: ProcessState}],
+            where: {
+                postulant_id: req.session.usuario.id, state_process: {
+                    [Op.not]: 1
+                }
+            }
+        });
         console.log(process)
         return res.render("postulant/tramitesCorreccion", {layout: 'main', data: {process}});
     } catch (error) {
@@ -50,16 +75,24 @@ ProcessController.correccion = async (req, res) => {
 ProcessController.correccionDocumento = async (req, res) => {
     try {
         let {id} = req.params;
-        let requirements = Requirement.findAll({where: {process_id: id}})
+        let requirements = await Requirement.findAll({raw: true, where: {process_id: id}})
+
         res.render("postulant/tramitesCorreccionDoc", {layout: 'main', data: {requirements}});
     } catch (error) {
         console.log(error);
         return res.render('errors/500');
     }
 };
+
 ProcessController.rechazados = async (req, res) => {
     try {
-        res.render("postulant/tramitesRechazados");
+        let process = await Process.findAll({
+            nest: true,
+            raw: true,
+            include: [{as: 'state', model: ProcessState}],
+            where: {postulant_id: req.session.usuario.id, state_process: 5}
+        });
+        res.render("postulant/tramitesRechazados", {layout: 'main', data: {process}});
     } catch (error) {
         console.log(error);
         return res.render('errors/500');
@@ -86,11 +119,11 @@ ProcessController.getById = async (req, res) => {
  */
 ProcessController.create = async (req, res) => {
     try {
+        const proGlobal = await Process.findAll();
         const pro = await Process.findAll({where: {postulant_id: req.session.usuario.id,}});
-        console.log(pro)
         if (pro.length == 0) {
             const process = await Process.create({
-                code: `0000${pro.length + 1}`,
+                code: `0000${proGlobal.length + 1}`,
                 state_process: 1,
                 administrator_id: 1,
                 postulant_id: req.session.usuario.id,
@@ -101,12 +134,44 @@ ProcessController.create = async (req, res) => {
             const requirements = await Requirement.bulkCreate(_requirements);
         }
 
-        return res.redirect("/documents/TramitesCorreccion");
+        return res.redirect("/documents/TramitesNuevos");
     } catch (error) {
         console.log(error);
         return res.render('errors/500');
     }
 };
+
+ProcessController.updateRequirement = async (req, res) => {
+    try {
+        const files = req.files;
+        const {data} = req.body;
+        const realData = JSON.parse(data);
+
+        for (let i = 0; i < realData.length; i++) {
+            const indexFile = files.findIndex(f => f.filename == realData[i].filename);
+            if (indexFile > -1) {
+                let oficialName = `${Date.now().toString()}_${realData[i].filename}`;
+                await gc.bucket(bucketName).upload(files[indexFile].path, {
+                    destination: oficialName,
+                    gzip: true,
+                    metadata: {
+                        cacheControl: 'public, max-age=31536000',
+                    },
+                })
+                const req = await Requirement.findByPk(realData[i].id, {raw: true});
+                let reqDate = {path: `https://storage.googleapis.com/${bucketName}/${oficialName}`,}
+                if (req.state_requirement == 2) reqDate.state_requirement = 3;
+                await Requirement.update(reqDate, {where: {idrequirement: realData[i].id}});
+            }
+        }
+
+        return res.status(200).json({message: true});
+    } catch (error) {
+        console.log(error);
+        return res.status(200).json({message: false});
+    }
+};
+
 
 ProcessController.login = async (req, res) => {
     try {

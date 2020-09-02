@@ -14,7 +14,7 @@ $(document).ready(function() {
     //Llenando tabla de finalizados y rechazados
     $local.tblHistorial = $local.$tblHistorial.DataTable({
         "ajax": {
-            "url": "../../record/requests-all",
+            "url": "http://46.101.179.242/record/requests-all",
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -67,7 +67,7 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     var a = (row.nombreConstancia + " - " + row.facultadIniciales + " - Cod postulante: " +
                         row.codigoPostulante + " - DNI: " + row.numeroDocumento).toUpperCase();
-                    var ref = '<a href="review-request/' + row.codigoSolicitud + '">' + a + '</a>';
+                    var ref = '<a href="http://46.101.179.242/review-request/' + row.codigoSolicitud + '">' + a + '</a>';
                     return ref;
                 }
             }
@@ -136,7 +136,7 @@ $(document).ready(function() {
         //Cada vez que se marca o desmarca un checkbox, se ejecuta este ajax según los arrays...
         $.ajax({
             type: "POST",
-            url: "../../record/requests-filter",
+            url: "http://46.101.179.242/record/requests-filter",
             data: JSON.stringify(data),
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');

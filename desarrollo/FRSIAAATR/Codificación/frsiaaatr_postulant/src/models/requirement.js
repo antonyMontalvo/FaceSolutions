@@ -1,6 +1,7 @@
 const {DataTypes, fn} = require("sequelize");
 const {sequelizeDB} = require("../../config/database");
 const Process = require("./process");
+const RequirementState = require("./requirementState");
 
 const Requirement = sequelizeDB.define(
     "requirement",
@@ -42,5 +43,6 @@ const Requirement = sequelizeDB.define(
 );
 
 Requirement.belongsTo(Process, {as: "process", foreignKey: "process_id"});
+Requirement.belongsTo(RequirementState, {as: "state", foreignKey: "state_requirement"});
 
 module.exports = Requirement;

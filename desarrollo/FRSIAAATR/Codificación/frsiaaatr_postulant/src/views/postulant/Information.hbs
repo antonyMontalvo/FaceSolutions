@@ -93,14 +93,7 @@
                                                                                                            class="form-control">
                                                                             </td>
                                                                         </tr>
-                                                                        <tr role="row" class="odd">
-                                                                            <td>Celular: <br></td>
-                                                                            <td class=" text-right"><input type="text"
-                                                                                                           value="{{data.usuario.phone}}"
-                                                                                                           readonly="readonly"
-                                                                                                           class="form-control">
-                                                                            </td>
-                                                                        </tr>
+
                                                                         <tr role="row" class="even">
                                                                             <td>Telf. Fijo.: <br></td>
                                                                             <td class=" text-right"><input type="text"
@@ -108,26 +101,6 @@
                                                                                                            readonly="readonly"
                                                                                                            class="form-control">
                                                                             </td>
-                                                                        </tr>
-                                                                        <tr role="row" class="odd">
-                                                                            <td>Sexo :</td>
-                                                                            <td class=" text-right"><input type="text"
-                                                                                                           value="{{data.usuario.sexo}}"
-                                                                                                           readonly="readonly"
-                                                                                                           class="form-control">
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr role="row" class="even">
-                                                                            <td>Estado Civil: <br></td>
-                                                                            <td class=" text-right"><input type="text"
-                                                                                                           value=""
-                                                                                                           readonly="readonly"
-                                                                                                           class="form-control">
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr role="row" class="odd">
-                                                                            <td></td>
-                                                                            <td class=" text-right"></td>
                                                                         </tr>
                                                                         <tr role="row" class="even">
                                                                             <td>Fecha Nacimiento: <br></td>
@@ -284,7 +257,8 @@
                                                                             <tr role="row" class="odd">
                                                                                 <td>Código de Alumno:</td>
                                                                                 <td class=" text-right"><input
-                                                                                        type="text" value="{{data.usuario.postulant_code}}"
+                                                                                        type="text"
+                                                                                        value="{{data.usuario.postulant_code}}"
                                                                                         readonly="readonly"
                                                                                         class="form-control">
                                                                                 <td class=" text-right"></td>
@@ -343,11 +317,11 @@
                                                         <!-- FOTOS -->
 
                                                         {{#each data.photos}}
-                                                        <div class="float-left m-1"
-                                                             style=" width: 250px;  height: 250px;">
-                                                            <img src="{{path}}"
-                                                                 class="img-fluid" alt="Face Solution"/>
-                                                        </div>
+                                                            <div class="float-left m-1"
+                                                                 style=" width: 250px;  height: 250px;">
+                                                                <img src="{{path}}"
+                                                                     class="img-fluid" alt="Face Solution"/>
+                                                            </div>
                                                         {{/each}}
 
                                                     </div>

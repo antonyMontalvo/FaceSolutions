@@ -77,6 +77,12 @@
                                                 </th>
                                                 <th class="all filtrable sorting" tabindex="0"
                                                     aria-controls="tblConsulta" rowspan="1" colspan="1"
+                                                    style="width: 72px;"
+                                                    aria-label="Estado: Activar para ordenar la columna de manera ascendente">
+                                                    Estado
+                                                </th>
+                                                <th class="all filtrable sorting" tabindex="0"
+                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
                                                     style="width: 63px;"
                                                     aria-label="Asunto: Activar para ordenar la columna de manera ascendente">
                                                     Asunto
@@ -87,30 +93,6 @@
                                                     aria-label="Asunto: Activar para ordenar la columna de manera ascendente">
                                                     Cambie de archivo aquí
                                                 </th>
-                                                <!-- <th class="all filtrable sorting" tabindex="0"
-                                                aria-controls="tblConsulta" rowspan="1" colspan="1"
-                                                style="width: 76px;"
-                                                aria-label="N° Doc. Identidad: Activar para ordenar la columna de manera ascendente">
-                                                N° Doc. Identidad
-                                            </th>
-                                            <th class="all filtrable sorting" tabindex="0"
-                                            aria-controls="tblConsulta" rowspan="1" colspan="1"
-                                            style="width: 77px;"
-                                            aria-label="Nombre Completo: Activar para ordenar la columna de manera ascendente">
-                                            Nombre Completo
-                                        </th>
-                                        <th class="all seleccionable sorting" tabindex="0"
-                                        aria-controls="tblConsulta" rowspan="1" colspan="1"
-                                        style="width: 131px;"
-                                        aria-label="Facultad: Activar para ordenar la columna de manera ascendente">
-                                        Facultad
-                                    </th>
-                                    <th class="all seleccionable sorting" tabindex="0"
-                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
-                                    style="width: 131px;"
-                                    aria-label="Escuela: Activar para ordenar la columna de manera ascendente">
-                                    Escuela
-                                </th> -->
 
                                             </tr>
                                             </thead>
@@ -134,15 +116,18 @@
                                                     <td class=" all filtrable">
                                                         <span class="badge badge-flat border-info text-info-600">{{date_created}}</span>
                                                     </td>
+                                                    <td>{{state.state_name}}</td>
                                                     <td>{{name}}</td>
                                                     <!-- <td >70229990</td>
                                                     <td >PEREZ LOPEZ, JUAN</td>
                                                     <td>Facultad de Ingeniería de Sistemas</td>
                                                     <td>Escuela Academia Profesional de Ingeniería de Software</td> -->
-                                                    <td><input type="file" id="myArchivo" name="avatar[]"
+                                                <td>
+                                                    {{#if (isnt state.idrequirement_state 4)}}
+                                                        <input type="file" id="myArchivo" name="avatar[]"
                                                                onchange="addNewFile('{{idrequirement}}' ,this.files)"
                                                                accept="image/*, .pdf"></td>
-
+                                                    {{/if}}
                                                 </tr>
                                             {{/each}}
                                             </tbody>
@@ -223,6 +208,9 @@
                 .catch(error => console.error('Error:', error))
                 .then(async (response) => {
                     console.log(response)
+                    if (response.message) {
+                        window.location.href = "/"
+                    }
                 });
     }
 </script>

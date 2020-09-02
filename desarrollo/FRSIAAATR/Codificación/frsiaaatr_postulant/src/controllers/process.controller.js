@@ -8,6 +8,7 @@ const bcrypt = require("bcryptjs"),
 const Postulant = require("../models/postulant"),
     Process = require("../models/process"),
     Requirement = require("../models/requirement"),
+    RequirementState = require("../models/requirementState"),
     Photo = require("../models/photo"),
     ProcessState = require("../models/processState"),
     {createToken, getPayload} = require("../services/jwt"),
@@ -66,7 +67,7 @@ ProcessController.correccion = async (req, res) => {
                 }
             }
         });
-        console.log(process)
+
         return res.render("postulant/tramitesCorreccion", {layout: 'main', data: {process}});
     } catch (error) {
         console.log(error);
@@ -76,7 +77,7 @@ ProcessController.correccion = async (req, res) => {
 ProcessController.correccionDocumento = async (req, res) => {
     try {
         let {id} = req.params;
-        let requirements = await Requirement.findAll({raw: true, where: {process_id: id}})
+        let requirements = await Requirement.findAll({raw: true, nest:true, include: [{as: 'state', model: RequirementState}], where: {process_id: id}})
 
         res.render("postulant/tramitesCorreccionDoc", {layout: 'main', data: {requirements}});
     } catch (error) {

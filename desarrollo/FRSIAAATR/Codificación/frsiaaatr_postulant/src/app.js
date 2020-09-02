@@ -42,8 +42,8 @@ app.engine(
  */
 app.use(morgan("dev")); // permite que las peticiones se vean en la consola
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
+app.use(express.urlencoded({extended: false}));
+    // app.use(cookieParser());
 app.use(
     session({
         secret: process.env.APP_SESSION,

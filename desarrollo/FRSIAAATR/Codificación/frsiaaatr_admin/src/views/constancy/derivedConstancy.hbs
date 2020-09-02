@@ -395,11 +395,9 @@
 
     function myFunction() {
         var dni = document.getElementById('dni').value;
-
         let timerInterval
         Swal.fire({
             title: 'Generando constancia',
-            timer: 2000,
             timerProgressBar: true,
             onBeforeOpen: () => {
                 Swal.showLoading()
@@ -416,23 +414,21 @@
             onClose: () => {
                 clearInterval(timerInterval)
             }
-        }).then((result) => {
-            /* Read more about handling dismissals below */
-            if (result.dismiss === Swal.DismissReason.timer) {
-                console.log('I was closed by the timer')
-            }
-        })
+        });
         //BOTON GENERAR CONSTANCIA
         $.ajax({
             url: "http://localhost:3000/constancy-inp/redirect-request-process-dni",
             data: { "dni": dni },
             type: 'get',
 
-        }).then(function (response) {
-            console.log("Cambiando de vista.");
-            console.log(data);
-        });
-
+        }).done(function () {
+            console.log('xddd');
+            Swal.close();
+            Swal.fire('Constancia generada correctamente')
+        })
+            .fail(function () {
+                alert("error");
+            })
     }
 
     function doHide() {

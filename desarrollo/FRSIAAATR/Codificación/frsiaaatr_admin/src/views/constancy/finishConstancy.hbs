@@ -57,7 +57,6 @@
 
 
 
-                            <h1>{{succesfull}}</h1>
                             <div class="btn-group btn-group-lg btn-group-justified " role="group">
                                 <button id="btnGrabar" type="button" class="btn btn-primary "><i
                                         class="far fa-save"></i>
@@ -406,7 +405,6 @@
         let timerInterval
         Swal.fire({
             title: 'Firmando constancia',
-            timer: 2000,
             timerProgressBar: true,
             onBeforeOpen: () => {
                 Swal.showLoading()
@@ -423,21 +421,20 @@
             onClose: () => {
                 clearInterval(timerInterval)
             }
-        }).then((result) => {
-            /* Read more about handling dismissals below */
-            if (result.dismiss === Swal.DismissReason.timer) {
-                console.log('I was closed by the timer')
-            }
-        })
+        });
         $.ajax({
             url: "http://localhost:3000/constancy-der/firmarConstancia",
             data: { "dni": dni },
             type: 'get',
 
-        }).then(function (response) {
-            console.log("Cambiando de vista.");
-            console.log(data);
-        });
+        }).done(function () {
+            console.log('xdd');
+            Swal.close();
+            Swal.fire('Constancia firmada correctamente')
+        })
+            .fail(function () {
+                alert("error");
+            })
 
     }
 

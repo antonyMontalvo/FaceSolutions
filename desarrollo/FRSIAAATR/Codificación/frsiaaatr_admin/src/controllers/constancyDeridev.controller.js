@@ -106,6 +106,21 @@ p.code as numero_expediente,
 
       await browser.close();
     }
+
+    res.render("constancy/finishConstancy", {
+      solicitante: solicitante,
+      dni: dni,
+      facultad: facultad,
+      especialidad: especialidad,
+      numero_expediente: numero_expediente,
+      fecha_expediente_completa: fecha_expediente_completa,
+      anio: anio,
+      numero_emision: numero_emision,
+      estado_expediente: estado_expediente,
+      encargado_expediente: encargado_expediente,
+      fecha_actual: fecha_actual,
+      succesfull: "",
+    });
   } catch (error) {
     console.log(error.stack);
     return res.status(500).json({ error: error.stack });

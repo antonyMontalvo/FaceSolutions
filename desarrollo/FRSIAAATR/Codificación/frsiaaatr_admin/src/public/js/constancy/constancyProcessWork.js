@@ -45,7 +45,7 @@ $(document).ready(function () {
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Este documento ha sido ennviado a su correo",
+      title: "El documento ha sido enviado al destinatario.",
       showConfirmButton: false,
       timer: 1500,
     });

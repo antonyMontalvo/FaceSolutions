@@ -43,7 +43,7 @@ function llamarPromise() {
     ]).then(startVideo)
 }
 
-function startVideo() {
+async function startVideo() {
     console.log("star video");
     // est es diferente para cada navegador asi que ponemos para todos los navegadores
     navigator.getUserMedia = (navigator.getUserMedia ||
@@ -52,12 +52,13 @@ function startVideo() {
         navigator.msGetUserMedia);
 
 
-    // Recuperar informacion de la cámara web
-    navigator.getUserMedia(
-        {video: {}},
-        stream => video.srcObject = stream,
-        err => console.log(err)
-    )
+    try {
+        // Recuperar informacion de la cámara web
+        let stream = await navigator.mediaDevices.getUserMedia({video: {}})
+        video.srcObject = stream
+    } catch (e) {
+        console.log(e)
+    }
 
     console.log('entro video');
     loading.classList.add('d-none');

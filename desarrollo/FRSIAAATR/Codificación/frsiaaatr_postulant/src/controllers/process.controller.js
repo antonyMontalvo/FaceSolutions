@@ -2,7 +2,8 @@ const bcrypt = require("bcryptjs"),
     {Storage} = require("@google-cloud/storage"),
     fs = require("fs"),
     path = require("path"),
-    moment = require("moment");
+    moment = require("moment"),
+    {Op} = require("sequelize");
 
 const Postulant = require("../models/postulant"),
     Process = require("../models/process"),
@@ -58,7 +59,11 @@ ProcessController.correccion = async (req, res) => {
             nest: true,
             raw: true,
             include: [{as: 'state', model: ProcessState}],
-            where: {postulant_id: req.session.usuario.id, state_process: 2}
+            where: {
+                postulant_id: req.session.usuario.id, state_process: {
+                    [Op.not]: 1
+                }
+            }
         });
         console.log(process)
         return res.render("postulant/tramitesCorreccion", {layout: 'main', data: {process}});
@@ -87,7 +92,7 @@ ProcessController.rechazados = async (req, res) => {
             include: [{as: 'state', model: ProcessState}],
             where: {postulant_id: req.session.usuario.id, state_process: 5}
         });
-        res.render("postulant/tramitesRechazados" , {layout: 'main', data: {process}});
+        res.render("postulant/tramitesRechazados", {layout: 'main', data: {process}});
     } catch (error) {
         console.log(error);
         return res.render('errors/500');

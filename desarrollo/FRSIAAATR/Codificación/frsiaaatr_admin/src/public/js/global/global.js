@@ -34,7 +34,7 @@ $(document).ready(function() {
             var $newOption = $("<option selected='selected'></option>").val("DEFAULT").text("TODOS");
             select.append($newOption).trigger('change');
             $.ajax({
-                url: "http://localhost:3000/filter/" + filtro,
+                url: "../../filter/" + filtro,
                 dataType: 'json',
                 type: 'GET',
                 beforeSend: function(xhr) {

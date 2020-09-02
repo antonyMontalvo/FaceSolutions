@@ -28,7 +28,7 @@ PostulantController.getIndex = async (req, res) => {
     } catch (error) {
         console.log(error);
         // return res.status(500).json({error: error});
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -45,7 +45,7 @@ PostulantController.information = async (req, res) => {
     } catch (error) {
         console.log(error);
         // return res.status(500).json({error: error});
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -54,7 +54,7 @@ PostulantController.loginView = async (req, res) => {
         return res.render("login", {layout: null});
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -64,13 +64,16 @@ PostulantController.registerView = async (req, res) => {
         const provinces = JSON.stringify(await Province.findAll({raw: true, order: [['name', 'ASC']]}));
         const districts = JSON.stringify(await District.findAll({raw: true, order: [['name', 'ASC']]}));
 
+        const faculties = await Faculty.findAll({raw: true, order: [['code', 'ASC']]});
+        const specialties = JSON.stringify(await Specialty.findAll({raw: true, order: [['code', 'ASC']]}));
+
         return res.render("registro", {
             layout: null,
-            data: {departments, provinces, districts},
+            data: {departments, provinces, districts, faculties, specialties},
         });
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -84,7 +87,7 @@ PostulantController.getRegistrePhoto = async (req, res) => {
         res.render("registroFotos", {layout: null, data: {id: postulant.id}});
     } catch (err) {
         console.error(err);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -99,7 +102,7 @@ PostulantController.getById = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -112,7 +115,7 @@ PostulantController.profile = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -121,7 +124,7 @@ PostulantController.message = async (req, res) => {
         res.render("postulant/message");
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -130,7 +133,7 @@ PostulantController.correccion = async (req, res) => {
         res.render("postulant/tramitesCorreccion");
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 PostulantController.correccionDocumento = async (req, res) => {
@@ -138,7 +141,7 @@ PostulantController.correccionDocumento = async (req, res) => {
         res.render("postulant/tramitesCorreccionDoc");
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 PostulantController.rechazados = async (req, res) => {
@@ -146,7 +149,7 @@ PostulantController.rechazados = async (req, res) => {
         res.render("postulant/tramitesRechazados");
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -183,7 +186,7 @@ PostulantController.login = async (req, res) => {
         } else res.redirect("/login");
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -214,7 +217,7 @@ PostulantController.loginCamera = async (req, res) => {
         return res.redirect('/');
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -241,7 +244,7 @@ PostulantController.register = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -315,7 +318,7 @@ PostulantController.update = async (req, res) => {
         return res.redirect("/");
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 
@@ -326,7 +329,7 @@ PostulantController.logout = async (req, res) => {
         return res.redirect("/login");
     } catch (error) {
         console.log(error);
-        return res.render('errors/500');
+        return res.render('errors/500', {layout: null,});
     }
 };
 

@@ -15,7 +15,7 @@ let endAnalysis = false;
 
 const formularioPostulante = document.getElementById('formularioPostulante');
 const loading = document.getElementById('loading');
-const videoWC = document.getElementById('video');
+const video = document.getElementById('video');
 const botonR = document.getElementById('redir');
 
 function CodigoValidacion(codigo, numFotos, id) {
@@ -62,7 +62,7 @@ async function startVideo() {
 
     console.log('entro video');
     loading.classList.add('d-none');
-    videoWC.classList.remove('d-none');
+    video.classList.remove('d-none');
     botonR.classList.remove('d-none');
 }
 

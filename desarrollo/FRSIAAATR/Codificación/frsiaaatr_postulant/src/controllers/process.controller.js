@@ -61,7 +61,8 @@ ProcessController.correccion = async (req, res) => {
             include: [{as: 'state', model: ProcessState}],
             where: {
                 postulant_id: req.session.usuario.id, state_process: {
-                    [Op.not]: 1
+                    [Op.not]: 1,
+                    [Op.not]: 7,
                 }
             }
         });
@@ -90,7 +91,7 @@ ProcessController.rechazados = async (req, res) => {
             nest: true,
             raw: true,
             include: [{as: 'state', model: ProcessState}],
-            where: {postulant_id: req.session.usuario.id, state_process: 5}
+            where: {postulant_id: req.session.usuario.id, state_process: 7}
         });
         res.render("postulant/tramitesRechazados", {layout: 'main', data: {process}});
     } catch (error) {

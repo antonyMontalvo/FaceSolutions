@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs"),
 
 const Postulant = require("../models/postulant"),
     Department = require("../models/department"),
+    Process = require("../models/process"),
     Province = require("../models/province"),
     District = require("../models/district"),
     Faculty = require("../models/faculty"),
@@ -109,9 +110,14 @@ PostulantController.getById = async (req, res) => {
 PostulantController.profile = async (req, res) => {
     try {
         console.log(req.session)
-        res.render("postulant/profile", {
+        const proccess = await Process.findOne({where: {postulant_id: req.session.id}});
+        return res.render("postulant/profile", {
             layout: 'main',
-            data: {postulant: req.session.usuario, date: moment(Date.now()).format('DD/MM/YYYY')}
+            data: {
+                postulant: req.session.usuario,
+                date: moment(Date.now()).format('DD/MM/YYYY'),
+                process: proccess ? true : false
+            }
         });
     } catch (error) {
         console.log(error);
@@ -267,7 +273,7 @@ PostulantController.registerPhotos = async (req, res) => {
         let photos = [];
         for (let i = 0; i < files.length; i++) {
             await gc.bucket(bucketName).upload(files[i].path, {
-                destination: `${folder}_${i+1}.jpg`,
+                destination: `${folder}_${i + 1}.jpg`,
                 gzip: true,
                 metadata: {
                     cacheControl: 'public, max-age=31536000',
@@ -275,7 +281,7 @@ PostulantController.registerPhotos = async (req, res) => {
             })
             photos.push({
                 name: files[i].originalname,
-                path: `https://storage.googleapis.com/${bucketName}/${folder}_${i+1}.jpg`,
+                path: `https://storage.googleapis.com/${bucketName}/${folder}_${i + 1}.jpg`,
                 state: 1,
                 idpostulant: id,
             });

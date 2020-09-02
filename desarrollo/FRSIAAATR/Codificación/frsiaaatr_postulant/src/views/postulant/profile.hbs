@@ -69,7 +69,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#inbox" onclick="validScore()" class="nav-link" data-toggle="tab">
+                        <a href="#inbox" onclick="validScore('{{data.process}}')" class="nav-link" data-toggle="tab">
                             <i class="icon-stars"></i>
                             Puntaje
                             <span class="badge bg-success badge-pill ml-auto">{{data.postulant.score}}</span>
@@ -194,10 +194,15 @@
     </div>
 </div>
 <script>
-function validScore() {
-    const resp = confirm('¿Desea iniciar el proceso de trámite de Constancia de Ingreso?')
-    if(resp){
-        document.getElementById('submit-button').click();
+    function validScore(process) {
+        if (process) {
+            alert("Ya cuenta con un trámite en curso")
+        } else {
+
+            const resp = confirm('¿Desea iniciar el proceso de trámite de Constancia de Ingreso?')
+            if (resp) {
+                document.getElementById('submit-button').click();
+            }
+        }
     }
-}
 </script>

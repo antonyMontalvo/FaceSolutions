@@ -25,7 +25,7 @@ router
     .get("/", checkToken, postulantController.profile)
     .get("/login", postulantController.loginView)
     .get("/register", postulantController.registerView)
-    .get("/profile", postulantController.profile)
+    .get("/profile", checkToken, postulantController.profile)
     .get("/message", checkToken, postulantController.message)
     .get("/information", checkToken, postulantController.information)
     // .get("/TramitesCorreccion", checkToken, postulantController.correccion)

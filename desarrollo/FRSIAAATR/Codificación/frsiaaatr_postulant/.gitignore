@@ -8,6 +8,7 @@ package-lock.json
 .env
 .idea/
 
-src/public/moment/
+src/public/moment/*
+!src/public/moment/.bak
 
 #config/focused-evening-283407-9fa3131fac35.json

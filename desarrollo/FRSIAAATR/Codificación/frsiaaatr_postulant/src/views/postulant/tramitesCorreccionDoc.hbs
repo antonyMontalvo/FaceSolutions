@@ -141,7 +141,7 @@
                                                     <td>Escuela Academia Profesional de Ingeniería de Software</td> -->
                                                     <td><input type="file" id="myArchivo" name="avatar[]"
                                                                onchange="addNewFile('{{idrequirement}}' ,this.files)"
-                                                               accept="image/png, image/jpeg"></td>
+                                                               accept="image/*, .pdf"></td>
 
                                                 </tr>
                                             {{/each}}
@@ -215,7 +215,7 @@
         }
         formData.append('data', JSON.stringify(data));
 
-        await fetch('http://localhost:3000/documents/update_requirements', {
+        await fetch('https://frsiaaatr-postulant.media/documents/update_requirements', {
             method: 'POST', // or 'PUT'
             body: formData, // data can be `string` or {object}!
 

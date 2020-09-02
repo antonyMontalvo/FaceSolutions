@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -61,10 +62,73 @@
 
 
 </style>
+=======
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>FaceSolutions</title>
+    <!-- BOOTSTRAP 4 -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="/css/style.css" type="text/css"> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--    <script src="/assets/js/main/jquery.min.js"></script>-->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script> -->
+
+    <title>Registro | Usuario </title>
+    <style type="text/css">
+        .fondoUNMSM {
+            position: fixed;
+            content: "";
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            /*background: #f3f3f3;*/
+            /*font-family: 'Roboto', sans-serif;*/
+            background-image: linear-gradient(
+                    rgba(22, 22, 26, 0.9),
+                    rgba(22, 22, 26, 0.9)
+            ),
+            url("../img/admin.jpg");
+            overflow-x: hidden;
+        }
+
+        .btn-register {
+            /* background-color: #e73835;*/
+            background-color: #4c6ace;
+            border: 2px solid #fff;
+            border-radius: 4px;
+            color: #fff;
+            width: 120px;
+            margin: auto;
+            text-align: center;
+            padding: 10px;
+            transition: all .5s ease;
+        }
+
+        .btn-register:hover {
+            background-color: #e73827;
+            border: 2px solid #e73827;
+            cursor: pointer;
+        }
+
+        .btn-register:focus {
+            border-color: #e73827 !important;
+            box-shadow: 0 0 8px 0 #e73827 !important;
+        }
+
+
+    </style>
+>>>>>>> 964accd5abecab41197083a7b5a3af9e3bf11f79
 </head>
 
 
 <body style=" overflow-x: hidden;">
+<<<<<<< HEAD
 	<div class="fondoUNMSM"></div>
 
 
@@ -201,42 +265,203 @@
 			</div>
 		</form>
 </div>
+=======
+<div class="fondoUNMSM"></div>
+>>>>>>> 964accd5abecab41197083a7b5a3af9e3bf11f79
 
 
+<!--  -->
+
+<div class="container mt-5 mb-5 p-5">
+    <form action="/register" method="POST">
+        <div class="row mt-5">
+            <div class="col-sm-12">
+                <div class="card p-5">
+                    <div class="card-header d-flex align-items-center mx-auto">
+                        <i class="fa fa-user-plus fa-lg fa-fw" aria-hidden="true"></i>
+                        REGISTRO DE USUARIO
+                    </div>
+                    <!--  -->
+                    <div class="form-row mt-5">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="event_startdate">Apellido Paterno</label>
+                                <input class="form-control" type="text" name="last_name_1"
+                                       placeholder="Tu apellido paterno" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="event_enddate">Apellido Materno</label>
+                                <input class="form-control" id="event_tags" type="text" name="last_name_2"
+                                       placeholder="Tu apellido materno" required>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="form-group">
+                        <label class="col-form-label" for="venue_name">Nombre</label>
+                        <input class="form-control" id="venue_name" name="name" type="text" name="name"
+                               placeholder="Tu nombre" required></input>
+                    </div>
+                    <!--  -->
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="col-form-label" for="venue_city">Fecha de Nacimiento</label>
+                            <input class="form-control" id="date" type="date" name="birthdate" max="2005-12-31" required></input>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="col-form-label" for="venue_name">Puntaje</label>
+                            <input class="form-control" name="score" placeholder="Tu puntaje" required
+                                   type="text"></input>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="col-form-label" for="venue_name">Correo</label>
+                            <input class="form-control" id="venue_zip" name="email" type="email" placeholder="Tu Correo"
+                                   required></input>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label class="col-form-label" for="venue_city">DNI</label>
+                            <input class="form-control" id="venue_city" name="dni" type="text" placeholder="Tu DNI"
+                                   required></input>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="col-form-label" for="venue_name">Teléfono</label>
+                            <input class="form-control" id="venue_state" name="cell_phone" type="text"
+                                   placeholder="Tu Teléfono" required></input>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label class="col-form-label" for="venue_name">Código de Postulante</label>
+                            <input class="form-control" id="venue_zip" name="postulant_code" type="text"
+                                   placeholder="Tu Codigo" required></input>
+                        </div>
+                    </div>
+                    <!--  FACULTAD********************************************-->
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="event_category">Facultad</label>
+                            <select class="form-control" id="facultad"
+                                    data-placeholder="Select " required onchange="selectSpecialty('{{data.specialties}}')">
+                                <option selected value="0" hidden></option>
+                                {{#each data.faculties}}
+                                    <option value="{{id}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="event_category">Escuela</label>
+                            <select class="form-control" id="escuela" name="specialty_id" data-placeholder="Select "
+                                    required>
+                                <option selected value="0" hidden></option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- ******************************************** -->
+                    <!--  -->
+                    <div class="form-row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="event_startdate">Fecha de postulación</label>
+                                <input class="form-control" id="date" type="date" name="date_postulation"
+                                       required></input>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <label for="event_enddate">Domicilio</label>
+                                <input class="form-control" id="event_tags" type="text" name="address"
+                                       placeholder="Tu Domicilio" required></input>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="event_category">Departamento</label>
+                            <select class="form-control" onchange="selectProvinces('{{data.provinces}}')"
+                                    id="department"
+                                    data-placeholder="Select " required>
+                                <option selected value="0" hidden></option>
+                                {{#each data.departments}}
+                                    <option value="{{id}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="event_category">Provincia</label>
+                            <select class="form-control" onchange="selectDistricts('{{data.districts}}')" id="province"
+                                    data-placeholder="Select " required>
+                                <option selected value="0" hidden></option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="event_category">Distrito</label>
+                            <select class="form-control" id="district" name="district_id" data-placeholder="Select "
+                                    required>
+                                <option selected value="0" hidden></option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <input type="submit" class="d-flex align-items-center btn-register" value="Cargar fotos">
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/ee93dc3392.js" crossorigin="anonymous"></script>
 <script>
-	function selectProvinces(provinces) {
-		const prov = JSON.parse(provinces);
-		const dep = document.getElementById("department").value;
-		const newArray = prov.filter(el => el.department_id == dep);
+    function selectProvinces(provinces) {
+        const prov = JSON.parse(provinces);
+        const dep = document.getElementById("department").value;
+        const newArray = prov.filter(el => el.department_id == dep);
 
-		let provinceSelect = document.getElementById("province");
-		provinceSelect.options.length = 1;
-		let option = document.createElement("option");
-		for (let i = 0; i < newArray.length; i++) {
-			option.text = newArray[i].name;
-			option.value = newArray[i].id;
-			provinceSelect.appendChild(option);
-		}
-	}
+        let provinceSelect = document.getElementById("province");
+        provinceSelect.options.length = 1;
+        for (let i = 0; i < newArray.length; i++) {
+            let option = document.createElement("option");
+            option.text = newArray[i].name;
+            option.value = newArray[i].id;
+            provinceSelect.appendChild(option);
+        }
+    }
 
-	function selectDistricts(districts) {
-		const disc = JSON.parse(districts);
-		const pro = document.getElementById("province").value;
-		const newArray = disc.filter(el => el.province_id == pro);
+    function selectDistricts(districts) {
+        const disc = JSON.parse(districts);
+        const pro = document.getElementById("province").value;
+        const newArray = disc.filter(el => el.province_id == pro);
 
-		let districtSelect = document.getElementById("district");
-		districtSelect.options.length = 1;
-		let option = document.createElement("option");
-		for (let i = 0; i < newArray.length; i++) {
-			option.text = newArray[i].name;
-			option.value = newArray[i].id;
-			districtSelect.appendChild(option);
-		}
-	}
+        let districtSelect = document.getElementById("district");
+        districtSelect.options.length = 1;
+        for (let i = 0; i < newArray.length; i++) {
+            let option = document.createElement("option");
+            option.text = newArray[i].name;
+            option.value = newArray[i].id;
+            districtSelect.appendChild(option);
+        }
+    }
+
+    function selectSpecialty(specialties) {
+        const esp = JSON.parse(specialties);
+        const fac = document.getElementById("facultad").value;
+        const newArray = esp.filter(es => es.faculty_id == fac);
+
+        let specialtySelect = document.getElementById("escuela");
+        specialtySelect.options.length = 1;
+        for (let i = 0; i < newArray.length; i++) {
+            let option = document.createElement("option");
+            option.text = newArray[i].name;
+            option.value = newArray[i].id;
+            specialtySelect.appendChild(option);
+        }
+    }
 </script>
 
 </body>

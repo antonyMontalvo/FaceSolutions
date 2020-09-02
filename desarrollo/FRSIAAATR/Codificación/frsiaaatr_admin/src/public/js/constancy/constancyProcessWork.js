@@ -51,7 +51,7 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url: "http://46.101.179.242/constancy-der/enviarConstancia",
+            url: "http://localhost:3000/constancy-der/enviarConstancia",
             data: {
                 email: email,
                 dni: dni,

@@ -9,6 +9,7 @@ const Routes = {
     postulantRouter: require("./postulant.routes"),
     recordRouter: require("./record.routes"),
     filterRouter: require("./filter.routes"),
+    reportRouter: require("./report.routes"),
 };
 
 indexRouter.getRoutes = (app) => {
@@ -20,6 +21,7 @@ indexRouter.getRoutes = (app) => {
     app.use(`${process.env.APP_URL}/postulant`, Routes.postulantRouter);
     app.use(`${process.env.APP_URL}/record`, Routes.recordRouter);
     app.use(`${process.env.APP_URL}/filter`, Routes.filterRouter);
+    app.use(`${process.env.APP_URL}/report`, Routes.reportRouter);
 };
 
 module.exports = indexRouter;

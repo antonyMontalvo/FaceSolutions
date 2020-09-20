@@ -13,7 +13,7 @@ $(document).ready(function() {
     $local.tblFotos = $local.$tblFotos.DataTable({
 
         "ajax": {
-            "url": "http://46.101.179.242/postulant/get-all-requirement/" + codigoSolicitud, //Aquí va el cod solicitud
+            "url": "../../postulant/get-all-requirement/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -112,7 +112,7 @@ $(document).ready(function() {
 
     $local.tblInfo = $local.$tblInfo.DataTable({
         "ajax": {
-            "url": "http://46.101.179.242/postulant/get-one-postulant/" + codigoSolicitud, //Aquí va el cod solicitud
+            "url": "../../postulant/get-one-postulant/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": function(data) {
                 //console.log(data);
                 var info;
@@ -221,7 +221,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "PUT",
-            url: "http://46.101.179.242/postulant/update-req-postulant",
+            url: "../../postulant/update-req-postulant",
             data: JSON.stringify(data),
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -263,7 +263,7 @@ $(document).ready(function() {
 
                     $.ajax({
                         type: "PUT",
-                        url: "http://46.101.179.242/postulant/update-req-postulant",
+                        url: "../../postulant/update-req-postulant",
                         data: JSON.stringify(data),
                         beforeSend: function(xhr) {
                             xhr.setRequestHeader('Content-Type', 'application/json');

@@ -14,7 +14,7 @@ $(document).ready(function() {
     $local.tblRequisitos = $local.$tblRequisitos.DataTable({
 
         "ajax": {
-            "url": "http://46.101.179.242/constancy/all-review-request/" + codigoSolicitud, //Aquí va el cod solicitud
+            "url": "../../constancy/all-review-request/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -115,7 +115,7 @@ $(document).ready(function() {
 
     $local.tblInfo = $local.$tblInfo.DataTable({
         "ajax": {
-            "url": "http://46.101.179.242/constancy/postulant-info-request/" + codigoSolicitud, //Aquí va el cod solicitud
+            "url": "../../constancy/postulant-info-request/" + codigoSolicitud, //Aquí va el cod solicitud
             "dataSrc": function(data) {
                 //console.log(data);
                 var info;
@@ -227,7 +227,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "PUT",
-            url: "http://46.101.179.242/constancy/update-req-state",
+            url: "../../constancy/update-req-state",
             data: JSON.stringify(data),
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -276,7 +276,7 @@ $(document).ready(function() {
 
                     $.ajax({
                         type: "PUT",
-                        url: "http://46.101.179.242/constancy/update-req-state",
+                        url: "../../constancy/update-req-state",
                         data: JSON.stringify(data),
                         beforeSend: function(xhr) {
                             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -316,7 +316,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "PUT",
-            url: "http://46.101.179.242/constancy/update-state",
+            url: "../../constancy/update-state",
             data: JSON.stringify(data),
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');

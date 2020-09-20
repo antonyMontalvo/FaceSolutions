@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     $local.tblEnProceso = $local.$tblEnProceso.DataTable({
         ajax: {
-            url: "http://46.101.179.242/constancy-der/request-in-derived-list",
+            url: "../../constancy-der/request-in-derived-list",
             dataSrc: "",
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Content-Type", "application/json");
@@ -164,7 +164,7 @@ $(document).ready(function() {
             .text("TODOS");
         select.append($newOption).trigger("change");
         $.ajax({
-            url: "http://46.101.179.242/filter/" + filtro,
+            url: "../../filter/" + filtro,
             dataType: "json",
             type: "GET",
             beforeSend: function(xhr) {
@@ -221,7 +221,7 @@ $(document).ready(function() {
     ) {
         select.empty(); //Reiniciar opciones de select
         $.ajax({
-            url: "http://46.101.179.242/filter/" + filtro + "/" + id,
+            url: "../../filter/" + filtro + "/" + id,
             dataType: "json",
             type: "GET",
             beforeSend: function(xhr) {

@@ -24,7 +24,7 @@ $(document).ready(function() {
             timer: 1500,
         });
         $.ajax({
-            url: "http://46.101.179.242/constancy-inp/updatedProcessConstancy",
+            url: "../../constancy-inp/updatedProcessConstancy",
             data: {
                 id_constancia: id_constancia,
                 tipo_documento: tipo_documento,
@@ -51,7 +51,7 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url: "http://localhost:3000/constancy-der/enviarConstancia",
+            url: "../../constancy-der/enviarConstancia",
             data: {
                 email: email,
                 dni: dni,
@@ -75,7 +75,7 @@ $(document).ready(function() {
             timer: 1500,
         });
         $.ajax({
-            url: "http://46.101.179.242/constancy-inp/cancelProcessConstancy",
+            url: "../../constancy-inp/cancelProcessConstancy",
             data: {
                 id_constancia: id_constancia,
             },
@@ -96,7 +96,7 @@ $(document).ready(function() {
             timer: 1500,
         });
         $.ajax({
-            url: "http://46.101.179.242/constancy-inp/derivedProcessConstancy",
+            url: "../../constancy-inp/derivedProcessConstancy",
             data: {
                 id_constancia: id_constancia,
             },
@@ -195,7 +195,7 @@ $(document).ready(function() {
             .text("TODOS");
         select.append($newOption).trigger("change");
         $.ajax({
-            url: "http://46.101.179.242/filter/" + filtro,
+            url: "../../filter/" + filtro,
             dataType: "json",
             type: "GET",
             beforeSend: function(xhr) {
@@ -244,7 +244,7 @@ $(document).ready(function() {
     ) {
         select.empty(); //Reiniciar opciones de select
         $.ajax({
-            url: "http://46.101.179.242/filter/" + filtro + "/" + id,
+            url: "../../filter/" + filtro + "/" + id,
             dataType: "json",
             type: "GET",
             beforeSend: function(xhr) {

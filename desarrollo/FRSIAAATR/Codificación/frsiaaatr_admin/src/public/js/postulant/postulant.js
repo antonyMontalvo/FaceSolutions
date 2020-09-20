@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     $local.tblAlumnos = $local.$tblAlumnos.DataTable({
         "ajax": {
-            "url": "http://46.101.179.242/postulant/get-postulants",
+            "url": "../../postulant/get-postulants",
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');

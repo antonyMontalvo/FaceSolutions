@@ -15,7 +15,7 @@ $(document).ready(function() {
 
     $local.tblEnProceso = $local.$tblEnProceso.DataTable({
         ajax: {
-            url: "http://46.101.179.242/constancy-inp/request-process-list",
+            url: "../../constancy-inp/request-process-list",
             dataSrc: "",
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Content-Type", "application/json");
@@ -164,7 +164,7 @@ $(document).ready(function() {
             .text("TODOS");
         select.append($newOption).trigger("change");
         $.ajax({
-            url: "http://46.101.179.242/filter/" + filtro,
+            url: "../../filter/" + filtro,
             dataType: "json",
             type: "GET",
             beforeSend: function(xhr) {
@@ -221,7 +221,7 @@ $(document).ready(function() {
     ) {
         select.empty(); //Reiniciar opciones de select
         $.ajax({
-            url: "http://46.101.179.242/filter/" + filtro + "/" + id,
+            url: "../../filter/" + filtro + "/" + id,
             dataType: "json",
             type: "GET",
             beforeSend: function(xhr) {
@@ -328,7 +328,7 @@ $(document).ready(function() {
         //console.log("DATA: ", data);
         $.ajax({
             type: "POST",
-            url: "http://46.101.179.242/constancy-inp/filterProcess",
+            url: "../../constancy-inp/filterProcess",
             data: JSON.stringify(data),
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Content-Type", "application/json");

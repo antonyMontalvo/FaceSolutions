@@ -17,7 +17,7 @@ $(document).ready(function() {
         changeSelect: function(select, defaultText, endpoint, value, name, id) {
             select.empty(); //Reiniciar opciones de select
             $.ajax({
-                url: "http://46.101.179.242/filter/" + endpoint + "/" + id,
+                url: "../../filter/" + endpoint + "/" + id,
                 dataType: 'json',
                 type: 'GET',
                 beforeSend: function(xhr) {
@@ -69,7 +69,7 @@ $(document).ready(function() {
 
     $local.tblNoLeidos = $local.$tblNoLeidos.DataTable({
         "ajax": {
-            "url": "http://46.101.179.242/constancy/all-process",
+            "url": "../../constancy/all-process",
             "dataSrc": "",
             "beforeSend": function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');
@@ -237,7 +237,7 @@ $(document).ready(function() {
         //Repitando tabla
         $.ajax({
             type: "POST",
-            url: "http://46.101.179.242/constancy/filter-process",
+            url: "../../constancy/filter-process",
             data: JSON.stringify(data),
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('Content-Type', 'application/json');

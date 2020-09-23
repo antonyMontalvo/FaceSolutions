@@ -157,7 +157,7 @@ ProcessController.updateRequirement = async (req, res) => {
                     destination: oficialName,
                     gzip: true,
                     metadata: {
-                        cacheControl: 'public, max-age=31536000',
+                        cacheControl: 'no-cache',
                     },
                 })
                 const req = await Requirement.findByPk(realData[i].id, {raw: true});
@@ -273,7 +273,7 @@ ProcessController.registerPhotos = async (req, res) => {
                 destination: `${folder}_${i}.jpg`,
                 gzip: true,
                 metadata: {
-                    cacheControl: 'public, max-age=31536000',
+                    cacheControl: 'no-cache',
                 },
             })
             photos.push({

@@ -341,23 +341,34 @@
                                                             <div class="float-left m-1"
                                                                  style=" width: 250px;  height: 250px;">
                                                                 <span id="state-{{idpost_req}}">
-                                                                    {{#if (is state 1)}} Activo{{/if}}
-                                                                    {{#if (is state 2)}} Cambiar{{/if}}
+                                                                    {{#if (is state 1)}} Cargado{{/if}}
+                                                                    {{#if (is state 2)}} Observado{{/if}}
                                                                     {{#if (is state 3)}} En espera{{/if}}
+                                                                    {{#if (is state 4)}} Aprobado{{/if}}
                                                                 </span>
+                                                                {{#if (isnt state 1)}}
+                                                                <button id="openCamara"
+                                                                        onclick="getId('{{idpost_req}}'); coreFunction()"
+                                                                        style="display: inline-block;float:right; width: 80px;height: 40px;align-items: center;background: #343a40!important;"
+                                                                        class="w3-button w3-black">
+                                                                    <img src="img/camera.svg"
+                                                                         style="width: 30px;height: 30px;margin:0 10px; background: #fff;">
+                                                                </button>
+                                                                {{/if}}
                                                                 <img src="{{path}}" id="image-preview-{{idpost_req}}"
                                                                      class="img-fluid" alt="Face Solution"/>
-                                                                <button id="openCamara"
-                                                                        onclick="getId('{{idpost_req}}'); coreFunction()" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
-                    background: #343a40!important;" class="w3-button w3-black">
-                                                                    <div style="display: flex;justify-content: center;width: 100%;">
-                                                                        <img src="img/camera.svg"
-                                                                             style="width: 30px;height: 30px;margin:0 10px; background: #fff;">
-                                                                    </div>
-                                                                    <div style="display: flex;justify-content:center;width: 100%">
-                                                                        <label>abrir camara</label>
-                                                                    </div>
-                                                                </button>
+                                                                <!--                                                                <button id="openCamara"-->
+                                                                <!--                                                                        onclick="getId('{{idpost_req}}'); coreFunction()"-->
+                                                                <!--                                                                        style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;-->
+                                                                <!--                    background: #343a40!important;" class="w3-button w3-black">-->
+                                                                <!--                                                                    <div style="display: flex;justify-content: center;width: 100%;">-->
+                                                                <!--                                                                        <img src="img/camera.svg"-->
+                                                                <!--                                                                             style="width: 30px;height: 30px;margin:0 10px; background: #fff;">-->
+                                                                <!--                                                                    </div>-->
+                                                                <!--                                                                    <div style="display: flex;justify-content:center;width: 100%">-->
+                                                                <!--                                                                        <label>abrir camara</label>-->
+                                                                <!--                                                                    </div>-->
+                                                                <!--                                                                </button>-->
                                                             </div>
                                                         {{/each}}
 
@@ -520,7 +531,7 @@
                                 fileTestGlobal = fileTest;
 
                                 // https://frsiaaatr-postulant.media/check_image
-                                await fetch('http://localhost:3000/check_image', {
+                                await fetch('https://frsiaaatr-postulant.media/check_image', {
                                     method: 'POST', // or 'PUT'
                                     body: formData, // data can be `string` or {object}!
 
@@ -571,7 +582,7 @@
         formData.append('image', fileTestGlobal);
         formData.append('idPhoto', idPhoto);
 
-        await fetch('http://localhost:3000/update_photo', {
+        await fetch('https://frsiaaatr-postulant.media/update_photo', {
             method: 'POST', // or 'PUT'
             body: formData, // data can be `string` or {object}!
 

@@ -341,9 +341,10 @@
                                                             <div class="float-left m-1"
                                                                  style=" width: 250px;  height: 250px;">
                                                                 <span id="state-{{idpost_req}}">
-                                                                    {{#if (is state 1)}} Aprobado{{/if}}
+                                                                    {{#if (is state 1)}} Cargado{{/if}}
                                                                     {{#if (is state 2)}} Observado{{/if}}
                                                                     {{#if (is state 3)}} En espera{{/if}}
+                                                                    {{#if (is state 4)}} Aprobado{{/if}}
                                                                 </span>
                                                                 {{#if (isnt state 1)}}
                                                                 <button id="openCamara"

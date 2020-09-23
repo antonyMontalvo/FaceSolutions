@@ -282,7 +282,7 @@ PostulantController.registerPhotos = async (req, res) => {
             photos.push({
                 name: files[i].originalname,
                 path: `https://storage.googleapis.com/${bucketName}/${folder}_${i + 1}.jpg`,
-                state: 3,
+                state: 1,
                 idpostulant: id,
             });
             await fs.renameSync(files[i].path, path.join(dir, `${files[i].originalname}`));

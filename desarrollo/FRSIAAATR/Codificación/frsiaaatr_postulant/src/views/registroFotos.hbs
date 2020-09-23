@@ -231,7 +231,7 @@
                                 formData.append('image', fileTest);
 
                                 // https://frsiaaatr-postulant.media/check_image
-                                await fetch('http://localhost:3000/check_image', {
+                                await fetch('https://frsiaaatr-postulant.media/check_image', {
                                     method: 'POST', // or 'PUT'
                                     body: formData, // data can be `string` or {object}!
 
@@ -293,7 +293,7 @@
                 formData.append('images', images[i]);
             }
 
-            await fetch('http://localhost:3000/registreFotos', {
+            await fetch('https://frsiaaatr-postulant.media/registreFotos', {
                 method: 'POST', // or 'PUT'
                 body: formData, // data can be `string` or {object}!
 

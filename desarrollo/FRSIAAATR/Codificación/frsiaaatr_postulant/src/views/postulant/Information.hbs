@@ -520,7 +520,7 @@
                                 fileTestGlobal = fileTest;
 
                                 // https://frsiaaatr-postulant.media/check_image
-                                await fetch('http://localhost:3000/check_image', {
+                                await fetch('https://frsiaaatr-postulant.media/check_image', {
                                     method: 'POST', // or 'PUT'
                                     body: formData, // data can be `string` or {object}!
 
@@ -571,7 +571,7 @@
         formData.append('image', fileTestGlobal);
         formData.append('idPhoto', idPhoto);
 
-        await fetch('http://localhost:3000/update_photo', {
+        await fetch('https://frsiaaatr-postulant.media/update_photo', {
             method: 'POST', // or 'PUT'
             body: formData, // data can be `string` or {object}!
 

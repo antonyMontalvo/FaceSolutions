@@ -348,7 +348,7 @@
                                                                 <img src="{{path}}" id="image-preview-{{idpost_req}}"
                                                                      class="img-fluid" alt="Face Solution"/>
                                                                 <button id="openCamara"
-                                                                        onclick="getId('{{idpost_req}}')" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
+                                                                        onclick="getId('{{idpost_req}}'); coreFunction()" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
                     background: #343a40!important;" class="w3-button w3-black">
                                                                     <div style="display: flex;justify-content: center;width: 100%;">
                                                                         <img src="img/camera.svg"
@@ -379,8 +379,8 @@
     </div>
 </div>
 <script>
-    $openCamara = document.querySelector("#openCamara");
-    $openCamara.addEventListener("click", coreFunction);
+    // $openCamara = document.querySelector("#openCamara");
+    // $openCamara.addEventListener("click", coreFunction);
 
     let idPhoto = null;
     let fileTestGlobal = null;
@@ -520,7 +520,7 @@
                                 fileTestGlobal = fileTest;
 
                                 // https://frsiaaatr-postulant.media/check_image
-                                await fetch('https://frsiaaatr-postulant.media/check_image', {
+                                await fetch('http://localhost:3000/check_image', {
                                     method: 'POST', // or 'PUT'
                                     body: formData, // data can be `string` or {object}!
 
@@ -571,7 +571,7 @@
         formData.append('image', fileTestGlobal);
         formData.append('idPhoto', idPhoto);
 
-        await fetch('https://frsiaaatr-postulant.media/update_photo', {
+        await fetch('http://localhost:3000/update_photo', {
             method: 'POST', // or 'PUT'
             body: formData, // data can be `string` or {object}!
 

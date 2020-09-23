@@ -321,6 +321,8 @@ PostulantController.updatePhoto = async (req, res) => {
         );
 
         if (fs.existsSync(dir)) {
+            console.log(`${folder}_${photo.name}`)
+            await gc.bucket(bucketName).file(`${folder}_${photo.name}`).delete();
             await gc.bucket(bucketName).upload(file.path, {
                 destination: `${folder}_${photo.name}`,
                 gzip: true,

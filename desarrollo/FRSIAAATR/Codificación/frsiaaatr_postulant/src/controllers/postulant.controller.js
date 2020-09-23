@@ -329,6 +329,7 @@ PostulantController.updatePhoto = async (req, res) => {
                 },
             })
             await Photo.update({
+                path: `https://storage.googleapis.com/${bucketName}/${folder}_${photo.name}`,
                 state: 3,
             }, {where: {idpost_req: idPhoto}});
             await fs.renameSync(file.path, path.join(dir, `${photo.name}`));

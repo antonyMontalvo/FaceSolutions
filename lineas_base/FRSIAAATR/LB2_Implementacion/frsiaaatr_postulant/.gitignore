@@ -1,0 +1,14 @@
+#Express-generator
+node_modules/
+npm-debug.log
+package-lock.json
+
+#Personal
+.scannerwork/
+.env
+.idea/
+
+src/public/moment/*
+!src/public/moment/.bak
+
+#config/focused-evening-283407-9fa3131fac35.json

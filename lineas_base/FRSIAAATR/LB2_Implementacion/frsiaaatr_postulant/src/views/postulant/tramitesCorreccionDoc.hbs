@@ -1,0 +1,216 @@
+<script type="text/javascript">
+    function editarDocumentos() {
+        alert("Editando");
+    }
+</script>
+
+<div class="content-page">
+
+    <!-- Page Header -->
+    <div class="page-header page-header-light">
+        <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a href="/" class="breadcrumb-item"><i class="icon-home2 mr-2"></i>Inicio</a>
+                    <span class="breadcrumb-item active">Edición de Documento</span>
+                </div>
+
+                <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+            </div>
+
+
+        </div>
+
+        <div class="page-header-content header-elements-md-inline">
+            <div class="mt-2">
+                <h4><i class="icon-arrow-left52 mr-2"></i> <span
+                        class="font-weight-semibold">Corrección de Requisito</span></h4>
+                <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+    <!-- /page Header -->
+
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="card col-md-12 col-sm-12 col-xs-12">
+
+                    <div class="card-body">
+
+
+                        <div class="table-responsive">
+                            <div id="tblConsulta_wrapper" class="dataTables_wrapper no-footer">
+
+                                <div class="datatable-scroll-wrap">
+                                    <div class="table-responsive">
+                                        <table id="tblConsulta"
+                                               class="table tasks-list table-lg dataTable dataTablee no-footer table-striped table-hover"
+                                               role="grid" aria-describedby="tblConsulta_info" style="width: 100%;">
+
+
+                                            <thead>
+                                            <tr role="row">
+                                                <th class="all filtrable sorting_desc" tabindex="0"
+                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
+                                                    style="width: 32px;"
+                                                    aria-label="Id: Activar para ordenar la columna de manera ascendente"
+                                                    aria-sort="descending">Id
+                                                </th>
+                                                <th class="all seleccionable sorting" tabindex="0"
+                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
+                                                    style="width: 131px;"
+                                                    aria-label="Tipo Tramite: Activar para ordenar la columna de manera ascendente">
+                                                    Verificar
+                                                </th>
+                                                <th class="all filtrable sorting" tabindex="0"
+                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
+                                                    style="width: 72px;"
+                                                    aria-label="Fecha Solicitud: Activar para ordenar la columna de manera ascendente">
+                                                    Fecha Solicitud
+                                                </th>
+                                                <th class="all filtrable sorting" tabindex="0"
+                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
+                                                    style="width: 72px;"
+                                                    aria-label="Estado: Activar para ordenar la columna de manera ascendente">
+                                                    Estado
+                                                </th>
+                                                <th class="all filtrable sorting" tabindex="0"
+                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
+                                                    style="width: 63px;"
+                                                    aria-label="Asunto: Activar para ordenar la columna de manera ascendente">
+                                                    Asunto
+                                                </th>
+                                                <th class="all filtrable sorting" tabindex="0"
+                                                    aria-controls="tblConsulta" rowspan="1" colspan="1"
+                                                    style="width: 63px;"
+                                                    aria-label="Asunto: Activar para ordenar la columna de manera ascendente">
+                                                    Cambie de archivo aquí
+                                                </th>
+
+                                            </tr>
+                                            </thead>
+                                            <button onclick="submitFiles()" class="bg-danger p-1"><i
+                                                    class="fas fa-file-alt"></i> Guardar cambios
+                                            </button>
+                                            <tbody>
+                                            {{#each data.requirements}}
+                                                <tr class="odd">
+                                                    <td>{{@index }}</td>
+                                                    <td class=" all dt-center">
+                                                        {{#if path}}
+                                                            <a class="btn btn-xs btn-success verDocumento"
+                                                               title="Ver Documento"
+                                                               data-tooltip="tooltip" style="padding: 8px 8px;"
+                                                               href="{{path}}">
+                                                                <i class="icon-file-eye"></i>
+                                                            </a>
+                                                        {{/if}}
+                                                    </td>
+                                                    <td class=" all filtrable">
+                                                        <span class="badge badge-flat border-info text-info-600">{{date_created}}</span>
+                                                    </td>
+                                                    <td>{{state.state_name}}</td>
+                                                    <td>{{name}}</td>
+                                                    <!-- <td >70229990</td>
+                                                    <td >PEREZ LOPEZ, JUAN</td>
+                                                    <td>Facultad de Ingeniería de Sistemas</td>
+                                                    <td>Escuela Academia Profesional de Ingeniería de Software</td> -->
+                                                <td>
+                                                    {{#if (isnt state.idrequirement_state 4)}}
+                                                        <input type="file" id="myArchivo" name="avatar[]"
+                                                               onchange="addNewFile('{{idrequirement}}' ,this.files)"
+                                                               accept="image/*, .pdf"></td>
+                                                    {{/if}}
+                                                </tr>
+                                            {{/each}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="modal fade custom-modal show" id="modalVistaDocumento" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <form id="formMantenimiento" class="form-horizontal" data-parsley-validate=""
+                                  data-parsley-excluded="input[type=button], input[type=submit], input[type=reset], input[type=hidden], :disabled, :hidden"
+                                  novalidate="" enctype="multipart/form-data" method="post">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"><i class="icon-menu7 mr-2"></i> &nbsp; Vista del
+                                                Documento</h5>
+                                            <button type="button" class="close" data-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+
+                                            <div class="form-group">
+                                                <div id="contenedor"></div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary legitRipple"
+                                                    data-dismiss="modal">Cerrar
+                                            </button>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let data = [];
+    let files = [];
+
+    function addNewFile(id, f) {
+        const index = data.findIndex(d => d.id === id);
+        if (index > -1) {
+            data.splice(index, 1);
+        }
+        data.push({id, filename: f[0].name, file: f[0]},);
+    }
+
+    async function submitFiles() {
+        const formData = new FormData();
+        for (let i = 0; i < data.length; i++) {
+            files.push(data[i].file);
+            formData.append('files', data[i].file);
+            delete data[i].file
+        }
+        formData.append('data', JSON.stringify(data));
+
+        await fetch('http://localhost:3000/documents/update_requirements', {
+            method: 'POST', // or 'PUT'
+            body: formData, // data can be `string` or {object}!
+
+        }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then(async (response) => {
+                    console.log(response)
+                    if (response.message) {
+                        window.location.href = "/"
+                    }
+                });
+    }
+</script>

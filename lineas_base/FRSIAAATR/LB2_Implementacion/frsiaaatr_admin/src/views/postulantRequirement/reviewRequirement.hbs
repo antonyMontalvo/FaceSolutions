@@ -1,0 +1,152 @@
+<div class="content-page">
+
+    <!-- Page Header -->
+    <div class="page-header page-header-light">
+        <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a class="breadcrumb-item" href="/"><i class="icon-home2 mr-2"></i>Inicio</a> <a
+                        class="breadcrumb-item link-solicitudes" href="/postulants/request_list">Lista de Postulantes</a>
+                    <span class="breadcrumb-item active">Revisión de Requisitos</span>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="page-header-content header-elements-md-inline">
+            <div class="" style=" padding-top: 1.2%; padding-bottom:0.4%;">
+                <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Revisión de Fotos del Postulante 
+                    </span></h4>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- /page Header -->
+
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="d-flex align-items-start flex-column flex-md-row">
+
+                <!-- Left content -->
+                <div class="w-100 overflow-auto order-2 order-md-1">
+
+                    <!-- Task overview -->
+                    <div class="card">
+
+                        <div class="card-body">
+                            <div class="hidden" id="codigoSolicitud" value="{{data.idRequest}}"></div>
+                            <div class="hidden" id="idPostulante" value=""></div> <!-- Primary key -->
+                            <div class="media flex-column flex-md-row mb-4">
+
+                                <div class="media-body">
+                                    <h5 class="media-title font-weight-semibold">Documentos
+                                        solicitados</h5>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <p>Disponga a verificar que todas las fotografías se encuentran en óptimas condiciones.
+                                En caso alguna(s) fotografía(s) presente un error o no sea la adecuada, desde el botón "Observar" de la tabla 
+                                puede especificar al postulante el motivo del error para que este lo subsane a la brevedad; en caso la fotografía 
+                                inspeccionada cumpla con las especificaciones correspondientes, apruébela desde el botón "Aprobar".
+                                </p>
+                                <br>
+
+                                <table id="tblFotos" class="table datatable-pagination dataTable no-footer"
+                                    data-permiso-evaluar-requisito-solicitud="true" role="grid" style="width: 100%;">
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /task overview -->
+                </div>
+                <!-- /left content -->
+                <!-- Right sidebar component -->
+                <div
+                    class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-350 border-0 shadow-0 order-1 order-md-2 sidebar-expand-md">
+
+                    <!-- Sidebar content -->
+                    <div class="sidebar-content">
+
+                        <!-- Task details -->
+                        <div
+                            class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
+                            <b>¡Atención!</b> Una vez que una foto sea aprobada,
+                            no se podrá realizar ninguna observación de ella.
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                        </div>
+                        <div class="card d-none" id="blockAccion">
+                            <div class="card-header bg-transparent header-elements-inline">
+                                <span class="text-uppercase font-size-sm font-weight-semibold">Acciones</span>
+                                <div class="header-elements">
+                                    <div class="list-icons">
+                                        <a class="list-icons-item" data-action="collapse"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive" id="blockInfo">
+                                <table id="tblPrueba" class="table table-borderless table-xs my-2 dataTable no-footer"
+                                    role="grid" style="width: 100%;">
+                                    <tbody>
+                                        <tr role="row" class="odd">
+                                            <td><i class="fa fa-check"></i>Procesar solicitud:</td>
+                                            <td class=" text-right">
+                                                <button type="button" class="btn btn-success btn-lg"
+                                                    id="btnProcesar">Procesar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+
+                        <div class="card">
+                            <div class="card-header bg-transparent header-elements-inline">
+                                <span class="text-uppercase font-size-sm font-weight-semibold">Detalle</span>
+                                <div class="header-elements">
+                                    <div class="list-icons">
+                                        <a class="list-icons-item" data-action="collapse"></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="tblInfo" class="table table-borderless table-xs my-2">
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /sidebar content -->
+
+                </div>
+                <!-- /right sidebar component -->
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+<!-- Project JS files -->
+<script src="/js/postulant/postulant-review.js"></script>
+<!-- /projectFiles -->
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<!-- /dataTables -->
+
+<!-- Sweet Alert -->
+<script type="text/javascript" src="../../../../global_assets/js/plugins/notifications/sweet_alert.min.js"></script>
+<!-- /sweetAlert -->

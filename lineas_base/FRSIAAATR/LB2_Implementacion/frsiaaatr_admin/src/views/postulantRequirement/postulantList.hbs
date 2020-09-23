@@ -1,0 +1,241 @@
+<div class="content-page">
+
+    <!-- Page Header -->
+    <div class="page-header page-header-light">
+        <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+            <div class="d-flex">
+                <div class="breadcrumb">
+                    <a class="breadcrumb-item" href="/"><i class="icon-home2 mr-2"></i>Inicio</a> <a
+                        class="breadcrumb-item link-solicitudes">Requisitos</a>
+                    <span class="breadcrumb-item active">Listado de postulantes</span>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class="page-header-content header-elements-md-inline">
+            <div class="" style=" padding-top: 1.2%; padding-bottom:0.4%;">
+                <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Panel de postulantes
+                    </span></h4>
+            </div>
+        </div>
+
+    </div>
+    <!-- /page Header -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="d-flex align-items-start flex-column flex-md-row">
+                
+                <!-- Left content -->
+                <div class="w-100 overflow-auto order-2 order-md-1">
+                    
+                    <!-- Task overview -->
+                    <div class="card">
+                        
+                        
+                        <div class="card-body">
+                            <div class="media flex-column flex-md-row mb-4">
+
+                                <div class="media-body">
+                                    <h5 class="media-title font-weight-semibold nombreTipoTramite">
+										Listado de postulantes
+									</h5>
+                                    <ul class="list-inline list-inline-dotted text-muted mb-0">
+                                        <li class="list-inline-item subtitulo"></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+
+                            <div class="mb-4" style="text-align: left">
+                                <div
+                                    class="alert alert-info alert-dismissible alert-styled-left border-top-0 border-bottom-0 border-right-0">
+                                    <b>¡Atención!</b> En esta vista se visualizara a todos los postulantes.
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                </div>
+
+                                    <div class="card">
+<!--		
+									    <div class="card-header">
+											<h6 class="card-title">
+												<a class="collapsed text-default" data-toggle="collapse" href="#accordion-control-group3">Lista de todos los postulantes </a>
+											</h6>
+										</div>
+												
+									    <div class="card-body" style="padding-bottom: 0px;">
+											<div class="form-group row">
+																					
+												<div class="col-lg-3">
+												    <label class="col-lg-12 col-form-label">Rango de fechas:</label>
+													<div class="col-lg-12">	
+													    <div class="input-group">
+														    <span class="input-group-prepend">
+														    <span class="input-group-text"><i class="icon-calendar22"></i></span>
+															</span>
+															<input style="float: left;" type="text" id="rangoFechas" class="form-control daterange-basic" value="07-07-2020  17-07-2020"> 
+														</div>
+													</div>
+												</div>
+												
+                                                <div class="col-lg-3">
+												    <label class="col-lg-12 col-form-label">Facultad:</label>
+												    <div class="col-lg-12">
+                                                        <select class="form-control form-control-select2" id="cmbGrado">
+                                                            <option>Seleccione una facultad</option>
+                                                            <option>Facultad de Medicina</option>
+															<option>Facultad de Economía</option>
+                                                            <option>Facultad de Ciencias Sociales</option>
+                                                            <option>Facultad de Derecho</option>
+                                                            <option>Facultad de Odontologia</option>
+														</select>
+													</div>
+												</div>
+																							
+												<div class="col-lg-3">
+												    <label class="col-lg-12 col-form-label">Especialidad:</label>
+												    <div class="col-lg-12">
+                                                        <select class="form-control form-control-select2" id="cmbGrado">
+															<option>Seleccione una especialidad</option>
+                                                            <option>Escuela de Enfermería</option>
+                                                            <option>Escuela de Obstetricia</option>
+                                                            <option>Escuela de Medicina Humana</option>
+                                                            <option>Escuela de Nutrición</option>
+                                                            <option>Escuela de Tecnología Medica</option>
+														</select>
+													</div>
+												</div>
+																						
+												<div class="col-lg-3">
+                                                    <label></label>
+                                                    <br></br>
+													<div class="row">
+														<button style="float: right;" type="button" id="btnReset" class="col-lg-5 mr-1 btnMitad btn btn-outline btn-danger bg-danger-300 text-danger-300 border-danger-300">BORRAR<i class="icon-eraser ml-1"></i></button>
+														<button style="float: left;" type="button" id="btnBuscar" class="col-lg-5 ml-1 btnMitad btn btn-outline btn-primary bg-primary-300 text-primary-300 border-primary-300">BUSCAR <i class="icon-search4 ml-2"></i></button>
+																							
+				 									</div>
+												</div>
+																						
+											</div>
+																							
+													
+											<div class="form-group row">
+												<div class="col-lg-3">
+												    <label class="col-lg-12 col-form-label">Nombres:</label>
+												    <div class="col-lg-12">
+												        <input type="text" class="form-control" id="nombreCompletoEgresado" placeholder="Nombre completo">
+													</div>
+												</div>												
+											    
+                                                <div class="col-lg-3">
+													<label class="col-lg-12 col-form-label">Apellido Paterno:</label>
+												    <div class="col-lg-12">
+											            <input type="text" class="form-control" id="apellidoPaternoEgresado" placeholder="Apellido Paterno">
+												    </div>
+												</div>
+																							
+												<div class="col-lg-3">
+													<label class="col-lg-12 col-form-label">Apellido Materno:</label>
+													<div class="col-lg-12">
+											            <input type="text" class="form-control" id="apellidoMaternoEgresado" placeholder="Apellido Materno">
+													</div>
+												</div>
+																							
+												<div class="col-lg-3">
+													<label class="col-lg-12 col-form-label">Modalidad:</label>
+													<div class="col-lg-12">
+													    <select class="form-control form-control-select2" id="cmbModalidad">
+															<option>Seleccione una modalidad</option>
+                                                            <option>Examen general</option>
+                                                            <option>Primeros puestos</option>								
+														</select>
+												    </div>
+											    </div>			
+											</div>
+																						
+																						
+											<div class="form-group row">
+												<div class="col-lg-3">
+												    <label class="col-lg-12 col-form-label">Tipo documento:</label>
+													<div class="col-lg-12">
+													    <select class="form-control form-control-select2" id="cmbDocumento">
+                                                            <option>Seleccione un tipo de documento</option>
+                                                            <option>DNI</option>
+                                                            <option>Libreta electoral</option>
+                                                            <option>Pasaporte</option>
+													    </select>
+													</div>
+												</div>
+																							
+												<div class="col-lg-3">
+													<label class="col-lg-12 col-form-label">Numero de documento:</label>
+													<div class="col-lg-12">
+														<input type="text" class="form-control" id="numeroDocumento" placeholder="N° Documento">
+												    </div>	
+												</div>
+
+                                                <div class="col-lg-3">
+												    <label class="col-lg-12 col-form-label">Estado:</label>
+												    <div class="col-lg-12">
+                                                        <select class="form-control form-control-select2" id="cmbGrado">
+															<option>Seleccione un estado</option>
+                                                            <option>No revisado</option>
+                                                            <option>Observado</option>
+                                                            <option>Corregido</option>
+                                                            <option>Aprobado</option>                                                            
+														</select>
+													</div>
+												</div>
+                                                											
+									        </div>
+-->
+
+                                            <div class="table-responsive" id="tblAlBlock">
+                                                <table id="tblAlumnos"  class="table tasks-list table-lg dataTable no-footer table-striped table-hover"
+                                                    role="grid" aria-describedby="DataTables_Table_0_info" style="width: 100%;" ></table>                                              
+                                                
+                                            </div>    
+									    
+                                        </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /task overview -->
+                    <div class="card-body" class="mx-2">
+                        <div class="media flex-column flex-md-row">
+                            
+                        </div>    
+                    </div>
+                </div>
+                <!-- /left content -->
+
+            
+            </div>
+        </div>
+    </div>        
+
+</div>
+
+<!-- Project JS files -->
+<script src="/js/postulant/postulant.js"></script>
+<!-- /projectFiles -->
+
+<!-- Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+<!-- /select2 -->
+
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+<!-- /dataTables -->
+
+<!-- DatePicker -->
+<script src="../../../../global_assets/js/plugins/ui/moment/moment.min.js"></script>
+<script src="../../../../global_assets/js/plugins/pickers/daterangepicker.js"></script>
+<!-- /daterangepicker -->

@@ -1,0 +1,596 @@
+<div class="content-wrapper">
+    <div class="content-page">
+        <div class="page-header page-header-light">
+            <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+                <div class="d-flex">
+                    <div class="breadcrumb">
+                        <a class="breadcrumb-item" href="/profile"><i class="icon-home2 mr-2"></i>Inicio</a>
+                        <a class="breadcrumb-item" href="/postulants/list">Requísitos</a>
+                        <a class="breadcrumb-item" href="/postulants/review_requirement">Revisión de requisitos</a>
+                        <span class="breadcrumb-item active">Información del Postulante</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-header-content header-elements-md-inline">
+                <div class="" style=" padding-top: 1.2%; padding-bottom:0.4%;">
+                    <h4><a class="breadcrumb-item" href="/profile"><i class="icon-arrow-left52 mr-2"></i></a> <span
+                            class="font-weight-semibold">Datos del postulante</span></h4>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content"
+                 style="height:600px;display:flex;justify-content: center;align-items: center;">
+                <div class="w3-container">
+                    <span id="closeCamara" onclick="detenerStream();"
+                          class="w3-button w3-display-topright">&times;</span>
+                    <div class="row" style="display: flex;justify-content:center">
+                        <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                    </div>
+                    <div class="row">
+                        <video muted="muted" id="video" style="padding: 10px 10px;" width="100%"
+                               height="300px"></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                    </div>
+                    <div class="row" style="display: flex;justify-content:center">
+                        <button id="boton">Tomar foto</button>
+                        <button id="boton_update" onclick="updatePhoto()" disabled>Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-content" style="height: 1393px;">
+            <div class="content-wrapper" style="overflow: hidden !important; ">
+                <div class="content">
+                    <div class="d-md-flex align-items-md-start">
+
+                        <!-- Right content -->
+                        <div class="content w-100 overflow-auto">
+                            <div class="fade active show" id="profile">
+                                <div class="row">
+
+                                    <div class="col-lg-6">
+                                        <div class="card border-left-3 border-left-danger rounded-left-0">
+                                            <div class="card-body">
+                                                <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                        <h4 class="font-weight-semibold">DATOS PERSONALES</h4>
+                                                        <div class="table-responsive">
+                                                            <div id="tblDatosPersonales_wrapper"
+                                                                 class="dataTables_wrapper no-footer">
+                                                                <div class="table-responsive">
+                                                                    <table id="tblDatosPersonales"
+                                                                           class="table-borderless dataTable no-footer"
+                                                                           role="grid" style="width: 100%;">
+                                                                        <tbody>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td>DNI: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.dni}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Apellido Paterno: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.last_name_1}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td>Apellido Materno:</td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.last_name_2}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Nombres: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.name}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Correo Personal: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.email}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+
+                                                                        <tr role="row" class="even">
+                                                                            <td>Telf. Fijo.: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.cell_phone}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td>Fecha Nacimiento: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.birthdate}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td>Dirección: <br></td>
+                                                                            <td class=" text-right"><input type="text"
+                                                                                                           value="{{data.usuario.address}}"
+                                                                                                           readonly="readonly"
+                                                                                                           class="form-control">
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="even">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        <tr role="row" class="odd">
+                                                                            <td></td>
+                                                                            <td class=" text-right"></td>
+                                                                        </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6">
+                                        <div class="card border-left-3 border-left-success rounded-left-0">
+                                            <div class="card-body">
+                                                <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                        <div>
+                                                            <h4 class="font-weight-semibold">DATOS ACADÉMICOS</h4>
+
+                                                            <div class="table-responsive">
+                                                                <div id="tblDatosAcademicos_wrapper"
+                                                                     class="dataTables_wrapper no-footer">
+                                                                    <div class="table-responsive">
+                                                                        <table id="tblDatosAcademicos"
+                                                                               class="table-borderless dataTable no-footer"
+                                                                               role="grid" style="width: 100%;">
+                                                                            <tbody>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td></td>
+
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td>Código de Alumno:</td>
+                                                                                <td class=" text-right"><input
+                                                                                        type="text"
+                                                                                        value="{{data.usuario.postulant_code}}"
+                                                                                        readonly="readonly"
+                                                                                        class="form-control">
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td>Facultad:</td>
+                                                                                <td class=" text-right"><input
+                                                                                        type="text"
+                                                                                        value="{{data.usuario.specialty.faculty.name}}"
+                                                                                        readonly="readonly"
+                                                                                        class="form-control">
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td>Escuela Profesional:</td>
+                                                                                <td class=" text-right"><input
+                                                                                        type="text"
+                                                                                        value=" E.A.P. {{data.usuario.specialty.name}}"
+                                                                                        readonly="readonly"
+                                                                                        class="form-control">
+                                                                            <tr role="row" class="even">
+                                                                                <td></td>
+                                                                                <td class=" text-right"></td>
+                                                                            </tr>
+                                                                            <tr role="row" class="odd">
+                                                                                <td>Plan: <br></td>
+                                                                                <td class=" text-right"><input
+                                                                                        type="text"
+                                                                                        value=" Plan de estudios 2021"
+                                                                                        readonly="readonly"
+                                                                                        class="form-control"></td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="card border-left-3 border-left-purple rounded-left-0">
+                                            <div class="card-body">
+                                                <div class="d-sm-flex align-item-sm-center flex-sm-nowrap">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                                        <h4 class="font-weight-semibold">FOTOS USADAS PARA EL
+                                                            RECONOCIMIENTO FACIAL</h4>
+
+                                                        <!-- FOTOS -->
+
+                                                        {{#each data.photos}}
+                                                            <div class="float-left m-1"
+                                                                 style=" width: 250px;  height: 250px;">
+                                                                <span id="state-{{idpost_req}}">
+                                                                    {{#if (is state 1)}} Activo{{/if}}
+                                                                    {{#if (is state 2)}} Cambiar{{/if}}
+                                                                    {{#if (is state 3)}} En espera{{/if}}
+                                                                </span>
+                                                                <img src="{{path}}" id="image-preview-{{idpost_req}}"
+                                                                     class="img-fluid" alt="Face Solution"/>
+                                                                <button id="openCamara"
+                                                                        onclick="getId('{{idpost_req}}'); coreFunction()" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
+                    background: #343a40!important;" class="w3-button w3-black">
+                                                                    <div style="display: flex;justify-content: center;width: 100%;">
+                                                                        <img src="img/camera.svg"
+                                                                             style="width: 30px;height: 30px;margin:0 10px; background: #fff;">
+                                                                    </div>
+                                                                    <div style="display: flex;justify-content:center;width: 100%">
+                                                                        <label>abrir camara</label>
+                                                                    </div>
+                                                                </button>
+                                                            </div>
+                                                        {{/each}}
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    // $openCamara = document.querySelector("#openCamara");
+    // $openCamara.addEventListener("click", coreFunction);
+
+    let idPhoto = null;
+    let fileTestGlobal = null;
+
+    function coreFunction() {
+        const tieneSoporteUserMedia = () =>
+                !!(
+                        navigator.getUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.msGetUserMedia
+                );
+        const _getUserMedia = (...arguments) =>
+                (
+                        navigator.getUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.msGetUserMedia
+                ).apply(navigator, arguments);
+
+        // Declaramos elementos del DOM
+        const $video = document.querySelector("#video"),
+                $canvas = document.querySelector("#canvas"),
+                $boton = document.querySelector("#boton"),
+                $listaDeDispositivos = document.querySelector("#listaDeDispositivos");
+
+        const limpiarSelect = () => {
+            for (let x = $listaDeDispositivos.options.length - 1; x >= 0; x--)
+                $listaDeDispositivos.remove(x);
+        };
+        const obtenerDispositivos = () => navigator.mediaDevices.enumerateDevices();
+
+        // La función que es llamada después de que ya se dieron los permisos
+        // Lo que hace es llenar el select con los dispositivos obtenidos
+        const llenarSelectConDispositivosDisponibles = () => {
+            limpiarSelect();
+            obtenerDispositivos().then((dispositivos) => {
+                const dispositivosDeVideo = [];
+                dispositivos.forEach((dispositivo) => {
+                    const tipo = dispositivo.kind;
+                    if (tipo === "videoinput") {
+                        dispositivosDeVideo.push(dispositivo);
+                    }
+                });
+
+                // Vemos si encontramos algún dispositivo, y en caso de que si, entonces llamamos a la función
+                if (dispositivosDeVideo.length > 0) {
+                    // Llenar el select
+                    dispositivosDeVideo.forEach((dispositivo) => {
+                        const option = document.createElement("option");
+                        option.value = dispositivo.deviceId;
+                        option.text = dispositivo.label;
+                        $listaDeDispositivos.appendChild(option);
+                    });
+                }
+            });
+        };
+
+        (function () {
+            // Comenzamos viendo si tiene soporte, si no, nos detenemos
+            if (!tieneSoporteUserMedia()) {
+                alert("Lo siento. Tu navegador no soporta esta característica");
+                return;
+            }
+            //Aquí guardaremos el stream globalmente
+            let stream;
+
+            // Comenzamos pidiendo los dispositivos
+            obtenerDispositivos().then((dispositivos) => {
+                // Vamos a filtrarlos y guardar aquí los de vídeo
+                const dispositivosDeVideo = [];
+
+                // Recorrer y filtrar
+                dispositivos.forEach(function (dispositivo) {
+                    const tipo = dispositivo.kind;
+                    if (tipo === "videoinput") {
+                        dispositivosDeVideo.push(dispositivo);
+                    }
+                });
+
+                // Vemos si encontramos algún dispositivo, y en caso de que si, entonces llamamos a la función
+                // y le pasamos el id de dispositivo
+                if (dispositivosDeVideo.length > 0) {
+                    // Mostrar stream con el ID del primer dispositivo, luego el usuario puede cambiar
+                    mostrarStream(dispositivosDeVideo[0].deviceId);
+                }
+            });
+
+            const mostrarStream = (idDeDispositivo) => {
+                _getUserMedia(
+                        {
+                            video: {
+                                // Justo aquí indicamos cuál dispositivo usar
+                                deviceId: idDeDispositivo,
+                            },
+                        },
+                        (streamObtenido) => {
+                            // Aquí ya tenemos permisos, ahora sí llenamos el select,
+                            // pues si no, no nos daría el nombre de los dispositivos
+                            llenarSelectConDispositivosDisponibles();
+
+                            // Escuchar cuando seleccionen otra opción y entonces llamar a esta función
+                            $listaDeDispositivos.onchange = () => {
+                                // Detener el stream
+                                if (stream) {
+                                    stream.getTracks().forEach(function (track) {
+                                        track.stop();
+                                    });
+                                }
+                                // Mostrar el nuevo stream con el dispositivo seleccionado
+                                mostrarStream($listaDeDispositivos.value);
+                            };
+
+                            // Simple asignación
+                            stream = streamObtenido;
+
+                            // Mandamos el stream de la cámara al elemento de vídeo
+                            $video.srcObject = stream;
+                            $video.play();
+
+                            //Escuchar el click del botón para tomar la foto
+                            $boton.addEventListener("click", async function () {
+
+                                //Obtener contexto del canvas y dibujar sobre él
+                                let contexto = $canvas.getContext("2d");
+                                $canvas.width = $video.videoWidth;
+                                $canvas.height = $video.videoHeight;
+                                contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+
+                                let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                                const fileTest = dataURLtoFile(foto, `test.jpg`);
+
+                                const formData = new FormData();
+                                formData.append('image', fileTest);
+                                fileTestGlobal = fileTest;
+
+                                // https://frsiaaatr-postulant.media/check_image
+                                await fetch('http://localhost:3000/check_image', {
+                                    method: 'POST', // or 'PUT'
+                                    body: formData, // data can be `string` or {object}!
+
+                                }).then(res => res.json())
+                                        .catch(error => console.error('Error:', error))
+                                        .then(async (response) => {
+                                            if (response.message) {
+                                                const detections = await verifyImages();
+                                                if (!detections) {
+                                                    alert("La imagen no cumple los requisitos mínimos para poder guardarse.")
+                                                } else {
+                                                    document.getElementById('boton').disabled = true;
+                                                    document.getElementById('boton_update').disabled = false;
+                                                }
+                                            }
+                                        });
+                            });
+                        },
+                        (error) => {
+                            console.log("Permiso denegado o error: ", error);
+                        }
+                );
+            };
+        })();
+    }
+
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {type: mime});
+    }
+
+    function detenerStream() {
+        document.getElementById('id01').style.display = 'none';
+        $openCamara.removeEventListener('click', coreFunction)
+    }
+
+    function getId(id) {
+        document.getElementById('id01').style.display = 'block'
+        idPhoto = id;
+    }
+
+    async function updatePhoto() {
+        const formData = new FormData();
+        formData.append('image', fileTestGlobal);
+        formData.append('idPhoto', idPhoto);
+
+        await fetch('http://localhost:3000/update_photo', {
+            method: 'POST', // or 'PUT'
+            body: formData, // data can be `string` or {object}!
+
+        }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then((response) => {
+                    if (response.message) {
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.getElementById(`image-preview-${idPhoto}`).setAttribute('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(fileTestGlobal);
+                        detenerStream();
+                        document.getElementById('boton').disabled = false;
+                        document.getElementById('boton_update').disabled = true;
+                    }
+                });
+
+
+    }
+</script>

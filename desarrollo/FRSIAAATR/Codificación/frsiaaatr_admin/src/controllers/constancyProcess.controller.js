@@ -202,6 +202,8 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
 
         //SIN FIRMAS
         const page = await browser.newPage();
+        await browser.close();
+
         await page.setContent(html);
         await page.pdf({
           // path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
@@ -209,7 +211,6 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
           format: "Letter",
         });
         res.sendStatus(200);
-        await browser.close();
     }catch(e){
       console.log(e);
       res.sendStatus(400);

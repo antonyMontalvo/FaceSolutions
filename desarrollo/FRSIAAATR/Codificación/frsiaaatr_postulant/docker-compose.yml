@@ -12,9 +12,9 @@ services:
       APP_URL: ""
       DB_DIALECT: "mysql"
       DB_PORT: 25060
-      DB_HOST: "db-mysql-nyc1-03975-do-user-6383911-0.a.db.ondigitalocean.com"
+      DB_HOST: "db-mysql-sfo2-95142-do-user-7952586-0.b.db.ondigitalocean.com"
       DB_USER: doadmin
-      DB_PASSWORD: tfaco3jn9idpdvma
+      DB_PASSWORD: uyess7q2i1sguoql
       DB_DATABASE: frsiaaatr_db
       GCP_KEY_FILE: "../../config/focused-evening-283407-9fa3131fac35.json"
       GCP_PROJECT_ID: focused-evening-283407

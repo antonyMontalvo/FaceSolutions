@@ -60,10 +60,10 @@
                                 <button type="button" class="btn btn-primary" id="generarDoc" onclick="myFunction()"><i
                                         class="far fa-file-alt"></i> Generar
                                     Doc.</button>
-                                <button type="button" class="btn btn-primary " data-toggle="modal"
+                                <button type="button" class="btn btn-primary " data-toggle="modal" id ="verDoc"
                                     data-target="#myModal"><i class="fas fa-cloud-upload-alt"></i>
                                     Ver Doc.</button>
-                                <button type="button" class="btn btn-primary" onclick="derivar()"> <i class="fas fa-paperclip"></i> Derivar
+                                <button type="button" class="btn btn-primary" onclick="derivar()" id="derivarDoc"> <i class="fas fa-paperclip"></i> Derivar
                                 </button>
                                 <button type="button" class="btn btn-primary" id="anularDoc"><i
                                         class="fas fa-times"></i>
@@ -420,32 +420,14 @@
 
     function myFunction() {
         var dni = document.getElementById('dni').value;
-        /*
-        let timerInterval
-        Swal.fire({
-            title: 'Tiempo de espera',
-            timer: 20000,
-            timerProgressBar: true,
-            onBeforeOpen: () => {
-                Swal.showLoading()
-                timerInterval = setInterval(() => {
-                    const content = Swal.getContent()
-                    if (content) {
-                        const b = content.querySelector('b')
-                        if (b) {
-                            b.textContent = Swal.getTimerLeft()
-                        }
-                    }
-                }, 100)
-            },
-            onClose: () => {
-                clearInterval(timerInterval)
-            }
-        }).then((result) => {
-            if (result.dismiss === Swal.DismissReason.timer) {
-                console.log('I was closed by the timer')
-            }
-        })*/
+        
+        $("#btnGrabar").prop("disabled", true);
+        $("#generarDoc").prop("disabled", true);
+        $("#verDoc").prop("disabled", true);
+        $("#derivarDoc").prop("disabled", true);
+        $("#anularDoc").prop("disabled", true);
+
+
         $("#loading").show();
         $('#content').html('<div class="loading row"><img src="https://miro.medium.com/max/882/1*9EBHIOzhE1XfMYoKz1JcsQ.gif" style="width:50px;height:50px;" alt="loading" /><div class="alert alert-info">Un momento, por favor...</div></div>');
         //BOTON GENERAR CONSTANCIA
@@ -459,6 +441,11 @@
         }).then(function (response) {
             console.log("Se genero correctamente la constancia.");
             //$('#correcto').text('El documento se ha generado correctamente.');
+            $("#btnGrabar").prop("disabled", false);
+            $("#generarDoc").prop("disabled", false);
+            $("#verDoc").prop("disabled", false);
+            $("#derivarDoc").prop("disabled", false);
+            $("#anularDoc").prop("disabled", false);
             $(".loading").hide();
             Swal.fire({
             position: "center",
@@ -471,6 +458,13 @@
         }).fail(function(xhr, status, error) {
         // error handling
         $(".loading").hide();
+
+        $("#btnGrabar").prop("disabled", false);
+        $("#generarDoc").prop("disabled", false);
+        $("#verDoc").prop("disabled", false);
+        $("#derivarDoc").prop("disabled", false);
+        $("#anularDoc").prop("disabled", false);
+
         console.log("NO SE IMPRIMIO NADA");
         Swal.fire({
             position: "center",

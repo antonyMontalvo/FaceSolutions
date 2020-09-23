@@ -23,6 +23,7 @@
     <link href="/assets/css/colors.min.css" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
     <link rel="stylesheet" href="/css/message.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
     <!-- Core JS files -->
     <script src="/assets/js/main/jquery.min.js"></script>
@@ -35,13 +36,14 @@
 
     <script src="/assets/js/main/app.js"></script>
     <script src="/assets/js/pages/components_scrollspy.js"></script>
+    <script src="/api/face-api.min.js"></script>
     <!-- /theme JS files -->
     <!-- /FILE INPUT -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.9/css/fileinput.min.css" media="all"
           rel="stylesheet" type="text/css"/>
 </head>
 
-<body>
+<body onload="loadModels();">
 
 <!-- Main navbar -->
 <div class="navbar navbar-expand-md navbar-light">
@@ -181,5 +183,5 @@
 
 </div>
 </body>
-
+<script src="/api/faceCheck.js"></script>
 </html>

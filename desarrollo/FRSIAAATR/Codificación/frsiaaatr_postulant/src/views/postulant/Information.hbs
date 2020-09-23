@@ -21,6 +21,27 @@
 
         </div>
 
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content"
+                 style="height:600px;display:flex;justify-content: center;align-items: center;">
+                <div class="w3-container">
+                    <span id="closeCamara" onclick="detenerStream();"
+                          class="w3-button w3-display-topright">&times;</span>
+                    <div class="row" style="display: flex;justify-content:center">
+                        <select name="listaDeDispositivos" id="listaDeDispositivos"></select>
+                    </div>
+                    <div class="row">
+                        <video muted="muted" id="video" style="padding: 10px 10px;" width="100%"
+                               height="300px"></video>
+                        <canvas id="canvas" style="display: none;"></canvas>
+                    </div>
+                    <div class="row" style="display: flex;justify-content:center">
+                        <button id="boton">Tomar foto</button>
+                        <button id="boton_update" onclick="updatePhoto()" disabled>Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="page-content" style="height: 1393px;">
             <div class="content-wrapper" style="overflow: hidden !important; ">
                 <div class="content">
@@ -319,8 +340,24 @@
                                                         {{#each data.photos}}
                                                             <div class="float-left m-1"
                                                                  style=" width: 250px;  height: 250px;">
-                                                                <img src="{{path}}"
+                                                                <span id="state-{{idpost_req}}">
+                                                                    {{#if (is state 1)}} Activo{{/if}}
+                                                                    {{#if (is state 2)}} Cambiar{{/if}}
+                                                                    {{#if (is state 3)}} En espera{{/if}}
+                                                                </span>
+                                                                <img src="{{path}}" id="image-preview-{{idpost_req}}"
                                                                      class="img-fluid" alt="Face Solution"/>
+                                                                <button id="openCamara"
+                                                                        onclick="getId('{{idpost_req}}')" style="display: flex;flex-direction: column;width: 200px;height: 100px;align-items: center;justify-content: center;
+                    background: #343a40!important;" class="w3-button w3-black">
+                                                                    <div style="display: flex;justify-content: center;width: 100%;">
+                                                                        <img src="img/camera.svg"
+                                                                             style="width: 30px;height: 30px;margin:0 10px; background: #fff;">
+                                                                    </div>
+                                                                    <div style="display: flex;justify-content:center;width: 100%">
+                                                                        <label>abrir camara</label>
+                                                                    </div>
+                                                                </button>
                                                             </div>
                                                         {{/each}}
 
@@ -338,5 +375,222 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+<script>
+    $openCamara = document.querySelector("#openCamara");
+    $openCamara.addEventListener("click", coreFunction);
+
+    let idPhoto = null;
+    let fileTestGlobal = null;
+
+    function coreFunction() {
+        const tieneSoporteUserMedia = () =>
+                !!(
+                        navigator.getUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.msGetUserMedia
+                );
+        const _getUserMedia = (...arguments) =>
+                (
+                        navigator.getUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.mediaDevices.getUserMedia ||
+                        navigator.webkitGetUserMedia ||
+                        navigator.msGetUserMedia
+                ).apply(navigator, arguments);
+
+        // Declaramos elementos del DOM
+        const $video = document.querySelector("#video"),
+                $canvas = document.querySelector("#canvas"),
+                $boton = document.querySelector("#boton"),
+                $listaDeDispositivos = document.querySelector("#listaDeDispositivos");
+
+        const limpiarSelect = () => {
+            for (let x = $listaDeDispositivos.options.length - 1; x >= 0; x--)
+                $listaDeDispositivos.remove(x);
+        };
+        const obtenerDispositivos = () => navigator.mediaDevices.enumerateDevices();
+
+        // La función que es llamada después de que ya se dieron los permisos
+        // Lo que hace es llenar el select con los dispositivos obtenidos
+        const llenarSelectConDispositivosDisponibles = () => {
+            limpiarSelect();
+            obtenerDispositivos().then((dispositivos) => {
+                const dispositivosDeVideo = [];
+                dispositivos.forEach((dispositivo) => {
+                    const tipo = dispositivo.kind;
+                    if (tipo === "videoinput") {
+                        dispositivosDeVideo.push(dispositivo);
+                    }
+                });
+
+                // Vemos si encontramos algún dispositivo, y en caso de que si, entonces llamamos a la función
+                if (dispositivosDeVideo.length > 0) {
+                    // Llenar el select
+                    dispositivosDeVideo.forEach((dispositivo) => {
+                        const option = document.createElement("option");
+                        option.value = dispositivo.deviceId;
+                        option.text = dispositivo.label;
+                        $listaDeDispositivos.appendChild(option);
+                    });
+                }
+            });
+        };
+
+        (function () {
+            // Comenzamos viendo si tiene soporte, si no, nos detenemos
+            if (!tieneSoporteUserMedia()) {
+                alert("Lo siento. Tu navegador no soporta esta característica");
+                return;
+            }
+            //Aquí guardaremos el stream globalmente
+            let stream;
+
+            // Comenzamos pidiendo los dispositivos
+            obtenerDispositivos().then((dispositivos) => {
+                // Vamos a filtrarlos y guardar aquí los de vídeo
+                const dispositivosDeVideo = [];
+
+                // Recorrer y filtrar
+                dispositivos.forEach(function (dispositivo) {
+                    const tipo = dispositivo.kind;
+                    if (tipo === "videoinput") {
+                        dispositivosDeVideo.push(dispositivo);
+                    }
+                });
+
+                // Vemos si encontramos algún dispositivo, y en caso de que si, entonces llamamos a la función
+                // y le pasamos el id de dispositivo
+                if (dispositivosDeVideo.length > 0) {
+                    // Mostrar stream con el ID del primer dispositivo, luego el usuario puede cambiar
+                    mostrarStream(dispositivosDeVideo[0].deviceId);
+                }
+            });
+
+            const mostrarStream = (idDeDispositivo) => {
+                _getUserMedia(
+                        {
+                            video: {
+                                // Justo aquí indicamos cuál dispositivo usar
+                                deviceId: idDeDispositivo,
+                            },
+                        },
+                        (streamObtenido) => {
+                            // Aquí ya tenemos permisos, ahora sí llenamos el select,
+                            // pues si no, no nos daría el nombre de los dispositivos
+                            llenarSelectConDispositivosDisponibles();
+
+                            // Escuchar cuando seleccionen otra opción y entonces llamar a esta función
+                            $listaDeDispositivos.onchange = () => {
+                                // Detener el stream
+                                if (stream) {
+                                    stream.getTracks().forEach(function (track) {
+                                        track.stop();
+                                    });
+                                }
+                                // Mostrar el nuevo stream con el dispositivo seleccionado
+                                mostrarStream($listaDeDispositivos.value);
+                            };
+
+                            // Simple asignación
+                            stream = streamObtenido;
+
+                            // Mandamos el stream de la cámara al elemento de vídeo
+                            $video.srcObject = stream;
+                            $video.play();
+
+                            //Escuchar el click del botón para tomar la foto
+                            $boton.addEventListener("click", async function () {
+
+                                //Obtener contexto del canvas y dibujar sobre él
+                                let contexto = $canvas.getContext("2d");
+                                $canvas.width = $video.videoWidth;
+                                $canvas.height = $video.videoHeight;
+                                contexto.drawImage($video, 0, 0, $canvas.width, $canvas.height);
+
+                                let foto = $canvas.toDataURL(); //Esta es la foto, en base 64
+                                const fileTest = dataURLtoFile(foto, `test.jpg`);
+
+                                const formData = new FormData();
+                                formData.append('image', fileTest);
+                                fileTestGlobal = fileTest;
+
+                                // https://frsiaaatr-postulant.media/check_image
+                                await fetch('https://frsiaaatr-postulant.media/check_image', {
+                                    method: 'POST', // or 'PUT'
+                                    body: formData, // data can be `string` or {object}!
+
+                                }).then(res => res.json())
+                                        .catch(error => console.error('Error:', error))
+                                        .then(async (response) => {
+                                            if (response.message) {
+                                                const detections = await verifyImages();
+                                                if (!detections) {
+                                                    alert("La imagen no cumple los requisitos mínimos para poder guardarse.")
+                                                } else {
+                                                    document.getElementById('boton').disabled = true;
+                                                    document.getElementById('boton_update').disabled = false;
+                                                }
+                                            }
+                                        });
+                            });
+                        },
+                        (error) => {
+                            console.log("Permiso denegado o error: ", error);
+                        }
+                );
+            };
+        })();
+    }
+
+    function dataURLtoFile(dataurl, filename) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while (n--) {
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new File([u8arr], filename, {type: mime});
+    }
+
+    function detenerStream() {
+        document.getElementById('id01').style.display = 'none';
+        $openCamara.removeEventListener('click', coreFunction)
+    }
+
+    function getId(id) {
+        document.getElementById('id01').style.display = 'block'
+        idPhoto = id;
+    }
+
+    async function updatePhoto() {
+        const formData = new FormData();
+        formData.append('image', fileTestGlobal);
+        formData.append('idPhoto', idPhoto);
+
+        await fetch('https://frsiaaatr-postulant.media/update_photo', {
+            method: 'POST', // or 'PUT'
+            body: formData, // data can be `string` or {object}!
+
+        }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then((response) => {
+                    if (response.message) {
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            document.getElementById(`image-preview-${idPhoto}`).setAttribute('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(fileTestGlobal);
+                        detenerStream();
+                        document.getElementById('boton').disabled = false;
+                        document.getElementById('boton_update').disabled = true;
+                    }
+                });
+
+
+    }
+</script>

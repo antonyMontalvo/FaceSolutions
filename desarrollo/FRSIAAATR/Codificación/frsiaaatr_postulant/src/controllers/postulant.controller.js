@@ -109,8 +109,8 @@ PostulantController.getById = async (req, res) => {
 
 PostulantController.profile = async (req, res) => {
     try {
-        console.log(req.session)
-        const proccess = await Process.findOne({where: {postulant_id: req.session.id}});
+        const proccess = await Process.findOne({where: {postulant_id: req.session.usuario.id}, raw: true});
+        console.log(proccess)
         return res.render("postulant/profile", {
             layout: 'main',
             data: {
@@ -299,6 +299,42 @@ PostulantController.registerPhotos = async (req, res) => {
 
 PostulantController.checkPhoto = async (req, res) => {
     try {
+        return res.status(200).send({message: true});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error: error});
+    }
+};
+
+PostulantController.updatePhoto = async (req, res) => {
+    try {
+        const {idPhoto} = req.body;
+
+        const file = req.file;
+
+        const photo = await Photo.findByPk(idPhoto);
+        const postulant = await Postulant.findByPk(photo.idpostulant);
+        const folder = `_${postulant.dni}_${postulant.postulant_code}`;
+        const dir = path.join(
+            __dirname,
+            `../public/perfiles/${folder}`
+        );
+
+        if (fs.existsSync(dir)) {
+            await gc.bucket(bucketName).upload(file.path, {
+                destination: `${folder}_${photo.name}`,
+                gzip: true,
+                metadata: {
+                    cacheControl: 'public, max-age=31536000',
+                },
+            })
+            await Photo.update({
+                path: `https://storage.googleapis.com/${bucketName}/${folder}_${photo.name}`,
+                state: 3,
+            }, {where: {idpost_req: idPhoto}});
+            await fs.renameSync(file.path, path.join(dir, `${photo.name}`));
+        }
+
         return res.status(200).send({message: true});
     } catch (error) {
         console.log(error);

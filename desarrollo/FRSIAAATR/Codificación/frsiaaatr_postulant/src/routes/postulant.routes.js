@@ -39,6 +39,7 @@ router
     .get("/registreFotos", postulantController.getRegistrePhoto)
     .post("/registreFotos", upload.array("images", 20), postulantController.registerPhotos)
     .post("/check_image", UploadImage.userPhoto, postulantController.checkPhoto)
+    .post("/update_photo", UploadImage.userPhoto, postulantController.updatePhoto)
 
 
     // .get("/facial", postulantController.prueba)

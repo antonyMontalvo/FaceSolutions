@@ -187,7 +187,7 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
 
         browser = await puppeteer.launch({
           pipe: true,
-          headless: true,
+          headless: false,
 	        //executablePath: '/usr/bin/google-chrome',
           args: [
           "--headless",

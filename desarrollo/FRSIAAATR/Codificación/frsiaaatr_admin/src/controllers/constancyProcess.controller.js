@@ -3,6 +3,12 @@ const bcrypt = require("bcryptjs");
 const { QueryTypes } = require("sequelize");
 const { sequelizeDB } = require("../../config/database");
 const ConstancyController = require("./constancy.controller");
+const path = require("path");
+const puppeteer = require("puppeteer");
+const handlebars = require("handlebars");
+var fs = require("fs");
+var express = require("express");
+var hbs = require("express-handlebars");
 
 const Employee = require("../models/department"),
   { createToken, getPayload } = require("../services/jwt"),
@@ -92,18 +98,18 @@ ConstancyProcessController.derivedConstancy = async (req, res) => {
 //BOTON GENERAR PDF
 ConstancyProcessController.getProcessByDni = async (req, res) => {
   console.log("ENTRE"); 
-  const path = require("path");
-  const puppeteer = require("puppeteer");
-  const handlebars = require("handlebars");
-  var fs = require("fs");
-  var express = require("express");
-  var hbs = require("express-handlebars");
+  // const path = require("path");
+  // const puppeteer = require("puppeteer");
+  // const handlebars = require("handlebars");
+  // var fs = require("fs");
+  // var express = require("express");
+  // var hbs = require("express-handlebars");
   //var toastr = require("express-toastr");
-  var app = express();
+  // var app = express();
 
-  app.engine("hbs", hbs({ extname: "hbs" }));
-  app.set("view engine", "hbs");
-  app.use(express.static(path.join(__dirname, "public")));
+  // app.engine("hbs", hbs({ extname: "hbs" }));
+  // app.set("view engine", "hbs");
+  // app.use(express.static(path.join(__dirname, "public")));
   //app.use(toastr());
   var hoy = new Date();
   var dd = hoy.getDate();
@@ -167,7 +173,7 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
         let browser = null;
 
         const file = fs.readFileSync(
-          "./src/template/constancy_without_signatures.html",
+            path.join(__dirname,"../template/constancy_without_signatures.html"),
           "utf8"
         );
         const template = handlebars.compile(file);
@@ -196,7 +202,8 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
         const page = await browser.newPage();
         await page.setContent(html);
         await page.pdf({
-          path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
+          // path: "./src/public/pdf/Constancy_N" + dni + ".pdf",
+          path: path.join(__dirname, "../public/pdf/Constancy_N" + dni + ".pdf"),
           format: "Letter",
         });
         res.sendStatus(200);
@@ -215,18 +222,18 @@ ConstancyProcessController.getProcessByDni = async (req, res) => {
 };
 
 ConstancyProcessController.getProcess = async (req, res) => {
-  const path = require("path");
-  const puppeteer = require("puppeteer");
-  const handlebars = require("handlebars");
-  var fs = require("fs");
-  var express = require("express");
-  var hbs = require("express-handlebars");
-
-  var app = express();
-
-  app.engine("hbs", hbs({ extname: "hbs" }));
-  app.set("view engine", "hbs");
-  app.use(express.static(path.join(__dirname, "public")));
+  // const path = require("path");
+  // const puppeteer = require("puppeteer");
+  // const handlebars = require("handlebars");
+  // var fs = require("fs");
+  // var express = require("express");
+  // var hbs = require("express-handlebars");
+  //
+  // var app = express();
+  //
+  // app.engine("hbs", hbs({ extname: "hbs" }));
+  // app.set("view engine", "hbs");
+  // app.use(express.static(path.join(__dirname, "public")));
 
   var hoy = new Date();
   var dd = hoy.getDate();

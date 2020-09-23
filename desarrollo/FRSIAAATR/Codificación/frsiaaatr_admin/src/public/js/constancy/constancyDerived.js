@@ -328,7 +328,7 @@ $(document).ready(function() {
         //console.log("DATA: ", data);
         $.ajax({
             type: "POST",
-            url: "http://localhost:3000/constancy-der/filtrarSolicitudes",
+            url: "http://46.101.179.242/constancy-der/filtrarSolicitudes",
             data: JSON.stringify(data),
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Content-Type", "application/json");

@@ -276,7 +276,7 @@ PostulantController.registerPhotos = async (req, res) => {
                 destination: `${folder}_${i + 1}.jpg`,
                 gzip: true,
                 metadata: {
-                    cacheControl: 'public, max-age=31536000',
+                    cacheControl: 'no-cache',
                 },
             })
             photos.push({
@@ -327,7 +327,7 @@ PostulantController.updatePhoto = async (req, res) => {
                 destination: `${folder}_${photo.name}`,
                 gzip: true,
                 metadata: {
-                    cacheControl: 'public, max-age=31536000',
+                    cacheControl: 'no-cache',
                 },
             })
             await Photo.update({
